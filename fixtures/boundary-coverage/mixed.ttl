@@ -1,0 +1,16 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/boundary-coverage/> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+
+fx:version a rss-crit:ArtefactVersion ; rss-crit:versionIdentifier "boundary-coverage-1" .
+fx:set a rss-res:InstanceSet ; rss-crit:hasVersion fx:version .
+fx:run a rss-res:Run ; rss-res:usedInstanceSet fx:set .
+
+fx:in a rss-core:Element .
+fx:external a rss-core:Element .
+fx:unknown a rss-core:Element .
+
+fx:in-status a rss-core:BoundaryStatusAssertion ; rss-core:statusSubject fx:in ; rss-core:boundaryStatusValue rss-core:inScope ; rss-res:assertedInInstanceSet fx:set .
+fx:external-status a rss-core:BoundaryStatusAssertion ; rss-core:statusSubject fx:external ; rss-core:boundaryStatusValue rss-core:external ; rss-res:assertedInInstanceSet fx:set .
+fx:unknown-status a rss-core:BoundaryStatusAssertion ; rss-core:statusSubject fx:unknown ; rss-core:boundaryStatusValue rss-core:undeterminedBoundary ; rss-res:assertedInInstanceSet fx:set .

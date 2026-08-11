@@ -1,0 +1,15 @@
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+SELECT DISTINCT ?element ?criterion
+WHERE {
+  ?element a rss-crit:CandidateExaminationTarget .
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?element ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome rss-res:satisfied .
+  ?assignment a rss-res:CategoryAssignment ;
+      rss-res:materialisesEvaluation ?evaluation ;
+      rss-res:assignsCategory rss-crit:CandidateExaminationTarget .
+}
+ORDER BY ?element ?criterion

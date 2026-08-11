@@ -1,0 +1,38 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rss-rule: <https://w3id.org/railsec-scope/rules#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/rules> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/results> ;
+    dcterms:title "RailSec Scope declared DL-safe rule profile"@en .
+
+rss-rule:CandidateFromSatisfiedEvaluation a rss-rule:DLSafeRule ;
+    rss-rule:implementationFile "classify-candidate.rq" ;
+    rss-rule:ruleIdentifier "L2-R01" ;
+    rss-rule:enabled true ;
+    dcterms:description "A satisfied evaluation of a criterion that determines CandidateExaminationTarget membership entails that membership for the named element."@en .
+
+rss-rule:phase2RuleVersion a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "0.1.0-phase2" .
+
+rss-rule:EvaluateTransmissionCategory a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-transmission-category.rq" ;
+    rss-rule:ruleIdentifier "M5-R01" ;
+    rss-rule:enabled true ;
+    dcterms:description "Produces three-valued CriterionEvaluation records from attributed category inputs; it does not assert category membership."@en .
+
+rss-rule:ClassifyTransmissionCategory a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "classify-transmission-category.rq" ;
+    rss-rule:ruleIdentifier "M5-R02" ;
+    rss-rule:enabled true ;
+    dcterms:description "Entails EN 50159 category membership only from a satisfied CriterionEvaluation."@en .
+
+rss-rule:DLSafeRule a owl:Class .
+rss-rule:implementationFile a owl:DatatypeProperty .
+rss-rule:ruleIdentifier a owl:DatatypeProperty .
+rss-rule:enabled a owl:DatatypeProperty .

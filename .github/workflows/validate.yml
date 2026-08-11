@@ -1,0 +1,31 @@
+name: ontology-validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: python -m pip install -r requirements.txt
+      - name: Fetch pinned ROBOT 1.9.10
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path tools | Out-Null
+          Invoke-WebRequest -Uri 'https://github.com/ontodev/robot/releases/download/v1.9.10/robot.jar' -OutFile 'tools/robot.jar'
+          $expected = '16A73C074F3DF359A7338A84B4E0788785FE06117F931BB9796E9619EA776105'
+          $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath 'tools/robot.jar').Hash
+          if ($actual -ne $expected) { throw "ROBOT checksum mismatch: $actual" }
+      - shell: pwsh
+        run: |
+          $env:RSSO_PYTHON = (Get-Command python).Source
+          .\scripts\validate.ps1

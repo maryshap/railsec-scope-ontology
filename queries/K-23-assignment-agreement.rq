@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+SELECT ?assignment ?element ?category ?run
+WHERE {
+  ?assignment a rss-res:CategoryAssignment ;
+      rss-res:materialisesEvaluation ?evaluation ;
+      rss-res:assignsCategory ?category ;
+      rss-res:producedByRun ?run .
+  ?evaluation rss-res:evaluationConcernsElement ?element ;
+      rss-res:producedByRun ?run .
+  FILTER NOT EXISTS { ?element rdf:type ?category }
+}

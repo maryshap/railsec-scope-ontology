@@ -1,0 +1,53 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+SELECT ?run ?stage ?candidateType
+       (COUNT(DISTINCT ?candidate) AS ?totalCandidates)
+       (SUM(?determinedFlag) AS ?determinedCandidates)
+       (SUM(?undeterminedFlag) AS ?undeterminedCandidates)
+       (IF(COUNT(DISTINCT ?candidate) = 0, 1.0,
+           xsd:decimal(SUM(?determinedFlag)) / xsd:decimal(COUNT(DISTINCT ?candidate))) AS ?stageCoverage)
+WHERE {
+  {
+    SELECT ?run ?stage ?candidateType ?candidate ?expectedCriteria
+           (COUNT(DISTINCT ?evaluatedCriterion) AS ?evaluationCount)
+           (COUNT(DISTINCT ?undeterminedEvaluation) AS ?undeterminedEvaluationCount)
+    WHERE {
+      {
+        SELECT ?stage ?candidateTypeLiteral (COUNT(DISTINCT ?stageCriterion) AS ?expectedCriteria)
+        WHERE {
+          ?stageCriterion a rss-crit:Criterion ;
+              rss-crit:evaluationStageIdentifier ?stage ;
+              rss-crit:stageCandidateTypeIri ?candidateTypeLiteral .
+        }
+        GROUP BY ?stage ?candidateTypeLiteral
+      }
+      BIND(IRI(STR(?candidateTypeLiteral)) AS ?candidateType)
+      ?candidate a ?candidateType .
+      ?run a rss-res:Run .
+      OPTIONAL {
+        ?evaluation a rss-res:CriterionEvaluation ;
+            rss-res:evaluationConcernsElement ?candidate ;
+            rss-res:evaluatesCriterion ?evaluatedCriterion ;
+            rss-res:hasEvaluationOutcome ?outcome ;
+            rss-res:producedByRun ?run .
+        ?evaluatedCriterion rss-crit:evaluationStageIdentifier ?stage ;
+            rss-crit:stageCandidateTypeIri ?candidateTypeLiteral .
+      }
+      OPTIONAL {
+        ?undeterminedEvaluation a rss-res:CriterionEvaluation ;
+            rss-res:evaluationConcernsElement ?candidate ;
+            rss-res:evaluatesCriterion ?undeterminedCriterion ;
+            rss-res:hasEvaluationOutcome rss-res:undetermined ;
+            rss-res:producedByRun ?run .
+        ?undeterminedCriterion rss-crit:evaluationStageIdentifier ?stage ;
+            rss-crit:stageCandidateTypeIri ?candidateTypeLiteral .
+      }
+    }
+    GROUP BY ?run ?stage ?candidateType ?candidate ?expectedCriteria
+  }
+  BIND(IF(?evaluationCount = ?expectedCriteria && ?undeterminedEvaluationCount = 0, 1, 0) AS ?determinedFlag)
+  BIND(IF(?determinedFlag = 1, 0, 1) AS ?undeterminedFlag)
+}
+GROUP BY ?run ?stage ?candidateType

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="http://www.w3.org/ns/prov-o" uri="imports/prov-o-dl.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/ontology" uri="ontology/ontology.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/core" uri="ontology/core.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/criteria" uri="ontology/criteria.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/results" uri="ontology/results.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/assessment" uri="ontology/assessment.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/railway" uri="ontology/railway.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/rules" uri="rules/rules.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/validation" uri="ontology/validation.ttl"/>
+</catalog>

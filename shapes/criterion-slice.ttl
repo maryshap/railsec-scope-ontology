@@ -1,0 +1,50 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rss-sh: <https://w3id.org/railsec-scope/shapes#> .
+
+rss-sh:CriterionEvaluationShape a sh:NodeShape ;
+    sh:targetClass rss-res:CriterionEvaluation ;
+    sh:property [ sh:path rss-res:evaluationConcernsElement ; sh:minCount 1 ; sh:maxCount 1 ; sh:class <https://w3id.org/railsec-scope/core#Element> ] ;
+    sh:property [ sh:path rss-res:evaluatesCriterion ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-crit:Criterion ] ;
+    sh:property [ sh:path rss-res:hasEvaluationOutcome ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( rss-res:satisfied rss-res:notSatisfied rss-res:undetermined ) ] ;
+    sh:property [ sh:path rss-res:producedByRun ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:Run ] .
+
+rss-sh:CriterionEvaluationUniquenessShape a sh:NodeShape ;
+    sh:targetClass rss-res:CriterionEvaluation ;
+    sh:sparql [
+        sh:message "A Run may contain at most one CriterionEvaluation for the same element and criterion."@en ;
+        sh:select """
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            $this rss-res:evaluationConcernsElement ?element ; rss-res:evaluatesCriterion ?criterion ; rss-res:producedByRun ?run .
+            ?other rss-res:evaluationConcernsElement ?element ; rss-res:evaluatesCriterion ?criterion ; rss-res:producedByRun ?run .
+            FILTER(?other != $this)
+          }
+        """
+    ] .
+
+rss-sh:CategoryAssignmentK11Shape a sh:NodeShape ;
+    sh:targetClass rss-res:CategoryAssignment ;
+    sh:property [
+        sh:path rss-res:materialisesEvaluation ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class rss-res:CriterionEvaluation ;
+        sh:qualifiedValueShape [ sh:property [ sh:path rss-res:hasEvaluationOutcome ; sh:hasValue rss-res:satisfied ] ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "K-11: CategoryAssignment must materialise exactly one satisfied CriterionEvaluation."@en
+    ] ;
+    sh:property [ sh:path rss-res:assignsCategory ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-crit:AssessmentBearingCategory ] ;
+    sh:property [ sh:path rss-res:hasDerivationRecord ; sh:minCount 1 ; sh:class rss-res:DerivationRecord ] ;
+    sh:property [ sh:path rss-res:producedByRun ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:Run ] .
+
+rss-sh:CategoryAssignmentK24Shape a sh:NodeShape ;
+    sh:targetClass rss-res:CategoryAssignment ;
+    sh:sparql [
+        sh:message "K-24: L3 computation must not be the semantic producer of assessment-bearing membership."@en ;
+        sh:select """
+            PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+            SELECT $this WHERE {
+              ?step rss-res:generatedResult $this ; rss-res:layerIdentifier "L3" .
+            }
+        """
+    ] .

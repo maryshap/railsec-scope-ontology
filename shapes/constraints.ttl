@@ -1,0 +1,117 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rss-assess: <https://w3id.org/railsec-scope/assessment#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rss-sh: <https://w3id.org/railsec-scope/shapes#> .
+
+rss-sh:K01ElementBoundaryShape a sh:NodeShape ;
+    sh:targetClass rss-core:Element ;
+    sh:sparql [
+        sh:message "K-01: every Element in the single-InstanceSet validation graph must have exactly one contextual BoundaryStatusAssertion."@en ;
+        sh:select """
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            ?set a rss-res:InstanceSet .
+            OPTIONAL { ?a a rss-core:BoundaryStatusAssertion ;
+                rss-core:statusSubject $this ; rss-res:assertedInInstanceSet ?set ;
+                rss-core:boundaryStatusValue ?value . }
+          } GROUP BY $this ?set HAVING (COUNT(DISTINCT ?a) != 1)
+        """
+    ] .
+
+rss-sh:K01BoundaryAssertionShape a sh:NodeShape ;
+    sh:targetClass rss-core:BoundaryStatusAssertion ;
+    sh:property [ sh:path rss-core:statusSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:Element ; sh:message "K-01: boundary assertion needs exactly one Element."@en ] ;
+    sh:property [ sh:path rss-core:boundaryStatusValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( rss-core:inScope rss-core:outOfScope rss-core:external rss-core:undeterminedBoundary ) ; sh:message "K-01: boundary assertion needs exactly one approved value, including an explicit undetermined status when assessment is incomplete."@en ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ; sh:message "K-01: boundary assertion needs exactly one InstanceSet context."@en ] .
+
+rss-sh:K02OutOfScopeRationaleShape a sh:NodeShape ;
+    sh:targetClass rss-core:BoundaryStatusAssertion ;
+    sh:sparql [ sh:message "K-02: an out-of-scope assertion requires an exclusion Rationale."@en ; sh:select """
+      PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+      SELECT $this WHERE { $this rss-core:boundaryStatusValue rss-core:outOfScope . FILTER NOT EXISTS { $this rss-core:hasExclusionRationale ?r } }
+    """ ] .
+
+rss-sh:K03InformationFlowShape a sh:NodeShape ; sh:targetClass rss-core:InformationFlow ;
+    sh:property [ sh:path rss-core:hasOrigin ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:Element ; sh:message "K-03: InformationFlow requires exactly one origin."@en ] ;
+    sh:property [ sh:path rss-core:hasDestination ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:Element ; sh:message "K-03: InformationFlow requires exactly one destination."@en ] .
+
+rss-sh:K04AccessPreconditionShape a sh:NodeShape ; sh:targetClass rss-core:AccessPrecondition ;
+    sh:property [ sh:path rss-core:preconditionSupportedBy ; sh:minCount 1 ; sh:qualifiedValueShape [ sh:class rss-core:Assertion ; sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ] ] ; sh:qualifiedMinCount 1 ; sh:message "K-04: AccessPrecondition requires an Assertion with explicit epistemic status."@en ] .
+
+rss-sh:K05CriterionProvenanceShape a sh:NodeShape ; sh:targetClass rss-crit:Criterion ;
+    sh:xone (
+      [ sh:property [ sh:path rss-crit:derivedFromSourceLocation ; sh:minCount 1 ] ; sh:property [ sh:path rss-crit:appliesInterpretation ; sh:minCount 1 ] ; sh:property [ sh:path rss-crit:restsOnJudgement ; sh:maxCount 0 ] ]
+      [ sh:property [ sh:path rss-crit:restsOnJudgement ; sh:minCount 1 ] ; sh:property [ sh:path rss-crit:derivedFromSourceLocation ; sh:maxCount 0 ] ; sh:property [ sh:path rss-crit:appliesInterpretation ; sh:maxCount 0 ] ]
+    ) ; sh:message "K-05: Criterion must follow exactly one source+interpretation or judgement-basis provenance branch."@en .
+
+rss-sh:K06SourceLocationShape a sh:NodeShape ; sh:targetClass rss-crit:SourceLocation ;
+    sh:property [ sh:path rss-crit:locatedInEdition ; sh:minCount 1 ; sh:maxCount 1 ; sh:qualifiedValueShape [ sh:class rss-crit:SourceEdition ; sh:property [ sh:path rss-crit:consultationStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "full" "partial" "secondary" ) ] ] ; sh:qualifiedMinCount 1 ; sh:message "K-06: SourceLocation requires one registered edition with consultation status."@en ] .
+
+rss-sh:K07VersionedArtefactShape a sh:NodeShape ; sh:targetClass rss-crit:VersionedArtefact ;
+    sh:property [ sh:path rss-crit:hasVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-crit:ArtefactVersion ; sh:message "K-07: VersionedArtefact requires exactly one current version in the release graph."@en ] .
+
+rss-sh:K08MaterialDesignationShape a sh:NodeShape ; sh:targetClass rss-res:MaterialFindingDesignation ;
+    sh:property [ sh:path rss-res:designatesResult ; sh:minCount 1 ; sh:maxCount 1 ; sh:qualifiedValueShape [ sh:class rss-res:DerivedResult ; sh:property [ sh:path rss-res:hasDerivationRecord ; sh:minCount 1 ; sh:maxCount 1 ; sh:qualifiedValueShape [ sh:class rss-res:DerivationRecord ; sh:property [ sh:path rss-res:completenessStatus ; sh:hasValue "complete" ] ] ; sh:qualifiedMinCount 1 ] ] ; sh:qualifiedMinCount 1 ; sh:message "K-08: a material result requires exactly one complete DerivationRecord."@en ] .
+
+rss-sh:K09DerivationStepShape a sh:NodeShape ; sh:targetClass rss-res:DerivationStep ;
+    sh:property [ sh:path rss-res:executedByMechanism ; sh:minCount 1 ; sh:maxCount 1 ; sh:qualifiedValueShape [ sh:class rss-res:Mechanism ; sh:property [ sh:path rss-crit:hasVersion ; sh:minCount 1 ; sh:maxCount 1 ] ] ; sh:qualifiedMinCount 1 ; sh:message "K-09: DerivationStep requires one versioned Mechanism."@en ] ;
+    sh:or ( [ sh:property [ sh:path rss-res:appliedCriterion ; sh:minCount 1 ] ] [ sh:property [ sh:path rss-res:appliedComputation ; sh:minCount 1 ] ] ) ;
+    sh:message "K-09: DerivationStep requires an applied Criterion or ExternalComputationMethod."@en .
+
+rss-sh:K10IncompleteRecordShape a sh:NodeShape ; sh:targetClass rss-res:DerivationRecord ;
+    sh:or ( [ sh:not [ sh:property [ sh:path rss-res:completenessStatus ; sh:hasValue "incomplete" ] ] ] [ sh:property [ sh:path rss-res:hasUnresolvedInput ; sh:minCount 1 ] ] ) ;
+    sh:message "K-10: an incomplete DerivationRecord must identify an UnresolvedInput."@en .
+
+rss-sh:K12AuthorisationNotGeneratedShape a sh:NodeShape ; sh:targetClass rss-core:AuthorisationAssertion ;
+    sh:property [ sh:path [ sh:inversePath rss-res:generatedResult ] ; sh:maxCount 0 ; sh:message "K-12: AuthorisationAssertion must not be generated by a DerivationStep."@en ] .
+
+rss-sh:K13AssessorDecisionShape a sh:NodeShape ; sh:targetClass rss-assess:AssessorDecision ;
+    sh:property [ sh:path rss-crit:hasVersion ; sh:minCount 1 ; sh:maxCount 1 ; sh:message "K-13: AssessorDecision requires one version."@en ] ;
+    sh:property [ sh:path rss-assess:concernsResult ; sh:minCount 1 ; sh:maxCount 1 ; sh:message "K-13: AssessorDecision must concern exactly one result."@en ] ;
+    sh:property [ sh:path rss-assess:hasRationale ; sh:minCount 1 ; sh:message "K-13: AssessorDecision requires a Rationale."@en ] .
+
+rss-sh:K14DecisionNotEvidenceShape a sh:NodeShape ; sh:targetClass rss-assess:AssessorDecision ;
+    sh:property [ sh:path [ sh:inversePath rss-res:usedEntity ] ; sh:maxCount 0 ; sh:message "K-14: AssessorDecision must not be evidential input to a DerivationStep."@en ] .
+
+rss-sh:K15OrderingResultShape a sh:NodeShape ; sh:targetClass rss-res:OrderingResult ;
+    sh:property [ sh:path rss-res:ordersCandidateSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:message "K-15: OrderingResult requires one CandidateSet."@en ] ;
+    sh:property [ sh:path rss-res:usesFactorSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:qualifiedValueShape [ sh:property [ sh:path rss-crit:hasVersion ; sh:minCount 1 ; sh:maxCount 1 ] ] ; sh:qualifiedMinCount 1 ; sh:message "K-15: OrderingResult requires one versioned OrderingFactorSet."@en ] ;
+    sh:property [ sh:path rss-res:producedByMethod ; sh:minCount 1 ; sh:maxCount 1 ; sh:qualifiedValueShape [ sh:property [ sh:path rss-crit:hasVersion ; sh:minCount 1 ; sh:maxCount 1 ] ] ; sh:qualifiedMinCount 1 ; sh:message "K-15: OrderingResult requires one versioned method."@en ] .
+
+rss-sh:K16OrderingPositionShape a sh:NodeShape ; sh:targetSubjectsOf rss-res:orderingPosition ;
+    sh:sparql [ sh:message "K-16: orderingPosition is valid only on OrderingEntry."@en ; sh:select """
+      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+      SELECT $this WHERE { $this rss-res:orderingPosition ?position . FILTER NOT EXISTS { $this rdf:type rss-res:OrderingEntry } }
+    """ ] .
+rss-sh:K16PathPositionShape a sh:NodeShape ; sh:targetSubjectsOf rss-res:pathPosition ;
+    sh:sparql [ sh:message "K-16: pathPosition is valid only on DependencyChainEntry."@en ; sh:select """
+      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+      SELECT $this WHERE { $this rss-res:pathPosition ?position . FILTER NOT EXISTS { $this rdf:type rss-res:DependencyChainEntry } }
+    """ ] .
+
+rss-sh:K17CoverageMeasureShape a sh:NodeShape ; sh:targetClass rss-crit:CoverageMeasure ;
+    sh:property [ sh:path rss-crit:measureDefinition ; sh:minCount 1 ; sh:message "K-17: CoverageMeasure requires a definition."@en ] ;
+    sh:property [ sh:path rss-crit:eligibilityScope ; sh:minCount 1 ; sh:message "K-17: CoverageMeasure requires an eligibility scope."@en ] ;
+    sh:property [ sh:path rss-crit:exclusionDeclaration ; sh:minCount 1 ; sh:message "K-17: CoverageMeasure requires an explicit exclusion declaration."@en ] .
+
+rss-sh:K18SelectionShape a sh:NodeShape ; sh:targetClass rss-res:Selection ;
+    sh:property [ sh:path rss-res:selectionBasedOnCandidateSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:message "K-18: Selection requires exactly one CandidateSet context."@en ] .
+rss-sh:K18CoverageResultShape a sh:NodeShape ; sh:targetClass rss-res:CoverageResult ;
+    sh:property [ sh:path rss-res:evaluatesMeasure ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rss-res:measuredCandidateSet ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rss-res:measuredSelection ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:sparql [ sh:message "K-18: CoverageResult and its Selection must reference the same CandidateSet."@en ; sh:select """
+      PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+      SELECT $this WHERE { $this rss-res:measuredCandidateSet ?set ; rss-res:measuredSelection ?selection . FILTER NOT EXISTS { ?selection rss-res:selectionBasedOnCandidateSet ?set } }
+    """ ] .
+
+rss-sh:K21DeprecationShape a sh:NodeShape ; sh:targetClass rss-crit:Deprecation ;
+    sh:xone ( [ sh:property [ sh:path rss-crit:replacedBy ; sh:minCount 1 ] ; sh:property [ sh:path rss-crit:explicitNonReplacement ; sh:maxCount 0 ] ] [ sh:property [ sh:path rss-crit:replacedBy ; sh:maxCount 0 ] ; sh:property [ sh:path rss-crit:explicitNonReplacement ; sh:hasValue true ; sh:minCount 1 ; sh:maxCount 1 ] ] ) ;
+    sh:message "K-21: Deprecation requires a replacement or explicit non-replacement."@en .

@@ -1,0 +1,12 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category-invalid/> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+
+fx:flow a rss-rail:RailwayInformationFlow .
+fx:assumption a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    rss-rail:transmissionAssertionSubject fx:flow ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:set .
+fx:set a rss-res:InstanceSet .

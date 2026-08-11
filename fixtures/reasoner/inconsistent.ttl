@@ -1,0 +1,8 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/inconsistent/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+
+<https://w3id.org/railsec-scope/fixture/inconsistent> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/validation> .
+
+fx:contradictoryElement a rss-core:Asset, rss-core:Interface .

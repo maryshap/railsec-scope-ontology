@@ -1,0 +1,27 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+SELECT ?run ?totalElements ?determinedElements ?undeterminedElements
+       (IF(?totalElements = 0, 1.0, xsd:decimal(?determinedElements) / xsd:decimal(?totalElements)) AS ?boundaryAssessmentCoverage)
+WHERE {
+  {
+    SELECT ?run
+           (COUNT(DISTINCT ?element) AS ?totalElements)
+           (SUM(?determinedFlag) AS ?determinedElements)
+           (SUM(?undeterminedFlag) AS ?undeterminedElements)
+    WHERE {
+      ?run a rss-res:Run ; rss-res:usedInstanceSet ?set .
+      ?element a rss-core:Element .
+      OPTIONAL {
+        ?assertion a rss-core:BoundaryStatusAssertion ;
+          rss-core:statusSubject ?element ;
+          rss-core:boundaryStatusValue ?status ;
+          rss-res:assertedInInstanceSet ?set .
+      }
+      BIND(IF(!BOUND(?status), 1, IF(?status = rss-core:undeterminedBoundary, 1, 0)) AS ?undeterminedFlag)
+      BIND(IF(?undeterminedFlag = 1, 0, 1) AS ?determinedFlag)
+    }
+    GROUP BY ?run
+  }
+}

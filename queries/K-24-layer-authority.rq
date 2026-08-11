@@ -1,0 +1,9 @@
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+SELECT ?assignment ?step ?layer
+WHERE {
+  ?assignment a rss-res:CategoryAssignment .
+  ?step rss-res:generatedResult ?assignment ;
+      rss-res:layerIdentifier ?layer .
+  FILTER(?layer IN ("L3", "assessor"))
+}

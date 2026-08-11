@@ -1,0 +1,11 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX rss-assess: <https://w3id.org/railsec-scope/assessment#>
+PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rsso: <https://w3id.org/railsec-scope/ontology#>
+
+SELECT ?instance ?constraint ?message WHERE { ?result a sh:ValidationResult; sh:focusNode ?instance; sh:sourceConstraintComponent ?constraint . OPTIONAL { ?result sh:resultMessage ?message } }

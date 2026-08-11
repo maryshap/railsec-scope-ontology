@@ -1,0 +1,188 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/results> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/results> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <https://w3id.org/railsec-scope/criteria>,
+        <https://w3id.org/railsec-scope/ontology> ;
+    rsso:moduleCode "M3" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/results#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M3 Results"@en ;
+    dcterms:description "Results, collections, selections, derivation, execution, comparison and performance evidence."@en .
+
+### Result hierarchy
+
+rss-res:DerivedResult a owl:Class ;
+    rdfs:subClassOf prov:Entity,
+        [ a owl:Restriction ; owl:onProperty rss-res:producedByRun ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-res:Run ] ;
+    rdfs:label "Derived result"@en ; rsso:requirement "ORF-31", "ORF-45" .
+
+rss-res:CriterionEvaluation a owl:Class ;
+    rdfs:subClassOf rss-res:DerivedResult,
+        [ a owl:Restriction ; owl:onProperty rss-res:evaluationConcernsElement ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-core:Element ],
+        [ a owl:Restriction ; owl:onProperty rss-res:evaluatesCriterion ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-crit:Criterion ],
+        [ a owl:Restriction ; owl:onProperty rss-res:hasEvaluationOutcome ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-res:EvaluationOutcome ] ;
+    rdfs:label "Criterion evaluation"@en ; rsso:requirement "ORF-12", "ORF-36" .
+
+rss-res:CategoryAssignment a owl:Class ;
+    rdfs:subClassOf rss-res:DerivedResult,
+        [ a owl:Restriction ; owl:onProperty rss-res:materialisesEvaluation ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-res:CriterionEvaluation ],
+        [ a owl:Restriction ; owl:onProperty rss-res:assignsCategory ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-crit:AssessmentBearingCategory ],
+        [ a owl:Restriction ; owl:onProperty rss-res:hasDerivationRecord ; owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-res:DerivationRecord ] ;
+    rdfs:label "Category assignment"@en ; rsso:requirement "ORF-12", "ORF-13", "ORF-45" .
+rss-res:CandidateSet a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Candidate set"@en ; rsso:requirement "ORF-14", "ORF-42" .
+rss-res:ReachabilityResult a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Reachability result"@en ; rsso:requirement "ORF-10", "ORF-11" .
+rss-res:DependencyChain a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Dependency chain"@en ; rsso:requirement "ORF-19" .
+rss-res:SafetyImpactResult a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Safety-impact result"@en ; rsso:requirement "ORF-18" .
+rss-res:FactorValue a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Factor value"@en ; rsso:requirement "ORF-21" .
+rss-res:OrderingResult a owl:Class ; rdfs:subClassOf rss-res:DerivedResult, rss-crit:VersionedArtefact ; rdfs:label "Ordering result"@en ; rsso:requirement "ORF-22", "ORF-23" .
+rss-res:CoverageResult a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Coverage result"@en ; rsso:requirement "ORF-41", "ORF-42" .
+rss-res:RunComparison a owl:Class ; rdfs:subClassOf rss-res:DerivedResult ; rdfs:label "Run comparison"@en ; rsso:requirement "ORF-46" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+        rss-res:CriterionEvaluation rss-res:CategoryAssignment rss-res:CandidateSet
+        rss-res:ReachabilityResult rss-res:DependencyChain rss-res:SafetyImpactResult
+        rss-res:FactorValue rss-res:OrderingResult rss-res:CoverageResult rss-res:RunComparison
+    ) .
+
+rss-res:DependencyChainEntry a owl:Class ; rdfs:label "Dependency-chain entry"@en ; rsso:requirement "ORF-19" .
+rss-res:OrderingEntry a owl:Class ; rdfs:label "Ordering entry"@en ; rsso:requirement "ORF-23" .
+rss-res:MaterialFindingDesignation a owl:Class ; rdfs:label "Material-finding designation"@en ; rsso:requirement "ORF-31" .
+rss-res:Selection a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Selection"@en ; rsso:requirement "ORF-42" .
+
+### Closed outcome vocabularies
+
+rss-res:EvaluationOutcome a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-res:satisfied rss-res:notSatisfied rss-res:undetermined ) ] ;
+    rdfs:label "Evaluation outcome"@en ; rsso:requirement "ORF-36" .
+
+rss-res:satisfied a owl:NamedIndividual, rss-res:EvaluationOutcome ; rdfs:label "satisfied"@en .
+rss-res:notSatisfied a owl:NamedIndividual, rss-res:EvaluationOutcome ; rdfs:label "not satisfied"@en .
+rss-res:undetermined a owl:NamedIndividual, rss-res:EvaluationOutcome ; rdfs:label "undetermined"@en .
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-res:satisfied rss-res:notSatisfied rss-res:undetermined ) .
+
+rss-res:ComputationOutcome a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-res:valuePresent rss-res:notComputable ) ] ;
+    rdfs:label "Computation outcome"@en ; rsso:requirement "ORF-41" .
+
+rss-res:valuePresent a owl:NamedIndividual, rss-res:ComputationOutcome ; rdfs:label "value present"@en .
+rss-res:notComputable a owl:NamedIndividual, rss-res:ComputationOutcome ; rdfs:label "not computable"@en .
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-res:valuePresent rss-res:notComputable ) .
+
+### Execution, derivation and performance
+
+rss-res:Run a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "Run"@en ; rsso:requirement "ORF-45", "ORF-46", "ORN-02a" .
+rss-res:DerivationRecord a owl:Class ; rdfs:subClassOf prov:Bundle ; rdfs:label "Derivation record"@en ; rsso:requirement "ORF-31" .
+rss-res:DerivationStep a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "Derivation step"@en ; rsso:requirement "ORF-32" .
+rss-res:Mechanism a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact, prov:SoftwareAgent ; rdfs:label "Mechanism"@en ; rsso:requirement "ORF-32", "ORN-01" .
+rss-res:UnresolvedInput a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "Unresolved input"@en ; rsso:requirement "ORF-33" .
+rss-res:InstanceSet a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Instance set"@en ; rsso:requirement "ORF-45" .
+rss-res:ExecutionEnvironment a owl:Class ; rdfs:label "Execution environment"@en ; rsso:requirement "ORN-02a" .
+rss-res:PerformanceMeasurement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "Performance measurement"@en ; rsso:requirement "ORN-02a" .
+rss-res:PerformanceTarget a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Performance target"@en ; rsso:requirement "ORN-02b" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+        rss-crit:OntologyModule rss-crit:Criterion rss-crit:ExternalComputationMethod
+        rss-crit:OrderingFactor rss-crit:OrderingFactorSet rss-crit:CoverageMeasure
+        rss-crit:OutputProfile rss-res:OrderingResult rss-res:Mechanism
+        rss-res:InstanceSet rss-res:Selection rss-res:PerformanceTarget
+    ) .
+
+### Run and assertion context
+
+rss-res:producedByRun a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:subPropertyOf prov:wasGeneratedBy ; rdfs:domain rss-res:DerivedResult ; rdfs:range rss-res:Run ; rdfs:label "produced by run"@en ; rsso:requirement "ORF-45" .
+rss-res:assertedInInstanceSet a owl:ObjectProperty ; rdfs:domain rss-core:Assertion ; rdfs:range rss-res:InstanceSet ; rdfs:label "asserted in instance set"@en ; rsso:requirement "ORF-45", "ORF-46" .
+rss-res:usedVersion a owl:ObjectProperty ; rdfs:subPropertyOf prov:used ; rdfs:domain rss-res:Run ; rdfs:range rss-crit:ArtefactVersion ; rdfs:label "used version"@en ; rsso:requirement "ORF-45" .
+rss-res:usedInstanceSet a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:subPropertyOf prov:used ; rdfs:domain rss-res:Run ; rdfs:range rss-res:InstanceSet ; rdfs:label "used instance set"@en ; rsso:requirement "ORF-45" .
+
+### Evaluation and materialisation
+
+rss-res:evaluationConcernsElement a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CriterionEvaluation ; rdfs:range rss-core:Element ; rdfs:label "evaluation concerns element"@en ; rsso:requirement "ORF-36" .
+rss-res:evaluatesCriterion a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CriterionEvaluation ; rdfs:range rss-crit:Criterion ; rdfs:label "evaluates criterion"@en ; rsso:requirement "ORF-36" .
+rss-res:hasEvaluationOutcome a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CriterionEvaluation ; rdfs:range rss-res:EvaluationOutcome ; rdfs:label "has evaluation outcome"@en ; rsso:requirement "ORF-36" .
+rss-res:materialisesEvaluation a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CategoryAssignment ; rdfs:range rss-res:CriterionEvaluation ; rdfs:label "materialises evaluation"@en ; rsso:requirement "ORF-12", "ORF-13" .
+rss-res:assignsCategory a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CategoryAssignment ; rdfs:range rss-crit:AssessmentBearingCategory ; rdfs:label "assigns category"@en ; rsso:requirement "ORF-12" .
+rss-res:hasCandidateAssignment a owl:ObjectProperty ; rdfs:domain rss-res:CandidateSet ; rdfs:range rss-res:CategoryAssignment ; rdfs:label "has candidate assignment"@en ; rsso:requirement "ORF-14" .
+
+### Reachability and safety paths
+
+rss-res:reachabilityConcerns a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:ReachabilityResult ; rdfs:range rss-core:Element ; rdfs:label "reachability concerns"@en ; rsso:requirement "ORF-10" .
+rss-res:usedAccessMechanism a owl:ObjectProperty ; rdfs:domain rss-res:ReachabilityResult ; rdfs:range rss-core:AccessMechanism ; rdfs:label "used access mechanism"@en ; rsso:requirement "ORF-11" .
+rss-res:reliedOnPrecondition a owl:ObjectProperty ; rdfs:domain rss-res:ReachabilityResult ; rdfs:range rss-core:AccessPrecondition ; rdfs:label "relied on precondition"@en ; rsso:requirement "ORF-11" .
+rss-res:evaluatesScenario a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:SafetyImpactResult ; rdfs:range rss-core:PropertyLossScenario ; rdfs:label "evaluates scenario"@en ; rsso:requirement "ORF-18" .
+rss-res:affectsFunction a owl:ObjectProperty ; rdfs:domain rss-res:SafetyImpactResult ; rdfs:range rss-core:SafetyFunction ; rdfs:label "affects function"@en ; rsso:requirement "ORF-18" .
+rss-res:viaDependencyChain a owl:ObjectProperty ; rdfs:domain rss-res:SafetyImpactResult ; rdfs:range rss-res:DependencyChain ; rdfs:label "via dependency chain"@en ; rsso:requirement "ORF-19" .
+rss-res:hasChainEntry a owl:ObjectProperty ; rdfs:domain rss-res:DependencyChain ; rdfs:range rss-res:DependencyChainEntry ; rdfs:label "has chain entry"@en ; rsso:requirement "ORF-19" .
+rss-res:chainNode a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:DependencyChainEntry ; rdfs:range [ a owl:Class ; owl:unionOf ( rss-core:Element rss-core:Function ) ] ; rdfs:label "chain node"@en ; rsso:requirement "ORF-19" .
+
+### Derivation and PROV-O profile
+
+rss-res:hasDerivationRecord a owl:ObjectProperty ; rdfs:domain rss-res:DerivedResult ; rdfs:range rss-res:DerivationRecord ; rdfs:label "has derivation record"@en ; rsso:requirement "ORF-31" .
+rss-res:hasStep a owl:ObjectProperty ; rdfs:domain rss-res:DerivationRecord ; rdfs:range rss-res:DerivationStep ; rdfs:label "has step"@en ; rsso:requirement "ORF-31" .
+rss-res:usedEntity a owl:ObjectProperty ; rdfs:subPropertyOf prov:used ; rdfs:domain rss-res:DerivationStep ; rdfs:range [ a owl:Class ; owl:unionOf ( rss-core:Assertion rss-res:DerivedResult rss-crit:VersionedArtefact ) ] ; rdfs:label "used entity"@en ; rsso:requirement "ORF-31" .
+rss-res:generatedResult a owl:ObjectProperty ; rdfs:subPropertyOf prov:generated ; rdfs:domain rss-res:DerivationStep ; rdfs:range rss-res:DerivedResult ; rdfs:label "generated result"@en ; rsso:requirement "ORF-31" .
+rss-res:appliedCriterion a owl:ObjectProperty ; rdfs:subPropertyOf prov:used ; rdfs:domain rss-res:DerivationStep ; rdfs:range rss-crit:Criterion ; rdfs:label "applied criterion"@en ; rsso:requirement "ORF-31" .
+rss-res:appliedComputation a owl:ObjectProperty ; rdfs:domain rss-res:DerivationStep ; rdfs:range rss-crit:ExternalComputationMethod ; rdfs:label "applied computation"@en ; rsso:requirement "ORF-12", "ORF-31" .
+rss-res:executedByMechanism a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasAssociatedWith ; rdfs:domain rss-res:DerivationStep ; rdfs:range rss-res:Mechanism ; rdfs:label "executed by mechanism"@en ; rsso:requirement "ORF-32" .
+rss-res:hasUnresolvedInput a owl:ObjectProperty ; rdfs:domain rss-res:DerivationRecord ; rdfs:range rss-res:UnresolvedInput ; rdfs:label "has unresolved input"@en ; rsso:requirement "ORF-33" .
+rss-res:designatesResult a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:MaterialFindingDesignation ; rdfs:range rss-res:DerivedResult ; rdfs:label "designates result"@en ; rsso:requirement "ORF-31" .
+rss-res:underOutputProfile a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:MaterialFindingDesignation ; rdfs:range rss-crit:OutputProfile ; rdfs:label "under output profile"@en ; rsso:requirement "ORF-31" .
+
+### Ordering, coverage and selection
+
+rss-res:factorValueForCandidate a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:FactorValue ; rdfs:range rss-res:CategoryAssignment ; rdfs:label "factor value for candidate"@en ; rsso:requirement "ORF-21" .
+rss-res:valueOfFactor a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:FactorValue ; rdfs:range rss-crit:OrderingFactor ; rdfs:label "value of factor"@en ; rsso:requirement "ORF-21" .
+rss-res:valueBasis a owl:ObjectProperty ; rdfs:domain rss-res:FactorValue ; rdfs:range [ a owl:Class ; owl:unionOf ( rss-core:Assertion rss-crit:JudgementBasis ) ] ; rdfs:label "value basis"@en ; rsso:requirement "ORF-21" .
+rss-res:ordersCandidateSet a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:OrderingResult ; rdfs:range rss-res:CandidateSet ; rdfs:label "orders candidate set"@en ; rsso:requirement "ORF-23" .
+rss-res:usesFactorSet a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:OrderingResult ; rdfs:range rss-crit:OrderingFactorSet ; rdfs:label "uses factor set"@en ; rsso:requirement "ORF-22" .
+rss-res:producedByMethod a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:OrderingResult ; rdfs:range rss-crit:ExternalComputationMethod ; rdfs:label "produced by method"@en ; rsso:requirement "ORF-23" .
+rss-res:hasOrderingEntry a owl:ObjectProperty ; rdfs:domain rss-res:OrderingResult ; rdfs:range rss-res:OrderingEntry ; rdfs:label "has ordering entry"@en ; rsso:requirement "ORF-23" .
+rss-res:ranksAssignment a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:OrderingEntry ; rdfs:range rss-res:CategoryAssignment ; rdfs:label "ranks assignment"@en ; rsso:requirement "ORF-23" .
+rss-res:evaluatesMeasure a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CoverageResult ; rdfs:range rss-crit:CoverageMeasure ; rdfs:label "evaluates measure"@en ; rsso:requirement "ORF-40", "ORF-41" .
+rss-res:measuredCandidateSet a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CoverageResult ; rdfs:range rss-res:CandidateSet ; rdfs:label "measured candidate set"@en ; rsso:requirement "ORF-40", "ORF-42" .
+rss-res:measuredSelection a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:CoverageResult ; rdfs:range rss-res:Selection ; rdfs:label "measured selection"@en ; rsso:requirement "ORF-40", "ORF-42" .
+rss-res:hasComputationOutcome a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( rss-res:FactorValue rss-res:CoverageResult ) ] ; rdfs:range rss-res:ComputationOutcome ; rdfs:label "has computation outcome"@en ; rsso:requirement "ORF-41" .
+rss-res:includesElement a owl:ObjectProperty ; rdfs:domain rss-res:Selection ; rdfs:range rss-core:Element ; rdfs:label "includes element"@en ; rsso:requirement "ORF-42" .
+rss-res:selectionBasedOnCandidateSet a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Selection ; rdfs:range rss-res:CandidateSet ; rdfs:label "selection based on candidate set"@en ; rsso:requirement "ORF-42" .
+
+### Comparison and performance
+
+rss-res:comparesRun a owl:ObjectProperty ; rdfs:domain rss-res:RunComparison ; rdfs:range rss-res:Run ; rdfs:label "compares run"@en ; rsso:requirement "ORF-46" .
+rss-res:changedAssertion a owl:ObjectProperty ; rdfs:domain rss-res:RunComparison ; rdfs:range rss-core:Assertion ; rdfs:label "changed assertion"@en ; rsso:requirement "ORF-46" .
+rss-res:changedResult a owl:ObjectProperty ; rdfs:domain rss-res:RunComparison ; rdfs:range rss-res:DerivedResult ; rdfs:label "changed result"@en ; rsso:requirement "ORF-46" .
+rss-res:executedInEnvironment a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Run ; rdfs:range rss-res:ExecutionEnvironment ; rdfs:label "executed in environment"@en ; rsso:requirement "ORN-02a" .
+rss-res:measuredRun a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-res:PerformanceMeasurement ; rdfs:range rss-res:Run ; rdfs:label "measured run"@en ; rsso:requirement "ORN-02a" .
+rss-res:assessedAgainstTarget a owl:ObjectProperty ; rdfs:domain rss-res:PerformanceMeasurement ; rdfs:range rss-res:PerformanceTarget ; rdfs:label "assessed against target"@en ; rsso:requirement "ORN-02b" .
+
+### Literal attributes
+
+rss-res:completenessStatus a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:DerivationRecord ; rdfs:range xsd:string ; rdfs:label "completeness status"@en ; rsso:requirement "ORF-34" .
+rss-res:stepPosition a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:DerivationStep ; rdfs:range xsd:positiveInteger ; rdfs:label "step position"@en ; rsso:requirement "ORF-31" .
+rss-res:layerIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:DerivationStep ; rdfs:range xsd:string ; rdfs:label "layer identifier"@en ; rsso:requirement "ORF-32" .
+rss-res:pathPosition a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:DependencyChainEntry ; rdfs:range xsd:positiveInteger ; rdfs:label "path position"@en ; rsso:requirement "ORF-19" .
+rss-res:representedValue a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( rss-res:FactorValue rss-res:CoverageResult ) ] ; rdfs:range rdfs:Literal ; rdfs:label "represented value"@en ; rsso:requirement "ORF-21", "ORF-41" .
+rss-res:orderingPosition a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:OrderingEntry ; rdfs:range xsd:positiveInteger ; rdfs:label "ordering position"@en ; rsso:requirement "ORF-23" .
+rss-res:tieIdentifier a owl:DatatypeProperty ; rdfs:domain rss-res:OrderingEntry ; rdfs:range xsd:string ; rdfs:label "tie identifier"@en .
+rss-res:runIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:string ; rdfs:label "run identifier"@en ; rsso:requirement "ORF-45" .
+rss-res:startTime a owl:DatatypeProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:dateTime ; rdfs:label "start time"@en .
+rss-res:endTime a owl:DatatypeProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:dateTime ; rdfs:label "end time"@en .
+rss-res:hardwareConfiguration a owl:DatatypeProperty ; rdfs:domain rss-res:ExecutionEnvironment ; rdfs:range xsd:string ; rdfs:label "hardware configuration"@en ; rsso:requirement "ORN-02a" .
+rss-res:operatingSystem a owl:DatatypeProperty ; rdfs:domain rss-res:ExecutionEnvironment ; rdfs:range xsd:string ; rdfs:label "operating system"@en ; rsso:requirement "ORN-02a" .
+rss-res:runtimeVersions a owl:DatatypeProperty ; rdfs:domain rss-res:ExecutionEnvironment ; rdfs:range xsd:string ; rdfs:label "runtime and dependency versions"@en ; rsso:requirement "ORN-02a" .
+rss-res:measuredStage a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( rss-res:PerformanceMeasurement rss-res:PerformanceTarget ) ] ; rdfs:range xsd:string ; rdfs:label "measured stage"@en ; rsso:requirement "ORN-02a", "ORN-02b" .
+rss-res:elapsedTimeSeconds a owl:DatatypeProperty ; rdfs:domain rss-res:PerformanceMeasurement ; rdfs:range xsd:decimal ; rdfs:label "elapsed time in seconds"@en ; rsso:requirement "ORN-02a" .
+rss-res:inputSize a owl:DatatypeProperty ; rdfs:domain rss-res:PerformanceMeasurement ; rdfs:range xsd:nonNegativeInteger ; rdfs:label "input size"@en ; rsso:requirement "ORN-02a" .
+rss-res:inputSizeUnit a owl:DatatypeProperty ; rdfs:domain rss-res:PerformanceMeasurement ; rdfs:range xsd:string ; rdfs:label "input-size unit"@en ; rsso:requirement "ORN-02a" .
+rss-res:thresholdSeconds a owl:DatatypeProperty ; rdfs:domain rss-res:PerformanceTarget ; rdfs:range xsd:decimal ; rdfs:label "threshold in seconds"@en ; rsso:requirement "ORN-02b" .
+rss-res:representativeFixtureIdentifier a owl:DatatypeProperty ; rdfs:domain rss-res:PerformanceTarget ; rdfs:range xsd:anyURI ; rdfs:label "representative fixture identifier"@en ; rsso:requirement "ORN-02b" .

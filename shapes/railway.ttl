@@ -1,0 +1,66 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rss-sh: <https://w3id.org/railsec-scope/shapes#> .
+
+rss-sh:EnvironmentControlFactShape a sh:NodeShape ;
+    sh:targetClass rss-rail:EnvironmentControlFact ;
+    sh:property [ sh:path rss-rail:transmissionAssertionSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-rail:RailwayInformationFlow ] ;
+    sh:property [ sh:path rss-rail:environmentControlledValue ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assertedFactStatus ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ] .
+
+rss-sh:ParticipantSetFixedFactShape a sh:NodeShape ;
+    sh:targetClass rss-rail:ParticipantSetFixedFact ;
+    sh:property [ sh:path rss-rail:transmissionAssertionSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-rail:RailwayInformationFlow ] ;
+    sh:property [ sh:path rss-rail:participantSetFixedValue ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assertedFactStatus ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ] .
+
+rss-sh:AccessExclusionAssumptionShape a sh:NodeShape ;
+    sh:targetClass rss-rail:UnauthorisedAccessExclusionAssumption ;
+    sh:property [ sh:path rss-rail:transmissionAssertionSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-rail:RailwayInformationFlow ] ;
+    sh:property [ sh:path rss-rail:unauthorisedAccessExcludedValue ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assumptionStatus ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Agent ; sh:message "An access-exclusion judgement must identify the responsible assessor."@en ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ] .
+
+rss-sh:UniqueTransmissionInputsShape a sh:NodeShape ;
+    sh:targetClass rss-rail:RailwayInformationFlow ;
+    sh:sparql [
+        sh:message "A flow may have at most one environment-control fact, participant-set fact and access-exclusion assumption in one InstanceSet."@en ;
+        sh:select """
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            ?assertion rss-rail:transmissionAssertionSubject $this ; rss-res:assertedInInstanceSet ?set .
+            ?assertion a ?kind .
+            FILTER(?kind IN (rss-rail:EnvironmentControlFact, rss-rail:ParticipantSetFixedFact, rss-rail:UnauthorisedAccessExclusionAssumption))
+          } GROUP BY $this ?set ?kind HAVING (COUNT(DISTINCT ?assertion) > 1)
+        """
+    ] .
+
+rss-sh:TransmissionCategoryTraceabilityShape a sh:NodeShape ;
+    sh:targetClass rss-rail:RailwayInformationFlow ;
+    sh:sparql [
+        sh:message "An entailed EN 50159 category requires a satisfied CriterionEvaluation for the same flow and category."@en ;
+        sh:select """
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            $this rdf:type ?category .
+            FILTER(?category IN (rss-rail:Category1Transmission, rss-rail:Category2Transmission, rss-rail:Category3Transmission))
+            FILTER NOT EXISTS {
+              ?evaluation a rss-res:CriterionEvaluation ;
+                rss-res:evaluationConcernsElement $this ;
+                rss-res:evaluatesCriterion ?criterion ;
+                rss-res:hasEvaluationOutcome rss-res:satisfied .
+              ?criterion rss-crit:determinesMembershipOf ?category .
+            }
+          }
+        """
+    ] .

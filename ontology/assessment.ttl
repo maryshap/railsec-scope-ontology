@@ -1,0 +1,60 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-assess: <https://w3id.org/railsec-scope/assessment#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/assessment> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/assessment> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <https://w3id.org/railsec-scope/results>,
+        <https://w3id.org/railsec-scope/ontology> ;
+    rsso:moduleCode "M4" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/assessment#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M4 Assessment"@en ;
+    dcterms:description "Assessor decisions that remain distinct from derived results and affect selections only."@en .
+
+rss-assess:AssessorDecision a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact ;
+    rdfs:label "Assessor decision"@en ;
+    rsso:requirement "ORF-48" .
+
+rss-assess:Inclusion a owl:Class ;
+    rdfs:subClassOf rss-assess:AssessorDecision ;
+    rdfs:label "Inclusion"@en ;
+    rsso:requirement "ORF-48" .
+
+rss-assess:Exclusion a owl:Class ;
+    rdfs:subClassOf rss-assess:AssessorDecision ;
+    rdfs:label "Exclusion"@en ;
+    rsso:requirement "ORF-48" .
+
+rss-assess:Override a owl:Class ;
+    rdfs:subClassOf rss-assess:AssessorDecision ;
+    rdfs:label "Override"@en ;
+    rsso:requirement "ORF-13", "ORF-48" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( rss-assess:Inclusion rss-assess:Exclusion rss-assess:Override ) .
+
+rss-assess:concernsResult a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-assess:AssessorDecision ;
+    rdfs:range rss-res:DerivedResult ;
+    rdfs:label "concerns result"@en ;
+    rsso:requirement "ORF-48" .
+
+rss-assess:affectsSelection a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-assess:AssessorDecision ;
+    rdfs:range rss-res:Selection ;
+    rdfs:label "affects selection"@en ;
+    rsso:requirement "ORF-48" .
+
+rss-assess:hasRationale a owl:ObjectProperty ;
+    rdfs:domain rss-assess:AssessorDecision ;
+    rdfs:range rss-core:Rationale ;
+    rdfs:label "has rationale"@en ;
+    rsso:requirement "ORF-48" .

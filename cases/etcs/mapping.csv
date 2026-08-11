@@ -1,0 +1,9 @@
+source_sheet,source_field,target,transformation
+Zones,Zone row,rss-rail:RailwaySecurityZone + rss-core:Group,one case Group per ZoneID
+Assets_Flat,Asset row,rss-rail:RailwayAsset,AssetClass mapped only to explicit M5 safety/operational subclasses
+Assets_Flat,Primary/SecondaryZoneID,rss-core:memberOf,both memberships retained
+Assets_Flat,boundary status,BoundaryStatusAssertion,External primary zone => external; otherwise inScope; domain review required
+Interfaces_Flat,Interface row,rss-core:Interface + InformationFlow,bi creates forward and reverse flows; uni creates forward flow
+Functions_Flat,Function row,rss-core:Function/SafetyFunction,SafetyCritical and SafetyRelated map to SafetyFunction
+Functions_Flat,ImplementedByAssetIDs,rss-core:realises,only resolvable AssetIDs emitted
+TrustAssumptions_Flat,Assumption row,rss-core:Assumption,generic proposition pattern; unknown scopes retained in unmapped report

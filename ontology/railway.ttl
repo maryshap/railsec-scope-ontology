@@ -1,0 +1,129 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/railway> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/railway> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <https://w3id.org/railsec-scope/core>,
+        <https://w3id.org/railsec-scope/criteria> ;
+    rsso:moduleCode "M5" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/railway#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M5 Railway extension"@en ;
+    dcterms:description "Railway terminology only. Transmission categories and threat exposure are conclusions produced through criteria and rules, never structural TBox shortcuts."@en .
+
+### Railway architecture and payload vocabulary
+
+rss-rail:RailwayAsset a owl:Class ; rdfs:subClassOf rss-core:Asset ; rdfs:label "Railway asset"@en .
+rss-rail:RailwayInformationFlow a owl:Class ; rdfs:subClassOf rss-core:InformationFlow ; rdfs:label "Railway information flow"@en .
+rss-rail:SafetyCriticalAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; rdfs:label "Safety-critical railway asset"@en .
+rss-rail:SafetyRelatedAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; rdfs:label "Safety-related railway asset"@en .
+rss-rail:OperationalAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; rdfs:label "Operational railway asset"@en .
+[] a owl:AllDisjointClasses ; owl:members ( rss-rail:SafetyCriticalAsset rss-rail:SafetyRelatedAsset rss-rail:OperationalAsset ) .
+
+rss-rail:RailwayPayload a owl:Class ; rdfs:subClassOf rss-core:Payload ; rdfs:label "Railway payload"@en .
+rss-rail:SafetyRelatedPayload a owl:Class ; rdfs:subClassOf rss-rail:RailwayPayload ; rdfs:label "Safety-related payload"@en .
+rss-rail:NonSafetyPayload a owl:Class ; rdfs:subClassOf rss-rail:RailwayPayload ; rdfs:label "Non-safety payload"@en .
+[] a owl:AllDisjointClasses ; owl:members ( rss-rail:SafetyRelatedPayload rss-rail:NonSafetyPayload ) .
+
+### EN 50159 transmission-category vocabulary
+
+rss-rail:TransmissionCategory a owl:Class ;
+    rdfs:subClassOf rss-crit:AssessmentBearingCategory ;
+    rdfs:label "EN 50159 transmission category"@en .
+
+rss-rail:Category1Transmission a owl:Class, owl:NamedIndividual, rss-crit:AssessmentBearingCategory ;
+    rdfs:subClassOf rss-rail:TransmissionCategory ; rdfs:label "Category 1 transmission"@en .
+rss-rail:Category2Transmission a owl:Class, owl:NamedIndividual, rss-crit:AssessmentBearingCategory ;
+    rdfs:subClassOf rss-rail:TransmissionCategory ; rdfs:label "Category 2 transmission"@en .
+rss-rail:Category3Transmission a owl:Class, owl:NamedIndividual, rss-crit:AssessmentBearingCategory ;
+    rdfs:subClassOf rss-rail:TransmissionCategory ; rdfs:label "Category 3 transmission"@en .
+[] a owl:AllDisjointClasses ; owl:members ( rss-rail:Category1Transmission rss-rail:Category2Transmission rss-rail:Category3Transmission ) .
+
+### Traceable category inputs
+
+rss-rail:EnvironmentControlFact a owl:Class ;
+    rdfs:subClassOf rss-core:AssertedFact ;
+    rdfs:label "environment-control fact"@en .
+rss-rail:ParticipantSetFixedFact a owl:Class ;
+    rdfs:subClassOf rss-core:AssertedFact ;
+    rdfs:label "participant-set fixedness fact"@en .
+rss-rail:UnauthorisedAccessExclusionAssumption a owl:Class ;
+    rdfs:subClassOf rss-core:Assumption ;
+    rdfs:label "unauthorised-access exclusion assumption"@en ;
+    rsso:definition "Attributed assessor judgement that unauthorised access to a transmission system can or cannot be excluded. It is not a topology fact."@en .
+[] a owl:AllDisjointClasses ; owl:members ( rss-rail:EnvironmentControlFact rss-rail:ParticipantSetFixedFact rss-rail:UnauthorisedAccessExclusionAssumption ) .
+
+rss-rail:transmissionAssertionSubject a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionSubject ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-rail:EnvironmentControlFact rss-rail:ParticipantSetFixedFact rss-rail:UnauthorisedAccessExclusionAssumption ) ] ;
+    rdfs:range rss-rail:RailwayInformationFlow ;
+    rdfs:label "transmission assertion subject"@en .
+rss-rail:environmentControlledValue a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionObjectLiteral ;
+    rdfs:domain rss-rail:EnvironmentControlFact ; rdfs:range xsd:boolean ;
+    rdfs:label "environment controlled value"@en .
+rss-rail:participantSetFixedValue a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionObjectLiteral ;
+    rdfs:domain rss-rail:ParticipantSetFixedFact ; rdfs:range xsd:boolean ;
+    rdfs:label "participant set fixed value"@en .
+rss-rail:unauthorisedAccessExcludedValue a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionObjectLiteral ;
+    rdfs:domain rss-rail:UnauthorisedAccessExclusionAssumption ; rdfs:range xsd:boolean ;
+    rdfs:label "unauthorised access excluded value"@en .
+
+### EN 50159 threat and channel-defence vocabulary
+
+rss-rail:TransmissionThreat a owl:Class ; rdfs:label "EN 50159 transmission threat"@en .
+rss-rail:RepetitionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Repetition threat"@en .
+rss-rail:DeletionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Deletion threat"@en .
+rss-rail:InsertionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Insertion threat"@en .
+rss-rail:ResequencingThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Resequencing threat"@en .
+rss-rail:CorruptionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Corruption threat"@en .
+rss-rail:DelayThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Delay threat"@en .
+rss-rail:MasqueradeThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Masquerade threat"@en .
+[] a owl:AllDisjointClasses ; owl:members ( rss-rail:RepetitionThreat rss-rail:DeletionThreat rss-rail:InsertionThreat rss-rail:ResequencingThreat rss-rail:CorruptionThreat rss-rail:DelayThreat rss-rail:MasqueradeThreat ) .
+
+# These are architecture observations. documentsAddressedThreat is an annotation
+# for human traceability only; no safeguard-to-threat inference axiom exists in M5.
+rss-rail:authenticationEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "authentication enabled"@en ; rsso:documentsAddressedThreat rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:integrityProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "integrity protection enabled"@en ; rsso:documentsAddressedThreat rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:sequenceProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "sequence protection enabled"@en ; rsso:documentsAddressedThreat rss-rail:RepetitionThreat, rss-rail:DeletionThreat, rss-rail:InsertionThreat, rss-rail:ResequencingThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:timeoutMechanismEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "timeout mechanism enabled"@en ; rsso:documentsAddressedThreat rss-rail:DelayThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:safetyCodeEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "safety code enabled"@en ; rsso:documentsAddressedThreat rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:sourceDestinationIdentifierEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "source/destination identifier enabled"@en ; rsso:documentsAddressedThreat rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:redundancyEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "redundancy enabled"@en ; rsso:documentsAddressedThreat rss-rail:DeletionThreat, rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
+rss-rail:encryptionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "encryption enabled"@en ; rsso:sourceLocatorNote "IEC 62443-3-3 FR4 — confidentiality; outside the EN 50159 safety-communication threat set"@en .
+
+### SIL, fail-safe dependency and railway access routes
+
+rss-rail:SafetyIntegrityLevel a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-rail:sil0 rss-rail:sil1 rss-rail:sil2 rss-rail:sil3 rss-rail:sil4 ) ] ;
+    rdfs:label "Safety integrity level"@en .
+rss-rail:sil0 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label "SIL 0"@en .
+rss-rail:sil1 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label "SIL 1"@en .
+rss-rail:sil2 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label "SIL 2"@en .
+rss-rail:sil3 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label "SIL 3"@en .
+rss-rail:sil4 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label "SIL 4"@en .
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-rail:sil0 rss-rail:sil1 rss-rail:sil2 rss-rail:sil3 rss-rail:sil4 ) .
+
+rss-rail:RailwaySecurityZone a owl:Class ; rdfs:subClassOf rss-core:Group ; rdfs:label "Railway security zone"@en .
+rss-rail:MaintenanceAccess a owl:Class ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Maintenance access"@en .
+rss-rail:SupplierAccess a owl:Class ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Supplier access"@en .
+rss-rail:RemoteAccess a owl:Class ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Remote access"@en .
+[] a owl:AllDisjointClasses ; owl:members ( rss-rail:MaintenanceAccess rss-rail:SupplierAccess rss-rail:RemoteAccess ) .
+
+rss-rail:hasSafetyIntegrityLevel a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-rail:RailwayAsset rss-core:SafetyFunction ) ] ;
+    rdfs:range rss-rail:SafetyIntegrityLevel ; rdfs:label "has safety integrity level"@en .
+rss-rail:failSafeDependsOn a owl:ObjectProperty ;
+    rdfs:subPropertyOf rss-core:directlyDependsOn ;
+    rdfs:domain rss-core:SafetyFunction ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( rss-core:Element rss-core:Function ) ] ;
+    rdfs:label "fail-safe depends on"@en .

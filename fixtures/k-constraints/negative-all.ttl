@@ -1,0 +1,50 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/k-negative/> .
+@prefix rss-assess: <https://w3id.org/railsec-scope/assessment#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+
+fx:set a rss-res:InstanceSet .
+fx:unclassified-element a rss-core:Element .
+
+fx:out-element a rss-core:Element .
+fx:out-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:out-element ;
+    rss-core:boundaryStatusValue rss-core:outOfScope ;
+    rss-res:assertedInInstanceSet fx:set .
+
+fx:flow a rss-core:InformationFlow .
+fx:precondition a rss-core:AccessPrecondition .
+fx:criterion a rss-crit:Criterion .
+fx:location a rss-crit:SourceLocation .
+
+fx:material-designation a rss-res:MaterialFindingDesignation ;
+    rss-res:designatesResult fx:material-result .
+fx:material-result a rss-res:DerivedResult .
+
+fx:step a rss-res:DerivationStep .
+fx:incomplete-record a rss-res:DerivationRecord ;
+    rss-res:completenessStatus "incomplete" .
+
+fx:authorisation a rss-core:AuthorisationAssertion .
+fx:generator a rss-res:DerivationStep ;
+    rss-res:generatedResult fx:authorisation .
+
+fx:decision a rss-assess:AssessorDecision .
+fx:evidence-step a rss-res:DerivationStep ;
+    rss-res:usedEntity fx:decision .
+
+fx:ordering a rss-res:OrderingResult .
+fx:wrong-position-owner a rss-core:Element ;
+    rss-res:orderingPosition 1 .
+
+fx:measure a rss-crit:CoverageMeasure .
+fx:selection a rss-res:Selection .
+fx:other-selection a rss-res:Selection ;
+    rss-res:selectionBasedOnCandidateSet fx:set-b .
+fx:coverage a rss-res:CoverageResult ;
+    rss-res:evaluatesMeasure fx:measure ;
+    rss-res:measuredCandidateSet fx:set-a ;
+    rss-res:measuredSelection fx:other-selection .
+
+fx:deprecation a rss-crit:Deprecation .

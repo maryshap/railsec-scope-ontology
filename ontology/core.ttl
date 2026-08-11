@@ -1,0 +1,182 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/core> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/core> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <http://www.w3.org/ns/prov-o>,
+        <https://w3id.org/railsec-scope/ontology> ;
+    rsso:moduleCode "M1" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/core#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M1 Core"@en ;
+    dcterms:description "Subsystem-independent architecture, access, safety-consequence and assertion terminology."@en .
+
+### Architecture classes
+
+rss-core:Element a owl:Class ;
+    rdfs:label "Element"@en ;
+    rsso:definition "Individually referable entity eligible to participate in boundary, architecture, dependency or scoping relations."@en ;
+    rsso:requirement "Gate A §4.1" .
+
+rss-core:Asset a owl:Class ;
+    rdfs:subClassOf rss-core:Element ;
+    rdfs:label "Asset"@en ;
+    rsso:definition "Element representing a component of the described system."@en ;
+    rsso:requirement "ORF-01" .
+
+rss-core:Interface a owl:Class ;
+    rdfs:subClassOf rss-core:Element ;
+    rdfs:label "Interface"@en ;
+    rsso:requirement "ORF-03" .
+
+rss-core:InformationFlow a owl:Class ;
+    rdfs:subClassOf rss-core:Element ;
+    rdfs:label "Information flow"@en ;
+    rsso:requirement "ORF-03" .
+
+rss-core:Payload a owl:Class ;
+    rdfs:label "Payload"@en ;
+    rsso:definition "Information content carried by an InformationFlow, independently of any subsystem-specific interpretation."@en ;
+    rsso:requirement "Phase 2 Step 9.3" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( rss-core:Asset rss-core:Interface rss-core:InformationFlow ) .
+
+rss-core:FlowCharacteristic a owl:Class ; rdfs:label "Flow characteristic"@en ; rsso:requirement "ORF-07" .
+rss-core:AssetType a owl:Class ; rdfs:label "Asset type"@en ; rsso:requirement "ORF-01" .
+rss-core:SystemRole a owl:Class ; rdfs:label "System role"@en ; rsso:requirement "ORF-01" .
+
+rss-core:Function a owl:Class ;
+    rdfs:label "Function"@en ;
+    owl:disjointWith rss-core:Element ;
+    rsso:definition "Capability the system performs; a Function is not an Element."@en ;
+    rsso:requirement "Gate A §4.1" .
+
+rss-core:SafetyFunction a owl:Class ;
+    rdfs:subClassOf rss-core:Function ;
+    rdfs:label "Safety function"@en ;
+    rsso:requirement "ORF-15" .
+
+rss-core:Group a owl:Class ; rdfs:label "Group"@en ; rsso:requirement "ORF-04" .
+rss-core:GroupConnection a owl:Class ; rdfs:label "Group connection"@en ; rsso:requirement "ORF-04" .
+rss-core:AccessMechanism a owl:Class ; rdfs:label "Access mechanism"@en ; rsso:requirement "ORF-08" .
+rss-core:AccessPrecondition a owl:Class ; rdfs:label "Access precondition"@en ; rsso:requirement "ORF-09" .
+rss-core:SecurityProperty a owl:Class ; rdfs:label "Security property"@en ; rsso:requirement "ORF-16" .
+rss-core:PropertyLossScenario a owl:Class ; rdfs:label "Property-loss scenario"@en ; rsso:requirement "ORF-16", "ORF-17", "ORF-18" .
+rss-core:Consequence a owl:Class ; rdfs:label "Consequence"@en ; rsso:requirement "ORF-17" .
+rss-core:ExaminationConstraint a owl:Class ; rdfs:label "Examination constraint"@en ; rsso:requirement "ORF-24" .
+rss-core:AuthorisationStatus a owl:Class ; rdfs:label "Authorisation status"@en ; rsso:requirement "ORF-25" .
+rss-core:Rationale a owl:Class ; rdfs:label "Rationale"@en ; rsso:requirement "ORF-06", "ORF-48" .
+
+### Assertion classes
+
+rss-core:Assertion a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Assertion"@en ;
+    rsso:requirement "ORF-09", "ORF-31", "ORF-35" .
+
+rss-core:AssertedFact a owl:Class ; rdfs:subClassOf rss-core:Assertion ; rdfs:label "Asserted fact"@en ; rsso:requirement "ORF-09" .
+rss-core:Assumption a owl:Class ; rdfs:subClassOf rss-core:Assertion ; rdfs:label "Assumption"@en ; rsso:requirement "ORF-09" .
+rss-core:AssertedAbsence a owl:Class ; rdfs:subClassOf rss-core:Assertion ; rdfs:label "Asserted absence"@en ; rsso:requirement "ORF-35" .
+rss-core:BoundaryStatusAssertion a owl:Class ; rdfs:subClassOf rss-core:Assertion ; rdfs:label "Boundary-status assertion"@en ; rsso:requirement "ORF-05", "ORF-46" .
+rss-core:AuthorisationAssertion a owl:Class ; rdfs:subClassOf rss-core:Assertion ; rdfs:label "Authorisation assertion"@en ; rsso:requirement "ORF-25" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+        rss-core:AssertedFact rss-core:Assumption rss-core:AssertedAbsence
+        rss-core:BoundaryStatusAssertion rss-core:AuthorisationAssertion
+    ) .
+
+rss-core:BoundaryStatusValue a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-core:inScope rss-core:outOfScope rss-core:external rss-core:undeterminedBoundary ) ] ;
+    rdfs:label "Boundary-status value"@en ;
+    rsso:requirement "ORF-05" .
+
+rss-core:inScope a owl:NamedIndividual, rss-core:BoundaryStatusValue ; rdfs:label "in scope"@en .
+rss-core:outOfScope a owl:NamedIndividual, rss-core:BoundaryStatusValue ; rdfs:label "out of scope"@en .
+rss-core:external a owl:NamedIndividual, rss-core:BoundaryStatusValue ; rdfs:label "external"@en .
+rss-core:undeterminedBoundary a owl:NamedIndividual, rss-core:BoundaryStatusValue ; rdfs:label "undetermined boundary status"@en .
+
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-core:inScope rss-core:outOfScope rss-core:external rss-core:undeterminedBoundary ) .
+
+rss-core:EpistemicStatusValue a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-core:assertedFactStatus rss-core:assumptionStatus rss-core:assertedAbsenceStatus ) ] ;
+    rdfs:label "Epistemic-status value"@en ;
+    rsso:requirement "ORF-09", "ORF-35" .
+
+rss-core:assertedFactStatus a owl:NamedIndividual, rss-core:EpistemicStatusValue ; rdfs:label "asserted fact"@en .
+rss-core:assumptionStatus a owl:NamedIndividual, rss-core:EpistemicStatusValue ; rdfs:label "assumption"@en .
+rss-core:assertedAbsenceStatus a owl:NamedIndividual, rss-core:EpistemicStatusValue ; rdfs:label "asserted absence"@en .
+
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-core:assertedFactStatus rss-core:assumptionStatus rss-core:assertedAbsenceStatus ) .
+
+### Architecture object properties (OWL RBox)
+
+rss-core:hasAssetType a owl:ObjectProperty ; rdfs:domain rss-core:Asset ; rdfs:range rss-core:AssetType ; rdfs:label "has asset type"@en ; rsso:requirement "ORF-01" .
+rss-core:playsRole a owl:ObjectProperty ; rdfs:domain rss-core:Asset ; rdfs:range rss-core:SystemRole ; rdfs:label "plays role"@en ; rsso:requirement "ORF-01" .
+rss-core:realises a owl:ObjectProperty ; rdfs:domain rss-core:Asset ; rdfs:range rss-core:Function ; rdfs:label "realises"@en ; rsso:requirement "ORF-02" .
+rss-core:hasOrigin a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:InformationFlow ; rdfs:range rss-core:Element ; rdfs:label "has origin"@en ; rsso:requirement "ORF-03" .
+rss-core:hasDestination a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:InformationFlow ; rdfs:range rss-core:Element ; rdfs:label "has destination"@en ; rsso:requirement "ORF-03" .
+rss-core:traverses a owl:ObjectProperty ; rdfs:domain rss-core:InformationFlow ; rdfs:range rss-core:Interface ; rdfs:label "traverses"@en ; rsso:requirement "ORF-03" .
+rss-core:hasCharacteristic a owl:ObjectProperty ; rdfs:domain rss-core:InformationFlow ; rdfs:range rss-core:FlowCharacteristic ; rdfs:label "has characteristic"@en ; rsso:requirement "ORF-07" .
+rss-core:carriesPayload a owl:ObjectProperty ; rdfs:domain rss-core:InformationFlow ; rdfs:range rss-core:Payload ; rdfs:label "carries payload"@en ; rsso:requirement "Phase 2 Step 9.3" .
+rss-core:memberOf a owl:ObjectProperty ; rdfs:domain rss-core:Asset ; rdfs:range rss-core:Group ; rdfs:label "member of"@en ; rsso:requirement "ORF-04" .
+rss-core:connectsFrom a owl:ObjectProperty ; rdfs:domain rss-core:GroupConnection ; rdfs:range rss-core:Group ; rdfs:label "connects from"@en ; rsso:requirement "ORF-04" .
+rss-core:connectsTo a owl:ObjectProperty ; rdfs:domain rss-core:GroupConnection ; rdfs:range rss-core:Group ; rdfs:label "connects to"@en ; rsso:requirement "ORF-04" .
+
+rss-core:directlyDependsOn a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-core:Element rss-core:Function ) ] ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( rss-core:Element rss-core:Function ) ] ;
+    rdfs:label "directly depends on"@en ;
+    rsso:requirement "ORF-15" .
+
+rss-core:appliesToElement a owl:ObjectProperty ; rdfs:domain rss-core:ExaminationConstraint ; rdfs:range rss-core:Element ; rdfs:label "applies to element"@en ; rsso:requirement "ORF-24" .
+
+### Boundary, access and consequence properties
+
+rss-core:assertionSubject a owl:ObjectProperty ;
+    rdfs:domain rss-core:Assertion ;
+    rdfs:range owl:Thing ;
+    rdfs:label "assertion subject"@en ;
+    rsso:requirement "ORF-09", "ORF-35" .
+
+rss-core:assertionObjectResource a owl:ObjectProperty ;
+    rdfs:domain rss-core:Assertion ;
+    rdfs:range owl:Thing ;
+    rdfs:label "assertion object (resource branch)"@en ;
+    rsso:requirement "ORF-09", "ORF-35" .
+
+rss-core:assertionPredicateIri a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-core:Assertion ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "assertion predicate IRI"@en ;
+    rsso:requirement "ORF-09", "ORF-35" .
+
+rss-core:assertionObjectLiteral a owl:DatatypeProperty ;
+    rdfs:domain rss-core:Assertion ;
+    rdfs:range rdfs:Literal ;
+    rdfs:label "assertion object (literal branch)"@en ;
+    rsso:requirement "ORF-09", "ORF-35" .
+
+rss-core:hasEpistemicStatus a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:Assertion ; rdfs:range rss-core:EpistemicStatusValue ; rdfs:label "has epistemic status"@en ; rsso:requirement "ORF-09", "ORF-35" .
+rss-core:statusSubject a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:BoundaryStatusAssertion ; rdfs:range rss-core:Element ; rdfs:label "status subject"@en ; rsso:requirement "ORF-05" .
+rss-core:boundaryStatusValue a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:BoundaryStatusAssertion ; rdfs:range rss-core:BoundaryStatusValue ; rdfs:label "boundary status value"@en ; rsso:requirement "ORF-05" .
+rss-core:hasExclusionRationale a owl:ObjectProperty ; rdfs:domain rss-core:BoundaryStatusAssertion ; rdfs:range rss-core:Rationale ; rdfs:label "has exclusion rationale"@en ; rsso:requirement "ORF-06" .
+rss-core:authorisationSubject a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:AuthorisationAssertion ; rdfs:range rss-core:Element ; rdfs:label "authorisation subject"@en ; rsso:requirement "ORF-25" .
+rss-core:authorisationValue a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:AuthorisationAssertion ; rdfs:range rss-core:AuthorisationStatus ; rdfs:label "authorisation value"@en ; rsso:requirement "ORF-25" .
+rss-core:reachableBy a owl:ObjectProperty ; rdfs:domain rss-core:Element ; rdfs:range rss-core:AccessMechanism ; rdfs:label "reachable by"@en ; rsso:requirement "ORF-08" .
+rss-core:requiresPrecondition a owl:ObjectProperty ; rdfs:domain rss-core:AccessMechanism ; rdfs:range rss-core:AccessPrecondition ; rdfs:label "requires precondition"@en ; rsso:requirement "ORF-09" .
+rss-core:preconditionSupportedBy a owl:ObjectProperty ; rdfs:domain rss-core:AccessPrecondition ; rdfs:range rss-core:Assertion ; rdfs:label "precondition supported by"@en ; rsso:requirement "ORF-09" .
+rss-core:scenarioConcernsElement a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:PropertyLossScenario ; rdfs:range rss-core:Element ; rdfs:label "scenario concerns element"@en ; rsso:requirement "ORF-16" .
+rss-core:scenarioConcernsProperty a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-core:PropertyLossScenario ; rdfs:range rss-core:SecurityProperty ; rdfs:label "scenario concerns property"@en ; rsso:requirement "ORF-16" .
+rss-core:hasConsequence a owl:ObjectProperty ; rdfs:domain rss-core:PropertyLossScenario ; rdfs:range rss-core:Consequence ; rdfs:label "has consequence"@en ; rsso:requirement "ORF-17" .
+
+### Literal attributes
+
+rss-core:rationaleText a owl:DatatypeProperty ; rdfs:domain rss-core:Rationale ; rdfs:range xsd:string ; rdfs:label "rationale text"@en ; rsso:requirement "ORF-06", "ORF-48" .

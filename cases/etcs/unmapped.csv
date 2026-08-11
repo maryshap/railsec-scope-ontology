@@ -1,0 +1,5 @@
+source_sheet,source_field,reason
+DataObjects_Flat,all,No Gate B DataObject entity; preserve source workbook and add only after an approved extension decision.
+Actors & Roles,all,Actor is not a Gate B entity; do not collapse actors into SystemRole without review.
+Interfaces_Flat,security flag columns,Deferred until M5 characteristic vocabulary and epistemic mapping are domain-reviewed.
+Assets_Flat,SecurityLevel,Legacy security level is not SIL and is not mapped to SafetyIntegrityLevel.

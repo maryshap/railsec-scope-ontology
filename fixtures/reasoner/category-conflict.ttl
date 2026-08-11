@@ -1,0 +1,10 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/category-conflict/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+
+<https://w3id.org/railsec-scope/fixture/category-conflict> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/railway> .
+
+fx:impossible-flow a rss-rail:RailwayInformationFlow,
+        rss-rail:Category1Transmission,
+        rss-rail:Category2Transmission .

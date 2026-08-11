@@ -1,0 +1,18 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+CONSTRUCT {
+  ?element rdf:type rss-crit:CandidateExaminationTarget .
+}
+WHERE {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?element ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome rss-res:satisfied .
+  ?criterion rss-crit:determinesMembershipOf rss-crit:CandidateExaminationTarget .
+
+  # The rule is DL-safe by construction: every variable must already be bound
+  # to an explicitly named node in the declared input graph.
+  FILTER(isIRI(?evaluation) && isIRI(?element) && isIRI(?criterion))
+}

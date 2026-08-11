@@ -1,0 +1,77 @@
+entity	home_module	named_superclasses	domain_properties	range_properties	restriction_count	disjoint_with	k_constraints
+AssessorDecision	M4	VersionedArtefact	affectsSelection,concernsResult,hasRationale		0		K-13,K-14
+Exclusion	M4	AssessorDecision			0	Inclusion,Override	K-13,K-14
+Inclusion	M4	AssessorDecision			0	Exclusion,Override	K-13,K-14
+Override	M4	AssessorDecision			0	Exclusion,Inclusion	K-11,K-13,K-14,K-23,K-24
+AccessMechanism	M1		requiresPrecondition	reachableBy,usedAccessMechanism	0		
+AccessPrecondition	M1		preconditionSupportedBy	reliedOnPrecondition,requiresPrecondition	0		K-04
+AssertedAbsence	M1	Assertion			0	AssertedFact,Assumption,AuthorisationAssertion,BoundaryStatusAssertion	
+AssertedFact	M1	Assertion			0	AssertedAbsence,Assumption,AuthorisationAssertion,BoundaryStatusAssertion	K-04
+Assertion	M1	Entity	assertedInInstanceSet,assertionObjectLiteral,assertionObjectResource,assertionPredicateIri,assertionSubject,hasEpistemicStatus	changedAssertion,preconditionSupportedBy	0		K-04,K-08
+Asset	M1	Element	hasAssetType,memberOf,playsRole,realises		0	InformationFlow,Interface	
+AssetType	M1			hasAssetType	0		
+Assumption	M1	Assertion			0	AssertedAbsence,AssertedFact,AuthorisationAssertion,BoundaryStatusAssertion	K-04
+AuthorisationAssertion	M1	Assertion	authorisationSubject,authorisationValue		0	AssertedAbsence,AssertedFact,Assumption,BoundaryStatusAssertion	K-12
+AuthorisationStatus	M1			authorisationValue	0		K-12
+BoundaryStatusAssertion	M1	Assertion	boundaryStatusValue,hasExclusionRationale,statusSubject		0	AssertedAbsence,AssertedFact,Assumption,AuthorisationAssertion	K-01
+BoundaryStatusValue	M1			boundaryStatusValue	0		K-01
+Consequence	M1			hasConsequence	0		
+Element	M1		reachableBy	appliesToElement,authorisationSubject,evaluationConcernsElement,hasDestination,hasOrigin,includesElement,reachabilityConcerns,scenarioConcernsElement,statusSubject	0	Function	
+EpistemicStatusValue	M1			hasEpistemicStatus	0		K-04
+ExaminationConstraint	M1		appliesToElement		0		
+FlowCharacteristic	M1			hasCharacteristic	0		
+Function	M1			realises	0	Element	
+Group	M1			connectsFrom,connectsTo,memberOf	0		
+GroupConnection	M1		connectsFrom,connectsTo		0		
+InformationFlow	M1	Element	carriesPayload,hasCharacteristic,hasDestination,hasOrigin,traverses		0	Asset,Interface	K-03
+Interface	M1	Element		traverses	0	Asset,InformationFlow	K-03
+PropertyLossScenario	M1		hasConsequence,scenarioConcernsElement,scenarioConcernsProperty	evaluatesScenario	0		
+Rationale	M1		rationaleText	hasExclusionRationale,hasRationale	0		K-02,K-13,K-14
+SafetyFunction	M1	Function	failSafeDependsOn	affectsFunction	0		
+SecurityProperty	M1			scenarioConcernsProperty	0		
+SystemRole	M1			playsRole	0		
+ArtefactVersion	M2		versionIdentifier	hasVersion,usedVersion	0		K-07
+AssessmentBearingCategory	M2			assignsCategory,determinesMembershipOf	0		K-11,K-14,K-23,K-24
+CandidateExaminationTarget	M2	AssessmentBearingCategory			0	EntryPoint	K-11,K-23,K-24
+CoverageMeasure	M2	VersionedArtefact	eligibilityScope,exclusionDeclaration,measureDefinition	evaluatesMeasure	0	Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-17,K-18
+Criterion	M2	Entity,VersionedArtefact	appliesInterpretation,criterionStatement,derivedFromSourceLocation,determinesApplicabilityOf,determinesMembershipOf,evaluationStageIdentifier,lifecycleStatus,restsOnJudgement,stageCandidateTypeIri	appliedCriterion,evaluatesCriterion	0	CoverageMeasure,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-11,K-23,K-24
+Deprecation	M2		explicitNonReplacement,replacedBy	deprecatedBy	0		K-21
+EntryPoint	M2	AssessmentBearingCategory			0	CandidateExaminationTarget	
+ExternalComputationMethod	M2	Plan,VersionedArtefact		appliedComputation,producedByMethod	0	CoverageMeasure,Criterion,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-07,K-11,K-23,K-24
+Interpretation	M2		interpretationConfidence,interpretationProposition,interprets,reviewStatus	appliesInterpretation	0		K-05
+JudgementBasis	M2		revisionConditions	restsOnJudgement	0		K-05
+OntologyModule	M2	VersionedArtefact			0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-07,K-19,K-20
+OrderingFactor	M2	VersionedArtefact		determinesApplicabilityOf,hasFactor,valueOfFactor	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	
+OrderingFactorSet	M2	VersionedArtefact	hasFactor	usesFactorSet	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-15
+OutputProfile	M2	VersionedArtefact		underOutputProfile	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,PerformanceTarget,Selection	K-08
+Source	M2		accessCondition,fullReference,reproductionRestriction,sourceRole	editionOf	0		K-05,K-06
+SourceEdition	M2		accessDate,consultationStatus,editionLabel,editionOf,publicationDate,supersedesEdition	locatedInEdition,supersedesEdition	0		K-05,K-06
+SourceLocation	M2		locatedInEdition,sourceLocator	derivedFromSourceLocation,interprets	0		K-05,K-06
+TerminologyTerm	M2				0		K-21
+VersionedArtefact	M2	Entity	hasVersion		0		K-07
+CandidateSet	M3	DerivedResult	hasCandidateAssignment	measuredCandidateSet,ordersCandidateSet,selectionBasedOnCandidateSet	0	CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,RunComparison,SafetyImpactResult	K-18
+CategoryAssignment	M3	DerivedResult	assignsCategory,materialisesEvaluation	factorValueForCandidate,hasCandidateAssignment,ranksAssignment	3	CandidateSet,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,RunComparison,SafetyImpactResult	K-07,K-11,K-14,K-23,K-24
+ComputationOutcome	M3			hasComputationOutcome	0		
+CoverageResult	M3	DerivedResult	evaluatesMeasure,measuredCandidateSet,measuredSelection		0	CandidateSet,CategoryAssignment,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,RunComparison,SafetyImpactResult	K-18
+CriterionEvaluation	M3	DerivedResult	evaluatesCriterion,evaluationConcernsElement,hasEvaluationOutcome	materialisesEvaluation	3	CandidateSet,CategoryAssignment,CoverageResult,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,RunComparison,SafetyImpactResult	K-11,K-23,K-24
+DependencyChain	M3	DerivedResult	hasChainEntry	viaDependencyChain	0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,FactorValue,OrderingResult,ReachabilityResult,RunComparison,SafetyImpactResult	
+DependencyChainEntry	M3		chainNode,pathPosition	hasChainEntry	0		
+DerivationRecord	M3	Bundle	completenessStatus,hasStep,hasUnresolvedInput	hasDerivationRecord	0		K-08
+DerivationStep	M3	Activity	appliedComputation,appliedCriterion,executedByMechanism,generatedResult,layerIdentifier,stepPosition,usedEntity	hasStep	0		K-09
+DerivedResult	M3	Entity	hasDerivationRecord,producedByRun	changedResult,concernsResult,designatesResult,generatedResult	1		K-07,K-08
+EvaluationOutcome	M3			hasEvaluationOutcome	0		
+ExecutionEnvironment	M3		hardwareConfiguration,operatingSystem,runtimeVersions	executedInEnvironment	0		
+FactorValue	M3	DerivedResult	factorValueForCandidate,valueBasis,valueOfFactor		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,OrderingResult,ReachabilityResult,RunComparison,SafetyImpactResult	
+InstanceSet	M3	VersionedArtefact		assertedInInstanceSet,usedInstanceSet	0	CoverageMeasure,Criterion,ExternalComputationMethod,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-07
+MaterialFindingDesignation	M3		designatesResult,underOutputProfile		0		K-08
+Mechanism	M3	SoftwareAgent,VersionedArtefact		executedByMechanism	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-09
+OrderingEntry	M3		orderingPosition,ranksAssignment,tieIdentifier	hasOrderingEntry	0		K-15,K-16
+OrderingResult	M3	DerivedResult,VersionedArtefact	hasOrderingEntry,ordersCandidateSet,producedByMethod,usesFactorSet		0	CandidateSet,CategoryAssignment,CoverageMeasure,CoverageResult,Criterion,CriterionEvaluation,DependencyChain,ExternalComputationMethod,FactorValue,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OutputProfile,PerformanceTarget,ReachabilityResult,RunComparison,SafetyImpactResult,Selection	K-15,K-16
+PerformanceMeasurement	M3	Entity	assessedAgainstTarget,elapsedTimeSeconds,inputSize,inputSizeUnit,measuredRun		0		
+PerformanceTarget	M3	VersionedArtefact	representativeFixtureIdentifier,thresholdSeconds	assessedAgainstTarget	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,Selection	
+ReachabilityResult	M3	DerivedResult	reachabilityConcerns,reliedOnPrecondition,usedAccessMechanism		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,RunComparison,SafetyImpactResult	
+Run	M3	Activity	endTime,executedInEnvironment,runIdentifier,startTime,usedInstanceSet,usedVersion	comparesRun,measuredRun,producedByRun	0		K-07
+RunComparison	M3	DerivedResult	changedAssertion,changedResult,comparesRun		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,SafetyImpactResult	
+SafetyImpactResult	M3	DerivedResult	affectsFunction,evaluatesScenario,viaDependencyChain		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,RunComparison	
+Selection	M3	VersionedArtefact	includesElement,selectionBasedOnCandidateSet	affectsSelection,measuredSelection	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget	K-18
+UnresolvedInput	M3	Entity		hasUnresolvedInput	0		K-10

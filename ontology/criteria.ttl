@@ -1,0 +1,139 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/criteria> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/criteria> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <https://w3id.org/railsec-scope/core>,
+        <https://w3id.org/railsec-scope/ontology> ;
+    rsso:moduleCode "M2" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/criteria#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M2 Criteria"@en ;
+    dcterms:description "Criteria, assessment-bearing categories, sources, interpretation, versioning, factors, measures and output-profile terminology."@en .
+
+### Versioning and lifecycle
+
+rss-crit:VersionedArtefact a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Versioned artefact"@en ;
+    rsso:requirement "ORF-45" .
+
+rss-crit:ArtefactVersion a owl:Class ; rdfs:label "Artefact version"@en ; rsso:requirement "ORF-45" .
+rss-crit:OntologyModule a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Ontology module"@en ; rsso:requirement "ORF-43", "ORF-44", "ORF-45" .
+rss-crit:TerminologyTerm a owl:Class ; rdfs:label "Terminology term"@en ; rsso:requirement "ORF-47" .
+rss-crit:Deprecation a owl:Class ; rdfs:label "Deprecation"@en ; rsso:requirement "ORF-47" .
+
+### Criteria and assessment categories
+
+rss-crit:Criterion a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact, prov:Entity ;
+    rdfs:label "Criterion"@en ;
+    rsso:requirement "ORF-12", "ORF-26" .
+
+rss-crit:AssessmentBearingCategory a owl:Class ;
+    rdfs:label "Assessment-bearing category"@en ;
+    rsso:requirement "ORF-12", "ORF-13" .
+
+rss-crit:CandidateExaminationTarget a owl:Class, owl:NamedIndividual, rss-crit:AssessmentBearingCategory ;
+    rdfs:subClassOf rss-crit:AssessmentBearingCategory ;
+    rdfs:label "Candidate examination target"@en ;
+    rsso:requirement "ORF-12" .
+
+rss-crit:EntryPoint a owl:Class, owl:NamedIndividual, rss-crit:AssessmentBearingCategory ;
+    rdfs:subClassOf rss-crit:AssessmentBearingCategory ;
+    rdfs:label "Entry point"@en ;
+    rsso:requirement "ORF-10" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( rss-crit:CandidateExaminationTarget rss-crit:EntryPoint ) .
+
+rss-crit:ExternalComputationMethod a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact, prov:Plan ;
+    rdfs:label "External computation method"@en ;
+    rsso:requirement "ORF-12", "ORF-45" .
+
+### Sources and interpretations
+
+rss-crit:Source a owl:Class ; rdfs:label "Source"@en ; rsso:requirement "ORF-27" .
+rss-crit:SourceEdition a owl:Class ; rdfs:label "Source edition"@en ; rsso:requirement "ORF-27" .
+rss-crit:SourceLocation a owl:Class ; rdfs:label "Source location"@en ; rsso:requirement "ORF-27" .
+rss-crit:Interpretation a owl:Class ; rdfs:label "Interpretation"@en ; rsso:requirement "ORF-28" .
+rss-crit:JudgementBasis a owl:Class ; rdfs:label "Judgement basis"@en ; rsso:requirement "ORF-30" .
+
+### Ordering, coverage and output profiles
+
+rss-crit:OrderingFactor a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Ordering factor"@en ; rsso:requirement "ORF-20" .
+rss-crit:OrderingFactorSet a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Ordering factor set"@en ; rsso:requirement "ORF-22" .
+rss-crit:CoverageMeasure a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Coverage measure"@en ; rsso:requirement "ORF-40" .
+rss-crit:OutputProfile a owl:Class ; rdfs:subClassOf rss-crit:VersionedArtefact ; rdfs:label "Output profile"@en ; rsso:requirement "ORF-31" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+        rss-crit:OntologyModule rss-crit:Criterion rss-crit:ExternalComputationMethod
+        rss-crit:OrderingFactor rss-crit:OrderingFactorSet rss-crit:CoverageMeasure
+        rss-crit:OutputProfile
+    ) .
+
+### Object properties (OWL RBox)
+
+rss-crit:hasVersion a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:VersionedArtefact ; rdfs:range rss-crit:ArtefactVersion ;
+    rdfs:label "has version"@en ; rsso:requirement "ORF-45" .
+
+rss-crit:determinesMembershipOf a owl:ObjectProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-crit:AssessmentBearingCategory ;
+    rdfs:label "determines membership of"@en ; rsso:requirement "ORF-26" .
+
+rss-crit:determinesApplicabilityOf a owl:ObjectProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-crit:OrderingFactor ;
+    rdfs:label "determines applicability of"@en ; rsso:requirement "Gate A §4.1" .
+
+rss-crit:derivedFromSourceLocation a owl:ObjectProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range rss-crit:SourceLocation ; rdfs:label "derived from source location"@en ; rsso:requirement "ORF-27" .
+rss-crit:appliesInterpretation a owl:ObjectProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range rss-crit:Interpretation ; rdfs:label "applies interpretation"@en ; rsso:requirement "ORF-28" .
+rss-crit:restsOnJudgement a owl:ObjectProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range rss-crit:JudgementBasis ; rdfs:label "rests on judgement"@en ; rsso:requirement "ORF-30" .
+rss-crit:editionOf a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range rss-crit:Source ; rdfs:label "edition of"@en ; rsso:requirement "ORF-27" .
+rss-crit:locatedInEdition a owl:ObjectProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:SourceLocation ; rdfs:range rss-crit:SourceEdition ; rdfs:label "located in edition"@en ; rsso:requirement "ORF-27" .
+rss-crit:interprets a owl:ObjectProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range rss-crit:SourceLocation ; rdfs:label "interprets"@en ; rsso:requirement "ORF-28" .
+rss-crit:supersedesEdition a owl:ObjectProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range rss-crit:SourceEdition ; rdfs:label "supersedes edition"@en .
+rss-crit:hasFactor a owl:ObjectProperty ; rdfs:domain rss-crit:OrderingFactorSet ; rdfs:range rss-crit:OrderingFactor ; rdfs:label "has factor"@en ; rsso:requirement "ORF-22" .
+
+rss-crit:deprecatedBy a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-crit:TerminologyTerm rss-crit:Criterion ) ] ;
+    rdfs:range rss-crit:Deprecation ; rdfs:label "deprecated by"@en ; rsso:requirement "ORF-47" .
+
+rss-crit:replacedBy a owl:ObjectProperty ;
+    rdfs:domain rss-crit:Deprecation ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( rss-crit:TerminologyTerm rss-crit:Criterion ) ] ;
+    rdfs:label "replaced by"@en ; rsso:requirement "ORF-47" .
+
+### Literal attributes
+
+rss-crit:versionIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:ArtefactVersion ; rdfs:range xsd:string ; rdfs:label "version identifier"@en ; rsso:requirement "ORF-45" .
+rss-crit:criterionStatement a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:string ; rdfs:label "criterion statement"@en ; rsso:requirement "ORF-26" .
+rss-crit:evaluationStageIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:string ; rdfs:label "evaluation stage identifier"@en ; rsso:requirement "Phase 2 CR-B-011" .
+rss-crit:stageCandidateTypeIri a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:anyURI ; rdfs:label "stage candidate type IRI"@en ; rsso:requirement "Phase 2 CR-B-011" .
+rss-crit:lifecycleStatus a owl:DatatypeProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:string ; rdfs:label "lifecycle status"@en .
+rss-crit:fullReference a owl:DatatypeProperty ; rdfs:domain rss-crit:Source ; rdfs:range xsd:string ; rdfs:label "full reference"@en .
+rss-crit:sourceRole a owl:DatatypeProperty ; rdfs:domain rss-crit:Source ; rdfs:range xsd:string ; rdfs:label "source role"@en .
+rss-crit:accessCondition a owl:DatatypeProperty ; rdfs:domain rss-crit:Source ; rdfs:range xsd:string ; rdfs:label "access condition"@en .
+rss-crit:reproductionRestriction a owl:DatatypeProperty ; rdfs:domain rss-crit:Source ; rdfs:range xsd:string ; rdfs:label "reproduction restriction"@en ; rsso:requirement "ORN-05" .
+rss-crit:editionLabel a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range xsd:string ; rdfs:label "edition label"@en .
+rss-crit:publicationDate a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range xsd:date ; rdfs:label "publication date"@en .
+rss-crit:accessDate a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range xsd:date ; rdfs:label "access date"@en .
+rss-crit:consultationStatus a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "full" "partial" "secondary" ) ] ; rdfs:label "consultation status"@en .
+rss-crit:sourceLocator a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceLocation ; rdfs:range xsd:string ; rdfs:label "source locator"@en ; rsso:requirement "ORF-27" .
+rss-crit:interpretationProposition a owl:DatatypeProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range xsd:string ; rdfs:label "interpretation proposition"@en ; rsso:requirement "ORF-28" .
+rss-crit:reasoning a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( rss-crit:Interpretation rss-crit:JudgementBasis ) ] ; rdfs:range xsd:string ; rdfs:label "reasoning"@en .
+rss-crit:interpretationConfidence a owl:DatatypeProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "established" "reasoned" "provisional" ) ] ; rdfs:label "interpretation confidence"@en .
+rss-crit:reviewStatus a owl:DatatypeProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range xsd:string ; rdfs:label "review status"@en .
+rss-crit:revisionConditions a owl:DatatypeProperty ; rdfs:domain rss-crit:JudgementBasis ; rdfs:range xsd:string ; rdfs:label "revision conditions"@en ; rsso:requirement "ORF-30" .
+rss-crit:explicitNonReplacement a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Deprecation ; rdfs:range xsd:boolean ; rdfs:label "explicit non-replacement"@en ; rsso:requirement "ORF-47" .
+rss-crit:measureDefinition a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "measure definition"@en ; rsso:requirement "ORF-40" .
+rss-crit:eligibilityScope a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "eligibility scope"@en ; rsso:requirement "ORF-40" .
+rss-crit:exclusionDeclaration a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "exclusion declaration"@en ; rsso:requirement "ORF-40" .

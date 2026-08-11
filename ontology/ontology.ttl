@@ -1,0 +1,48 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/ontology> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/ontology> ;
+    owl:versionInfo "0.1.0" ;
+    dcterms:title "RailSec Scope Ontology"@en ;
+    dcterms:description "Ontology suite metadata for railway security-assessment scoping."@en .
+
+rsso:requirement a owl:AnnotationProperty ;
+    rdfs:label "requirement"@en ;
+    rdfs:comment "Identifier of the approved requirement that justifies a term or axiom."@en .
+
+rsso:homeModule a owl:AnnotationProperty ;
+    rdfs:label "home module"@en .
+
+rsso:moduleCode a owl:AnnotationProperty ;
+    rdfs:label "module code"@en .
+
+rsso:termNamespace a owl:AnnotationProperty ;
+    rdfs:label "term namespace"@en .
+
+rsso:constraintIdentifier a owl:AnnotationProperty ;
+    rdfs:label "constraint identifier"@en .
+
+rsso:definition a owl:AnnotationProperty ;
+    rdfs:label "definition"@en .
+
+rsso:documentsAddressedThreat a owl:AnnotationProperty ;
+    rdfs:label "documents addressed threat"@en ;
+    rdfs:comment "Documentation-only link from a named safeguard property to an EN 50159 threat term. It is not a classification axiom and must not be used by a reasoner to infer threat exposure."@en .
+
+rsso:sourceLocatorNote a owl:AnnotationProperty ;
+    rdfs:label "source locator note"@en ;
+    rdfs:comment "Non-normative locator note. A production Criterion still requires the full SourceLocation and Interpretation provenance branch."@en .
+
+rsso:stableIdentifier a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "stable identifier"@en .
+
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:source a owl:AnnotationProperty .
+xsd:date a rdfs:Datatype .

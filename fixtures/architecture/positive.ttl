@@ -1,0 +1,19 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix fx: <https://w3id.org/railsec-scope/fixture/architecture-positive/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+
+fx:version a rss-crit:ArtefactVersion ; rss-crit:versionIdentifier "fixture-1" .
+fx:instance-set a rss-res:InstanceSet ;
+    rss-crit:hasVersion fx:version ;
+    dcterms:source "Author-designed synthetic fixture; not railway evidence."@en .
+fx:run a rss-res:Run ; rss-res:usedInstanceSet fx:instance-set .
+fx:asset a rss-core:Asset, rss-core:Element .
+fx:boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:asset ;
+    rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    prov:wasGeneratedBy fx:run .

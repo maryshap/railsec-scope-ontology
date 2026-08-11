@@ -8,3 +8,13 @@ criticalIntegrityViolation	M5	individual	revision	CriticalViolationType	true	CR-
 assessesCriticalViolation	M5	objectProperty	revision	-	true	CR-B-013
 elevatesTransmissionThreat	M5	objectProperty	revision	-	true	CR-B-013
 assessesFailSafeCompromiseFrom	M5	objectProperty	revision	-	true	CR-B-014
+SILRiskType	M5	class	revision	-	true	CR-B-015
+maximumSILRisk	M5	individual	revision	SILRiskType	true	CR-B-015
+assessesSILRisk	M5	objectProperty	revision	-	true	CR-B-015
+AccessRiskType	M5	class	revision	-	true	CR-B-016
+privilegedMaintenanceAccessRisk	M5	individual	revision	AccessRiskType	true	CR-B-016
+privilegedSupplierAccessRisk	M5	individual	revision	AccessRiskType	true	CR-B-016
+highRiskMaintenancePath	M5	individual	revision	AccessRiskType	true	CR-B-016
+remoteAccessRisk	M5	individual	revision	AccessRiskType	true	CR-B-016
+assessesAccessRisk	M5	objectProperty	revision	-	true	CR-B-016
+assessesAccessMechanism	M5	objectProperty	revision	-	true	CR-B-016

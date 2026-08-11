@@ -22,6 +22,10 @@
 - Phase 2 Step 12.3: safety-critical elevation (M5-R04) implements legacy R2.3.1 and R2.3.2, the two Block 2.3 rules expressible with the approved payload distinction. It consumes upstream threat evaluations and payload classification, propagates both unknown inputs as `undetermined`, and never types a flow directly with a violation. Legacy R2.3.3 and R2.3.4 require an unapproved payload-vocabulary revision (CR-B-013).
 - Phase 2 Step 12.4: fail-safe compromise (M5-R05) implements legacy R2.4.1 and R2.4.2 as three-valued evaluations of safety-critical assets. It consumes incoming critical-violation evaluations and explicit `realises` / `failSafeDependsOn` architecture facts; unknown upstream results or dependencies remain `undetermined`. Legacy R2.4.3 is deferred because mobile-zone and remediation-priority vocabulary is not approved (CR-B-014).
 
+- Phase 2 Step 12.5: maximum SIL risk (M5-R06). Legacy v3 R2.5.3 implemented as an asset evaluation aggregating the fail-safe stage; an asset with no upstream evaluation receives no result rather than a default. Eleven tests, three mutation checks. R2.5.1 and R2.5.2 are blocked on an absent attack technique vocabulary (CR-B-015).
+
+- Phase 2 Step 12.6: access risk (M5-R07, M5-R08). Legacy v3 R2.6.1-R2.6.4 implemented across two subjects; R2.6.1 is re-subjected from the maintenance actor to the safety-critical asset because actors and roles are not in the approved model. Thirteen tests, five mutation checks (CR-B-016).
+
 ## Release blockers (not hidden as implementation completion)
 
 1. Every legacy-rule triage row is `domain-review-required`; M5 criterion/rule content cannot be released from unverified standard citations.
@@ -30,4 +34,5 @@
 4. DataObjects, Actors/Roles, interface security flags and the old AHP model remain explicitly unmapped, with reasons in `cases/etcs/unmapped.csv`.
 5. K-22 manual copyright/source-text review and w3id redirect registration remain release actions.
 6. The synthetic EN 50159 category criteria currently rest on an explicit provisional JudgementBasis. Exact standard edition, source locations and reviewed interpretations are still required before release.
-7. Threat, safety-critical elevation and fail-safe criteria are executable but remain provisional pending source review. SIL/override and access-path rule blocks, followed by the orchestrator/L3 implementation, remain Phase 2 work.
+7. Threat, safety-critical elevation, fail-safe, SIL-risk and access-risk criteria are executable but remain provisional pending source review. The orchestrator/L3 implementation remains Phase 2 work.
+8. The ETCS ABox explicitly types nine assets as `SafetyCriticalAsset`, but none of those classifications has a supporting `AssertedFact` or `JudgementBasis`. Because Steps 12.3–12.6 depend on that classification, this provenance gap must be resolved before the ETCS case is executed by the orchestrator; no source or judgement is fabricated as a default.

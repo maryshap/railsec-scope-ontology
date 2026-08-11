@@ -1,0 +1,92 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M5-R08 access path risk on an information flow (legacy v3 R2.6.2, R2.6.4).
+#
+# highRiskMaintenancePath: a flow terminating at a safety-critical asset whose
+#   origin is reachable by the assessed access mechanism. An unstated origin or
+#   an unstated access inventory on the origin is undetermined.
+# remoteAccessRisk: a flow reachable by the assessed access mechanism that also
+#   carries a satisfied transmission-threat evaluation. An undetermined threat
+#   propagates.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateAccessPathRisk ;
+      prov:used ?flow ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?flow a rss-rail:RailwayInformationFlow .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-rail:assessesAccessRisk ?risk ;
+      rss-rail:assessesAccessMechanism ?mechanismClass .
+  FILTER(?risk = rss-rail:highRiskMaintenancePath || ?risk = rss-rail:remoteAccessRisk)
+
+  # Maintenance path inputs.
+  BIND(EXISTS { ?flow rss-core:hasDestination ?safetyAsset . ?safetyAsset a rss-rail:SafetyCriticalAsset . } AS ?terminatesAtSafetyCritical)
+  BIND(EXISTS { ?flow rss-core:hasOrigin ?anyOrigin . } AS ?originStated)
+  BIND(EXISTS { ?flow rss-core:hasOrigin ?statedOrigin . ?statedOrigin rss-core:reachableBy ?anyOriginMechanism . } AS ?originInventoryStated)
+  BIND(EXISTS { ?flow rss-core:hasOrigin ?matchedOrigin . ?matchedOrigin rss-core:reachableBy ?originMechanism . ?originMechanism rdf:type ?mechanismClass . } AS ?originMechanismPresent)
+
+  # Remote access inputs.
+  BIND(EXISTS { ?flow rss-core:reachableBy ?anyFlowMechanism . } AS ?flowInventoryStated)
+  BIND(EXISTS { ?flow rss-core:reachableBy ?flowMechanism . ?flowMechanism rdf:type ?mechanismClass . } AS ?flowMechanismPresent)
+  BIND(EXISTS {
+    ?threatEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?threatCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:satisfied ;
+        rss-res:producedByRun ?run .
+    ?threatCriterion rss-rail:assessesTransmissionThreat ?anyThreat .
+  } AS ?anyThreatSatisfied)
+  BIND(EXISTS {
+    ?undeterminedEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?undeterminedCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:undetermined ;
+        rss-res:producedByRun ?run .
+    ?undeterminedCriterion rss-rail:assessesTransmissionThreat ?anyUndeterminedThreat .
+  } AS ?anyThreatUndetermined)
+  BIND(EXISTS {
+    ?knownEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?knownCriterion ;
+        rss-res:producedByRun ?run .
+    ?knownCriterion rss-rail:assessesTransmissionThreat ?anyKnownThreat .
+  } AS ?threatStageRan)
+
+  BIND(
+    IF(?risk = rss-rail:highRiskMaintenancePath,
+       IF(!?originStated || !?originInventoryStated, rss-res:undetermined,
+          IF(?terminatesAtSafetyCritical && ?originMechanismPresent, rss-res:satisfied, rss-res:notSatisfied)),
+       IF(!?flowInventoryStated || !?threatStageRan, rss-res:undetermined,
+          IF(!?flowMechanismPresent, rss-res:notSatisfied,
+             IF(?anyThreatSatisfied, rss-res:satisfied,
+                IF(?anyThreatUndetermined, rss-res:undetermined, rss-res:notSatisfied)))))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/access/", ENCODE_FOR_URI(STRAFTER(STR(?risk), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion) && isIRI(?risk))
+}

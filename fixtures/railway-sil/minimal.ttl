@@ -1,0 +1,20 @@
+@prefix fs: <https://w3id.org/railsec-scope/fixture/railway-fail-safe/> .
+@prefix sil: <https://w3id.org/railsec-scope/fixture/railway-sil/> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sil:sil-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Provisional refactoring of legacy v3 R2.5.3. A safety-critical asset whose fail-safe mechanism is itself compromised is the worst case. The legacy clause claims are implementation history, not normative evidence."@en ;
+    rss-crit:revisionConditions "Replace with reviewed IEC 61508 and EN 50126 SourceLocation and Interpretation records before release. Decide separately whether an explicit SIL-4 assignment is required in addition to safety-critical class membership."@en .
+
+sil:maximum-risk-criterion a rss-crit:Criterion ;
+    rss-rail:assessesSILRisk rss-rail:maximumSILRisk ;
+    rss-crit:restsOnJudgement sil:sil-basis ;
+    rss-crit:criterionStatement "A safety-critical asset whose fail-safe compromise evaluation is satisfied carries the maximum SIL risk."@en ;
+    rss-crit:evaluationStageIdentifier "sil-risk" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#SafetyCriticalAsset"^^xsd:anyURI .
+
+# Decisive negative case for the aggregation: an asset whose fail-safe stage
+# never runs must receive no SIL evaluation at all, rather than a default.
+sil:no-upstream-asset a rss-rail:SafetyCriticalAsset .

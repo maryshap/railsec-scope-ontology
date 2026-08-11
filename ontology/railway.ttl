@@ -118,9 +118,9 @@ rss-rail:sil4 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label 
 [] a owl:AllDifferent ; owl:distinctMembers ( rss-rail:sil0 rss-rail:sil1 rss-rail:sil2 rss-rail:sil3 rss-rail:sil4 ) .
 
 rss-rail:RailwaySecurityZone a owl:Class ; rdfs:subClassOf rss-core:Group ; rdfs:label "Railway security zone"@en .
-rss-rail:MaintenanceAccess a owl:Class ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Maintenance access"@en .
-rss-rail:SupplierAccess a owl:Class ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Supplier access"@en .
-rss-rail:RemoteAccess a owl:Class ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Remote access"@en .
+rss-rail:MaintenanceAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Maintenance access"@en .
+rss-rail:SupplierAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Supplier access"@en .
+rss-rail:RemoteAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Remote access"@en .
 [] a owl:AllDisjointClasses ; owl:members ( rss-rail:MaintenanceAccess rss-rail:SupplierAccess rss-rail:RemoteAccess ) .
 
 rss-rail:hasSafetyIntegrityLevel a owl:ObjectProperty, owl:FunctionalProperty ;
@@ -164,3 +164,42 @@ rss-rail:assessesFailSafeCompromiseFrom a owl:ObjectProperty, owl:FunctionalProp
     rdfs:domain rss-crit:Criterion ;
     rdfs:range rss-rail:CriticalViolationType ;
     rdfs:label "assesses fail-safe compromise from"@en .
+
+### SIL risk evaluation (Step 12.5, CR-B-015)
+# Legacy v3 R2.5.3: a fail-safe compromise on a safety-critical asset is the
+# maximum SIL risk. Expressed as a criterion outcome; no asset is typed with a
+# risk class. R2.5.1 and R2.5.2 are not implemented: they require an attack
+# technique vocabulary that the approved model does not contain.
+
+rss-rail:SILRiskType a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-rail:maximumSILRisk ) ] ;
+    rdfs:label "SIL risk type"@en .
+rss-rail:maximumSILRisk a owl:NamedIndividual, rss-rail:SILRiskType ; rdfs:label "Maximum SIL risk"@en .
+
+rss-rail:assessesSILRisk a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-rail:SILRiskType ;
+    rdfs:label "assesses SIL risk"@en .
+
+### Access risk evaluation (Step 12.6, CR-B-016)
+# Legacy v3 R2.6.1-R2.6.4. Expressed as criterion outcomes; no element is typed
+# with a risk class. R2.6.1 is re-subjected from the maintenance actor to the
+# safety-critical asset, because actors and roles are not in the approved model.
+
+rss-rail:AccessRiskType a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        rss-rail:privilegedMaintenanceAccessRisk rss-rail:privilegedSupplierAccessRisk
+        rss-rail:highRiskMaintenancePath rss-rail:remoteAccessRisk ) ] ;
+    rdfs:label "Access risk type"@en .
+rss-rail:privilegedMaintenanceAccessRisk a owl:NamedIndividual, rss-rail:AccessRiskType ; rdfs:label "Privileged maintenance access risk"@en .
+rss-rail:privilegedSupplierAccessRisk a owl:NamedIndividual, rss-rail:AccessRiskType ; rdfs:label "Privileged supplier access risk"@en .
+rss-rail:highRiskMaintenancePath a owl:NamedIndividual, rss-rail:AccessRiskType ; rdfs:label "High-risk maintenance path"@en .
+rss-rail:remoteAccessRisk a owl:NamedIndividual, rss-rail:AccessRiskType ; rdfs:label "Remote access risk"@en .
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-rail:privilegedMaintenanceAccessRisk rss-rail:privilegedSupplierAccessRisk rss-rail:highRiskMaintenancePath rss-rail:remoteAccessRisk ) .
+
+rss-rail:assessesAccessRisk a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-rail:AccessRiskType ;
+    rdfs:label "assesses access risk"@en .
+rss-rail:assessesAccessMechanism a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-core:AccessMechanism ;
+    rdfs:label "assesses access mechanism"@en .

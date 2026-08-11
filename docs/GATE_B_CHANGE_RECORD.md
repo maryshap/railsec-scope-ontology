@@ -137,3 +137,70 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Scope limitation:** legacy R2.4.1 and R2.4.2 are implemented provisionally. R2.4.3 is deferred because `MobileOperationalZone` and a governed remediation-priority result are absent from the approved vocabulary; neither is invented in this step.
 - **Provenance status:** the criteria rest on a provisional `JudgementBasis`. The legacy clause claims are implementation history, not normative evidence; reviewed source locations and interpretations remain release requirements.
 - **Reapproval required:** yes before public release.
+
+## CR-B-015 — SIL risk vocabulary (Step 12.5)
+
+**Change.** M5 gains `SILRiskType` (closed set containing `maximumSILRisk`) and
+the functional object property `assessesSILRisk` on `Criterion`.
+
+**Admission class.** Revision. `SILRiskType` is a new conceptual entity rather
+than a specialisation below one of the frozen 76 classes, and both terms
+participate in criteria and therefore in evaluation results.
+
+**Rationale.** Legacy v3 R2.5.3 states that a fail-safe compromise on a
+safety-critical asset is the worst case, consumed downstream as the maximum-risk
+override. It is modelled as a criterion outcome aggregating the fail-safe stage:
+any satisfied compromise is sufficient, an undetermined compromise propagates,
+and only a wholly negative input set concludes notSatisfied. No asset is typed
+with a risk class, so ORF-12 and ORF-13 remain structurally enforced.
+
+**Not implemented, with reasons.** Legacy v3 R2.5.1 and R2.5.2 classify attacks
+on safety-critical and safety-related assets as SIL-critical and SIL-relevant.
+Both require an attack technique vocabulary, which the approved model does not
+contain and which would be a further conceptual revision. They are deferred
+rather than approximated.
+
+**Criterion decision deferred.** The legacy rationale equates a safety-critical
+asset with SIL 4. The implemented criterion uses safety-critical class
+membership only and does not consult `hasSafetyIntegrityLevel`, so an asset
+without a recorded SIL is not treated as unknown at this stage. Requiring an
+explicit SIL-4 assignment, and returning undetermined where none is recorded, is
+a defensible alternative and is recorded here for decision rather than chosen
+silently.
+
+**Provenance status.** The criterion rests on a recorded provisional
+`JudgementBasis`. Reviewed IEC 61508 and EN 50126 source locations and
+interpretations are still required before release.
+
+**Closed-set note.** `SILRiskType` currently contains one individual. Adding the
+deferred SIL attack types later changes a closed value set and is therefore a
+versioned change under D-B6, not an extension.
+
+## CR-B-016 — access risk vocabulary (Step 12.6)
+
+**Change.** M5 gains `AccessRiskType` (closed set of four individuals:
+`privilegedMaintenanceAccessRisk`, `privilegedSupplierAccessRisk`,
+`highRiskMaintenancePath`, `remoteAccessRisk`) and two functional object
+properties on `Criterion`: `assessesAccessRisk` and `assessesAccessMechanism`.
+
+**Admission class.** Revision. `AccessRiskType` is a new conceptual entity and
+all terms participate in criteria and therefore in evaluation results.
+
+**Subject change, recorded rather than silent.** Legacy v3 R2.6.1 attributes
+privileged access risk to the maintenance *actor*. Actors and roles are not in
+the approved model and are listed as unmapped in the ETCS case. The criterion is
+therefore re-subjected onto the safety-critical asset that the mechanism
+reaches. This preserves the scoping intent, since the artefact scopes elements
+rather than people, but it is a change of subject and not a translation. If an
+actor and role vocabulary is later admitted, the criterion should be restated on
+its original subject.
+
+**Epistemic treatment of access.** An element with no `reachableBy` statement at
+all is undetermined: an unstated access inventory is not evidence that no access
+exists. An element with a stated inventory that does not contain the assessed
+mechanism is notSatisfied. This distinction is the reason the stage needs three
+values, and it is the point most likely to be lost in a later refactoring.
+
+**Provenance status.** All four criteria rest on a recorded provisional
+`JudgementBasis`. Reviewed TS 50701 source locations and interpretations are
+still required before release.

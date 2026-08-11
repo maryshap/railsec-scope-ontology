@@ -3,7 +3,7 @@ AssessorDecision	M4	VersionedArtefact	affectsSelection,concernsResult,hasRationa
 Exclusion	M4	AssessorDecision			0	Inclusion,Override	K-13,K-14
 Inclusion	M4	AssessorDecision			0	Exclusion,Override	K-13,K-14
 Override	M4	AssessorDecision			0	Exclusion,Inclusion	K-11,K-13,K-14,K-23,K-24
-AccessMechanism	M1		requiresPrecondition	reachableBy,usedAccessMechanism	0		
+AccessMechanism	M1		requiresPrecondition	assessesAccessMechanism,reachableBy,usedAccessMechanism	0		
 AccessPrecondition	M1		preconditionSupportedBy	reliedOnPrecondition,requiresPrecondition	0		K-04
 AssertedAbsence	M1	Assertion			0	AssertedFact,Assumption,AuthorisationAssertion,BoundaryStatusAssertion	
 AssertedFact	M1	Assertion			0	AssertedAbsence,Assumption,AuthorisationAssertion,BoundaryStatusAssertion	K-04
@@ -34,7 +34,7 @@ ArtefactVersion	M2		versionIdentifier	hasVersion,usedVersion	0		K-07
 AssessmentBearingCategory	M2			assignsCategory,determinesMembershipOf	0		K-11,K-14,K-23,K-24
 CandidateExaminationTarget	M2	AssessmentBearingCategory			0	EntryPoint	K-11,K-23,K-24
 CoverageMeasure	M2	VersionedArtefact	eligibilityScope,exclusionDeclaration,measureDefinition	evaluatesMeasure	0	Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-17,K-18
-Criterion	M2	Entity,VersionedArtefact	appliesInterpretation,assessesCriticalViolation,assessesFailSafeCompromiseFrom,assessesTransmissionThreat,criterionStatement,derivedFromSourceLocation,determinesApplicabilityOf,determinesMembershipOf,elevatesTransmissionThreat,evaluationStageIdentifier,lifecycleStatus,restsOnJudgement,stageCandidateTypeIri	appliedCriterion,evaluatesCriterion	0	CoverageMeasure,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-11,K-23,K-24
+Criterion	M2	Entity,VersionedArtefact	appliesInterpretation,assessesAccessMechanism,assessesAccessRisk,assessesCriticalViolation,assessesFailSafeCompromiseFrom,assessesSILRisk,assessesTransmissionThreat,criterionStatement,derivedFromSourceLocation,determinesApplicabilityOf,determinesMembershipOf,elevatesTransmissionThreat,evaluationStageIdentifier,lifecycleStatus,restsOnJudgement,stageCandidateTypeIri	appliedCriterion,evaluatesCriterion	0	CoverageMeasure,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-11,K-23,K-24
 Deprecation	M2		explicitNonReplacement,replacedBy	deprecatedBy	0		K-21
 EntryPoint	M2	AssessmentBearingCategory			0	CandidateExaminationTarget	
 ExternalComputationMethod	M2	Plan,VersionedArtefact		appliedComputation,producedByMethod	0	CoverageMeasure,Criterion,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-07,K-11,K-23,K-24

@@ -9,7 +9,7 @@
 | 4 — K-01–K-24 | Implemented; K-22 has a mandatory manual component | shapes, orchestrator queries, build lint and negative test evidence |
 | 5 — instance profile | Complete | profile document and architecture fixtures |
 | 6 — M5 | Structural scaffold complete; domain criteria blocked pending review | 54-row triage matrix and `railway.ttl` |
-| 7 — CQ suite | All 45 executable; full P/N/U oracle suite remains | `queries/cq/`, smoke test and full CQ-09 regression |
+| 7 — CQ suite | All 45 executable and classified; 9 have value oracles, 4 are empty by design, 32 are explicitly pending | `queries/cq/`, CQ registry and vertical-slice regression |
 | 8 — ETCS case | Structural migration complete; semantic result equivalence intentionally not claimed | case ABox, mapping/unmapped tables and comparison record |
 
 This distinction is deliberate: software execution is complete enough to expose the remaining scientific/domain decisions, but those decisions are not fabricated by the implementation.

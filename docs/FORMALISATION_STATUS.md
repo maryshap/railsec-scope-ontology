@@ -12,7 +12,7 @@
 - Step 4: K-01–K-24 have allocated executable SHACL/query/lint artefacts; negative evidence proves every local shape and automated build guard fires. K-22 still requires the recorded manual publication review.
 - Step 5: railway architecture instance profile and minimal conforming/non-conforming fixtures.
 - Step 6: 54/54 legacy rules have explicit `map` or `refactor` decisions. M5 contains the reviewed structural scaffold for transmission categories, seven threat types, railway asset safety classes, SIL values, access and fail-safe dependency.
-- Step 7: CQ-01–CQ-45 all exist, parse and execute against representative fixtures. CQ-09 has a full expected-answer regression.
+- Step 7: CQ-01–CQ-45 all exist and parse. The coverage registry records 9 value-oracle CQs, 4 empty-by-design CQs and 32 explicitly pending CQs; CQ-09 has a full vertical-slice regression.
 - Step 8: the legacy workbook was inspected sheet-by-sheet and mapped (not copied) into a 4,123-triple ETCS M6 ABox. It passes OWL 2 DL, HermiT and structural SHACL; unmapped source fields and legacy-result differences are accounted for.
 - Phase 2 Step 9: the first M5 executable slice separates architecture facts, attributed access-exclusion assumptions, three-valued CriterionEvaluation records and entailed EN 50159 category membership. Payload, threat and eight channel-defence terms are present; safeguard/threat links are documentation annotations only.
 - Phase 2 Step 10: `undeterminedBoundary` is explicit and boundary-assessment coverage retains it in the denominator.
@@ -22,7 +22,7 @@
 ## Release blockers (not hidden as implementation completion)
 
 1. Every legacy-rule triage row is `domain-review-required`; M5 criterion/rule content cannot be released from unverified standard citations.
-2. CQ-01–CQ-45 still need their complete Gate A P/N/U expected-answer fixture matrix; parsing and smoke execution alone are not scientific validation.
+2. The 32 pending CQs still need their Gate A P/N/U expected-answer fixtures and value oracles; the registry makes this gap visible but does not close it.
 3. The workbook-derived boundary mapping (External primary zone → `external`, otherwise `inScope`) needs domain approval.
 4. DataObjects, Actors/Roles, interface security flags and the old AHP model remain explicitly unmapped, with reasons in `cases/etcs/unmapped.csv`.
 5. K-22 manual copyright/source-text review and w3id redirect registration remain release actions.

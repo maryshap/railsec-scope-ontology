@@ -55,7 +55,7 @@ class CriterionVerticalSliceTest(unittest.TestCase):
             len(list(graph.query((PROJECT / "queries" / "K-23-assignment-agreement.rq").read_text(encoding="utf-8")))),
         )
         answers = list(
-            graph.query((PROJECT / "queries" / "CQ-09-candidates.rq").read_text(encoding="utf-8"))
+            graph.query((PROJECT / "queries" / "cq" / "CQ-09.rq").read_text(encoding="utf-8"))
         )
         self.assertEqual(1, len(answers))
         self.assertEqual(element, answers[0].element)

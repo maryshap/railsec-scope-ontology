@@ -92,3 +92,29 @@ rss-sh:TransmissionThreatEvaluationTraceabilityShape a sh:NodeShape ;
           }
         """
     ] .
+
+rss-sh:CriticalViolationEvaluationTraceabilityShape a sh:NodeShape ;
+    sh:targetClass rss-res:CriterionEvaluation ;
+    sh:sparql [
+        sh:message "A critical-violation evaluation must cite its upstream threat evaluation for the same flow and Run."@en ;
+        sh:select """
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            $this rss-res:evaluationConcernsElement ?flow ;
+              rss-res:evaluatesCriterion ?criticalCriterion ;
+              rss-res:producedByRun ?run ;
+              rss-res:hasDerivationRecord/rss-res:hasStep ?step .
+            ?criticalCriterion rss-rail:assessesCriticalViolation ?violation ;
+              rss-rail:elevatesTransmissionThreat ?threat .
+            FILTER NOT EXISTS {
+              ?step rss-res:usedEntity ?threatEvaluation .
+              ?threatEvaluation a rss-res:CriterionEvaluation ;
+                rss-res:evaluationConcernsElement ?flow ;
+                rss-res:evaluatesCriterion ?threatCriterion ;
+                rss-res:producedByRun ?run .
+              ?threatCriterion rss-rail:assessesTransmissionThreat ?threat .
+            }
+          }
+        """
+    ] .

@@ -1,0 +1,69 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M5-R04 safety-critical elevation. The rule requires an upstream threat
+# evaluation for the same flow and Run. An undetermined threat outcome or an
+# unknown payload classification propagates as undetermined.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateCriticalViolation ;
+      rss-res:usedEntity ?threatEvaluation ;
+      prov:used ?flow, ?payload ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?flow a rss-rail:RailwayInformationFlow .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-rail:assessesCriticalViolation ?violation ;
+      rss-rail:elevatesTransmissionThreat ?threat .
+
+  ?threatEvaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?threatCriterion ;
+      rss-res:hasEvaluationOutcome ?threatOutcome ;
+      rss-res:producedByRun ?run .
+  ?threatCriterion rss-rail:assessesTransmissionThreat ?threat .
+
+  # Absence of a payload statement is unknown, not a negative assertion.
+  OPTIONAL {
+    ?flow rss-core:carriesPayload ?payload .
+    OPTIONAL { ?payload a rss-rail:SafetyRelatedPayload . BIND(true AS ?safetyPayload) }
+    OPTIONAL { ?payload a rss-rail:NonSafetyPayload . BIND(false AS ?nonSafetyPayload) }
+  }
+
+  BIND(IF(BOUND(?safetyPayload), true,
+          IF(BOUND(?nonSafetyPayload), false, ?unboundPayload)) AS ?payloadSafetyRelated)
+  BIND(?threatOutcome = rss-res:satisfied AS ?threatExposed)
+  BIND(?threatOutcome = rss-res:undetermined AS ?threatUndetermined)
+
+  BIND(
+    IF(?threatUndetermined, rss-res:undetermined,
+       IF(!?threatExposed, rss-res:notSatisfied,
+          IF(!BOUND(?payloadSafetyRelated), rss-res:undetermined,
+             IF(?payloadSafetyRelated, rss-res:satisfied, rss-res:notSatisfied))))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/critical/", ENCODE_FOR_URI(STRAFTER(STR(?violation), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion) && isIRI(?violation) && isIRI(?threat))
+}

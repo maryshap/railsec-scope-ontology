@@ -119,3 +119,12 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Rejected alternative:** assert legacy `*Vulnerability` classes directly on flows or infer threat exposure from M5 safeguard annotations. The first conflicts with the threat taxonomy and hides unknowns; the second turns documentation links into unsourced executable criteria.
 - **Implementation consequence:** Step 12.2 produces seven evaluations per railway flow and no direct threat membership. Legacy R2.2 mappings remain a provisional `JudgementBasis` until reviewed standard `SourceLocation` and `Interpretation` records are supplied.
 - **Reapproval required:** yes before public release because the provisional mappings are not normative evidence.
+
+## CR-B-013 — Safety-critical elevation vocabulary (Step 12.3)
+
+- **Change:** M5 gains `CriticalViolationType`, a closed set containing `criticalAuthenticityViolation` and `criticalIntegrityViolation`, plus the functional Criterion properties `assessesCriticalViolation` and `elevatesTransmissionThreat`.
+- **Admission class:** revision, not extension. The type is a new conceptual entity rather than a specialisation below one of the frozen 76 classes, and all five terms participate in criteria and therefore in evaluation results. Conceptual reapproval is required before release.
+- **Rationale:** the provisional interpretation gives masquerade and corruption the highest priority for safety-related communication. Elevation is a criterion outcome, mirroring the transmission-threat stage; no flow is typed directly with a violation class, preserving ORF-12 and ORF-13.
+- **Rejected alternative:** copy all four legacy Block 2.4 rules by inventing emergency-command and position-status payload classes. Only the two rules expressible using the approved `SafetyRelatedPayload` / `NonSafetyPayload` distinction are implemented. Delay elevation on emergency-command payload and resequencing elevation on position-status payload remain deferred until a separate payload-vocabulary revision is approved.
+- **Provenance status:** the two criteria rest on a provisional `JudgementBasis`. Exact EN 50159 edition, source location and reviewed interpretation are required before release, as for the category and threat stages.
+- **Reapproval required:** yes before public release.

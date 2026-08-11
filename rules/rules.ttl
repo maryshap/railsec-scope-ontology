@@ -39,6 +39,13 @@ rss-rule:EvaluateTransmissionThreat a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:enabled true ;
     dcterms:description "Produces three-valued evaluations for the seven EN 50159 transmission threats. It consumes upstream category evaluations and never types a flow as a threat class."@en .
 
+rss-rule:EvaluateCriticalViolation a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-critical-violation.rq" ;
+    rss-rule:ruleIdentifier "M5-R04" ;
+    rss-rule:enabled true ;
+    dcterms:description "Elevates a satisfied transmission-threat evaluation to a critical violation evaluation when the flow carries a safety-related payload. Consumes threat CriterionEvaluation records rather than class membership, and propagates undetermined from either the threat outcome or an unknown payload classification."@en .
+
 rss-rule:DLSafeRule a owl:Class .
 rss-rule:implementationFile a owl:DatatypeProperty .
 rss-rule:ruleIdentifier a owl:DatatypeProperty .

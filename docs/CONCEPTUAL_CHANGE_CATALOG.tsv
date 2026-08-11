@@ -2,3 +2,8 @@ term	home_module	term_kind	change_kind	named_parent	participates_in_k_or_cq	chan
 Payload	M1	class	revision	-	false	CR-B-008
 evaluationStageIdentifier	M2	datatypeProperty	revision	-	true	CR-B-011
 stageCandidateTypeIri	M2	datatypeProperty	revision	-	true	CR-B-011
+CriticalViolationType	M5	class	revision	-	true	CR-B-013
+criticalAuthenticityViolation	M5	individual	revision	CriticalViolationType	true	CR-B-013
+criticalIntegrityViolation	M5	individual	revision	CriticalViolationType	true	CR-B-013
+assessesCriticalViolation	M5	objectProperty	revision	-	true	CR-B-013
+elevatesTransmissionThreat	M5	objectProperty	revision	-	true	CR-B-013

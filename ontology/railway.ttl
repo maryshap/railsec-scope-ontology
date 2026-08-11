@@ -131,3 +131,29 @@ rss-rail:failSafeDependsOn a owl:ObjectProperty ;
     rdfs:domain rss-core:SafetyFunction ;
     rdfs:range [ a owl:Class ; owl:unionOf ( rss-core:Element rss-core:Function ) ] ;
     rdfs:label "fail-safe depends on"@en .
+
+### Safety-critical elevation (Step 12.3, CR-B-013)
+# The provisional Step 12.3 interpretation elevates masquerade (authenticity)
+# and corruption (integrity) for safety-related communication. The exact
+# normative source remains a release requirement. Elevation is expressed as a
+# criterion outcome, never as a class typed onto a flow.
+
+rss-rail:CriticalViolationType a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-rail:criticalAuthenticityViolation rss-rail:criticalIntegrityViolation ) ] ;
+    rdfs:label "Critical violation type"@en .
+rss-rail:criticalAuthenticityViolation a owl:NamedIndividual, rss-rail:CriticalViolationType ;
+    rdfs:label "Critical authenticity violation"@en .
+rss-rail:criticalIntegrityViolation a owl:NamedIndividual, rss-rail:CriticalViolationType ;
+    rdfs:label "Critical integrity violation"@en .
+[] a owl:AllDifferent ;
+    owl:distinctMembers ( rss-rail:criticalAuthenticityViolation rss-rail:criticalIntegrityViolation ) .
+
+rss-rail:assessesCriticalViolation a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-rail:CriticalViolationType ;
+    rdfs:label "assesses critical violation"@en .
+
+rss-rail:elevatesTransmissionThreat a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-rail:TransmissionThreat ;
+    rdfs:label "elevates transmission threat"@en .

@@ -29,6 +29,15 @@ MODULE_NAMESPACES = {
     "M4": Namespace("https://w3id.org/railsec-scope/assessment#"),
 }
 
+# M1-M4 are the frozen 76-class Gate B catalogue. M5 is not part of that
+# count, but its explicit conceptual revisions are still governed and must be
+# checked against the railway module.
+GOVERNED_MODULE_FILES = {**MODULE_FILES, "M5": "railway.ttl"}
+GOVERNED_MODULE_NAMESPACES = {
+    **MODULE_NAMESPACES,
+    "M5": Namespace("https://w3id.org/railsec-scope/railway#"),
+}
+
 
 def parse_gate_b() -> tuple[set[str], dict[str, list[str]]]:
     text = GATE_B.read_text(encoding="utf-8")
@@ -69,7 +78,7 @@ def parse_conceptual_changes() -> list[dict[str, str]]:
         if not line.strip():
             continue
         term, module, term_kind, change_kind, named_parent, participates, change_record = line.split("\t")
-        if module not in MODULE_FILES or term_kind not in {"class", "objectProperty", "datatypeProperty", "individual"}:
+        if module not in GOVERNED_MODULE_FILES or term_kind not in {"class", "objectProperty", "datatypeProperty", "individual"}:
             raise RuntimeError(f"Invalid conceptual change row: {line}")
         if change_kind not in {"extension", "revision"} or participates not in {"true", "false"} or not change_record.startswith("CR-B-"):
             raise RuntimeError(f"Invalid conceptual change governance fields: {line}")
@@ -129,12 +138,12 @@ def audit(selected: list[str]) -> int:
         "individual": OWL.NamedIndividual,
     }
     for change in changes:
-        graph = Graph().parse(ONTOLOGY_DIR / MODULE_FILES[change["module"]])
-        term = MODULE_NAMESPACES[change["module"]][change["term"]]
+        graph = Graph().parse(ONTOLOGY_DIR / GOVERNED_MODULE_FILES[change["module"]])
+        term = GOVERNED_MODULE_NAMESPACES[change["module"]][change["term"]]
         if (term, RDF.type, kind_to_type[change["term_kind"]]) not in graph:
             failures.append(f"{change['module']}: governed {change['term_kind']} is not declared: {change['term']}")
         if change["change_kind"] == "extension":
-            parent = MODULE_NAMESPACES[change["module"]][change["named_parent"]]
+            parent = GOVERNED_MODULE_NAMESPACES[change["module"]][change["named_parent"]]
             if (term, RDFS.subClassOf, parent) not in graph:
                 failures.append(f"{change['module']}: extension lacks declared approved parent {change['named_parent']}: {change['term']}")
 

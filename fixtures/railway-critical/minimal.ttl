@@ -1,0 +1,59 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
+@prefix th: <https://w3id.org/railsec-scope/fixture/railway-threat/> .
+@prefix cv: <https://w3id.org/railsec-scope/fixture/railway-critical/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cv:critical-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Provisional refactoring of legacy R2.4.1 and R2.4.2 into three-valued elevation evaluations. EN 50159 gives masquerade and corruption the highest priority for safety-related communication; the exact source location and reviewed interpretation are still required."@en ;
+    rss-crit:revisionConditions "Replace with reviewed EN 50159 SourceLocation and Interpretation records, and decide whether the finer legacy payload distinctions (emergency command, position status) are admitted, before release."@en .
+
+cv:authenticity-criterion a rss-crit:Criterion ;
+    rss-rail:assessesCriticalViolation rss-rail:criticalAuthenticityViolation ;
+    rss-rail:elevatesTransmissionThreat rss-rail:MasqueradeThreat ;
+    rss-crit:restsOnJudgement cv:critical-basis ;
+    rss-crit:criterionStatement "A masquerade-exposed flow carrying a safety-related payload is a critical authenticity violation."@en ;
+    rss-crit:evaluationStageIdentifier "critical-violation" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+cv:integrity-criterion a rss-crit:Criterion ;
+    rss-rail:assessesCriticalViolation rss-rail:criticalIntegrityViolation ;
+    rss-rail:elevatesTransmissionThreat rss-rail:CorruptionThreat ;
+    rss-crit:restsOnJudgement cv:critical-basis ;
+    rss-crit:criterionStatement "A corruption-exposed flow carrying a safety-related payload is a critical integrity violation."@en ;
+    rss-crit:evaluationStageIdentifier "critical-violation" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+cv:safety-payload a rss-rail:SafetyRelatedPayload .
+cv:ordinary-payload a rss-rail:NonSafetyPayload .
+fx:cat3-flow rss-core:carriesPayload cv:safety-payload .
+fx:cat2-flow rss-core:carriesPayload cv:ordinary-payload .
+th:protected-cat3-flow rss-core:carriesPayload cv:safety-payload .
+
+# A Category 3 flow with a satisfied threat evaluation but no payload statement.
+cv:no-payload-flow a rss-rail:RailwayInformationFlow ;
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:timeoutMechanismEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:safetyCodeEnabled false ;
+    rss-rail:authenticationEnabled false .
+cv:no-payload-control a rss-rail:EnvironmentControlFact ;
+    rss-rail:transmissionAssertionSubject cv:no-payload-flow ;
+    rss-rail:environmentControlledValue false ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+cv:no-payload-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-rail:transmissionAssertionSubject cv:no-payload-flow ;
+    rss-rail:participantSetFixedValue false ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+cv:no-payload-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    rss-rail:transmissionAssertionSubject cv:no-payload-flow ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    prov:wasAttributedTo fx:assessor .

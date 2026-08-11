@@ -55,6 +55,7 @@ https://w3id.org/railsec-scope/railway#Category1Transmission	https://w3id.org/ra
 https://w3id.org/railsec-scope/railway#Category2Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#Category3Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#CorruptionThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
+https://w3id.org/railsec-scope/railway#CriticalViolationType	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/railway#DelayThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
 https://w3id.org/railsec-scope/railway#DeletionThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
 https://w3id.org/railsec-scope/railway#EnvironmentControlFact	https://w3id.org/railsec-scope/core#AssertedFact

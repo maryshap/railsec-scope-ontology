@@ -110,3 +110,12 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Rejected alternative:** add a bespoke completeness counter per threat or use only class membership as the input filter. The first duplicates semantics; the second makes unknown upstream results invisible.
 - **Implementation consequence:** `evaluation-stage-coverage.rq` is reusable for the category stage and all later threat stages. A Run has at most one evaluation per element/criterion pair. The category fixture includes both a partially known flow and a no-input flow whose three category evaluations are all `undetermined`.
 - **Reapproval required:** yes before public release because M2 gains new query-bearing criterion metadata.
+
+## CR-B-012 — Threat exposure is an evaluation, not flow typing
+
+- **Status:** Phase 2 model decision accepted for provisional implementation.
+- **Trigger:** a transmission can be exposed to several EN 50159 threats at once, while the seven threat kinds are distinct vocabulary classes. Directly typing one flow as several disjoint threat classes would make the ontology inconsistent and would discard the three-valued outcome required downstream.
+- **Decision:** each threat criterion produces a `CriterionEvaluation` with `satisfied`, `notSatisfied` or `undetermined`. The criterion identifies the assessed threat through `assessesTransmissionThreat`. Category 2/3 applicability is consumed from upstream category evaluations belonging to the same Run.
+- **Rejected alternative:** assert legacy `*Vulnerability` classes directly on flows or infer threat exposure from M5 safeguard annotations. The first conflicts with the threat taxonomy and hides unknowns; the second turns documentation links into unsourced executable criteria.
+- **Implementation consequence:** Step 12.2 produces seven evaluations per railway flow and no direct threat membership. Legacy R2.2 mappings remain a provisional `JudgementBasis` until reviewed standard `SourceLocation` and `Interpretation` records are supplied.
+- **Reapproval required:** yes before public release because the provisional mappings are not normative evidence.

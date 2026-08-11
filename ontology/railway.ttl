@@ -81,14 +81,18 @@ rss-rail:unauthorisedAccessExcludedValue a owl:DatatypeProperty, owl:FunctionalP
 ### EN 50159 threat and channel-defence vocabulary
 
 rss-rail:TransmissionThreat a owl:Class ; rdfs:label "EN 50159 transmission threat"@en .
-rss-rail:RepetitionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Repetition threat"@en .
-rss-rail:DeletionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Deletion threat"@en .
-rss-rail:InsertionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Insertion threat"@en .
-rss-rail:ResequencingThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Resequencing threat"@en .
-rss-rail:CorruptionThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Corruption threat"@en .
-rss-rail:DelayThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Delay threat"@en .
-rss-rail:MasqueradeThreat a owl:Class ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Masquerade threat"@en .
+rss-rail:RepetitionThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Repetition threat"@en .
+rss-rail:DeletionThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Deletion threat"@en .
+rss-rail:InsertionThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Insertion threat"@en .
+rss-rail:ResequencingThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Resequencing threat"@en .
+rss-rail:CorruptionThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Corruption threat"@en .
+rss-rail:DelayThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Delay threat"@en .
+rss-rail:MasqueradeThreat a owl:Class, owl:NamedIndividual, rss-rail:TransmissionThreat ; rdfs:subClassOf rss-rail:TransmissionThreat ; rdfs:label "Masquerade threat"@en .
 [] a owl:AllDisjointClasses ; owl:members ( rss-rail:RepetitionThreat rss-rail:DeletionThreat rss-rail:InsertionThreat rss-rail:ResequencingThreat rss-rail:CorruptionThreat rss-rail:DelayThreat rss-rail:MasqueradeThreat ) .
+
+rss-rail:assessesTransmissionThreat a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-rail:TransmissionThreat ;
+    rdfs:label "assesses transmission threat"@en .
 
 # These are architecture observations. documentsAddressedThreat is an annotation
 # for human traceability only; no safeguard-to-threat inference axiom exists in M5.

@@ -1,6 +1,7 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
 @prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
 @prefix rss-res: <https://w3id.org/railsec-scope/results#> .
 @prefix rss-sh: <https://w3id.org/railsec-scope/shapes#> .
@@ -60,6 +61,33 @@ rss-sh:TransmissionCategoryTraceabilityShape a sh:NodeShape ;
                 rss-res:evaluatesCriterion ?criterion ;
                 rss-res:hasEvaluationOutcome rss-res:satisfied .
               ?criterion rss-crit:determinesMembershipOf ?category .
+            }
+          }
+        """
+    ] .
+
+rss-sh:TransmissionThreatEvaluationTraceabilityShape a sh:NodeShape ;
+    sh:targetClass rss-res:CriterionEvaluation ;
+    sh:sparql [
+        sh:message "A transmission-threat evaluation must cite an upstream category evaluation for the same flow and Run."@en ;
+        sh:select """
+          PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            $this rss-res:evaluationConcernsElement ?flow ;
+              rss-res:evaluatesCriterion ?threatCriterion ;
+              rss-res:producedByRun ?run ;
+              rss-res:hasDerivationRecord/rss-res:hasStep ?step .
+            ?threatCriterion rss-rail:assessesTransmissionThreat ?threat .
+            FILTER NOT EXISTS {
+              ?step rss-res:usedEntity ?categoryEvaluation .
+              ?categoryEvaluation a rss-res:CriterionEvaluation ;
+                rss-res:evaluationConcernsElement ?flow ;
+                rss-res:evaluatesCriterion ?categoryCriterion ;
+                rss-res:producedByRun ?run .
+              ?categoryCriterion rss-crit:determinesMembershipOf ?category .
+              FILTER(?category IN (rss-rail:Category1Transmission, rss-rail:Category2Transmission, rss-rail:Category3Transmission))
             }
           }
         """

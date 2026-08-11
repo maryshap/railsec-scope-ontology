@@ -1,0 +1,118 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateTransmissionThreat ;
+      rss-res:usedEntity ?cat1Evaluation, ?cat2Evaluation, ?cat3Evaluation ;
+      prov:used ?flow ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?flow a rss-rail:RailwayInformationFlow .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-rail:assessesTransmissionThreat ?threat .
+  VALUES ?threat {
+    rss-rail:RepetitionThreat rss-rail:DeletionThreat rss-rail:InsertionThreat
+    rss-rail:ResequencingThreat rss-rail:CorruptionThreat rss-rail:DelayThreat
+    rss-rail:MasqueradeThreat
+  }
+
+  OPTIONAL {
+    ?cat1Evaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?cat1Criterion ;
+        rss-res:hasEvaluationOutcome ?cat1Outcome ;
+        rss-res:producedByRun ?run .
+    ?cat1Criterion rss-crit:determinesMembershipOf rss-rail:Category1Transmission .
+  }
+  OPTIONAL {
+    ?cat2Evaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?cat2Criterion ;
+        rss-res:hasEvaluationOutcome ?cat2Outcome ;
+        rss-res:producedByRun ?run .
+    ?cat2Criterion rss-crit:determinesMembershipOf rss-rail:Category2Transmission .
+  }
+  OPTIONAL {
+    ?cat3Evaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?cat3Criterion ;
+        rss-res:hasEvaluationOutcome ?cat3Outcome ;
+        rss-res:producedByRun ?run .
+    ?cat3Criterion rss-crit:determinesMembershipOf rss-rail:Category3Transmission .
+  }
+
+  OPTIONAL { ?flow rss-rail:sequenceProtectionEnabled ?sequenceProtection . }
+  OPTIONAL { ?flow rss-rail:timeoutMechanismEnabled ?timeoutMechanism . }
+  OPTIONAL { ?flow rss-rail:sourceDestinationIdentifierEnabled ?sourceDestinationIdentifier . }
+  OPTIONAL { ?flow rss-rail:safetyCodeEnabled ?safetyCode . }
+  OPTIONAL { ?flow rss-rail:authenticationEnabled ?authentication . }
+
+  BIND(IF(BOUND(?cat1Outcome), ?cat1Outcome = rss-res:satisfied, false) AS ?cat1Satisfied)
+  BIND(IF(BOUND(?cat2Outcome), ?cat2Outcome = rss-res:satisfied, false) AS ?cat2Satisfied)
+  BIND(IF(BOUND(?cat3Outcome), ?cat3Outcome = rss-res:satisfied, false) AS ?cat3Satisfied)
+  BIND((?threat = rss-rail:InsertionThreat || ?threat = rss-rail:MasqueradeThreat) AS ?category3Only)
+  BIND((?cat1Satisfied || (?category3Only && ?cat2Satisfied)) AS ?notApplicable)
+  BIND(IF(?category3Only, ?cat3Satisfied, (?cat2Satisfied || ?cat3Satisfied)) AS ?applicable)
+
+  BIND(
+    IF(?threat = rss-rail:RepetitionThreat || ?threat = rss-rail:ResequencingThreat,
+       BOUND(?sequenceProtection),
+       IF(?threat = rss-rail:DeletionThreat || ?threat = rss-rail:DelayThreat,
+          BOUND(?timeoutMechanism),
+          IF(?threat = rss-rail:InsertionThreat,
+             BOUND(?sourceDestinationIdentifier),
+             IF(?threat = rss-rail:CorruptionThreat,
+                BOUND(?safetyCode),
+                ((BOUND(?authentication) && ?authentication = true) ||
+                 (BOUND(?sourceDestinationIdentifier) && ?sourceDestinationIdentifier = true) ||
+                 (BOUND(?authentication) && BOUND(?sourceDestinationIdentifier)))))))
+    AS ?mechanismKnown
+  )
+  BIND(
+    IF(?threat = rss-rail:RepetitionThreat || ?threat = rss-rail:ResequencingThreat,
+       ?sequenceProtection = true,
+       IF(?threat = rss-rail:DeletionThreat || ?threat = rss-rail:DelayThreat,
+          ?timeoutMechanism = true,
+          IF(?threat = rss-rail:InsertionThreat,
+             ?sourceDestinationIdentifier = true,
+             IF(?threat = rss-rail:CorruptionThreat,
+                ?safetyCode = true,
+                ((BOUND(?authentication) && ?authentication = true) ||
+                 (BOUND(?sourceDestinationIdentifier) && ?sourceDestinationIdentifier = true))))))
+    AS ?protectionEnabled
+  )
+  BIND(
+    IF(?mechanismKnown,
+       IF(?protectionEnabled, rss-res:notSatisfied, rss-res:satisfied),
+       rss-res:undetermined)
+    AS ?protectionOutcome
+  )
+  BIND(
+    IF(?notApplicable, rss-res:notSatisfied,
+       IF(?applicable, ?protectionOutcome, rss-res:undetermined))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/threat/", ENCODE_FOR_URI(STRAFTER(STR(?threat), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion) && isIRI(?threat))
+}

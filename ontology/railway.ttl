@@ -157,3 +157,10 @@ rss-rail:elevatesTransmissionThreat a owl:ObjectProperty, owl:FunctionalProperty
     rdfs:domain rss-crit:Criterion ;
     rdfs:range rss-rail:TransmissionThreat ;
     rdfs:label "elevates transmission threat"@en .
+
+### Fail-safe compromise evaluation (Step 12.4, CR-B-014)
+
+rss-rail:assessesFailSafeCompromiseFrom a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-rail:CriticalViolationType ;
+    rdfs:label "assesses fail-safe compromise from"@en .

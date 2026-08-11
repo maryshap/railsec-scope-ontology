@@ -9,7 +9,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 cv:critical-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy R2.4.1 and R2.4.2 into three-valued elevation evaluations. EN 50159 gives masquerade and corruption the highest priority for safety-related communication; the exact source location and reviewed interpretation are still required."@en ;
+    rss-crit:reasoning "Provisional refactoring of legacy R2.3.1 and R2.3.2 into three-valued elevation evaluations. Legacy material gives masquerade and corruption the highest priority for safety-related communication; the exact source location and reviewed interpretation are still required."@en ;
     rss-crit:revisionConditions "Replace with reviewed EN 50159 SourceLocation and Interpretation records, and decide whether the finer legacy payload distinctions (emergency command, position status) are admitted, before release."@en .
 
 cv:authenticity-criterion a rss-crit:Criterion ;

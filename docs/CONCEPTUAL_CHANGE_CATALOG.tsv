@@ -7,3 +7,4 @@ criticalAuthenticityViolation	M5	individual	revision	CriticalViolationType	true	
 criticalIntegrityViolation	M5	individual	revision	CriticalViolationType	true	CR-B-013
 assessesCriticalViolation	M5	objectProperty	revision	-	true	CR-B-013
 elevatesTransmissionThreat	M5	objectProperty	revision	-	true	CR-B-013
+assessesFailSafeCompromiseFrom	M5	objectProperty	revision	-	true	CR-B-014

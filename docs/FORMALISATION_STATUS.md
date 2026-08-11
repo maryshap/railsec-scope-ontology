@@ -19,7 +19,8 @@
 - Phase 2 Step 11/12: a minimal synthetic fixture covers Category 1, Category 2, Category 3 and an undetermined category outcome. It will grow with subsequent rule blocks rather than being designed upfront.
 - Phase 2 prerequisite for Step 12.2: generic evaluation-stage coverage reports candidate/determined/undetermined counts; the current category fixture proves 3/5 determined. A no-input flow produces three undetermined evaluations, and a two-category flow is rejected by HermiT.
 - Phase 2 Step 12.2: the seven transmission threats are evaluated independently from upstream category evaluations. The synthetic fixture proves simultaneous threats without direct multi-typing, protected and non-applicable outcomes, and propagation of unknown category status; 4/6 threat-stage candidates are determined.
-- Phase 2 Step 12.3: safety-critical elevation (M5-R04) implements the two legacy Block 2.4 rules expressible with the approved payload distinction. It consumes upstream threat evaluations and payload classification, propagates both unknown inputs as `undetermined`, and never types a flow directly with a violation. The remaining two legacy rules require an unapproved payload-vocabulary revision (CR-B-013).
+- Phase 2 Step 12.3: safety-critical elevation (M5-R04) implements legacy R2.3.1 and R2.3.2, the two Block 2.3 rules expressible with the approved payload distinction. It consumes upstream threat evaluations and payload classification, propagates both unknown inputs as `undetermined`, and never types a flow directly with a violation. Legacy R2.3.3 and R2.3.4 require an unapproved payload-vocabulary revision (CR-B-013).
+- Phase 2 Step 12.4: fail-safe compromise (M5-R05) implements legacy R2.4.1 and R2.4.2 as three-valued evaluations of safety-critical assets. It consumes incoming critical-violation evaluations and explicit `realises` / `failSafeDependsOn` architecture facts; unknown upstream results or dependencies remain `undetermined`. Legacy R2.4.3 is deferred because mobile-zone and remediation-priority vocabulary is not approved (CR-B-014).
 
 ## Release blockers (not hidden as implementation completion)
 
@@ -29,4 +30,4 @@
 4. DataObjects, Actors/Roles, interface security flags and the old AHP model remain explicitly unmapped, with reasons in `cases/etcs/unmapped.csv`.
 5. K-22 manual copyright/source-text review and w3id redirect registration remain release actions.
 6. The synthetic EN 50159 category criteria currently rest on an explicit provisional JudgementBasis. Exact standard edition, source locations and reviewed interpretations are still required before release.
-7. Threat and safety-critical elevation criteria are executable but remain provisional pending source review. Fail-safe, SIL/override and access-path rule blocks, followed by the orchestrator/L3 implementation, remain Phase 2 work.
+7. Threat, safety-critical elevation and fail-safe criteria are executable but remain provisional pending source review. SIL/override and access-path rule blocks, followed by the orchestrator/L3 implementation, remain Phase 2 work.

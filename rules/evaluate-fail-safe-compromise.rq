@@ -1,0 +1,88 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M5-R05 fail-safe compromise. Any satisfied incoming critical violation is
+# sufficient for a positive result. Otherwise an unknown critical result or an
+# unstated fail-safe dependency propagates as undetermined.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?asset ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateFailSafeCompromise ;
+      rss-res:usedEntity ?criticalEvaluation ;
+      prov:used ?asset, ?flow, ?function ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?asset a rss-rail:SafetyCriticalAsset .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-rail:assessesFailSafeCompromiseFrom ?violation .
+
+  BIND(EXISTS {
+    ?asset rss-core:realises ?candidateFunction .
+    ?candidateFunction a rss-core:SafetyFunction ;
+        rss-rail:failSafeDependsOn ?asset .
+  } AS ?dependencyKnown)
+  BIND(EXISTS {
+    ?candidateFlow rss-core:hasDestination ?asset .
+    ?candidateEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?candidateFlow ;
+        rss-res:evaluatesCriterion ?candidateCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:satisfied ;
+        rss-res:producedByRun ?run .
+    ?candidateCriterion rss-rail:assessesCriticalViolation ?violation .
+  } AS ?anySatisfied)
+  BIND(EXISTS {
+    ?candidateFlow rss-core:hasDestination ?asset .
+    ?candidateEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?candidateFlow ;
+        rss-res:evaluatesCriterion ?candidateCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:undetermined ;
+        rss-res:producedByRun ?run .
+    ?candidateCriterion rss-rail:assessesCriticalViolation ?violation .
+  } AS ?anyUndetermined)
+
+  # At least one upstream evaluation is required. Missing upstream work remains
+  # visible to generic stage coverage instead of creating an orphan result.
+  ?flow rss-core:hasDestination ?asset .
+  ?criticalEvaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criticalCriterion ;
+      rss-res:hasEvaluationOutcome ?criticalOutcome ;
+      rss-res:producedByRun ?run .
+  ?criticalCriterion rss-rail:assessesCriticalViolation ?violation .
+
+  OPTIONAL {
+    ?asset rss-core:realises ?function .
+    ?function a rss-core:SafetyFunction ;
+        rss-rail:failSafeDependsOn ?asset .
+  }
+
+  BIND(
+    IF(!?dependencyKnown, rss-res:undetermined,
+       IF(?anySatisfied, rss-res:satisfied,
+          IF(?anyUndetermined, rss-res:undetermined, rss-res:notSatisfied)))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?asset), "/evaluation/fail-safe/", ENCODE_FOR_URI(STRAFTER(STR(?violation), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?asset) && isIRI(?run) && isIRI(?criterion) && isIRI(?violation))
+}

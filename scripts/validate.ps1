@@ -91,3 +91,4 @@ $categoryConflictLog = Join-Path $build 'expected-category-conflict.txt'
 if ($LASTEXITCODE -eq 0) { throw 'A flow assigned to two disjoint transmission categories was not rejected.' }
 
 Write-Output 'VALIDATION PASSED: OWL 2 DL, HermiT, hierarchy/matrix regression, Gate B audit, K-constraints, CQ suite and ETCS case.'
+exit 0

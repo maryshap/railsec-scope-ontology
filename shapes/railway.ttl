@@ -118,3 +118,53 @@ rss-sh:CriticalViolationEvaluationTraceabilityShape a sh:NodeShape ;
           }
         """
     ] .
+
+rss-sh:FailSafeCompromiseTraceabilityShape a sh:NodeShape ;
+    sh:targetClass rss-res:CriterionEvaluation ;
+    sh:sparql [
+        sh:message "A fail-safe evaluation must cite a matching upstream critical-violation evaluation for an incoming flow in the same Run."@en ;
+        sh:select """
+          PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            $this rss-res:evaluationConcernsElement ?asset ;
+              rss-res:evaluatesCriterion ?failSafeCriterion ;
+              rss-res:producedByRun ?run ;
+              rss-res:hasDerivationRecord/rss-res:hasStep ?step .
+            ?failSafeCriterion rss-rail:assessesFailSafeCompromiseFrom ?violation .
+            FILTER NOT EXISTS {
+              ?step rss-res:usedEntity ?criticalEvaluation .
+              ?criticalEvaluation a rss-res:CriterionEvaluation ;
+                rss-res:evaluationConcernsElement ?flow ;
+                rss-res:evaluatesCriterion ?criticalCriterion ;
+                rss-res:producedByRun ?run .
+              ?flow rss-core:hasDestination ?asset .
+              ?criticalCriterion rss-rail:assessesCriticalViolation ?violation .
+            }
+          }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "A determined fail-safe evaluation requires an explicit realised safety function and fail-safe dependency recorded in provenance."@en ;
+        sh:select """
+          PREFIX prov: <http://www.w3.org/ns/prov#>
+          PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+          SELECT $this WHERE {
+            $this rss-res:evaluationConcernsElement ?asset ;
+              rss-res:evaluatesCriterion ?criterion ;
+              rss-res:hasEvaluationOutcome ?outcome ;
+              rss-res:hasDerivationRecord/rss-res:hasStep ?step .
+            ?criterion rss-rail:assessesFailSafeCompromiseFrom ?violation .
+            FILTER(?outcome != rss-res:undetermined)
+            FILTER NOT EXISTS {
+              ?asset rss-core:realises ?function .
+              ?function a rss-core:SafetyFunction ;
+                rss-rail:failSafeDependsOn ?asset .
+              ?step prov:used ?function .
+            }
+          }
+        """
+    ] .

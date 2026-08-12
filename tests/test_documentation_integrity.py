@@ -20,7 +20,14 @@ M1_TO_M4 = ["core.ttl", "criteria.ttl", "results.ttl", "assessment.ttl"]
 
 # Properties intentionally left without a domain, with the reason. Anything else
 # missing a domain or range is a defect.
-DOMAINLESS_BY_DESIGN: dict[str, str] = {}
+DOMAINLESS_BY_DESIGN: dict[str, str] = {
+    "stableIdentifier": (
+        "Metadata module property. Declaring a domain would name a class from a "
+        "domain module, which the metadata module does not import; the reference "
+        "would be to an undeclared class and would take the ontology out of "
+        "OWL 2 DL. Module independence is preferred over the domain declaration."
+    ),
+}
 
 
 def own(term) -> bool:

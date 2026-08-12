@@ -39,7 +39,7 @@ Deprecation	M2		explicitNonReplacement,replacedBy	deprecatedBy	0		K-21
 EntryPoint	M2	AssessmentBearingCategory			0	CandidateExaminationTarget	
 ExternalComputationMethod	M2	Plan,VersionedArtefact		appliedComputation,producedByMethod	0	CoverageMeasure,Criterion,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-07,K-11,K-23,K-24
 Interpretation	M2		interpretationConfidence,interpretationProposition,interprets,reviewStatus	appliesInterpretation	0		K-05
-JudgementBasis	M2		revisionConditions	restsOnJudgement	0		K-05
+JudgementBasis	M2	Entity	revisionConditions	restsOnJudgement	0		K-05
 OntologyModule	M2	VersionedArtefact			0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-07,K-19,K-20
 OrderingFactor	M2	VersionedArtefact		determinesApplicabilityOf,hasFactor,valueOfFactor	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget,Selection	
 OrderingFactorSet	M2	VersionedArtefact	hasFactor	usesFactorSet	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingResult,OutputProfile,PerformanceTarget,Selection	K-15
@@ -70,7 +70,7 @@ OrderingResult	M3	DerivedResult,VersionedArtefact	hasOrderingEntry,ordersCandida
 PerformanceMeasurement	M3	Entity	assessedAgainstTarget,elapsedTimeSeconds,inputSize,inputSizeUnit,measuredRun		0		
 PerformanceTarget	M3	VersionedArtefact	representativeFixtureIdentifier,thresholdSeconds	assessedAgainstTarget	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,Selection	
 ReachabilityResult	M3	DerivedResult	reachabilityConcerns,reliedOnPrecondition,usedAccessMechanism		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,RunComparison,SafetyImpactResult	
-Run	M3	Activity	endTime,executedInEnvironment,runIdentifier,startTime,usedInstanceSet,usedVersion	comparesRun,measuredRun,producedByRun	0		K-07
+Run	M3	Activity	artefactDigest,endTime,executedInEnvironment,iterationCount,publishable,refusalReason,runIdentifier,startTime,usedInstanceSet,usedVersion	comparesRun,measuredRun,producedByRun	0		K-07
 RunComparison	M3	DerivedResult	changedAssertion,changedResult,comparesRun		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,SafetyImpactResult	
 SafetyImpactResult	M3	DerivedResult	affectsFunction,evaluatesScenario,viaDependencyChain		0	CandidateSet,CategoryAssignment,CoverageResult,CriterionEvaluation,DependencyChain,FactorValue,OrderingResult,ReachabilityResult,RunComparison	
 Selection	M3	VersionedArtefact	includesElement,selectionBasedOnCandidateSet	affectsSelection,measuredSelection	0	CoverageMeasure,Criterion,ExternalComputationMethod,InstanceSet,Mechanism,OntologyModule,OrderingFactor,OrderingFactorSet,OrderingResult,OutputProfile,PerformanceTarget	K-18

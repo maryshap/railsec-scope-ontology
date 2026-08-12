@@ -333,3 +333,30 @@ it.
 **Test coupling removed.** Three stage tests hard-coded evaluation IRIs and broke
 under run scoping. They now locate evaluations by the element and criterion they
 concern, so they test behaviour rather than identifier construction.
+
+## CR-B-017 and CR-B-018 corrections found by continuous integration
+
+Two changes I made were rejected by the pipeline and are corrected here. Both
+are recorded rather than quietly amended, because each was a real defect in the
+change rather than a tooling inconvenience.
+
+**`stableIdentifier` domain reverted.** CR-B-018 added
+`rdfs:domain rss-core:Element` to `rsso:stableIdentifier`. The metadata module
+does not import the domain modules, so this named an undeclared class and took
+the ontology **out of the OWL 2 DL profile**. Module independence is the more
+important property: the metadata module must remain loadable without the domain
+modules. The property is therefore recorded as deliberately domainless, with the
+reason, in the invariant test rather than left as an unexplained exception.
+
+**Two catalogue rows removed.** CR-B-017 recorded the `JudgementBasis`
+subclass axiom and the imported `prov:wasDerivedFrom` property as rows in the
+conceptual change catalogue. Neither is a new term in a governed module: the
+first is an axiom on a term that is already governed, the second belongs to an
+imported external vocabulary. The catalogue rejects both, correctly. They remain
+recorded in CR-B-017 above, which is the right place for them.
+
+**Two generated reports regenerated.** The inferred class hierarchy changed
+because `JudgementBasis` now has `prov:Entity` as a named superclass, and the
+entity formalisation matrix changed for `Element`, `JudgementBasis` and `Run`.
+Both are committed deliberately, which is the behaviour the regression check is
+designed to force.

@@ -36,12 +36,17 @@ class Phase2TransmissionCategoryTest(unittest.TestCase):
     def test_category_is_derived_through_three_valued_evaluations(self) -> None:
         fixture_path = PROJECT / "fixtures" / "railway-category" / "minimal.ttl"
         fixture_only = Graph().parse(fixture_path)
+        # Criteria live in the module, not in the fixture, so the stage coverage
+        # is read against fixture plus module. Every stage declared for railway
+        # flows now appears; this test concerns the transmission-category stage.
+        fixture_only.parse(PROJECT / "ontology" / "criteria-railway.ttl")
         coverage_query = (PROJECT / "queries" / "evaluation-stage-coverage.rq").read_text(encoding="utf-8")
-        pre_rule_coverage = list(fixture_only.query(coverage_query))
-        self.assertEqual(1, len(pre_rule_coverage))
-        self.assertEqual(5, int(pre_rule_coverage[0].totalCandidates))
-        self.assertEqual(0, int(pre_rule_coverage[0].determinedCandidates))
-        self.assertEqual(5, int(pre_rule_coverage[0].undeterminedCandidates))
+        stages = {str(row.stage): row for row in fixture_only.query(coverage_query)}
+        self.assertIn("transmission-category", stages)
+        row = stages["transmission-category"]
+        self.assertEqual(5, int(row.totalCandidates))
+        self.assertEqual(0, int(row.determinedCandidates))
+        self.assertEqual(5, int(row.undeterminedCandidates))
         categories = [RAIL.Category1Transmission, RAIL.Category2Transmission, RAIL.Category3Transmission]
         for flow in [FX["cat1-flow"], FX["cat2-flow"], FX["cat3-flow"], FX["unknown-flow"], FX["no-input-flow"]]:
             for category in categories:
@@ -91,10 +96,9 @@ class Phase2TransmissionCategoryTest(unittest.TestCase):
         self.assertIn((step, RES.usedEntity, FX["cat2-control"]), graph)
         self.assertIn((step, RES.usedEntity, FX["cat2-fixed"]), graph)
 
-        coverage_rows = list(graph.query(coverage_query))
-        self.assertEqual(1, len(coverage_rows))
-        coverage = coverage_rows[0]
-        self.assertEqual("transmission-category", str(coverage.stage))
+        coverage_by_stage = {str(row.stage): row for row in graph.query(coverage_query)}
+        self.assertIn("transmission-category", coverage_by_stage)
+        coverage = coverage_by_stage["transmission-category"]
         self.assertEqual(5, int(coverage.totalCandidates))
         self.assertEqual(3, int(coverage.determinedCandidates))
         self.assertEqual(2, int(coverage.undeterminedCandidates))

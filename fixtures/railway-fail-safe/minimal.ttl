@@ -1,115 +1,149 @@
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
-@prefix th: <https://w3id.org/railsec-scope/fixture/railway-threat/> .
+# Criteria and judgement bases were moved to ontology/criteria-railway.ttl.
+# This fixture supplies instance data only, so the same criteria apply here
+# and to every case.
+
 @prefix cv: <https://w3id.org/railsec-scope/fixture/railway-critical/> .
 @prefix fs: <https://w3id.org/railsec-scope/fixture/railway-fail-safe/> .
+@prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rss-core: <https://w3id.org/railsec-scope/core#> .
 @prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
 @prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
 @prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix th: <https://w3id.org/railsec-scope/fixture/railway-threat/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-fs:fail-safe-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy R2.4.1 and R2.4.2. The legacy clause claims are implementation history, not normative evidence."@en ;
-    rss-crit:revisionConditions "Replace with reviewed IEC 61508 and EN 50126 SourceLocation and Interpretation records before release."@en .
-
-fs:authenticity-criterion a rss-crit:Criterion ;
-    rss-rail:assessesFailSafeCompromiseFrom rss-rail:criticalAuthenticityViolation ;
-    rss-crit:restsOnJudgement fs:fail-safe-basis ;
-    rss-crit:criterionStatement "A safety-critical asset has an authenticity-driven fail-safe compromise when its fail-safe function depends on that asset and an incoming flow has a satisfied critical-authenticity evaluation."@en ;
-    rss-crit:evaluationStageIdentifier "fail-safe-compromise" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#SafetyCriticalAsset"^^xsd:anyURI .
-
-fs:integrity-criterion a rss-crit:Criterion ;
-    rss-rail:assessesFailSafeCompromiseFrom rss-rail:criticalIntegrityViolation ;
-    rss-crit:restsOnJudgement fs:fail-safe-basis ;
-    rss-crit:criterionStatement "A safety-critical asset has an integrity-driven fail-safe compromise when its fail-safe function depends on that asset and an incoming flow has a satisfied critical-integrity evaluation."@en ;
-    rss-crit:evaluationStageIdentifier "fail-safe-compromise" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#SafetyCriticalAsset"^^xsd:anyURI .
-
-# Four safety-critical candidates exercise positive, negative and two distinct
-# undetermined paths. The ordinary asset proves candidate selectivity.
-fs:compromised-asset a rss-rail:SafetyCriticalAsset ; rss-core:realises fs:compromised-function .
-fs:compromised-function a rss-core:SafetyFunction ; rss-rail:failSafeDependsOn fs:compromised-asset .
 fx:cat3-flow rss-core:hasDestination fs:compromised-asset .
 
-fs:protected-asset a rss-rail:SafetyCriticalAsset ; rss-core:realises fs:protected-function .
-fs:protected-function a rss-core:SafetyFunction ; rss-rail:failSafeDependsOn fs:protected-asset .
-th:protected-cat3-flow rss-core:hasDestination fs:protected-asset .
-
-fs:unknown-asset a rss-rail:SafetyCriticalAsset ; rss-core:realises fs:unknown-function .
-fs:unknown-function a rss-core:SafetyFunction ; rss-rail:failSafeDependsOn fs:unknown-asset .
 fx:unknown-flow rss-core:hasDestination fs:unknown-asset .
 
-fs:missing-dependency-asset a rss-rail:SafetyCriticalAsset ; rss-core:realises fs:missing-dependency-function .
+fs:compromised-asset-safety-critical-assertion a rss-core:Assumption ;
+    prov:wasAttributedTo fs:fixture-author ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionSubject fs:compromised-asset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:missing-dependency-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo fx:assessor ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject fs:missing-dependency-flow ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:missing-dependency-asset-safety-critical-assertion a rss-core:Assumption ;
+    prov:wasAttributedTo fs:fixture-author ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionSubject fs:missing-dependency-asset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:missing-dependency-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject fs:missing-dependency-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:missing-dependency-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue false ;
+    rss-rail:transmissionAssertionSubject fs:missing-dependency-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:ordinary-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo fx:assessor ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject fs:ordinary-flow ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:ordinary-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject fs:ordinary-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:ordinary-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue false ;
+    rss-rail:transmissionAssertionSubject fs:ordinary-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:protected-asset-safety-critical-assertion a rss-core:Assumption ;
+    prov:wasAttributedTo fs:fixture-author ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionSubject fs:protected-asset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fs:unknown-asset-safety-critical-assertion a rss-core:Assumption ;
+    prov:wasAttributedTo fs:fixture-author ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionSubject fs:unknown-asset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+th:protected-cat3-flow rss-core:hasDestination fs:protected-asset .
+
+fs:compromised-function a rss-core:SafetyFunction ;
+    rss-rail:failSafeDependsOn fs:compromised-asset .
+
 fs:missing-dependency-function a rss-core:SafetyFunction .
+
+fs:ordinary-function a rss-core:SafetyFunction ;
+    rss-rail:failSafeDependsOn fs:ordinary-asset .
+
+fs:protected-function a rss-core:SafetyFunction ;
+    rss-rail:failSafeDependsOn fs:protected-asset .
+
+fs:unknown-function a rss-core:SafetyFunction ;
+    rss-rail:failSafeDependsOn fs:unknown-asset .
+
+fs:missing-dependency-asset a rss-rail:SafetyCriticalAsset ;
+    rss-core:realises fs:missing-dependency-function .
+
+fs:ordinary-asset a rss-rail:RailwayAsset ;
+    rss-core:realises fs:ordinary-function .
+
+fs:compromised-asset a rss-rail:SafetyCriticalAsset ;
+    rss-core:realises fs:compromised-function .
+
 fs:missing-dependency-flow a rss-rail:RailwayInformationFlow ;
+    rss-core:carriesPayload cv:safety-payload ;
     rss-core:hasDestination fs:missing-dependency-asset ;
-    rss-core:carriesPayload cv:safety-payload ;
-    rss-rail:sequenceProtectionEnabled false ;
-    rss-rail:timeoutMechanismEnabled false ;
-    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:authenticationEnabled false ;
     rss-rail:safetyCodeEnabled false ;
-    rss-rail:authenticationEnabled false .
-fs:missing-dependency-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fs:missing-dependency-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fs:missing-dependency-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fs:missing-dependency-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fs:missing-dependency-access a rss-rail:UnauthorisedAccessExclusionAssumption ; rss-rail:transmissionAssertionSubject fs:missing-dependency-flow ; rss-rail:unauthorisedAccessExcludedValue false ; rss-core:hasEpistemicStatus rss-core:assumptionStatus ; rss-res:assertedInInstanceSet fx:instance-set ; prov:wasAttributedTo fx:assessor .
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timeoutMechanismEnabled false .
 
-fs:ordinary-asset a rss-rail:RailwayAsset ; rss-core:realises fs:ordinary-function .
-fs:ordinary-function a rss-core:SafetyFunction ; rss-rail:failSafeDependsOn fs:ordinary-asset .
 fs:ordinary-flow a rss-rail:RailwayInformationFlow ;
-    rss-core:hasDestination fs:ordinary-asset ;
     rss-core:carriesPayload cv:safety-payload ;
-    rss-rail:sequenceProtectionEnabled false ;
-    rss-rail:timeoutMechanismEnabled false ;
-    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-core:hasDestination fs:ordinary-asset ;
+    rss-rail:authenticationEnabled false ;
     rss-rail:safetyCodeEnabled false ;
-    rss-rail:authenticationEnabled false .
-fs:ordinary-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fs:ordinary-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fs:ordinary-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fs:ordinary-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fs:ordinary-access a rss-rail:UnauthorisedAccessExclusionAssumption ; rss-rail:transmissionAssertionSubject fs:ordinary-flow ; rss-rail:unauthorisedAccessExcludedValue false ; rss-core:hasEpistemicStatus rss-core:assumptionStatus ; rss-res:assertedInInstanceSet fx:instance-set ; prov:wasAttributedTo fx:assessor .
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timeoutMechanismEnabled false .
 
-# Classification provenance for the synthetic safety-critical assets. The shape
-# is general to M6 rather than ETCS-specific, so the fixtures must satisfy it
-# too. These are purpose-built test individuals and carry that fact explicitly.
+fs:protected-asset a rss-rail:SafetyCriticalAsset ;
+    rss-core:realises fs:protected-function .
+
+fs:unknown-asset a rss-rail:SafetyCriticalAsset ;
+    rss-core:realises fs:unknown-function .
+
+fs:fixture-author a prov:Agent ;
+    rdfs:label "Fixture author"@en .
+
 fs:synthetic-classification-basis a rss-crit:JudgementBasis ;
     rss-crit:reasoning "Purpose-built synthetic fixture. The safety-critical classification is stipulated so that the downstream stages have an input, and is not derived from any railway source."@en ;
     rss-crit:revisionConditions "None. This basis is confined to test fixtures and must never be reused in case data."@en .
-fs:fixture-author a prov:Agent ; rdfs:label "Fixture author"@en .
-
-fs:compromised-asset-safety-critical-assertion a rss-core:Assumption ;
-    rss-core:assertionSubject fs:compromised-asset ;
-    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
-    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
-    rss-res:assertedInInstanceSet fx:instance-set ;
-    prov:wasDerivedFrom fs:synthetic-classification-basis ;
-    prov:wasAttributedTo fs:fixture-author .
-
-fs:protected-asset-safety-critical-assertion a rss-core:Assumption ;
-    rss-core:assertionSubject fs:protected-asset ;
-    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
-    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
-    rss-res:assertedInInstanceSet fx:instance-set ;
-    prov:wasDerivedFrom fs:synthetic-classification-basis ;
-    prov:wasAttributedTo fs:fixture-author .
-
-fs:unknown-asset-safety-critical-assertion a rss-core:Assumption ;
-    rss-core:assertionSubject fs:unknown-asset ;
-    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
-    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
-    rss-res:assertedInInstanceSet fx:instance-set ;
-    prov:wasDerivedFrom fs:synthetic-classification-basis ;
-    prov:wasAttributedTo fs:fixture-author .
-
-fs:missing-dependency-asset-safety-critical-assertion a rss-core:Assumption ;
-    rss-core:assertionSubject fs:missing-dependency-asset ;
-    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
-    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
-    rss-res:assertedInInstanceSet fx:instance-set ;
-    prov:wasDerivedFrom fs:synthetic-classification-basis ;
-    prov:wasAttributedTo fs:fixture-author .

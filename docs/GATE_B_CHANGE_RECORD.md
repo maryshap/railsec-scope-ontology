@@ -360,3 +360,106 @@ because `JudgementBasis` now has `prov:Entity` as a named superclass, and the
 entity formalisation matrix changed for `Element`, `JudgementBasis` and `Run`.
 Both are committed deliberately, which is the behaviour the regression check is
 designed to force.
+
+## CR-B-020 — legacy security fact migration (Step 14)
+
+**Change.** `scripts/migrate_legacy_security_facts.py` transfers the protection
+and payload facts of the legacy assessment model into
+`cases/etcs/security-facts.ttl`. `scripts/validate.ps1` now profile-checks the
+case files added since `abox.ttl`, which it previously skipped.
+
+**What was transferred.** All 88 legacy information flows matched a stable
+identifier in the case, with none skipped, so no heuristic matching was needed.
+616 protection facts were transferred across seven properties. Every one is an
+`Assumption` attributed to a judgement basis recording that the legacy model
+evidences the transfer, not the determination.
+
+**What was deliberately not transferred, and why.**
+
+*Transmission environment.* The legacy model recorded the medium, not whether the
+transmission environment is under the operator's control. Deriving the second
+from the first is a new determination, and the model requires it to be an
+`EnvironmentControlFact` carrying asserted-fact status, that is, presented as
+established. Asserting as established something the migration inferred would
+defeat the purpose of the epistemic distinction. The environment is therefore
+left unstated and the transmission-category criteria return undetermined.
+Resolving it needs the network design, not the legacy model.
+
+*Payload classification for 52 of 57 data links.* Payload is transferred only
+where the legacy rule set itself relied on it: the legacy critical-violation
+rules keyed on control command and position status data. The remaining legacy
+data kinds were never used that way, and their absence from those rules is not
+evidence that they are non-safety, so they are left unclassified.
+
+**Blocker found: criteria are defined only in test fixtures.** Every criterion
+used by the stages is declared inside `fixtures/railway-*/minimal.ttl`. The
+rules require a `Criterion` to be present, so a run over the ETCS case with no
+fixtures loaded produces zero evaluations even though the facts are now there.
+Section 11 of the conceptual model allocates criteria to a module, M2 or M5
+according to the vocabulary they use, not to case data and not to fixtures.
+Moving them is a prerequisite for any case-study run and is a design decision:
+whether the fixtures continue to declare their own criteria for isolation, or
+consume the module ones.
+
+## CR-B-021 — criteria moved into a module (Step 14b)
+
+**Change.** `ontology/criteria-railway.ttl` holds the 19 railway assessment
+criteria and their 6 judgement bases. The six phase-2 fixtures no longer declare
+criteria and supply instance data only.
+
+**Validation-closure correction.** Because this artefact is a reusable module,
+not a fixture loaded only by Python, it has its own `owl:Ontology` header and M5
+module metadata. The XML catalog resolves its ontology IRI locally, and the
+build validation root imports it. This keeps the ROBOT/HermiT validation closure
+aligned with the ontology files loaded by the Run orchestrator.
+
+Importing the criterion individuals also exposed a previously latent datatype
+defect: `criterionStatement`, `reasoning` and `revisionConditions` allowed only
+`xsd:string`, while their authored values correctly carry language tags and are
+therefore `rdf:langString`. Their ranges now admit the union of both datatypes;
+the alternative of stripping language tags was rejected because these are
+human-readable, potentially multilingual statements.
+
+The two independently profile-checked ETCS provenance datasets now also carry
+explicit `owl:Ontology` headers and the same assessment/railway vocabulary
+imports as the main ETCS ABox. Previously they were anonymous RDF fragments, so
+OWLAPI interpreted their otherwise declared object and datatype properties as
+undeclared annotation properties when each file was validated in isolation.
+The assessor remains a `prov:Agent`; the additional `prov:Person` type was
+removed because that optional class is not part of the pinned PROV-O DL
+projection and added no information used by the assessment model.
+
+**Why.** Rules require a `Criterion` to be present in the loaded graph. While the
+criteria lived in test fixtures, they applied in tests and nowhere else: a run
+over the ETCS case produced zero evaluations even with the facts in place.
+Section 11 of the conceptual model allocates criteria to a module according to
+the vocabulary they use, not to case data and not to fixtures. Text and
+provenance are unchanged; only the identifiers moved.
+
+**Consequence for fixtures.** Fixtures now consume the module criteria rather
+than declaring their own. A fixture-only judgement basis remains in the fail-safe
+fixture, marked as confined to test data. One effect is visible in the tests: a
+fixture graph read together with the module now shows every stage declared for
+railway flows, not only the stage under test, so stage coverage is read per stage
+rather than assumed to be the single row.
+
+**Coverage of the legacy L2 block, corrected.** 19 of the 25 legacy railway rules
+are implemented, not 25 as previously stated in conversation. The six not
+implemented are R2.1.4, R2.3.3, R2.3.4, R2.4.3, R2.5.1 and R2.5.2. Five are
+blocked on absent vocabulary — finer payload kinds, mobile zone and remediation
+priority, attack techniques — each of which is a vocabulary revision rather than
+rule work.
+
+**First ETCS run.** With the migrated facts and the module criteria, the case
+produces 888 transmission-category evaluations, all undetermined, each with a
+derivation record. This is the correct outcome: the environment control,
+participant set and unauthorised access facts are absent by design, because the
+legacy model recorded the transmission medium rather than those three
+conditions. The chain executes end to end and reports what it does not know.
+
+**Performance measurement under ORN-02a.** On the 148 ETCS flows the
+transmission-category stage takes about 1.7 seconds and the seven-threat stage
+about 180 seconds, against seconds for both on the fixtures. The threat stage
+evaluates seven criteria against every flow with nested optional patterns. This
+is recorded as a measurement, not resolved; it must be optimised or moved to
+external computation before the case study is run interactively.

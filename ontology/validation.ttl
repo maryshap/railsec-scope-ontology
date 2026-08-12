@@ -2,5 +2,6 @@
 
 <https://w3id.org/railsec-scope/validation> a owl:Ontology ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
+        <https://w3id.org/railsec-scope/criteria/railway>,
         <https://w3id.org/railsec-scope/railway>,
         <https://w3id.org/railsec-scope/rules> .

@@ -1,70 +1,61 @@
+# Criteria and judgement bases were moved to ontology/criteria-railway.ttl.
+# This fixture supplies instance data only, so the same criteria apply here
+# and to every case.
+
 @prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
-@prefix th: <https://w3id.org/railsec-scope/fixture/railway-threat/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rss-core: <https://w3id.org/railsec-scope/core#> .
-@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
 @prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
 @prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix th: <https://w3id.org/railsec-scope/fixture/railway-threat/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-th:threat-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy R2.2.1-R2.2.7 into three-valued threat evaluations. The legacy documents are implementation history, not normative evidence."@en ;
-    rss-crit:revisionConditions "Replace each provisional mapping with reviewed EN 50159 SourceLocation and Interpretation records before release."@en .
+fx:cat1-flow rss-rail:authenticationEnabled false ;
+    rss-rail:safetyCodeEnabled false ;
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timeoutMechanismEnabled false .
 
-th:repetition-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:RepetitionThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "An open transmission is repetition-exposed when sequence protection is explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-th:deletion-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:DeletionThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "An open transmission is deletion-exposed when its timeout mechanism is explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-th:insertion-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:InsertionThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "A Category 3 transmission is insertion-exposed when source/destination identification is explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-th:resequencing-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:ResequencingThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "An open transmission is resequencing-exposed when sequence protection is explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-th:corruption-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:CorruptionThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "An open transmission is corruption-exposed when a safety code is explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-th:delay-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:DelayThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "An open transmission is delay-exposed when its timeout mechanism is explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-th:masquerade-criterion a rss-crit:Criterion ;
-    rss-rail:assessesTransmissionThreat rss-rail:MasqueradeThreat ;
-    rss-crit:restsOnJudgement th:threat-basis ;
-    rss-crit:criterionStatement "A Category 3 transmission is masquerade-exposed when authentication and source/destination identification are both explicitly absent."@en ;
-    rss-crit:evaluationStageIdentifier "transmission-threat" ;
-    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+fx:cat2-flow rss-rail:authenticationEnabled false ;
+    rss-rail:safetyCodeEnabled false ;
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timeoutMechanismEnabled false .
 
-# Missing protections are explicit only on the flows designed to prove exposure.
-fx:cat1-flow rss-rail:sequenceProtectionEnabled false ; rss-rail:timeoutMechanismEnabled false ; rss-rail:sourceDestinationIdentifierEnabled false ; rss-rail:safetyCodeEnabled false ; rss-rail:authenticationEnabled false .
-fx:cat2-flow rss-rail:sequenceProtectionEnabled false ; rss-rail:timeoutMechanismEnabled false ; rss-rail:sourceDestinationIdentifierEnabled false ; rss-rail:safetyCodeEnabled false ; rss-rail:authenticationEnabled false .
-fx:cat3-flow rss-rail:sequenceProtectionEnabled false ; rss-rail:timeoutMechanismEnabled false ; rss-rail:sourceDestinationIdentifierEnabled false ; rss-rail:safetyCodeEnabled false ; rss-rail:authenticationEnabled false .
-fx:unknown-flow rss-rail:sequenceProtectionEnabled false ; rss-rail:timeoutMechanismEnabled false ; rss-rail:sourceDestinationIdentifierEnabled false ; rss-rail:safetyCodeEnabled false ; rss-rail:authenticationEnabled false .
+fx:cat3-flow rss-rail:authenticationEnabled false ;
+    rss-rail:safetyCodeEnabled false ;
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timeoutMechanismEnabled false .
+
+fx:unknown-flow rss-rail:authenticationEnabled false ;
+    rss-rail:safetyCodeEnabled false ;
+    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timeoutMechanismEnabled false .
+
+th:protected-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo fx:assessor ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject th:protected-cat3-flow ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+th:protected-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject th:protected-cat3-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+th:protected-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue false ;
+    rss-rail:transmissionAssertionSubject th:protected-cat3-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
 
 th:protected-cat3-flow a rss-rail:RailwayInformationFlow ;
-    rss-rail:sequenceProtectionEnabled true ;
-    rss-rail:timeoutMechanismEnabled true ;
-    rss-rail:sourceDestinationIdentifierEnabled true ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:safetyCodeEnabled true ;
-    rss-rail:authenticationEnabled true .
-th:protected-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject th:protected-cat3-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-th:protected-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject th:protected-cat3-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-th:protected-access a rss-rail:UnauthorisedAccessExclusionAssumption ; rss-rail:transmissionAssertionSubject th:protected-cat3-flow ; rss-rail:unauthorisedAccessExcludedValue false ; rss-core:hasEpistemicStatus rss-core:assumptionStatus ; rss-res:assertedInInstanceSet fx:instance-set ; <http://www.w3.org/ns/prov#wasAttributedTo> fx:assessor .
+    rss-rail:sequenceProtectionEnabled true ;
+    rss-rail:sourceDestinationIdentifierEnabled true ;
+    rss-rail:timeoutMechanismEnabled true .

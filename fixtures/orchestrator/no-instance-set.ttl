@@ -1,0 +1,7 @@
+@prefix ns: <https://w3id.org/railsec-scope/fixture/orchestrator/> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+
+# A structurally valid flow with no InstanceSet anywhere. Stages that join on
+# the instance set would produce nothing while stages that do not would still
+# fire, so the Run must be refused before any derivation is attempted.
+ns:orphan-flow a rss-rail:RailwayInformationFlow .

@@ -137,3 +137,226 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Scope limitation:** legacy R2.4.1 and R2.4.2 are implemented provisionally. R2.4.3 is deferred because `MobileOperationalZone` and a governed remediation-priority result are absent from the approved vocabulary; neither is invented in this step.
 - **Provenance status:** the criteria rest on a provisional `JudgementBasis`. The legacy clause claims are implementation history, not normative evidence; reviewed source locations and interpretations remain release requirements.
 - **Reapproval required:** yes before public release.
+
+## CR-B-015 — SIL risk vocabulary (Step 12.5)
+
+**Change.** M5 gains `SILRiskType` (closed set containing `maximumSILRisk`) and
+the functional object property `assessesSILRisk` on `Criterion`.
+
+**Admission class.** Revision. `SILRiskType` is a new conceptual entity rather
+than a specialisation below one of the frozen 76 classes, and both terms
+participate in criteria and therefore in evaluation results.
+
+**Rationale.** Legacy v3 R2.5.3 states that a fail-safe compromise on a
+safety-critical asset is the worst case, consumed downstream as the maximum-risk
+override. It is modelled as a criterion outcome aggregating the fail-safe stage:
+any satisfied compromise is sufficient, an undetermined compromise propagates,
+and only a wholly negative input set concludes notSatisfied. No asset is typed
+with a risk class, so ORF-12 and ORF-13 remain structurally enforced.
+
+**Not implemented, with reasons.** Legacy v3 R2.5.1 and R2.5.2 classify attacks
+on safety-critical and safety-related assets as SIL-critical and SIL-relevant.
+Both require an attack technique vocabulary, which the approved model does not
+contain and which would be a further conceptual revision. They are deferred
+rather than approximated.
+
+**Criterion decision deferred.** The legacy rationale equates a safety-critical
+asset with SIL 4. The implemented criterion uses safety-critical class
+membership only and does not consult `hasSafetyIntegrityLevel`, so an asset
+without a recorded SIL is not treated as unknown at this stage. Requiring an
+explicit SIL-4 assignment, and returning undetermined where none is recorded, is
+a defensible alternative and is recorded here for decision rather than chosen
+silently.
+
+**Provenance status.** The criterion rests on a recorded provisional
+`JudgementBasis`. Reviewed IEC 61508 and EN 50126 source locations and
+interpretations are still required before release.
+
+**Closed-set note.** `SILRiskType` currently contains one individual. Adding the
+deferred SIL attack types later changes a closed value set and is therefore a
+versioned change under D-B6, not an extension.
+
+## CR-B-016 — access risk vocabulary (Step 12.6)
+
+**Change.** M5 gains `AccessRiskType` (closed set of four individuals:
+`privilegedMaintenanceAccessRisk`, `privilegedSupplierAccessRisk`,
+`highRiskMaintenancePath`, `remoteAccessRisk`) and two functional object
+properties on `Criterion`: `assessesAccessRisk` and `assessesAccessMechanism`.
+
+**Admission class.** Revision. `AccessRiskType` is a new conceptual entity and
+all terms participate in criteria and therefore in evaluation results.
+
+**Subject change, recorded rather than silent.** Legacy v3 R2.6.1 attributes
+privileged access risk to the maintenance *actor*. Actors and roles are not in
+the approved model and are listed as unmapped in the ETCS case. The criterion is
+therefore re-subjected onto the safety-critical asset that the mechanism
+reaches. This preserves the scoping intent, since the artefact scopes elements
+rather than people, but it is a change of subject and not a translation. If an
+actor and role vocabulary is later admitted, the criterion should be restated on
+its original subject.
+
+**Epistemic treatment of access.** An element with no `reachableBy` statement at
+all is undetermined: an unstated access inventory is not evidence that no access
+exists. An element with a stated inventory that does not contain the assessed
+mechanism is notSatisfied. This distinction is the reason the stage needs three
+values, and it is the point most likely to be lost in a later refactoring.
+
+**Provenance status.** All four criteria rest on a recorded provisional
+`JudgementBasis`. Reviewed TS 50701 source locations and interpretations are
+still required before release.
+
+## CR-B-017 — classification provenance and K-25 (Step 12.7)
+
+**Change.** `prov:wasDerivedFrom` added to the PROV-O DL import.
+`rss-crit:JudgementBasis` becomes a subclass of `prov:Entity` so that it can be
+the object of that property. A new constraint **K-25** in `shapes/railway.ttl`
+requires every `SafetyCriticalAsset` to carry exactly one reified classification
+assumption.
+
+**Admission class.** Revision for the JudgementBasis superclass; the import
+addition is a vocabulary completion, since the property was already implied by
+the intended provenance pattern.
+
+**Why the classification is an Assumption and not an AssertedFact.** The source
+workbook column `Assets_Flat.AssetClass`, imported under the rule recorded in
+`mapping.csv`, evidences that the value `SafetyCritical` was transferred. It does
+not evidence that the asset is safety-critical. Under EN 50126 and EN 50129 that
+determination follows from hazard analysis and tolerable hazard rate
+apportionment, recorded in a safety case, which was not available. No safety
+integrity level is recorded for any of the nine assets. Every classification is
+therefore an assumption with an explicit judgement basis.
+
+**Two provenance roles kept apart.** `Ontology_model.xlsx` and `mapping.csv` are
+data-transfer provenance: they record how a value reached the case file.
+`case:safety-critical-classification-basis` is a judgement record: it states why
+the transferred value is provisionally retained without safety-case evidence.
+Merging them would let a spreadsheet stand as evidence for a safety
+determination.
+
+**Architecture source not cited for classification.** Four assets carry a
+separate identity assumption derived from `case:asset-identity-basis`, covering
+existence and naming only. The architecture description is not cited by any
+classification assertion, because it does not make that claim. A test asserts
+that the identity basis is never the derivation source of a classification.
+
+**Interpretation confidence deliberately not used.** `interpretationConfidence`
+has `Interpretation` as its domain, so applying it to a `JudgementBasis` would be
+a domain violation. Judgement records carry `reasoning`, `revisionConditions`
+and the assumption epistemic status only. A machine-readable confidence scale
+for judgements, if wanted, is a separate controlled vocabulary revision.
+
+**K-25 is general to M6, not ETCS-specific.** Consequently the five synthetic
+safety-critical assets in the fixtures also carry classification assumptions,
+derived from a fixture-only judgement basis that records their synthetic origin
+and is explicitly barred from reuse in case data.
+
+## CR-B-018 — documentation integrity guards and stableIdentifier domain
+
+**Change.** `rsso:stableIdentifier` gains `rdfs:domain rss-core:Element`. Four
+documentation corrections are applied, and `tests/test_documentation_integrity.py`
+converts three previously untested prose claims into enforced invariants.
+
+**stableIdentifier domain.** The property had a range but no domain, which
+contradicted the Step 1 claim that every own property carries both. In the case
+data it is carried only by `Element` and its subclasses, so `Element` is the
+correct and non-widening domain.
+
+**Corrections.**
+
+1. `FORMALISATION_STATUS.md` Step 1 stated fixed counts of object and datatype
+   properties. Those counts were accurate at the freeze and have since grown
+   through admitted revisions, so the sentence had become false as written. It
+   now states the frozen class baseline explicitly and defers the property claim
+   to an enforced invariant instead of a number.
+2. `CODE_AND_FILES_GUIDE_UA.md` referenced the former CQ-09-candidates query,
+   deleted when the duplicate CQ-09 was unified. Note that the filename is
+   deliberately written without backticks here: the new guard treats a quoted
+   repository path as a claim that the file exists.
+3. `LEGACY_ARCHITECTURE_SOURCES.md` now records that **v3 numbering is canonical**,
+   with the block correspondence to v6, because the two versions assign the same
+   identifiers to different rules. `migration/legacy-rule-triage.csv` and its 54
+   rules settle the question.
+4. No change to the 54/54 legacy rule claim: it is correct as measured.
+
+**New guards, each mutation-checked.**
+
+- every own object and datatype property has a domain and a range;
+- every M1–M4 class appears either in the frozen entity matrix or in the
+  conceptual change catalog, which is the drift that let `Payload` enter the
+  ontology unseen by the matrix generator;
+- every repository path cited in a document exists.
+
+**Principle.** A number written in prose is only as reliable as the test that
+fails when it stops being true. Where a claim could be enforced, the count was
+replaced by the invariant rather than corrected to a new number that would go
+stale at the next admitted revision.
+
+## CR-B-019 — Run orchestrator and run-scoped results (Step 13)
+
+**Change.** `scripts/orchestrator.py` executes one Run as a single controlled
+analysis. Four datatype properties are added to `Run`: `iterationCount`,
+`artefactDigest`, `publishable` and `refusalReason`. All seven stage rules now
+mint run-scoped result identifiers.
+
+**Admission class.** Revision for the four Run properties.
+
+**Two defects the orchestrator exposed.** Both were invisible to the stage tests
+because each of those loads exactly one Run.
+
+1. *Result identifiers were not run-scoped.* Evaluation IRIs were built from the
+   element and the criterion alone. With two Runs present both write to the same
+   identifier, outcomes collide, and derivation records cite evaluations
+   belonging to the other Run. ORF-45 requires version identity on results and
+   ORF-46 requires two Runs to be comparable; neither can hold under colliding
+   identifiers. Every stage rule now appends a digest of the Run IRI.
+2. *Asymmetric instance-set joins.* Only the transmission-category stage joins on
+   `usedInstanceSet`. A Run declaring no instance set therefore produced no
+   category evaluations while still producing threat evaluations, leaving 70
+   derivations citing upstream results that were never created. The orchestrator
+   now refuses a Run that consumes no instance set, before deriving anything.
+
+**Refusal rather than partial success.** Non-convergence within the iteration
+bound is a refusal, not a recorded number. An absent description-logic reasoner
+is a refusal, not a silent omission. A Run either satisfies every check and is
+publishable, or it is refused with the reasons recorded on the Run itself.
+
+**L3 hook placed inside the loop.** Entry-point classification consumes
+reachability facts, so an external-computation call placed after convergence
+would leave those criteria permanently undetermined. Coverage and ordering
+consume final results and feed nothing back, so they belong after the loop.
+
+**Determinism is now evidenced.** Two Runs over identical inputs derive
+byte-identical graphs once the Run identity is masked. The conditional
+reproducibility claimed in the rationale document previously had no test behind
+it.
+
+**Test coupling removed.** Three stage tests hard-coded evaluation IRIs and broke
+under run scoping. They now locate evaluations by the element and criterion they
+concern, so they test behaviour rather than identifier construction.
+
+## CR-B-017 and CR-B-018 corrections found by continuous integration
+
+Two changes I made were rejected by the pipeline and are corrected here. Both
+are recorded rather than quietly amended, because each was a real defect in the
+change rather than a tooling inconvenience.
+
+**`stableIdentifier` domain reverted.** CR-B-018 added
+`rdfs:domain rss-core:Element` to `rsso:stableIdentifier`. The metadata module
+does not import the domain modules, so this named an undeclared class and took
+the ontology **out of the OWL 2 DL profile**. Module independence is the more
+important property: the metadata module must remain loadable without the domain
+modules. The property is therefore recorded as deliberately domainless, with the
+reason, in the invariant test rather than left as an unexplained exception.
+
+**Two catalogue rows removed.** CR-B-017 recorded the `JudgementBasis`
+subclass axiom and the imported `prov:wasDerivedFrom` property as rows in the
+conceptual change catalogue. Neither is a new term in a governed module: the
+first is an axiom on a term that is already governed, the second belongs to an
+imported external vocabulary. The catalogue rejects both, correctly. They remain
+recorded in CR-B-017 above, which is the right place for them.
+
+**Two generated reports regenerated.** The inferred class hierarchy changed
+because `JudgementBasis` now has `prov:Entity` as a named superclass, and the
+entity formalisation matrix changed for `Element`, `JudgementBasis` and `Run`.
+Both are committed deliberately, which is the behaviour the regression check is
+designed to force.

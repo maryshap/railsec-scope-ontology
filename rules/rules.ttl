@@ -53,6 +53,27 @@ rss-rule:EvaluateFailSafeCompromise a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:enabled true ;
     dcterms:description "Produces three-valued fail-safe compromise evaluations for safety-critical assets from explicit fail-safe dependencies and upstream critical-violation evaluations. It never types an asset as a legacy FailSafeVulnerability."@en .
 
+rss-rule:EvaluateSILRisk a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-sil-risk.rq" ;
+    rss-rule:ruleIdentifier "M5-R06" ;
+    rss-rule:enabled true ;
+    dcterms:description "Aggregates fail-safe compromise evaluations of a safety-critical asset into a maximum SIL risk evaluation. Consumes evaluations rather than class membership and never types an asset with a risk class."@en .
+
+rss-rule:EvaluateAssetAccessRisk a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-access-risk-asset.rq" ;
+    rss-rule:ruleIdentifier "M5-R07" ;
+    rss-rule:enabled true ;
+    dcterms:description "Evaluates privileged maintenance and supplier access risk on safety-critical assets. An unstated access inventory yields undetermined rather than a negative conclusion."@en .
+
+rss-rule:EvaluateAccessPathRisk a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-access-path-risk.rq" ;
+    rss-rule:ruleIdentifier "M5-R08" ;
+    rss-rule:enabled true ;
+    dcterms:description "Evaluates high-risk maintenance paths and remote access risk on information flows. Remote access risk consumes transmission-threat evaluations and propagates their undetermined outcomes."@en .
+
 rss-rule:DLSafeRule a owl:Class .
 rss-rule:implementationFile a owl:DatatypeProperty .
 rss-rule:ruleIdentifier a owl:DatatypeProperty .

@@ -1,0 +1,166 @@
+@prefix case: <https://w3id.org/railsec-scope/case/etcs/resource/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Provenance for the safety-critical classification of the ETCS assets.
+#
+# The workbook column Assets_Flat.AssetClass, imported under the rule recorded in
+# mapping.csv, establishes that the value SafetyCritical was carried across. It
+# does not establish that the asset is safety-critical: that determination
+# belongs to a safety case, which is not available. Every classification is
+# therefore recorded as an Assumption, not an AssertedFact.
+#
+# Data-transfer provenance (workbook and mapping rule) and the justification for
+# provisionally accepting the transferred value are deliberately kept apart. The
+# first is a statement about how the value reached this file; the second is a
+# statement about why it is retained without safety-case evidence.
+
+case:assessor a prov:Agent, prov:Person ;
+    rdfs:label "Assessor responsible for the ETCS case instance"@en .
+
+case:safety-critical-classification-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "The value SafetyCritical was imported from the Assets_Flat.AssetClass column of the source workbook under the transfer rule recorded in mapping.csv. The workbook evidences the transfer, not the determination. No safety case, hazard analysis or tolerable hazard rate apportionment was available at the time of assertion, and no safety integrity level is recorded for any of these assets. The classification is retained provisionally because it is consistent with the role each component plays in the ETCS architecture, and because discarding it would remove the safety dimension from scoping altogether. It is an assessor judgement, not evidence."@en ;
+    rss-crit:revisionConditions "Replace with an AssertedFact carrying a SourceLocation once the applicable safety case, hazard analysis or SIL apportionment is obtained. Re-examine if the architecture description is superseded, if a component is found to realise no safety function, or if a safety integrity level is recorded that contradicts the classification."@en .
+
+case:asset-identity-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Component existence, naming and interconnection were taken from the retained architecture description. That source supports the identity of the component only. It is recorded separately so that no assertion attributes the safety-critical classification to it."@en ;
+    rss-crit:revisionConditions "Supersede when a controlled architecture baseline with clause-level locations is available."@en .
+
+case:asset-ct-01-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of RBC"@en ;
+    rss-core:assertionSubject case:asset-ct-01 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ct-02-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of IXL/Interlocking (CBI)"@en ;
+    rss-core:assertionSubject case:asset-ct-02 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-01-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of EVC"@en ;
+    rss-core:assertionSubject case:asset-ob-01 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-06-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of Odometry Sensors Set"@en ;
+    rss-core:assertionSubject case:asset-ob-06 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-07-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of TIU"@en ;
+    rss-core:assertionSubject case:asset-ob-07 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-24-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of Odometry Module"@en ;
+    rss-core:assertionSubject case:asset-ob-24 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-25-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of Radar Sensor"@en ;
+    rss-core:assertionSubject case:asset-ob-25 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-26-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of Wheel Sensor"@en ;
+    rss-core:assertionSubject case:asset-ob-26 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-29-safety-critical-assertion a rss-core:Assumption ;
+    rdfs:label "Safety-critical classification of Odo BUS"@en ;
+    rss-core:assertionSubject case:asset-ob-29 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:safety-critical-classification-basis ;
+    prov:wasAttributedTo case:assessor .
+
+# Identity assertions. The architecture description supports the existence and
+# naming of these components. It is not cited for the classification above.
+
+case:asset-ob-24-identity-assertion a rss-core:Assumption ;
+    rdfs:label "Existence and identity of Odometry Module"@en ;
+    rss-core:assertionSubject case:asset-ob-24 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/2000/01/rdf-schema#label"^^xsd:anyURI ;
+    rss-core:assertionObjectLiteral "Odometry Module" ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:asset-identity-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-25-identity-assertion a rss-core:Assumption ;
+    rdfs:label "Existence and identity of Radar Sensor"@en ;
+    rss-core:assertionSubject case:asset-ob-25 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/2000/01/rdf-schema#label"^^xsd:anyURI ;
+    rss-core:assertionObjectLiteral "Radar Sensor" ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:asset-identity-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-26-identity-assertion a rss-core:Assumption ;
+    rdfs:label "Existence and identity of Wheel Sensor"@en ;
+    rss-core:assertionSubject case:asset-ob-26 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/2000/01/rdf-schema#label"^^xsd:anyURI ;
+    rss-core:assertionObjectLiteral "Wheel Sensor" ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:asset-identity-basis ;
+    prov:wasAttributedTo case:assessor .
+
+case:asset-ob-29-identity-assertion a rss-core:Assumption ;
+    rdfs:label "Existence and identity of Odo BUS"@en ;
+    rss-core:assertionSubject case:asset-ob-29 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/2000/01/rdf-schema#label"^^xsd:anyURI ;
+    rss-core:assertionObjectLiteral "Odo BUS" ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:asset-identity-basis ;
+    prov:wasAttributedTo case:assessor .

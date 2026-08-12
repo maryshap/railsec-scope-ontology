@@ -2,6 +2,26 @@
 
 The files under the workspace `legacy_snapshot/` are retained as historical inputs. They are not imported wholesale into the ontology and are not normative sources for railway-security criteria.
 
+## Canonical legacy rule numbering
+
+Two versions of the legacy rule description exist and they number the blocks
+differently. **Version 3 is canonical for this repository**, because
+`migration/legacy-rule-triage.csv` enumerates its 54 rules and every legacy
+reference in the code and documentation follows it.
+
+| Block | v3 (canonical) | v6 (not used) |
+|---|---|---|
+| 2.1 | Category classification | Transmission system classification |
+| 2.2 | Seven transmission threats | Transmission context classification |
+| 2.3 | Safety services priority | Seven transmission threats |
+| 2.4 | Fail-safe behaviour | Critical violation classification |
+| 2.5 | SIL classification | Fail-safe analysis |
+| 2.6 | Maintenance and access risks | SIL-based risk |
+
+A legacy identifier written without a version is read as v3. Anything taken from
+v6 must state the version explicitly, because the same identifier denotes a
+different rule there.
+
 ## Permitted use
 
 - `General_Architecture.pdf` and `railway_architecture_v2.docx` may support identification of ETCS M6 architecture candidates: on-board, centralised/distributed trackside, telecom, maintenance and remote-access zones; assets; interfaces; and labelled communication paths.

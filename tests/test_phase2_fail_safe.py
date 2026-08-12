@@ -69,6 +69,20 @@ def fail_safe_outcomes(graph: Graph) -> dict:
     return outcomes
 
 
+
+def evaluation_for(graph, element, criterion_predicate, criterion_value):
+    """Locate an evaluation by what it is about rather than by its IRI shape.
+
+    Result IRIs are run-scoped, so hard-coding them couples a test to the
+    identifier construction. Selecting on the element and the criterion keeps
+    the test about behaviour.
+    """
+    for candidate in graph.subjects(RES.evaluationConcernsElement, element):
+        criterion = graph.value(candidate, RES.evaluatesCriterion)
+        if criterion is not None and (criterion, criterion_predicate, criterion_value) in graph:
+            return candidate
+    raise AssertionError(f"no evaluation for {element} under {criterion_value}")
+
 class Phase2FailSafeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -101,7 +115,7 @@ class Phase2FailSafeTest(unittest.TestCase):
         self.assertEqual(0, apply_rule(graph, "evaluate-fail-safe-compromise.rq"))
 
     def test_provenance_cites_matching_critical_evaluation(self) -> None:
-        evaluation = FS["compromised-asset/evaluation/fail-safe/criticalIntegrityViolation"]
+        evaluation = evaluation_for(self.graph, FS["compromised-asset"], RAIL.assessesFailSafeCompromiseFrom, RAIL.criticalIntegrityViolation)
         record = self.graph.value(evaluation, RES.hasDerivationRecord)
         step = self.graph.value(record, RES.hasStep)
         self.assertEqual(RULE.EvaluateFailSafeCompromise, self.graph.value(step, RES.executedByMechanism))
@@ -146,7 +160,7 @@ class Phase2FailSafeTest(unittest.TestCase):
     def test_traceability_shape_rejects_missing_upstream_link(self) -> None:
         graph = Graph()
         graph += self.graph
-        evaluation = FS["compromised-asset/evaluation/fail-safe/criticalIntegrityViolation"]
+        evaluation = evaluation_for(self.graph, FS["compromised-asset"], RAIL.assessesFailSafeCompromiseFrom, RAIL.criticalIntegrityViolation)
         step = graph.value(graph.value(evaluation, RES.hasDerivationRecord), RES.hasStep)
         for used in list(graph.objects(step, RES.usedEntity)):
             graph.remove((step, RES.usedEntity, used))
@@ -157,7 +171,7 @@ class Phase2FailSafeTest(unittest.TestCase):
     def test_dependency_shape_rejects_a_false_determined_result(self) -> None:
         graph = Graph()
         graph += self.graph
-        evaluation = FS["missing-dependency-asset/evaluation/fail-safe/criticalIntegrityViolation"]
+        evaluation = evaluation_for(self.graph, FS["missing-dependency-asset"], RAIL.assessesFailSafeCompromiseFrom, RAIL.criticalIntegrityViolation)
         graph.remove((evaluation, RES.hasEvaluationOutcome, RES.undetermined))
         graph.add((evaluation, RES.hasEvaluationOutcome, RES.satisfied))
         shapes = Graph().parse(PROJECT / "shapes" / "railway.ttl")

@@ -175,6 +175,12 @@ rss-res:representedValue a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; ow
 rss-res:orderingPosition a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:OrderingEntry ; rdfs:range xsd:positiveInteger ; rdfs:label "ordering position"@en ; rsso:requirement "ORF-23" .
 rss-res:tieIdentifier a owl:DatatypeProperty ; rdfs:domain rss-res:OrderingEntry ; rdfs:range xsd:string ; rdfs:label "tie identifier"@en .
 rss-res:runIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:string ; rdfs:label "run identifier"@en ; rsso:requirement "ORF-45" .
+
+### Run execution record (Step 13, CR-B-019)
+rss-res:iterationCount a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:integer ; rdfs:label "iteration count"@en ; rsso:requirement "ORF-32", "ORF-45" .
+rss-res:artefactDigest a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:string ; rdfs:label "artefact digest"@en ; rsso:requirement "ORF-45", "ORF-46" .
+rss-res:publishable a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:boolean ; rdfs:label "publishable"@en ; rsso:requirement "ORF-34" .
+rss-res:refusalReason a owl:DatatypeProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:string ; rdfs:label "refusal reason"@en ; rsso:requirement "ORF-34" .
 rss-res:startTime a owl:DatatypeProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:dateTime ; rdfs:label "start time"@en .
 rss-res:endTime a owl:DatatypeProperty ; rdfs:domain rss-res:Run ; rdfs:range xsd:dateTime ; rdfs:label "end time"@en .
 rss-res:hardwareConfiguration a owl:DatatypeProperty ; rdfs:domain rss-res:ExecutionEnvironment ; rdfs:range xsd:string ; rdfs:label "hardware configuration"@en ; rsso:requirement "ORN-02a" .

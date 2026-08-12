@@ -41,7 +41,7 @@ https://w3id.org/railsec-scope/criteria#EntryPoint	https://w3id.org/railsec-scop
 https://w3id.org/railsec-scope/criteria#ExternalComputationMethod	http://www.w3.org/ns/prov#Plan
 https://w3id.org/railsec-scope/criteria#ExternalComputationMethod	https://w3id.org/railsec-scope/criteria#VersionedArtefact
 https://w3id.org/railsec-scope/criteria#Interpretation	http://www.w3.org/2002/07/owl#Thing
-https://w3id.org/railsec-scope/criteria#JudgementBasis	http://www.w3.org/2002/07/owl#Thing
+https://w3id.org/railsec-scope/criteria#JudgementBasis	http://www.w3.org/ns/prov#Entity
 https://w3id.org/railsec-scope/criteria#OntologyModule	https://w3id.org/railsec-scope/criteria#VersionedArtefact
 https://w3id.org/railsec-scope/criteria#OrderingFactor	https://w3id.org/railsec-scope/criteria#VersionedArtefact
 https://w3id.org/railsec-scope/criteria#OrderingFactorSet	https://w3id.org/railsec-scope/criteria#VersionedArtefact
@@ -51,6 +51,7 @@ https://w3id.org/railsec-scope/criteria#SourceEdition	http://www.w3.org/2002/07/
 https://w3id.org/railsec-scope/criteria#SourceLocation	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/criteria#TerminologyTerm	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/criteria#VersionedArtefact	http://www.w3.org/ns/prov#Entity
+https://w3id.org/railsec-scope/railway#AccessRiskType	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/railway#Category1Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#Category2Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#Category3Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
@@ -72,6 +73,7 @@ https://w3id.org/railsec-scope/railway#RailwaySecurityZone	https://w3id.org/rail
 https://w3id.org/railsec-scope/railway#RemoteAccess	https://w3id.org/railsec-scope/core#AccessMechanism
 https://w3id.org/railsec-scope/railway#RepetitionThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
 https://w3id.org/railsec-scope/railway#ResequencingThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
+https://w3id.org/railsec-scope/railway#SILRiskType	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/railway#SafetyCriticalAsset	https://w3id.org/railsec-scope/railway#RailwayAsset
 https://w3id.org/railsec-scope/railway#SafetyIntegrityLevel	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/railway#SafetyRelatedAsset	https://w3id.org/railsec-scope/railway#RailwayAsset

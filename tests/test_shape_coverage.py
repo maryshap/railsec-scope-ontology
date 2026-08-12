@@ -57,6 +57,7 @@ UNEXERCISED: dict[str, str] = {
 
 EVALUATED_GRAPHS = [
     Path("cases") / "etcs" / "abox.ttl",
+    Path("cases") / "etcs" / "classification-provenance.ttl",
     Path("fixtures") / "architecture" / "positive.ttl",
 ]
 

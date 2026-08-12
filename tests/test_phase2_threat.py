@@ -56,6 +56,20 @@ def threat_outcomes(graph: Graph) -> dict[tuple, object]:
     return outcomes
 
 
+
+def evaluation_for(graph, element, criterion_predicate, criterion_value):
+    """Locate an evaluation by what it is about rather than by its IRI shape.
+
+    Result IRIs are run-scoped, so hard-coding them couples a test to the
+    identifier construction. Selecting on the element and the criterion keeps
+    the test about behaviour.
+    """
+    for candidate in graph.subjects(RES.evaluationConcernsElement, element):
+        criterion = graph.value(candidate, RES.evaluatesCriterion)
+        if criterion is not None and (criterion, criterion_predicate, criterion_value) in graph:
+            return candidate
+    raise AssertionError(f"no evaluation for {element} under {criterion_value}")
+
 class Phase2TransmissionThreatTest(unittest.TestCase):
     def test_seven_threats_propagate_category_unknowns(self) -> None:
         graph = load_graph()
@@ -84,11 +98,14 @@ class Phase2TransmissionThreatTest(unittest.TestCase):
             for threat in THREATS:
                 self.assertNotIn((flow, RDF.type, threat), graph, "Threat exposure must remain an evaluation, not direct flow typing")
 
-        evaluation = CAT["cat3-flow/evaluation/threat/MasqueradeThreat"]
+        evaluation = evaluation_for(graph, CAT["cat3-flow"], RAIL.assessesTransmissionThreat, RAIL.MasqueradeThreat)
         record = graph.value(evaluation, RES.hasDerivationRecord)
         step = graph.value(record, RES.hasStep)
         self.assertIn((step, RES.executedByMechanism, RULE.EvaluateTransmissionThreat), graph)
-        self.assertIn((step, RES.usedEntity, CAT["cat3-flow/evaluation/Category3Transmission"]), graph)
+        category_evaluation = evaluation_for(
+            graph, CAT["cat3-flow"], CRIT.determinesMembershipOf, RAIL.Category3Transmission
+        )
+        self.assertIn((step, RES.usedEntity, category_evaluation), graph)
 
         coverage = {
             str(row.stage): row

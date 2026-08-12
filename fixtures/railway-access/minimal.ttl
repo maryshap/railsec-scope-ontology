@@ -1,0 +1,76 @@
+@prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
+@prefix fs: <https://w3id.org/railsec-scope/fixture/railway-fail-safe/> .
+@prefix ac: <https://w3id.org/railsec-scope/fixture/railway-access/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ac:access-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Provisional refactoring of legacy v3 R2.6.1-R2.6.4. R2.6.1 is re-subjected from the maintenance actor to the safety-critical asset, because actors and roles are not in the approved model. The legacy clause claims are implementation history, not normative evidence."@en ;
+    rss-crit:revisionConditions "Replace with reviewed TS 50701 SourceLocation and Interpretation records before release, and decide whether an actor and role vocabulary is admitted so that R2.6.1 can be expressed on its original subject."@en .
+
+ac:maintenance-access-criterion a rss-crit:Criterion ;
+    rss-rail:assessesAccessRisk rss-rail:privilegedMaintenanceAccessRisk ;
+    rss-rail:assessesAccessMechanism rss-rail:MaintenanceAccess ;
+    rss-crit:restsOnJudgement ac:access-basis ;
+    rss-crit:criterionStatement "A safety-critical asset reachable by maintenance access carries a privileged access risk."@en ;
+    rss-crit:evaluationStageIdentifier "access-risk" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#SafetyCriticalAsset"^^xsd:anyURI .
+
+ac:supplier-access-criterion a rss-crit:Criterion ;
+    rss-rail:assessesAccessRisk rss-rail:privilegedSupplierAccessRisk ;
+    rss-rail:assessesAccessMechanism rss-rail:SupplierAccess ;
+    rss-crit:restsOnJudgement ac:access-basis ;
+    rss-crit:criterionStatement "A safety-critical asset reachable by supplier access carries a privileged supply chain risk."@en ;
+    rss-crit:evaluationStageIdentifier "access-risk" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#SafetyCriticalAsset"^^xsd:anyURI .
+
+ac:maintenance-path-criterion a rss-crit:Criterion ;
+    rss-rail:assessesAccessRisk rss-rail:highRiskMaintenancePath ;
+    rss-rail:assessesAccessMechanism rss-rail:MaintenanceAccess ;
+    rss-crit:restsOnJudgement ac:access-basis ;
+    rss-crit:criterionStatement "A flow terminating at a safety-critical asset whose origin is reachable by maintenance access is a high-risk maintenance path."@en ;
+    rss-crit:evaluationStageIdentifier "access-path" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+ac:remote-access-criterion a rss-crit:Criterion ;
+    rss-rail:assessesAccessRisk rss-rail:remoteAccessRisk ;
+    rss-rail:assessesAccessMechanism rss-rail:RemoteAccess ;
+    rss-crit:restsOnJudgement ac:access-basis ;
+    rss-crit:criterionStatement "A flow reachable by remote access that carries a satisfied transmission-threat evaluation is a remote access risk."@en ;
+    rss-crit:evaluationStageIdentifier "access-path" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+ac:maintenance-mechanism a rss-rail:MaintenanceAccess .
+ac:supplier-mechanism a rss-rail:SupplierAccess .
+ac:remote-mechanism a rss-rail:RemoteAccess .
+
+# Asset-level cases. fs:compromised-asset has both mechanisms recorded;
+# fs:protected-asset has an inventory that contains neither; fs:unknown-asset
+# has no reachableBy statement at all and must stay undetermined.
+fs:compromised-asset rss-core:reachableBy ac:maintenance-mechanism, ac:supplier-mechanism .
+fs:protected-asset rss-core:reachableBy ac:remote-mechanism .
+
+# Flow-level cases.
+ac:maintenance-origin a rss-rail:RailwayAsset ; rss-core:reachableBy ac:maintenance-mechanism .
+ac:plain-origin a rss-rail:RailwayAsset ; rss-core:reachableBy ac:remote-mechanism .
+
+fx:cat3-flow rss-core:hasOrigin ac:maintenance-origin ; rss-core:reachableBy ac:remote-mechanism .
+fx:cat2-flow rss-core:hasOrigin ac:plain-origin ; rss-core:hasDestination fs:protected-asset ; rss-core:reachableBy ac:remote-mechanism .
+
+# Decisive fixture for threat propagation: unknown-flow gains a remote access
+# mechanism, so its inventory is stated and only the undetermined threat outcome
+# can decide the result.
+fx:unknown-flow rss-core:reachableBy ac:remote-mechanism .
+
+# Decisive fixture for the destination condition: an origin with maintenance
+# access, but a destination that is not safety-critical. The path must be
+# negative, not positive on the origin alone.
+ac:ordinary-destination a rss-rail:RailwayAsset .
+ac:non-critical-path-flow a rss-rail:RailwayInformationFlow ;
+    rss-core:hasOrigin ac:maintenance-origin ;
+    rss-core:hasDestination ac:ordinary-destination ;
+    rss-core:reachableBy ac:maintenance-mechanism .

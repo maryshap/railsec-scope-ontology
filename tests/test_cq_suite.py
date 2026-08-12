@@ -33,7 +33,7 @@ ANSWERED: dict[str, int] = {
     "CQ-22": 1,
     "CQ-28": 1,
     "CQ-31": 1,
-    "CQ-36": 1374,
+    "CQ-36": 1391,  # +17: nine classification assumptions, four identity assumptions, two bases, one agent, one instance-set reference
     "CQ-41": 92,
     "CQ-43": 35,
 }
@@ -85,6 +85,7 @@ ALL_CQ = [f"CQ-{n:02d}" for n in range(1, 46)]
 
 def representative_graph() -> Graph:
     graph = Graph().parse(PROJECT / "cases" / "etcs" / "abox.ttl")
+    graph.parse(PROJECT / "cases" / "etcs" / "classification-provenance.ttl")
     graph.parse(PROJECT / "fixtures" / "criterion-slice" / "positive.ttl")
     return graph
 

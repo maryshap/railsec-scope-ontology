@@ -1,0 +1,74 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M5-R06 maximum SIL risk (legacy v3 R2.5.3).
+# Aggregates the fail-safe compromise evaluations of a safety-critical asset.
+# Any satisfied compromise is sufficient. Otherwise an undetermined compromise
+# propagates as undetermined; only a wholly negative input set concludes
+# notSatisfied. At least one upstream evaluation is required, so an asset with
+# no fail-safe stage remains visible to generic stage coverage instead of
+# receiving an orphan result.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?asset ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateSILRisk ;
+      rss-res:usedEntity ?failSafeEvaluation ;
+      prov:used ?asset ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?asset a rss-rail:SafetyCriticalAsset .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-rail:assessesSILRisk ?risk .
+
+  ?failSafeEvaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?asset ;
+      rss-res:evaluatesCriterion ?failSafeCriterion ;
+      rss-res:hasEvaluationOutcome ?failSafeOutcome ;
+      rss-res:producedByRun ?run .
+  ?failSafeCriterion rss-rail:assessesFailSafeCompromiseFrom ?violation .
+
+  BIND(EXISTS {
+    ?anySatisfiedEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?asset ;
+        rss-res:evaluatesCriterion ?anySatisfiedCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:satisfied ;
+        rss-res:producedByRun ?run .
+    ?anySatisfiedCriterion rss-rail:assessesFailSafeCompromiseFrom ?anySatisfiedViolation .
+  } AS ?anySatisfied)
+  BIND(EXISTS {
+    ?anyUndeterminedEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?asset ;
+        rss-res:evaluatesCriterion ?anyUndeterminedCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:undetermined ;
+        rss-res:producedByRun ?run .
+    ?anyUndeterminedCriterion rss-rail:assessesFailSafeCompromiseFrom ?anyUndeterminedViolation .
+  } AS ?anyUndetermined)
+
+  BIND(
+    IF(?anySatisfied, rss-res:satisfied,
+       IF(?anyUndetermined, rss-res:undetermined, rss-res:notSatisfied))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?asset), "/evaluation/sil-risk/", ENCODE_FOR_URI(STRAFTER(STR(?risk), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?asset) && isIRI(?run) && isIRI(?criterion) && isIRI(?risk))
+}

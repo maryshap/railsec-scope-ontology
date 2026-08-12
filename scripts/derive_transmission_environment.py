@@ -87,9 +87,16 @@ def main() -> int:
                               ("rss-rail", RAIL), ("rss-res", RES), ("prov", PROV)):
         output.bind(prefix, namespace)
 
-    dataset = CASE["transmission-environment-dataset"]
+    # The dataset must declare every module whose terms it uses, or the OWL 2 DL
+    # profile check reports them as undeclared. assessment pulls in results,
+    # which owns assertedInInstanceSet; railway owns the transmission facts.
+    dataset = Namespace("https://w3id.org/railsec-scope/case/etcs/")["transmission-environment"]
+    root = Namespace("https://w3id.org/railsec-scope/")
     output.add((dataset, RDF.type, OWL.Ontology))
-    output.add((dataset, OWL.imports, Namespace("https://w3id.org/railsec-scope/")["railway"]))
+    output.add((dataset, OWL.imports, root["assessment"]))
+    output.add((dataset, OWL.imports, root["railway"]))
+    output.add((dataset, OWL.versionIRI,
+                Namespace("https://w3id.org/railsec-scope/case/etcs/transmission-environment/")["version/0.1.0"]))
 
     basis = CASE["transmission-environment-basis"]
     output.add((basis, RDF.type, CRIT.JudgementBasis))

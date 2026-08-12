@@ -2143,8 +2143,10 @@ case:flow-if-ts-12-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-12-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
-case:transmission-environment-dataset a owl:Ontology ;
-    owl:imports <https://w3id.org/railsec-scope/railway> .
+<https://w3id.org/railsec-scope/case/etcs/transmission-environment> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/assessment>,
+        <https://w3id.org/railsec-scope/railway> ;
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/transmission-environment/version/0.1.0> .
 
 case:transmission-environment-basis a rss-crit:JudgementBasis ;
     rss-crit:reasoning "The source model records the physical medium and an exposure rating, not the three conditions EN 50159 uses to classify a transmission system. The assessor applies the following rule: a clearly wired medium places the participant set under the operator's control; the same medium keeps the transmission environment controlled unless exposure is rated high; and unauthorised access is excluded only where exposure is rated low. Flows whose medium is radio, mixed, human or otherwise not clearly wired receive no fact, so their category stays undetermined rather than being guessed. This rule is a judgement about a study case, not evidence about a deployed system."@en ;

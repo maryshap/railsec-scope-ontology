@@ -493,6 +493,15 @@ represents each interface as a forward and a reverse flow. The medium and
 exposure apply to both directions, so each fact is attached to both. 267 facts
 across 104 flows.
 
+**Import declaration corrected.** The dataset first declared only the railway
+module. `assertedInInstanceSet` belongs to the results module, reached through
+assessment, so the OWL 2 DL profile check reported it as an undeclared
+annotation property and continuous integration rejected the branch. The dataset
+now imports assessment and railway, matching the other case datasets, and
+carries a version IRI. This is the third time a change has been accepted by the
+Python stack and rejected by the reasoner; a vocabulary or dataset change is not
+verified until continuous integration has run it.
+
 **First determined results for the ETCS case.** The transmission-category stage
 now produces 178 satisfied, 356 not satisfied and 354 undetermined evaluations,
 classifying 53 flows as Category 1 and 36 as Category 3, with 59 flows

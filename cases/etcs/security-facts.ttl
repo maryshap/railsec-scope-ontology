@@ -1,10 +1,16 @@
 @prefix case: <https://w3id.org/railsec-scope/case/etcs/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rss-core: <https://w3id.org/railsec-scope/core#> .
 @prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
 @prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
 @prefix rss-res: <https://w3id.org/railsec-scope/results#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/case/etcs/security-facts> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/assessment>,
+        <https://w3id.org/railsec-scope/railway> ;
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/security-facts/version/0.1.0> .
 
 case:IF-CT-01-authenticationEnabled-assumption a rss-core:Assumption ;
     prov:wasAttributedTo case:assessor ;

@@ -420,6 +420,15 @@ therefore `rdf:langString`. Their ranges now admit the union of both datatypes;
 the alternative of stripping language tags was rejected because these are
 human-readable, potentially multilingual statements.
 
+The two independently profile-checked ETCS provenance datasets now also carry
+explicit `owl:Ontology` headers and the same assessment/railway vocabulary
+imports as the main ETCS ABox. Previously they were anonymous RDF fragments, so
+OWLAPI interpreted their otherwise declared object and datatype properties as
+undeclared annotation properties when each file was validated in isolation.
+The assessor remains a `prov:Agent`; the additional `prov:Person` type was
+removed because that optional class is not part of the pinned PROV-O DL
+projection and added no information used by the assessment model.
+
 **Why.** Rules require a `Criterion` to be present in the loaded graph. While the
 criteria lived in test fixtures, they applied in tests and nowhere else: a run
 over the ETCS case produced zero evaluations even with the facts in place.

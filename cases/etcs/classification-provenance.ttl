@@ -1,4 +1,5 @@
 @prefix case: <https://w3id.org/railsec-scope/case/etcs/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -7,6 +8,11 @@
 @prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
 @prefix rss-res: <https://w3id.org/railsec-scope/results#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/case/etcs/classification-provenance> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/assessment>,
+        <https://w3id.org/railsec-scope/railway> ;
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/classification-provenance/version/0.1.0> .
 
 # Provenance for the safety-critical classification of the ETCS assets.
 #
@@ -21,7 +27,7 @@
 # first is a statement about how the value reached this file; the second is a
 # statement about why it is retained without safety-case evidence.
 
-case:assessor a prov:Agent, prov:Person ;
+case:assessor a prov:Agent ;
     rdfs:label "Assessor responsible for the ETCS case instance"@en .
 
 case:safety-critical-classification-basis a rss-crit:JudgementBasis ;

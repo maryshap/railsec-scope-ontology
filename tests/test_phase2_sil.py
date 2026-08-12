@@ -30,6 +30,7 @@ SIL = Namespace("https://w3id.org/railsec-scope/fixture/railway-sil/")
 RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
 RULE = Namespace("https://w3id.org/railsec-scope/rules#")
+RSSCR = Namespace("https://w3id.org/railsec-scope/criteria/railway/")
 
 STAGE_RULES = [
     "evaluate-transmission-category.rq",
@@ -129,7 +130,7 @@ class Phase2SILRiskTest(unittest.TestCase):
                 self.assertEqual(expected, str(self.graph.value(record, RES.completenessStatus)))
 
     def test_criterion_does_not_claim_normative_legacy_authority(self) -> None:
-        criterion = SIL["maximum-risk-criterion"]
+        criterion = RSSCR["sil-maximum-risk-criterion"]
         self.assertIsNone(self.graph.value(criterion, Namespace("https://w3id.org/railsec-scope/criteria#").derivedFromSource))
         basis = self.graph.value(criterion, Namespace("https://w3id.org/railsec-scope/criteria#").restsOnJudgement)
         self.assertIsNotNone(basis, "a criterion without a source must rest on a recorded judgement")

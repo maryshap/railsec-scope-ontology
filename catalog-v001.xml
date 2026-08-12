@@ -7,6 +7,7 @@
   <uri name="https://w3id.org/railsec-scope/results" uri="ontology/results.ttl"/>
   <uri name="https://w3id.org/railsec-scope/assessment" uri="ontology/assessment.ttl"/>
   <uri name="https://w3id.org/railsec-scope/railway" uri="ontology/railway.ttl"/>
+  <uri name="https://w3id.org/railsec-scope/criteria/railway" uri="ontology/criteria-railway.ttl"/>
   <uri name="https://w3id.org/railsec-scope/rules" uri="rules/rules.ttl"/>
   <uri name="https://w3id.org/railsec-scope/validation" uri="ontology/validation.ttl"/>
 </catalog>

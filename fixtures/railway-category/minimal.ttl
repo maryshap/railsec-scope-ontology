@@ -1,3 +1,7 @@
+# Criteria and judgement bases were moved to ontology/criteria-railway.ttl.
+# This fixture supplies instance data only, so the same criteria apply here
+# and to every case.
+
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -7,34 +11,87 @@
 @prefix rss-res: <https://w3id.org/railsec-scope/results#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-fx:version a rss-crit:ArtefactVersion ; rss-crit:versionIdentifier "category-slice-1" .
-fx:instance-set a rss-res:InstanceSet ; rss-crit:hasVersion fx:version ; dcterms:source "Purpose-built synthetic category fixture; not railway evidence."@en .
-fx:run a rss-res:Run ; rss-res:usedInstanceSet fx:instance-set ; rss-res:runIdentifier "category-slice-run" .
-fx:assessor a prov:Agent .
+fx:cat1-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject fx:cat1-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
 
-fx:category-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Synthetic executable interpretation of the user-approved EN 50159 category distinction. Exact standard edition and clause remain domain-review requirements."@en ;
-    rss-crit:revisionConditions "Replace with a reviewed SourceLocation plus Interpretation before release."@en .
-fx:category-1-criterion a rss-crit:Criterion ; rss-crit:determinesMembershipOf rss-rail:Category1Transmission ; rss-crit:restsOnJudgement fx:category-basis ; rss-crit:evaluationStageIdentifier "transmission-category" ; rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-fx:category-2-criterion a rss-crit:Criterion ; rss-crit:determinesMembershipOf rss-rail:Category2Transmission ; rss-crit:restsOnJudgement fx:category-basis ; rss-crit:evaluationStageIdentifier "transmission-category" ; rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
-fx:category-3-criterion a rss-crit:Criterion ; rss-crit:determinesMembershipOf rss-rail:Category3Transmission ; rss-crit:restsOnJudgement fx:category-basis ; rss-crit:evaluationStageIdentifier "transmission-category" ; rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+fx:cat1-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject fx:cat1-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
 
-fx:cat1-flow a rss-rail:RailwayInformationFlow .
-fx:cat2-flow a rss-rail:RailwayInformationFlow .
-fx:cat3-flow a rss-rail:RailwayInformationFlow .
-fx:unknown-flow a rss-rail:RailwayInformationFlow .
+fx:cat2-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo fx:assessor ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject fx:cat2-flow ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fx:cat2-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject fx:cat2-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fx:cat2-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue false ;
+    rss-rail:transmissionAssertionSubject fx:cat2-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fx:cat3-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo fx:assessor ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject fx:cat3-flow ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fx:cat3-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject fx:cat3-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
+fx:cat3-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue false ;
+    rss-rail:transmissionAssertionSubject fx:cat3-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
 fx:no-input-flow a rss-rail:RailwayInformationFlow .
 
-fx:cat1-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fx:cat1-flow ; rss-rail:environmentControlledValue true ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fx:cat1-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fx:cat1-flow ; rss-rail:participantSetFixedValue true ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
+fx:run a rss-res:Run ;
+    rss-res:runIdentifier "category-slice-run" ;
+    rss-res:usedInstanceSet fx:instance-set .
 
-fx:cat2-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fx:cat2-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fx:cat2-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fx:cat2-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fx:cat2-access a rss-rail:UnauthorisedAccessExclusionAssumption ; rss-rail:transmissionAssertionSubject fx:cat2-flow ; rss-rail:unauthorisedAccessExcludedValue true ; rss-core:hasEpistemicStatus rss-core:assumptionStatus ; rss-res:assertedInInstanceSet fx:instance-set ; prov:wasAttributedTo fx:assessor .
+fx:unknown-control a rss-rail:EnvironmentControlFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject fx:unknown-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
 
-fx:cat3-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fx:cat3-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fx:cat3-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fx:cat3-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fx:cat3-access a rss-rail:UnauthorisedAccessExclusionAssumption ; rss-rail:transmissionAssertionSubject fx:cat3-flow ; rss-rail:unauthorisedAccessExcludedValue false ; rss-core:hasEpistemicStatus rss-core:assumptionStatus ; rss-res:assertedInInstanceSet fx:instance-set ; prov:wasAttributedTo fx:assessor .
+fx:unknown-fixed a rss-rail:ParticipantSetFixedFact ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue false ;
+    rss-rail:transmissionAssertionSubject fx:unknown-flow ;
+    rss-res:assertedInInstanceSet fx:instance-set .
 
-fx:unknown-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fx:unknown-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
-fx:unknown-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fx:unknown-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
+fx:version a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "category-slice-1" .
+
+fx:assessor a prov:Agent .
+
+fx:cat1-flow a rss-rail:RailwayInformationFlow .
+
+fx:unknown-flow a rss-rail:RailwayInformationFlow .
+
+fx:cat2-flow a rss-rail:RailwayInformationFlow .
+
+fx:cat3-flow a rss-rail:RailwayInformationFlow .
+
+fx:instance-set a rss-res:InstanceSet ;
+    dcterms:source "Purpose-built synthetic category fixture; not railway evidence."@en ;
+    rss-crit:hasVersion fx:version .

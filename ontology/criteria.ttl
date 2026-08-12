@@ -115,7 +115,7 @@ rss-crit:replacedBy a owl:ObjectProperty ;
 ### Literal attributes
 
 rss-crit:versionIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:ArtefactVersion ; rdfs:range xsd:string ; rdfs:label "version identifier"@en ; rsso:requirement "ORF-45" .
-rss-crit:criterionStatement a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:string ; rdfs:label "criterion statement"@en ; rsso:requirement "ORF-26" .
+rss-crit:criterionStatement a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range [ a rdfs:Datatype ; owl:unionOf ( xsd:string rdf:langString ) ] ; rdfs:label "criterion statement"@en ; rsso:requirement "ORF-26" .
 rss-crit:evaluationStageIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:string ; rdfs:label "evaluation stage identifier"@en ; rsso:requirement "Phase 2 CR-B-011" .
 rss-crit:stageCandidateTypeIri a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:anyURI ; rdfs:label "stage candidate type IRI"@en ; rsso:requirement "Phase 2 CR-B-011" .
 rss-crit:lifecycleStatus a owl:DatatypeProperty ; rdfs:domain rss-crit:Criterion ; rdfs:range xsd:string ; rdfs:label "lifecycle status"@en .
@@ -129,10 +129,10 @@ rss-crit:accessDate a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceEdition 
 rss-crit:consultationStatus a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceEdition ; rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "full" "partial" "secondary" ) ] ; rdfs:label "consultation status"@en .
 rss-crit:sourceLocator a owl:DatatypeProperty ; rdfs:domain rss-crit:SourceLocation ; rdfs:range xsd:string ; rdfs:label "source locator"@en ; rsso:requirement "ORF-27" .
 rss-crit:interpretationProposition a owl:DatatypeProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range xsd:string ; rdfs:label "interpretation proposition"@en ; rsso:requirement "ORF-28" .
-rss-crit:reasoning a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( rss-crit:Interpretation rss-crit:JudgementBasis ) ] ; rdfs:range xsd:string ; rdfs:label "reasoning"@en .
+rss-crit:reasoning a owl:DatatypeProperty ; rdfs:domain [ a owl:Class ; owl:unionOf ( rss-crit:Interpretation rss-crit:JudgementBasis ) ] ; rdfs:range [ a rdfs:Datatype ; owl:unionOf ( xsd:string rdf:langString ) ] ; rdfs:label "reasoning"@en .
 rss-crit:interpretationConfidence a owl:DatatypeProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "established" "reasoned" "provisional" ) ] ; rdfs:label "interpretation confidence"@en .
 rss-crit:reviewStatus a owl:DatatypeProperty ; rdfs:domain rss-crit:Interpretation ; rdfs:range xsd:string ; rdfs:label "review status"@en .
-rss-crit:revisionConditions a owl:DatatypeProperty ; rdfs:domain rss-crit:JudgementBasis ; rdfs:range xsd:string ; rdfs:label "revision conditions"@en ; rsso:requirement "ORF-30" .
+rss-crit:revisionConditions a owl:DatatypeProperty ; rdfs:domain rss-crit:JudgementBasis ; rdfs:range [ a rdfs:Datatype ; owl:unionOf ( xsd:string rdf:langString ) ] ; rdfs:label "revision conditions"@en ; rsso:requirement "ORF-30" .
 rss-crit:explicitNonReplacement a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:Deprecation ; rdfs:range xsd:boolean ; rdfs:label "explicit non-replacement"@en ; rsso:requirement "ORF-47" .
 rss-crit:measureDefinition a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "measure definition"@en ; rsso:requirement "ORF-40" .
 rss-crit:eligibilityScope a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "eligibility scope"@en ; rsso:requirement "ORF-40" .

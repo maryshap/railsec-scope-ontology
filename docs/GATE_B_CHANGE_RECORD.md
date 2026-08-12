@@ -413,6 +413,13 @@ module metadata. The XML catalog resolves its ontology IRI locally, and the
 build validation root imports it. This keeps the ROBOT/HermiT validation closure
 aligned with the ontology files loaded by the Run orchestrator.
 
+Importing the criterion individuals also exposed a previously latent datatype
+defect: `criterionStatement`, `reasoning` and `revisionConditions` allowed only
+`xsd:string`, while their authored values correctly carry language tags and are
+therefore `rdf:langString`. Their ranges now admit the union of both datatypes;
+the alternative of stripping language tags was rejected because these are
+human-readable, potentially multilingual statements.
+
 **Why.** Rules require a `Criterion` to be present in the loaded graph. While the
 criteria lived in test fixtures, they applied in tests and nowhere else: a run
 over the ETCS case produced zero evaluations even with the facts in place.

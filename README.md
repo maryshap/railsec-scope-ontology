@@ -32,8 +32,3 @@ In this project, **OWL RBox** means property axioms. Rules are maintained separa
 ## Validation
 
 Run `scripts\validate.ps1`. It checks the full local import closure against OWL 2 DL, classifies it with HermiT, compares the inferred hierarchy with the committed report, rejects deliberate inconsistencies, audits the 76 frozen classes plus governed conceptual changes, and runs the semantic/SHACL/CQ tests. Use `-UpdateHierarchy` only after reviewing an intentional hierarchy change.
-
-## Internal author guides
-
-- `docs/CODE_AND_FILES_GUIDE_UA.md` — detailed Ukrainian guide to every current file, folder and implementation status.
-- `docs/LEGACY_VS_NEW_SHORT_UA.md` — short Ukrainian comparison of the legacy and new ontologies.

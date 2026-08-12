@@ -111,7 +111,7 @@ WHERE {
     AS ?outcome
   )
   BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
-  BIND(IRI(CONCAT(STR(?flow), "/evaluation/threat/", ENCODE_FOR_URI(STRAFTER(STR(?threat), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/threat/", ENCODE_FOR_URI(STRAFTER(STR(?threat), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)
   BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
   BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
   FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion) && isIRI(?threat))

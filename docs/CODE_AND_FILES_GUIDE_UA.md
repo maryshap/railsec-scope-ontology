@@ -63,7 +63,7 @@ Rule створює semantic membership. `CategoryAssignment` лише мате�
 - `evaluation-stage-coverage.rq` — універсально рахує повноту будь-якої criterion stage з P/N/U outcomes, включно з candidate, для якого evaluations відсутні або undetermined.
 - `K-23-assignment-agreement.rq` — знаходить assignment без відповідного entailment у тому самому Run.
 - `K-24-layer-authority.rq` — знаходить забороненого L3/assessor producer.
-- `CQ-09-candidates.rq` — повний regression query vertical slice.
+- `queries/cq/CQ-09.rq` — повний regression query vertical slice; єдиний файл для CQ-09 після усунення дубліката.
 - `queries/cq/CQ-01.rq` … `CQ-45.rq` — Gate A suite; усі parse і smoke-execute. Лише CQ-09 наразі має повний asserted answer oracle.
 
 Structural SHACL запускається до OWL domain/range inference. Інакше неправильний owner властивості міг би автоматично отримати потрібний type і приховати defect.

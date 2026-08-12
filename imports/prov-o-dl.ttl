@@ -18,3 +18,4 @@ prov:generated a owl:ObjectProperty ; rdfs:domain prov:Activity ; rdfs:range pro
 prov:wasGeneratedBy a owl:ObjectProperty ; owl:inverseOf prov:generated ; rdfs:domain prov:Entity ; rdfs:range prov:Activity .
 prov:wasAssociatedWith a owl:ObjectProperty ; rdfs:domain prov:Activity ; rdfs:range prov:Agent .
 prov:wasAttributedTo a owl:ObjectProperty ; rdfs:domain prov:Entity ; rdfs:range prov:Agent .
+prov:wasDerivedFrom a owl:ObjectProperty ; rdfs:domain prov:Entity ; rdfs:range prov:Entity .

@@ -64,7 +64,7 @@ rss-crit:Source a owl:Class ; rdfs:label "Source"@en ; rsso:requirement "ORF-27"
 rss-crit:SourceEdition a owl:Class ; rdfs:label "Source edition"@en ; rsso:requirement "ORF-27" .
 rss-crit:SourceLocation a owl:Class ; rdfs:label "Source location"@en ; rsso:requirement "ORF-27" .
 rss-crit:Interpretation a owl:Class ; rdfs:label "Interpretation"@en ; rsso:requirement "ORF-28" .
-rss-crit:JudgementBasis a owl:Class ; rdfs:label "Judgement basis"@en ; rsso:requirement "ORF-30" .
+rss-crit:JudgementBasis a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "Judgement basis"@en ; rsso:requirement "ORF-30" .
 
 ### Ordering, coverage and output profiles
 

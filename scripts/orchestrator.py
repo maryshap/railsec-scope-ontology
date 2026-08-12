@@ -1,0 +1,303 @@
+"""Step 13 — minimal Run orchestrator.
+
+Turns the individually tested rule stages into one controlled, reproducible
+analysis. A Run either satisfies every check and is publishable, or it is
+refused with the reasons recorded. There is no partial success.
+
+Sequence
+--------
+1. load the ontology modules, the rule registry and one instance set
+2. validate the inputs before deriving anything
+3. iterate reasoner -> rules to a fixed point, bounded and counted
+4. refuse if the bound is reached without convergence
+5. validate the derived graph
+6. check that no classification was produced outside L1/L2
+7. record the run, its artefact versions and its iteration count
+
+The L3 hook is present and empty. When reachability lands it is called *inside*
+the loop, because entry-point classification consumes reachability facts: an L3
+call placed after the loop would leave those criteria permanently undetermined.
+
+The description-logic reasoner is invoked through ROBOT and HermiT when both are
+available. When they are not, the Run is still executed but is marked as not
+publishable with the reason recorded, rather than silently producing a result
+that looks reasoned and is not.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import shutil
+import subprocess
+import tempfile
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+
+from pyshacl import validate
+from rdflib import Graph, Literal, Namespace, RDF, URIRef, XSD
+
+
+PROJECT = Path(__file__).resolve().parents[1]
+
+CORE = Namespace("https://w3id.org/railsec-scope/core#")
+CRIT = Namespace("https://w3id.org/railsec-scope/criteria#")
+RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
+RES = Namespace("https://w3id.org/railsec-scope/results#")
+RULE = Namespace("https://w3id.org/railsec-scope/rules#")
+RUN = Namespace("https://w3id.org/railsec-scope/run/")
+
+MAX_ITERATIONS = 10
+
+# Ordered rule stages. Each consumes the results of the previous ones, so the
+# order is part of the contract and is asserted by the tests.
+STAGE_RULES = [
+    "evaluate-transmission-category.rq",
+    "classify-transmission-category.rq",
+    "evaluate-transmission-threat.rq",
+    "evaluate-critical-violation.rq",
+    "evaluate-fail-safe-compromise.rq",
+    "evaluate-sil-risk.rq",
+    "evaluate-access-risk-asset.rq",
+    "evaluate-access-path-risk.rq",
+    "classify-candidate.rq",
+]
+
+# Categories that only L1 or L2 may confer. If an individual acquires one of
+# these without a corresponding evaluation, a computation has classified
+# something it is not permitted to classify.
+GUARDED_CATEGORIES = [CRIT.CandidateExaminationTarget]
+
+
+@dataclass
+class RunResult:
+    """Outcome of one Run. `publishable` is false if any check failed."""
+
+    iterations: int = 0
+    converged: bool = False
+    publishable: bool = False
+    refusals: list[str] = field(default_factory=list)
+    input_validation_conforms: bool = False
+    output_validation_conforms: bool = False
+    reasoner_invoked: bool = False
+    graph: Graph | None = None
+    run_iri: URIRef | None = None
+    started: str = ""
+    finished: str = ""
+
+    def refuse(self, reason: str) -> None:
+        self.refusals.append(reason)
+        self.publishable = False
+
+
+def _ontology_modules() -> list[Path]:
+    return sorted((PROJECT / "ontology").glob("*.ttl"))
+
+
+def _input_shapes() -> Graph:
+    shapes = Graph()
+    shapes.parse(PROJECT / "shapes" / "railway.ttl")
+    return shapes
+
+
+def _output_shapes() -> Graph:
+    shapes = Graph()
+    shapes.parse(PROJECT / "shapes" / "railway.ttl")
+    shapes.parse(PROJECT / "shapes" / "criterion-slice.ttl")
+    return shapes
+
+
+def artefact_digest(paths: list[Path]) -> str:
+    """Content digest over every artefact that contributed, for reproducibility."""
+    digest = hashlib.sha256()
+    for path in sorted(paths):
+        digest.update(path.name.encode("utf-8"))
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def reasoner_available() -> bool:
+    return bool(shutil.which("java")) and (PROJECT / "tools" / "robot.jar").exists()
+
+
+def run_reasoner(graph: Graph) -> bool:
+    """Run HermiT through ROBOT and merge the entailments back.
+
+    Returns False when the toolchain is unavailable, so the caller can refuse to
+    publish rather than pretend the step ran.
+    """
+    if not reasoner_available():
+        return False
+    with tempfile.TemporaryDirectory() as directory:
+        source = Path(directory) / "input.ttl"
+        target = Path(directory) / "reasoned.ttl"
+        graph.serialize(destination=str(source), format="turtle")
+        completed = subprocess.run(
+            ["java", "-jar", str(PROJECT / "tools" / "robot.jar"), "reason",
+             "--input", str(source), "--reasoner", "HermiT",
+             "--equivalent-classes-allowed", "none",
+             "--output", str(target)],
+            capture_output=True, text=True,
+        )
+        if completed.returncode != 0 or not target.exists():
+            return False
+        graph.parse(target)
+    return True
+
+
+def apply_rules(graph: Graph) -> int:
+    """Apply every rule stage once. Returns the number of triples added."""
+    before = len(graph)
+    for filename in STAGE_RULES:
+        query = (PROJECT / "rules" / filename).read_text(encoding="utf-8")
+        graph += graph.query(query).graph
+    return len(graph) - before
+
+
+def apply_l3(graph: Graph) -> int:
+    """External computation hook, called inside the loop.
+
+    Empty until reachability lands. It is deliberately positioned here rather
+    than after the loop: entry-point classification consumes reachability facts,
+    so an L3 call placed after convergence would leave those criteria
+    permanently undetermined.
+    """
+    return 0
+
+
+def guarded_category_violations(graph: Graph) -> list[str]:
+    """Members of a guarded category that have no evaluation behind them."""
+    violations = []
+    for category in GUARDED_CATEGORIES:
+        for member in graph.subjects(RDF.type, category):
+            supported = any(
+                graph.value(evaluation, RES.hasEvaluationOutcome) == RES.satisfied
+                for evaluation in graph.subjects(RES.evaluationConcernsElement, member)
+            )
+            if not supported:
+                violations.append(f"{member} holds {category} with no satisfied evaluation")
+    return violations
+
+
+def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
+    """Execute one Run over the given instance set."""
+    result = RunResult()
+    result.started = datetime.now(timezone.utc).isoformat()
+    result.run_iri = RUN[run_identifier]
+
+    graph = Graph()
+    contributing = _ontology_modules() + [PROJECT / "imports" / "prov-o-dl.ttl",
+                                          PROJECT / "rules" / "rules.ttl"] + list(instance_files)
+    for path in contributing:
+        graph.parse(path)
+
+    # The Run individual must exist before the loop: every rule binds ?run from
+    # the data, so a Run recorded only at the end would produce no results at all.
+    graph.add((result.run_iri, RDF.type, RES.Run))
+    graph.add((result.run_iri, RES.runIdentifier, Literal(run_identifier)))
+
+    # A Run must declare the instance sets it consumes. Stages that join on the
+    # instance set produce nothing for a Run that declares none, while stages
+    # that do not join on it still produce results, leaving derivations that
+    # cite no upstream evaluation. Refuse rather than run half the pipeline.
+    instance_sets = sorted(graph.subjects(RDF.type, RES.InstanceSet))
+    if not instance_sets:
+        result.refuse("no instance set present in the input; a Run must consume at least one")
+        result.graph = graph
+        result.finished = datetime.now(timezone.utc).isoformat()
+        return result
+    for instance_set in instance_sets:
+        graph.add((result.run_iri, RES.usedInstanceSet, instance_set))
+
+    # 2. validate inputs before deriving anything
+    conforms, _, report = validate(data_graph=graph, shacl_graph=_input_shapes(),
+                                   inference="none", advanced=True)
+    result.input_validation_conforms = conforms
+    if not conforms:
+        result.refuse("input validation failed; no derivation attempted")
+        result.graph = graph
+        result.finished = datetime.now(timezone.utc).isoformat()
+        return result
+
+    # 3. bounded reasoner <-> rules <-> L3 loop
+    result.publishable = True
+    for iteration in range(1, MAX_ITERATIONS + 1):
+        result.iterations = iteration
+        before = len(graph)
+        reasoned = run_reasoner(graph)
+        result.reasoner_invoked = result.reasoner_invoked or reasoned
+        apply_rules(graph)
+        apply_l3(graph)
+        if len(graph) == before:
+            result.converged = True
+            break
+
+    # 4. refuse on non-convergence
+    if not result.converged:
+        result.refuse(f"fixed point not reached within {MAX_ITERATIONS} iterations")
+
+    if not result.reasoner_invoked:
+        result.refuse("description-logic reasoner was not invoked; entailments are unverified")
+
+    # 5. validate the derived graph
+    conforms, _, report = validate(data_graph=graph, shacl_graph=_output_shapes(),
+                                   inference="none", advanced=True)
+    result.output_validation_conforms = conforms
+    if not conforms:
+        result.refuse("output validation failed")
+
+    # 6. no classification outside L1/L2
+    for violation in guarded_category_violations(graph):
+        result.refuse(f"unsupported classification: {violation}")
+
+    # 7. record the run
+    result.finished = datetime.now(timezone.utc).isoformat()
+    graph.add((result.run_iri, RES.iterationCount, Literal(result.iterations)))
+    graph.add((result.run_iri, RES.artefactDigest, Literal(artefact_digest(contributing))))
+    graph.add((result.run_iri, RES.publishable, Literal(result.publishable, datatype=XSD.boolean)))
+    for reason in result.refusals:
+        graph.add((result.run_iri, RES.refusalReason, Literal(reason)))
+
+    result.graph = graph
+    return result
+
+
+def summarise(result: RunResult) -> str:
+    """One-screen report of what the Run established and what it did not."""
+    graph = result.graph
+    lines = [
+        f"Run                : {result.run_iri}",
+        f"Iterations         : {result.iterations} (converged: {result.converged})",
+        f"Reasoner invoked   : {result.reasoner_invoked}",
+        f"Input validation   : {'conforms' if result.input_validation_conforms else 'FAILED'}",
+        f"Output validation  : {'conforms' if result.output_validation_conforms else 'FAILED'}",
+        f"Publishable        : {result.publishable}",
+    ]
+    if result.refusals:
+        lines.append("Refusals:")
+        lines += [f"  - {reason}" for reason in result.refusals]
+    if graph is not None:
+        counts = {}
+        for evaluation in graph.subjects(RDF.type, RES.CriterionEvaluation):
+            outcome = graph.value(evaluation, RES.hasEvaluationOutcome)
+            key = str(outcome).split("#")[-1] if outcome else "missing"
+            counts[key] = counts.get(key, 0) + 1
+        total = sum(counts.values())
+        lines.append(f"Evaluations        : {total}")
+        for key in ("satisfied", "notSatisfied", "undetermined", "missing"):
+            if key in counts:
+                share = 100 * counts[key] / total if total else 0
+                lines.append(f"  {key:<16}: {counts[key]:>5}  ({share:.1f}%)")
+    return "\n".join(lines)
+
+
+if __name__ == "__main__":
+    import sys
+
+    files = [Path(argument) for argument in sys.argv[1:]] or [
+        PROJECT / "cases" / "etcs" / "abox.ttl",
+        PROJECT / "cases" / "etcs" / "classification-provenance.ttl",
+    ]
+    outcome = execute(files, run_identifier="cli")
+    print(summarise(outcome))
+    sys.exit(0 if outcome.publishable else 1)

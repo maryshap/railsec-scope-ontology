@@ -1,3 +1,4 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rss-core: <https://w3id.org/railsec-scope/core#> .
@@ -168,3 +169,33 @@ rss-sh:FailSafeCompromiseTraceabilityShape a sh:NodeShape ;
           }
         """
     ] .
+
+### K-25 classification provenance for safety-critical assets.
+# General to M6 rather than ETCS-specific: any safety-critical classification,
+# in case data or in a fixture, must be reified as an assumption with a
+# judgement basis and an attributed agent. The classification is never an
+# asserted fact, because a safety case is required to establish it.
+
+rss-sh:SafetyCriticalClassificationAssertionShape a sh:NodeShape ;
+    sh:class rss-core:Assumption ;
+    sh:property [ sh:path rss-core:assertionPredicateIri ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ] ;
+    sh:property [ sh:path rss-core:assertionObjectResource ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue rss-rail:SafetyCriticalAsset ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:hasValue rss-core:assumptionStatus ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:class rss-res:InstanceSet ] ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:class rss-crit:JudgementBasis ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:class prov:Agent ] .
+
+rss-sh:K25SafetyCriticalProvenanceShape a sh:NodeShape ;
+    sh:targetClass rss-rail:SafetyCriticalAsset ;
+    sh:property [
+        sh:path [ sh:inversePath rss-core:assertionSubject ] ;
+        sh:qualifiedValueShape rss-sh:SafetyCriticalClassificationAssertionShape ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "K-25: every SafetyCriticalAsset must carry exactly one classification assumption with rdf:type predicate, SafetyCriticalAsset object, assumption status, an instance set, a JudgementBasis and an attributed agent." ] .

@@ -1,3 +1,4 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
 @prefix th: <https://w3id.org/railsec-scope/fixture/railway-threat/> .
 @prefix cv: <https://w3id.org/railsec-scope/fixture/railway-critical/> .
@@ -68,3 +69,47 @@ fs:ordinary-flow a rss-rail:RailwayInformationFlow ;
 fs:ordinary-control a rss-rail:EnvironmentControlFact ; rss-rail:transmissionAssertionSubject fs:ordinary-flow ; rss-rail:environmentControlledValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
 fs:ordinary-fixed a rss-rail:ParticipantSetFixedFact ; rss-rail:transmissionAssertionSubject fs:ordinary-flow ; rss-rail:participantSetFixedValue false ; rss-core:hasEpistemicStatus rss-core:assertedFactStatus ; rss-res:assertedInInstanceSet fx:instance-set .
 fs:ordinary-access a rss-rail:UnauthorisedAccessExclusionAssumption ; rss-rail:transmissionAssertionSubject fs:ordinary-flow ; rss-rail:unauthorisedAccessExcludedValue false ; rss-core:hasEpistemicStatus rss-core:assumptionStatus ; rss-res:assertedInInstanceSet fx:instance-set ; prov:wasAttributedTo fx:assessor .
+
+# Classification provenance for the synthetic safety-critical assets. The shape
+# is general to M6 rather than ETCS-specific, so the fixtures must satisfy it
+# too. These are purpose-built test individuals and carry that fact explicitly.
+fs:synthetic-classification-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Purpose-built synthetic fixture. The safety-critical classification is stipulated so that the downstream stages have an input, and is not derived from any railway source."@en ;
+    rss-crit:revisionConditions "None. This basis is confined to test fixtures and must never be reused in case data."@en .
+fs:fixture-author a prov:Agent ; rdfs:label "Fixture author"@en .
+
+fs:compromised-asset-safety-critical-assertion a rss-core:Assumption ;
+    rss-core:assertionSubject fs:compromised-asset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    prov:wasAttributedTo fs:fixture-author .
+
+fs:protected-asset-safety-critical-assertion a rss-core:Assumption ;
+    rss-core:assertionSubject fs:protected-asset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    prov:wasAttributedTo fs:fixture-author .
+
+fs:unknown-asset-safety-critical-assertion a rss-core:Assumption ;
+    rss-core:assertionSubject fs:unknown-asset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    prov:wasAttributedTo fs:fixture-author .
+
+fs:missing-dependency-asset-safety-critical-assertion a rss-core:Assumption ;
+    rss-core:assertionSubject fs:missing-dependency-asset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    prov:wasDerivedFrom fs:synthetic-classification-basis ;
+    prov:wasAttributedTo fs:fixture-author .

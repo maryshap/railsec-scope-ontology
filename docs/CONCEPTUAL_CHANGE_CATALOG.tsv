@@ -18,3 +18,9 @@ highRiskMaintenancePath	M5	individual	revision	AccessRiskType	true	CR-B-016
 remoteAccessRisk	M5	individual	revision	AccessRiskType	true	CR-B-016
 assessesAccessRisk	M5	objectProperty	revision	-	true	CR-B-016
 assessesAccessMechanism	M5	objectProperty	revision	-	true	CR-B-016
+JudgementBasis(prov:Entity)	M2	classAxiom	revision	prov:Entity	true	CR-B-017
+prov:wasDerivedFrom	imports	objectProperty	revision	-	true	CR-B-017
+iterationCount	M3	datatypeProperty	revision	-	true	CR-B-019
+artefactDigest	M3	datatypeProperty	revision	-	true	CR-B-019
+publishable	M3	datatypeProperty	revision	-	true	CR-B-019
+refusalReason	M3	datatypeProperty	revision	-	true	CR-B-019

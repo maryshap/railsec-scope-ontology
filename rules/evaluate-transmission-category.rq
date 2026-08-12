@@ -61,7 +61,7 @@ WHERE {
                 IF(?accessExcluded = false, rss-res:satisfied, rss-res:notSatisfied)))))
     AS ?outcome
   )
-  BIND(IRI(CONCAT(STR(?flow), "/evaluation/", ENCODE_FOR_URI(STRAFTER(STR(?category), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/", ENCODE_FOR_URI(STRAFTER(STR(?category), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)
   BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
   BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
   FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion))

@@ -42,7 +42,7 @@ WHERE {
   BIND(IF(!?inventoryStated, rss-res:undetermined,
           IF(?mechanismPresent, rss-res:satisfied, rss-res:notSatisfied)) AS ?outcome)
   BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
-  BIND(IRI(CONCAT(STR(?asset), "/evaluation/access/", ENCODE_FOR_URI(STRAFTER(STR(?risk), "#")))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?asset), "/evaluation/access/", ENCODE_FOR_URI(STRAFTER(STR(?risk), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)
   BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
   BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
   FILTER(isIRI(?asset) && isIRI(?run) && isIRI(?criterion) && isIRI(?risk))

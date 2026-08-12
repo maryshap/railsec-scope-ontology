@@ -1,3 +1,6 @@
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix fx: <https://w3id.org/railsec-scope/fixture/railway-category/> .
 @prefix fs: <https://w3id.org/railsec-scope/fixture/railway-fail-safe/> .
 @prefix sil: <https://w3id.org/railsec-scope/fixture/railway-sil/> .
 @prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
@@ -18,3 +21,12 @@ sil:maximum-risk-criterion a rss-crit:Criterion ;
 # Decisive negative case for the aggregation: an asset whose fail-safe stage
 # never runs must receive no SIL evaluation at all, rather than a default.
 sil:no-upstream-asset a rss-rail:SafetyCriticalAsset .
+
+sil:no-upstream-asset-safety-critical-assertion a rss-core:Assumption ;
+    rss-core:assertionSubject sil:no-upstream-asset ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:SafetyCriticalAsset ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet fx:instance-set ;
+    <http://www.w3.org/ns/prov#wasDerivedFrom> fs:synthetic-classification-basis ;
+    <http://www.w3.org/ns/prov#wasAttributedTo> fs:fixture-author .

@@ -6,7 +6,7 @@
 ## Implemented and verified
 
 - Step 0: namespace/IRI decision, acyclic import graph, pinned PROV-O source/DL projection, ROBOT OWLAPI profile validation, HermiT consistency/classification, committed inferred hierarchy, CI.
-- Step 1: 76/76 M1–M4 classes; all 90 original project object properties and 42 original datatype properties have domains/ranges; sibling disjointness and value closure; CR-B-001/002 resolve the two known defects.
+- Step 1: the frozen Gate B baseline of 76 M1–M4 classes is formalised in full. Classes admitted since the freeze are recorded in the conceptual change catalog rather than counted here, so this figure stays comparable to the gate. Every own object and datatype property carries a domain and a range; this is asserted as an invariant by `tests/test_documentation_integrity.py` rather than stated as a count, which would go stale at the next admitted revision. Sibling disjointness and value closure hold; CR-B-001/002 resolve the two known defects.
 - Step 2: CriterionEvaluation vertical slice with exact OWL cardinalities, L2-R01, K-11/K-23/K-24, positive/negative fixtures and asserted CQ-09 result.
 - Step 3: the generated 76-row entity matrix records module, named superclasses, property participation, restriction count, disjointness and K-allocation.
 - Step 4: K-01–K-24 have allocated executable SHACL/query/lint artefacts; negative evidence proves every local shape and automated build guard fires. K-22 still requires the recorded manual publication review.
@@ -25,6 +25,10 @@
 - Phase 2 Step 12.5: maximum SIL risk (M5-R06). Legacy v3 R2.5.3 implemented as an asset evaluation aggregating the fail-safe stage; an asset with no upstream evaluation receives no result rather than a default. Eleven tests, three mutation checks. R2.5.1 and R2.5.2 are blocked on an absent attack technique vocabulary (CR-B-015).
 
 - Phase 2 Step 12.6: access risk (M5-R07, M5-R08). Legacy v3 R2.6.1-R2.6.4 implemented across two subjects; R2.6.1 is re-subjected from the maintenance actor to the safety-critical asset because actors and roles are not in the approved model. Thirteen tests, five mutation checks (CR-B-016).
+
+- Phase 2 Step 12.7: classification provenance (K-25). All nine ETCS safety-critical assets and the five synthetic fixture assets now carry reified classification assumptions with a judgement basis and an attributed agent. Fifteen tests, five shape mutation checks. The classification remains an assumption: no safety case was available, and no source was invented (CR-B-017).
+
+- Phase 2 Step 13: Run orchestrator. Executes the stages as one controlled analysis with bounded iteration, refusal semantics and run-scoped results. Exposed and fixed two defects invisible to single-Run stage tests: colliding result identifiers across Runs, and asymmetric instance-set joins producing derivations that cite results never created. Determinism is now evidenced by test rather than claimed (CR-B-019).
 
 ## Release blockers (not hidden as implementation completion)
 

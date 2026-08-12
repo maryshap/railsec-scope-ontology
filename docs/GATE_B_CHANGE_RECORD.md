@@ -534,6 +534,14 @@ record is never read as an absent control. Rate limiting and segmentation carry
 a second condition, wireless medium and boundary crossing respectively; where
 that condition is unstated the result is undetermined.
 
+**Generated reports regenerated.** Adding five classes changed both the inferred
+class hierarchy and the entity formalisation matrix, and continuous integration
+rejected the branch until they were committed. The hierarchy gains
+VulnerableFlow with its three subtypes and ControlWeaknessType; the matrix row
+for Criterion changes because two new properties take it as their domain. This
+is the regression check working as designed: a change to the vocabulary cannot
+land without the derived reports being updated deliberately.
+
 **First determined weaknesses in the ETCS case.** The stage produces 1480
 evaluations: 258 satisfied, 630 not satisfied, 592 undetermined. It classifies
 16 flows as denial-of-service exposed, 53 as unaudited and 60 as unsegmented

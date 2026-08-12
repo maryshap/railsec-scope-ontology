@@ -1,0 +1,2152 @@
+@prefix case: <https://w3id.org/railsec-scope/case/etcs/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+case:flow-if-ct-01-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-01-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-01-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-01-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-01-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-01-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-01-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-01-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-02-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-02-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-02-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-02-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-02-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-02-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-02-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-02-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-02-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-02-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-02-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-02-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-03-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-03-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-03-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-03-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-03-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-03-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-03-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-03-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-03-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-03-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-03-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-03-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-04-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-04-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-04-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-04-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-04-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-04-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-05-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-05-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-05-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-05-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-05-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-05-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-05-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-05-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-05-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-06-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-06-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-06-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-06-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-07-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-07-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-07-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-07-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-08-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-08-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-08-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-08-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-08-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-08-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-10-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-10-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-10-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-10-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-10-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-10-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-11-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-11-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-11-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-11-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-11-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-11-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-13-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-13-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-13-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-13-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-13-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-13-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-13-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-13-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-13-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-14-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-14-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-14-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-14-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-14-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-14-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-14-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-14-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-15-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-15-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-15-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-15-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-16-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-16-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-16-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-16-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-16-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-16-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-16-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-16-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-16-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-16-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-16-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-16-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-17-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-17-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-17-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-17-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-17-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-17-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-17-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-17-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-17-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-17-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-17-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-17-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-18-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-18-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-18-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-18-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-18-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-18-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-18-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-18-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-18-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-18-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-18-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-18-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-19-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-19-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-19-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-19-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-19-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-19-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-19-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-19-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-19-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-19-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-19-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-19-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-21-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-21-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-21-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-21-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-21-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ct-21-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ext-01-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ext-01-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ext-01-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ext-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ext-01-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ext-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ext-01-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ext-01-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ext-01-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ext-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ext-01-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ext-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-05-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-05-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-05-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-09-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-09-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-09-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-09-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-09-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-09-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-09-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-09-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-09-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-09-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-09-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-09-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-13-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-13-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-13-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-14-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-14-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-14-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-14-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-14-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-14-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-14-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-14-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-15-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-15-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-15-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-15-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-it-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-01-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-01-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-01-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-01-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-01-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-01-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-01-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-01-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-03-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-03-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-03-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-03-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-03-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-03-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-03-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-03-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-03-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-03-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-03-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-03-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-05-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-05-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-05-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-05-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-05-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-05-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-05-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-05-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-05-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-06-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-06-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-06-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-06-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-06-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-06-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-06-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-06-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-06-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-06-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-07-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-07-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-07-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-07-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-07-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-07-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-07-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-07-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-07-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-07-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-08-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-08-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-08-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-08-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-08-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-08-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-08-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-08-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-08-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-08-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-08-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-08-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-09-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-09-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-09-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-09-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-09-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-09-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-09-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-09-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-09-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-09-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-09-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-09-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-10-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-10-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-10-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-10-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-10-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-10-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-10-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-10-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-10-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-10-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-10-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-10-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-12-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-12-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-12-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-12-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-12-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-12-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-12-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-12-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-12-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-12-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-12-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-12-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-13-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-13-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-13-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-13-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-13-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-13-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-13-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-13-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-13-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-14-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-14-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-14-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-14-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-14-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-14-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-14-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-14-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-15-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-15-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-15-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-15-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-15-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-15-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-15-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-15-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-15-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ob-15-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-05-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-05-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-05-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-05-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-05-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-05-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-05-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-05-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-05-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-06-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-06-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-06-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-06-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-06-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-06-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-06-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-06-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-06-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-06-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-07-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-07-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-07-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-07-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-07-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-07-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-07-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-07-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-07-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-07-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-13-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-13-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-13-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-13-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-13-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-13-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-13-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-13-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-13-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-13-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-14-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-14-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-14-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-14-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-14-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-14-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-14-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-14-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-14-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-14-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-15-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-15-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-15-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-15-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-15-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-15-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-15-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-15-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-15-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-15-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-15-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-16-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-16-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-16-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-16-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-16-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-16-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-16-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-16-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-16-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-16-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-16-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-om-16-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-01-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-01-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-01-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-01-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-01-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-01-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-01-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-01-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-01-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-01-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-02-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-02-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-02-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-02-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-02-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-02-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-02-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-02-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-02-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-02-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-02-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-02-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-03-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-03-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-03-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-03-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-03-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-03-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-05-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-05-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-05-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-05-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-06-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-06-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-06-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-06-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-06-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-07-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-07-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-07-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-07-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-07-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-08-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-08-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-08-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-08-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-08-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-08-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-08-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-08-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-08-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue false ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-08-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-08-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-08-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-09-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-09-forward ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-09-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-09-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-09-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-09-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-09-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-09-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue false ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-09-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-09-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-09-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-09-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-12-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-12-forward ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-12-forward-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-12-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-12-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-12-forward ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-12-reverse-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-12-reverse ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-12-reverse-environment-control a rss-rail:EnvironmentControlFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:environmentControlledValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-12-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-12-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:transmission-environment-basis ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-rail:participantSetFixedValue true ;
+    rss-rail:transmissionAssertionSubject case:flow-if-ts-12-reverse ;
+    rss-res:assertedInInstanceSet case:instance-set .
+
+case:transmission-environment-dataset a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/railway> .
+
+case:transmission-environment-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "The source model records the physical medium and an exposure rating, not the three conditions EN 50159 uses to classify a transmission system. The assessor applies the following rule: a clearly wired medium places the participant set under the operator's control; the same medium keeps the transmission environment controlled unless exposure is rated high; and unauthorised access is excluded only where exposure is rated low. Flows whose medium is radio, mixed, human or otherwise not clearly wired receive no fact, so their category stays undetermined rather than being guessed. This rule is a judgement about a study case, not evidence about a deployed system."@en ;
+    rss-crit:revisionConditions "Replace with asserted facts from the network design and physical security assessment of the specific installation. Re-examine every flow whose exposure rating changes, and any flow left without a fact."@en .
+

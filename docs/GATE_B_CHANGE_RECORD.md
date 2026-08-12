@@ -463,3 +463,38 @@ about 180 seconds, against seconds for both on the fixtures. The threat stage
 evaluates seven criteria against every flow with nested optional patterns. This
 is recorded as a measurement, not resolved; it must be optimised or moved to
 external computation before the case study is run interactively.
+
+## CR-B-022 — transmission environment derived for the ETCS case (Step 14c)
+
+**Change.** `scripts/derive_transmission_environment.py` produces
+`cases/etcs/transmission-environment.ttl`: the three conditions EN 50159 uses to
+classify a transmission system, for the flows where the source model supports a
+determination.
+
+**Why this is a derivation and is recorded as one.** The source model records the
+physical medium and an exposure rating, not the three conditions. The legacy
+rules went from medium to category directly, inside the rule, so the step was
+never inspectable. The rule the assessor applies is now stated once, recorded as
+a judgement basis, and attached to every fact it produces:
+
+| Condition | Rule applied |
+|---|---|
+| environment controlled | clearly wired medium, and exposure not high |
+| participant set fixed | clearly wired medium |
+| unauthorised access excluded | clearly wired medium, and exposure low |
+
+**What is deliberately left unstated.** A flow whose medium is radio, mixed,
+human or otherwise not clearly wired receives no fact, so its category stays
+undetermined rather than being guessed. 52 interfaces of 88 were given facts and
+36 were not.
+
+**Interfaces and flows.** A workbook row describes an interface; the case
+represents each interface as a forward and a reverse flow. The medium and
+exposure apply to both directions, so each fact is attached to both. 267 facts
+across 104 flows.
+
+**First determined results for the ETCS case.** The transmission-category stage
+now produces 178 satisfied, 356 not satisfied and 354 undetermined evaluations,
+classifying 53 flows as Category 1 and 36 as Category 3, with 59 flows
+undetermined. Every one carries a derivation record naming the criterion, the
+facts used and the judgement basis behind them.

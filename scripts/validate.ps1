@@ -37,7 +37,7 @@ if ($LASTEXITCODE -ne 0) { throw 'OWL 2 DL profile validation failed.' }
 & $javaExe -jar $robot reason --catalog $catalog --input $validationRoot --reasoner HermiT --equivalent-classes-allowed none --output (Join-Path $build 'reasoned.owl')
 if ($LASTEXITCODE -ne 0) { throw 'HermiT consistency/classification failed.' }
 
-foreach ($caseFile in @('classification-provenance.ttl', 'security-facts.ttl')) {
+foreach ($caseFile in @('classification-provenance.ttl', 'security-facts.ttl', 'transmission-environment.ttl')) {
     $casePath = Join-Path $projectRoot ('cases\etcs\' + $caseFile)
     if (Test-Path -LiteralPath $casePath) {
         & $javaExe -jar $robot validate-profile --catalog $catalog --input $casePath --profile DL --output (Join-Path $build ($caseFile + '.dl.txt'))

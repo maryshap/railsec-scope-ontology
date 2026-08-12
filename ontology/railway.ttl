@@ -203,3 +203,38 @@ rss-rail:assessesAccessRisk a owl:ObjectProperty, owl:FunctionalProperty ;
 rss-rail:assessesAccessMechanism a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-crit:Criterion ; rdfs:range rss-core:AccessMechanism ;
     rdfs:label "assesses access mechanism"@en .
+
+### L1 control vulnerability classification (Step 15, CR-B-023)
+# Legacy v3 block 1.1. IEC 62443-3-3 system requirements are assessed on flows.
+# The subtypes are declared here rather than inferred, because a DoS-exposed flow
+# is a kind of vulnerable flow by definition, not by conditional inference.
+
+rss-rail:VulnerableFlow a owl:Class ; rdfs:subClassOf rss-rail:RailwayInformationFlow ; rdfs:label "Vulnerable flow"@en .
+rss-rail:DoSExposedFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Denial-of-service exposed flow"@en .
+rss-rail:UnauditedFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Unaudited flow"@en .
+rss-rail:UnsegmentedCrossBoundaryFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Unsegmented cross-boundary flow"@en .
+
+rss-rail:ControlWeaknessType a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        rss-rail:missingMessageAuthentication rss-rail:missingIntegrityProtection
+        rss-rail:missingRateLimiting rss-rail:missingMonitoring rss-rail:missingSegmentation ) ] ;
+    rdfs:label "Control weakness type"@en .
+rss-rail:missingMessageAuthentication a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing message authentication"@en .
+rss-rail:missingIntegrityProtection a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing integrity protection"@en .
+rss-rail:missingRateLimiting a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing rate limiting"@en .
+rss-rail:missingMonitoring a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing monitoring and logging"@en .
+rss-rail:missingSegmentation a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing network segmentation"@en .
+[] a owl:AllDifferent ; owl:distinctMembers ( rss-rail:missingMessageAuthentication rss-rail:missingIntegrityProtection rss-rail:missingRateLimiting rss-rail:missingMonitoring rss-rail:missingSegmentation ) .
+
+rss-rail:assessesControlWeakness a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-rail:ControlWeaknessType ;
+    rdfs:label "assesses control weakness"@en .
+rss-rail:weaknessFlowType a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range owl:Thing ;
+    rdfs:label "weakness flow type"@en .
+
+rss-rail:rateLimitingEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "rate limiting enabled"@en .
+rss-rail:monitoringEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "monitoring and logging enabled"@en .
+rss-rail:networkSegmentationEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "network segmentation enabled"@en .
+rss-rail:crossesTrustBoundary a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "crosses trust boundary"@en .
+rss-rail:wirelessMedium a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "wireless medium"@en .

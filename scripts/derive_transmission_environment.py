@@ -127,6 +127,26 @@ def main() -> int:
         if not targets:
             counts["skipped"] += 1
             continue
+        for target in targets:
+            # L1 control facts, taken directly from the workbook columns. These are
+            # recorded values, not derivations, so they are written as flow
+            # properties with an accompanying assumption for provenance.
+            medium_text = str(row[columns["Medium"]] or "").lower()
+            wireless = any(marker in medium_text for marker in ("radio", "rf", "wireless", "gsm-r", "eurobalise", "euroloop"))
+            crosses = str(row[columns["Zones"]] or "").count("→") > 0 or "-" in str(row[columns["Zones"]] or "")
+            for column, control_property in (
+                ("hasRateLimiting", RAIL.rateLimitingEnabled),
+                ("hasMonitoringAndLogging", RAIL.monitoringEnabled),
+                ("hasNetworkSegmentation", RAIL.networkSegmentationEnabled),
+            ):
+                raw = row[columns[column]] if column in columns else None
+                if raw is None or str(raw).strip() == "":
+                    continue
+                output.add((target, control_property, Literal(str(raw).strip().lower() == "true", datatype=XSD.boolean)))
+                counts["l1"] = counts.get("l1", 0) + 1
+            output.add((target, RAIL.wirelessMedium, Literal(wireless, datatype=XSD.boolean)))
+            output.add((target, RAIL.crossesTrustBoundary, Literal(crosses, datatype=XSD.boolean)))
+
         verdict = classify(str(row[columns["Medium"]] or ""), str(row[columns["Exposure"]] or ""))
         if verdict is None:
             counts["skipped"] += 1

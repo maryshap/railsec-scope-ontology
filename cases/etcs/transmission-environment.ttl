@@ -295,6 +295,12 @@ case:flow-if-ct-08-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-08-forward ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-ct-09-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
 case:flow-if-ct-10-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -342,6 +348,12 @@ case:flow-if-ct-11-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-11-forward ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-12-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
 
 case:flow-if-ct-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -655,6 +667,18 @@ case:flow-if-ct-19-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-19-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-ct-20-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-ct-20-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
 case:flow-if-ct-21-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -678,6 +702,24 @@ case:flow-if-ct-21-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-21-forward ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ct-22-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-23-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-24-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
 
 case:flow-if-ext-01-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -727,6 +769,36 @@ case:flow-if-ext-01-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ext-01-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-inf-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-02-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-03-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-04-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
 case:flow-if-it-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -750,6 +822,24 @@ case:flow-if-it-05-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-05-forward ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-06-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-07-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-08-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
 
 case:flow-if-it-09-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -798,6 +888,42 @@ case:flow-if-it-09-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-09-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-it-10-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-10-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-11-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-11-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-12-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-12-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
 
 case:flow-if-it-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -943,6 +1069,18 @@ case:flow-if-ob-01-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-01-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-ob-02-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-ob-02-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
 case:flow-if-ob-03-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -990,6 +1128,18 @@ case:flow-if-ob-03-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-03-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ob-04-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-04-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
 
 case:flow-if-ob-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -1279,6 +1429,18 @@ case:flow-if-ob-10-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-10-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-ob-11-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-11-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
 case:flow-if-ob-12-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -1471,6 +1633,54 @@ case:flow-if-ob-15-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-15-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-om-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-01-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-02-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-02-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-03-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-03-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-04-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-04-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
 case:flow-if-om-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -1614,6 +1824,66 @@ case:flow-if-om-07-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-07-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-om-08-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-08-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-09-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-09-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-10-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-10-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-11-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-11-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-12-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-12-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
 
 case:flow-if-om-13-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -1807,6 +2077,54 @@ case:flow-if-om-16-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-16-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-om-17-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-17-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-rad-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-rad-01-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-rad-02-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-rad-02-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-rad-03-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-rad-03-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium true .
+
 case:flow-if-ts-01-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -1926,6 +2244,18 @@ case:flow-if-ts-03-forward-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:participantSetFixedValue true ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-03-forward ;
     rss-res:assertedInInstanceSet case:instance-set .
+
+case:flow-if-ts-04-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-ts-04-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
 
 case:flow-if-ts-05-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
@@ -2095,6 +2425,30 @@ case:flow-if-ts-09-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-09-reverse ;
     rss-res:assertedInInstanceSet case:instance-set .
 
+case:flow-if-ts-10-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-ts-10-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-ts-11-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
+case:flow-if-ts-11-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium true .
+
 case:flow-if-ts-12-forward-access-exclusion a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:transmission-environment-basis ;
@@ -2147,6 +2501,540 @@ case:flow-if-ts-12-reverse-participant-set a rss-rail:ParticipantSetFixedFact ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/railway> ;
     owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/transmission-environment/version/0.1.0> .
+
+case:flow-if-ct-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-01-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-02-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-02-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-03-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-03-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-04-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-05-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-05-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-06-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-07-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-08-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-10-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-11-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-13-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-13-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-14-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-14-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-15-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-16-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-16-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-17-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-17-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-18-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-18-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-19-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-19-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ct-21-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ext-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ext-01-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-05-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-09-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-09-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-13-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled true ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-14-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-14-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-it-15-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-01-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-03-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-03-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-05-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-05-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-06-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-06-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-07-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-07-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-08-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-08-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-09-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-09-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-10-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-10-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-12-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-12-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-13-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-13-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-14-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-14-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-15-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ob-15-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-05-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-05-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-06-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-06-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-07-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-07-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-13-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-13-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-14-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-14-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-15-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-15-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-16-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-om-16-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled true ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-01-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-01-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-02-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-02-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-03-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-05-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-06-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-07-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-08-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-08-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-09-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-09-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled false ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-12-forward rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
+
+case:flow-if-ts-12-reverse rss-rail:crossesTrustBoundary true ;
+    rss-rail:monitoringEnabled false ;
+    rss-rail:networkSegmentationEnabled true ;
+    rss-rail:rateLimitingEnabled false ;
+    rss-rail:wirelessMedium false .
 
 case:transmission-environment-basis a rss-crit:JudgementBasis ;
     rss-crit:reasoning "The source model records the physical medium and an exposure rating, not the three conditions EN 50159 uses to classify a transmission system. The assessor applies the following rule: a clearly wired medium places the participant set under the operator's control; the same medium keeps the transmission environment controlled unless exposure is rated high; and unauthorised access is excluded only where exposure is rated low. Flows whose medium is radio, mixed, human or otherwise not clearly wired receive no fact, so their category stays undetermined rather than being guessed. This rule is a judgement about a study case, not evidence about a deployed system."@en ;

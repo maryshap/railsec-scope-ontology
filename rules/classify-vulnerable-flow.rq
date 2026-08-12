@@ -1,0 +1,17 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+# M5-R10 vulnerable flow classification (legacy v3 R1.1).
+# Materialises the flow type a satisfied control-weakness evaluation implies.
+# Membership follows from the evaluation, never from an assertion.
+
+CONSTRUCT { ?flow rdf:type ?flowType }
+WHERE {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome rss-res:satisfied .
+  ?criterion rss-rail:weaknessFlowType ?flowType .
+}

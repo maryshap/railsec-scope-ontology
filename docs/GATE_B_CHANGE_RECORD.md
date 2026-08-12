@@ -507,3 +507,36 @@ now produces 178 satisfied, 356 not satisfied and 354 undetermined evaluations,
 classifying 53 flows as Category 1 and 36 as Category 3, with 59 flows
 undetermined. Every one carries a derivation record naming the criterion, the
 facts used and the judgement basis behind them.
+
+## CR-B-023 — L1 control weakness assessment (Step 15)
+
+**Change.** M5 gains the vulnerable flow taxonomy, a closed set of five control
+weakness types, two criterion properties and five flow properties. Two rules are
+added, M5-R09 evaluating the controls and M5-R10 materialising the flow subtype.
+Five criteria are added to the criteria module. The workbook transfer script now
+also carries the three L1 control columns and the medium and boundary flags.
+
+**Legacy coverage.** This implements legacy v3 block 1.1, rules R1.1.1 to
+R1.1.5, the IEC 62443-3-3 control assessment. It is the first part of the L1
+layer, which was not previously represented at all.
+
+**Subtypes declared, not inferred.** DoSExposedFlow, UnauditedFlow and
+UnsegmentedCrossBoundaryFlow are declared subclasses of VulnerableFlow in the
+module rather than derived by a rule, because each is a kind of vulnerable flow
+by definition. The legacy design records the same decision and the reason: a
+subtype left to inference becomes invisible to later stages that consume
+VulnerableFlow.
+
+**Controls assessed independently.** The absence of any single control is a
+finding, following the defence-in-depth principle stated in the legacy design.
+An unstated control yields undetermined rather than a weakness, so a gap in the
+record is never read as an absent control. Rate limiting and segmentation carry
+a second condition, wireless medium and boundary crossing respectively; where
+that condition is unstated the result is undetermined.
+
+**First determined weaknesses in the ETCS case.** The stage produces 1480
+evaluations: 258 satisfied, 630 not satisfied, 592 undetermined. It classifies
+16 flows as denial-of-service exposed, 53 as unaudited and 60 as unsegmented
+cross-boundary flows. These are the first confirmed findings in the case; the
+EN 50159 stages had returned none, because the transferred protection facts
+record those controls as present on almost every flow.

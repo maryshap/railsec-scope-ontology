@@ -463,3 +463,88 @@ about 180 seconds, against seconds for both on the fixtures. The threat stage
 evaluates seven criteria against every flow with nested optional patterns. This
 is recorded as a measurement, not resolved; it must be optimised or moved to
 external computation before the case study is run interactively.
+
+## CR-B-022 — transmission environment derived for the ETCS case (Step 14c)
+
+**Change.** `scripts/derive_transmission_environment.py` produces
+`cases/etcs/transmission-environment.ttl`: the three conditions EN 50159 uses to
+classify a transmission system, for the flows where the source model supports a
+determination.
+
+**Why this is a derivation and is recorded as one.** The source model records the
+physical medium and an exposure rating, not the three conditions. The legacy
+rules went from medium to category directly, inside the rule, so the step was
+never inspectable. The rule the assessor applies is now stated once, recorded as
+a judgement basis, and attached to every fact it produces:
+
+| Condition | Rule applied |
+|---|---|
+| environment controlled | clearly wired medium, and exposure not high |
+| participant set fixed | clearly wired medium |
+| unauthorised access excluded | clearly wired medium, and exposure low |
+
+**What is deliberately left unstated.** A flow whose medium is radio, mixed,
+human or otherwise not clearly wired receives no fact, so its category stays
+undetermined rather than being guessed. 52 interfaces of 88 were given facts and
+36 were not.
+
+**Interfaces and flows.** A workbook row describes an interface; the case
+represents each interface as a forward and a reverse flow. The medium and
+exposure apply to both directions, so each fact is attached to both. 267 facts
+across 104 flows.
+
+**Import declaration corrected.** The dataset first declared only the railway
+module. `assertedInInstanceSet` belongs to the results module, reached through
+assessment, so the OWL 2 DL profile check reported it as an undeclared
+annotation property and continuous integration rejected the branch. The dataset
+now imports assessment and railway, matching the other case datasets, and
+carries a version IRI. This is the third time a change has been accepted by the
+Python stack and rejected by the reasoner; a vocabulary or dataset change is not
+verified until continuous integration has run it.
+
+**First determined results for the ETCS case.** The transmission-category stage
+now produces 178 satisfied, 356 not satisfied and 354 undetermined evaluations,
+classifying 53 flows as Category 1 and 36 as Category 3, with 59 flows
+undetermined. Every one carries a derivation record naming the criterion, the
+facts used and the judgement basis behind them.
+
+## CR-B-023 — L1 control weakness assessment (Step 15)
+
+**Change.** M5 gains the vulnerable flow taxonomy, a closed set of five control
+weakness types, two criterion properties and five flow properties. Two rules are
+added, M5-R09 evaluating the controls and M5-R10 materialising the flow subtype.
+Five criteria are added to the criteria module. The workbook transfer script now
+also carries the three L1 control columns and the medium and boundary flags.
+
+**Legacy coverage.** This implements legacy v3 block 1.1, rules R1.1.1 to
+R1.1.5, the IEC 62443-3-3 control assessment. It is the first part of the L1
+layer, which was not previously represented at all.
+
+**Subtypes declared, not inferred.** DoSExposedFlow, UnauditedFlow and
+UnsegmentedCrossBoundaryFlow are declared subclasses of VulnerableFlow in the
+module rather than derived by a rule, because each is a kind of vulnerable flow
+by definition. The legacy design records the same decision and the reason: a
+subtype left to inference becomes invisible to later stages that consume
+VulnerableFlow.
+
+**Controls assessed independently.** The absence of any single control is a
+finding, following the defence-in-depth principle stated in the legacy design.
+An unstated control yields undetermined rather than a weakness, so a gap in the
+record is never read as an absent control. Rate limiting and segmentation carry
+a second condition, wireless medium and boundary crossing respectively; where
+that condition is unstated the result is undetermined.
+
+**Generated reports regenerated.** Adding five classes changed both the inferred
+class hierarchy and the entity formalisation matrix, and continuous integration
+rejected the branch until they were committed. The hierarchy gains
+VulnerableFlow with its three subtypes and ControlWeaknessType; the matrix row
+for Criterion changes because two new properties take it as their domain. This
+is the regression check working as designed: a change to the vocabulary cannot
+land without the derived reports being updated deliberately.
+
+**First determined weaknesses in the ETCS case.** The stage produces 1480
+evaluations: 258 satisfied, 630 not satisfied, 592 undetermined. It classifies
+16 flows as denial-of-service exposed, 53 as unaudited and 60 as unsegmented
+cross-boundary flows. These are the first confirmed findings in the case; the
+EN 50159 stages had returned none, because the transferred protection facts
+record those controls as present on almost every flow.

@@ -185,3 +185,48 @@ rsscr:access-access-basis a rss-crit:JudgementBasis ;
 rsscr:threat-threat-basis a rss-crit:JudgementBasis ;
     rss-crit:reasoning "Provisional refactoring of legacy R2.2.1-R2.2.7 into three-valued threat evaluations. The legacy documents are implementation history, not normative evidence."@en ;
     rss-crit:revisionConditions "Replace each provisional mapping with reviewed EN 50159 SourceLocation and Interpretation records before release."@en .
+
+### L1 control weakness criteria (IEC 62443-3-3), legacy v3 block 1.1.
+rsscr:l1-control-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Refactoring of the legacy IEC 62443-3-3 control rules. Each control is assessed independently: the absence of any one is a finding, following the defence-in-depth principle stated in the legacy design. The legacy clause references are implementation history, not verified citations."@en ;
+    rss-crit:revisionConditions "Replace with reviewed IEC 62443-3-3 source locations and interpretations for SR 3.1, SR 5.1, SR 6.1 and SR 7.2 before release."@en .
+
+rsscr:l1-authentication-criterion a rss-crit:Criterion ;
+    rss-rail:assessesControlWeakness rss-rail:missingMessageAuthentication ;
+    rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
+    rss-crit:restsOnJudgement rsscr:l1-control-basis ;
+    rss-crit:criterionStatement "A flow without message authentication is vulnerable."@en ;
+    rss-crit:evaluationStageIdentifier "control-weakness" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+rsscr:l1-integrity-criterion a rss-crit:Criterion ;
+    rss-rail:assessesControlWeakness rss-rail:missingIntegrityProtection ;
+    rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
+    rss-crit:restsOnJudgement rsscr:l1-control-basis ;
+    rss-crit:criterionStatement "A flow without integrity protection is vulnerable."@en ;
+    rss-crit:evaluationStageIdentifier "control-weakness" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+rsscr:l1-rate-limiting-criterion a rss-crit:Criterion ;
+    rss-rail:assessesControlWeakness rss-rail:missingRateLimiting ;
+    rss-rail:weaknessFlowType rss-rail:DoSExposedFlow ;
+    rss-crit:restsOnJudgement rsscr:l1-control-basis ;
+    rss-crit:criterionStatement "A wireless flow without rate limiting is exposed to denial of service."@en ;
+    rss-crit:evaluationStageIdentifier "control-weakness" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+rsscr:l1-monitoring-criterion a rss-crit:Criterion ;
+    rss-rail:assessesControlWeakness rss-rail:missingMonitoring ;
+    rss-rail:weaknessFlowType rss-rail:UnauditedFlow ;
+    rss-crit:restsOnJudgement rsscr:l1-control-basis ;
+    rss-crit:criterionStatement "A flow without monitoring and logging is unaudited."@en ;
+    rss-crit:evaluationStageIdentifier "control-weakness" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
+
+rsscr:l1-segmentation-criterion a rss-crit:Criterion ;
+    rss-rail:assessesControlWeakness rss-rail:missingSegmentation ;
+    rss-rail:weaknessFlowType rss-rail:UnsegmentedCrossBoundaryFlow ;
+    rss-crit:restsOnJudgement rsscr:l1-control-basis ;
+    rss-crit:criterionStatement "A flow crossing a trust boundary without network segmentation is unsegmented."@en ;
+    rss-crit:evaluationStageIdentifier "control-weakness" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .

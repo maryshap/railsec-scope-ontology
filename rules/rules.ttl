@@ -74,6 +74,20 @@ rss-rule:EvaluateAccessPathRisk a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:enabled true ;
     dcterms:description "Evaluates high-risk maintenance paths and remote access risk on information flows. Remote access risk consumes transmission-threat evaluations and propagates their undetermined outcomes."@en .
 
+rss-rule:EvaluateControlWeakness a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-control-weakness.rq" ;
+    rss-rule:ruleIdentifier "M5-R09" ;
+    rss-rule:enabled true ;
+    dcterms:description "Assesses IEC 62443-3-3 controls on flows independently; an unstated control yields undetermined rather than a weakness."@en .
+
+rss-rule:ClassifyVulnerableFlow a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "classify-vulnerable-flow.rq" ;
+    rss-rule:ruleIdentifier "M5-R10" ;
+    rss-rule:enabled true ;
+    dcterms:description "Materialises the vulnerable flow subtype implied by a satisfied control-weakness evaluation."@en .
+
 rss-rule:DLSafeRule a owl:Class .
 rss-rule:implementationFile a owl:DatatypeProperty .
 rss-rule:ruleIdentifier a owl:DatatypeProperty .

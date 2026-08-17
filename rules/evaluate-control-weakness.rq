@@ -1,0 +1,74 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M5-R09 control weakness (legacy v3 R1.1.1-R1.1.5, IEC 62443-3-3).
+#
+# Controls are assessed independently: the absence of any one is a finding, in
+# keeping with the defence-in-depth principle. An unstated control yields
+# undetermined rather than a weakness, so a gap in the record is never read as
+# an absent control.
+#
+# Two criteria carry an additional condition beyond the control itself: rate
+# limiting matters on a wireless medium, and segmentation matters where the flow
+# crosses a trust boundary. Where that condition is itself unstated, the result
+# is undetermined.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateControlWeakness ;
+      prov:used ?flow ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?flow a rss-rail:RailwayInformationFlow .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ; rss-rail:assessesControlWeakness ?weakness .
+
+  OPTIONAL { ?flow rss-rail:authenticationEnabled ?authentication }
+  OPTIONAL { ?flow rss-rail:integrityProtectionEnabled ?integrity }
+  OPTIONAL { ?flow rss-rail:rateLimitingEnabled ?rateLimiting }
+  OPTIONAL { ?flow rss-rail:monitoringEnabled ?monitoring }
+  OPTIONAL { ?flow rss-rail:networkSegmentationEnabled ?segmentation }
+  OPTIONAL { ?flow rss-rail:wirelessMedium ?wireless }
+  OPTIONAL { ?flow rss-rail:crossesTrustBoundary ?crossesBoundary }
+
+  BIND(
+    IF(?weakness = rss-rail:missingMessageAuthentication,
+       IF(!BOUND(?authentication), rss-res:undetermined,
+          IF(!?authentication, rss-res:satisfied, rss-res:notSatisfied)),
+    IF(?weakness = rss-rail:missingIntegrityProtection,
+       IF(!BOUND(?integrity), rss-res:undetermined,
+          IF(!?integrity, rss-res:satisfied, rss-res:notSatisfied)),
+    IF(?weakness = rss-rail:missingRateLimiting,
+       IF(!BOUND(?rateLimiting) || !BOUND(?wireless), rss-res:undetermined,
+          IF(!?rateLimiting && ?wireless, rss-res:satisfied, rss-res:notSatisfied)),
+    IF(?weakness = rss-rail:missingMonitoring,
+       IF(!BOUND(?monitoring), rss-res:undetermined,
+          IF(!?monitoring, rss-res:satisfied, rss-res:notSatisfied)),
+    IF(?weakness = rss-rail:missingSegmentation,
+       IF(!BOUND(?segmentation) || !BOUND(?crossesBoundary), rss-res:undetermined,
+          IF(!?segmentation && ?crossesBoundary, rss-res:satisfied, rss-res:notSatisfied)),
+       rss-res:undetermined)))))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/control/", ENCODE_FOR_URI(STRAFTER(STR(?weakness), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion) && isIRI(?weakness))
+}

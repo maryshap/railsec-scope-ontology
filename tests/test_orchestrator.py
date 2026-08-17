@@ -44,7 +44,7 @@ def canonical(graph: Graph, run_iri: URIRef) -> set:
     comparing them would test the serialiser rather than the derivation.
     """
     marker = str(run_iri)
-    digest = hashlib.md5(marker.encode("utf-8")).hexdigest()
+    digest = hashlib.sha256(marker.encode("utf-8")).hexdigest()
 
     def mask(term) -> str:
         return str(term).replace(marker, "RUN").replace(digest, "DIGEST")

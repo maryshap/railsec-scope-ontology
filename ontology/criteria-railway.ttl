@@ -26,7 +26,11 @@
     dcterms:title "RailSec Scope Ontology — M5 railway assessment criteria"@en ;
     dcterms:description "Reusable railway assessment criteria and their recorded judgement bases."@en .
 
+rsscr:criteria-module-version a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "0.1.0-phase2" .
+
 rsscr:access-maintenance-access-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A safety-critical asset reachable by maintenance access carries a privileged access risk."@en ;
     rss-crit:evaluationStageIdentifier "access-risk" ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -35,6 +39,7 @@ rsscr:access-maintenance-access-criterion a rss-crit:Criterion ;
     rss-rail:assessesAccessRisk rss-rail:privilegedMaintenanceAccessRisk .
 
 rsscr:access-maintenance-path-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A flow terminating at a safety-critical asset whose origin is reachable by maintenance access is a high-risk maintenance path."@en ;
     rss-crit:evaluationStageIdentifier "access-path" ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -43,6 +48,7 @@ rsscr:access-maintenance-path-criterion a rss-crit:Criterion ;
     rss-rail:assessesAccessRisk rss-rail:highRiskMaintenancePath .
 
 rsscr:access-remote-access-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A flow reachable by remote access that carries a satisfied transmission-threat evaluation is a remote access risk."@en ;
     rss-crit:evaluationStageIdentifier "access-path" ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -51,6 +57,7 @@ rsscr:access-remote-access-criterion a rss-crit:Criterion ;
     rss-rail:assessesAccessRisk rss-rail:remoteAccessRisk .
 
 rsscr:access-supplier-access-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A safety-critical asset reachable by supplier access carries a privileged supply chain risk."@en ;
     rss-crit:evaluationStageIdentifier "access-risk" ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -59,24 +66,28 @@ rsscr:access-supplier-access-criterion a rss-crit:Criterion ;
     rss-rail:assessesAccessRisk rss-rail:privilegedSupplierAccessRisk .
 
 rsscr:category-category-1-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:determinesMembershipOf rss-rail:Category1Transmission ;
     rss-crit:evaluationStageIdentifier "transmission-category" ;
     rss-crit:restsOnJudgement rsscr:category-category-basis ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:category-category-2-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:determinesMembershipOf rss-rail:Category2Transmission ;
     rss-crit:evaluationStageIdentifier "transmission-category" ;
     rss-crit:restsOnJudgement rsscr:category-category-basis ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:category-category-3-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:determinesMembershipOf rss-rail:Category3Transmission ;
     rss-crit:evaluationStageIdentifier "transmission-category" ;
     rss-crit:restsOnJudgement rsscr:category-category-basis ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:critical-authenticity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A masquerade-exposed flow carrying a safety-related payload is a critical authenticity violation."@en ;
     rss-crit:evaluationStageIdentifier "critical-violation" ;
     rss-crit:restsOnJudgement rsscr:critical-critical-basis ;
@@ -85,6 +96,7 @@ rsscr:critical-authenticity-criterion a rss-crit:Criterion ;
     rss-rail:elevatesTransmissionThreat rss-rail:MasqueradeThreat .
 
 rsscr:critical-integrity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A corruption-exposed flow carrying a safety-related payload is a critical integrity violation."@en ;
     rss-crit:evaluationStageIdentifier "critical-violation" ;
     rss-crit:restsOnJudgement rsscr:critical-critical-basis ;
@@ -93,6 +105,7 @@ rsscr:critical-integrity-criterion a rss-crit:Criterion ;
     rss-rail:elevatesTransmissionThreat rss-rail:CorruptionThreat .
 
 rsscr:failsafe-authenticity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A safety-critical asset has an authenticity-driven fail-safe compromise when its fail-safe function depends on that asset and an incoming flow has a satisfied critical-authenticity evaluation."@en ;
     rss-crit:evaluationStageIdentifier "fail-safe-compromise" ;
     rss-crit:restsOnJudgement rsscr:failsafe-fail-safe-basis ;
@@ -100,6 +113,7 @@ rsscr:failsafe-authenticity-criterion a rss-crit:Criterion ;
     rss-rail:assessesFailSafeCompromiseFrom rss-rail:criticalAuthenticityViolation .
 
 rsscr:failsafe-integrity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A safety-critical asset has an integrity-driven fail-safe compromise when its fail-safe function depends on that asset and an incoming flow has a satisfied critical-integrity evaluation."@en ;
     rss-crit:evaluationStageIdentifier "fail-safe-compromise" ;
     rss-crit:restsOnJudgement rsscr:failsafe-fail-safe-basis ;
@@ -107,6 +121,7 @@ rsscr:failsafe-integrity-criterion a rss-crit:Criterion ;
     rss-rail:assessesFailSafeCompromiseFrom rss-rail:criticalIntegrityViolation .
 
 rsscr:sil-maximum-risk-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A safety-critical asset whose fail-safe compromise evaluation is satisfied carries the maximum SIL risk."@en ;
     rss-crit:evaluationStageIdentifier "sil-risk" ;
     rss-crit:restsOnJudgement rsscr:sil-sil-basis ;
@@ -114,6 +129,7 @@ rsscr:sil-maximum-risk-criterion a rss-crit:Criterion ;
     rss-rail:assessesSILRisk rss-rail:maximumSILRisk .
 
 rsscr:threat-corruption-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "An open transmission is corruption-exposed when a safety code is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -121,6 +137,7 @@ rsscr:threat-corruption-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:CorruptionThreat .
 
 rsscr:threat-delay-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "An open transmission is delay-exposed when its timeout mechanism is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -128,6 +145,7 @@ rsscr:threat-delay-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:DelayThreat .
 
 rsscr:threat-deletion-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "An open transmission is deletion-exposed when its timeout mechanism is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -135,6 +153,7 @@ rsscr:threat-deletion-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:DeletionThreat .
 
 rsscr:threat-insertion-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A Category 3 transmission is insertion-exposed when source/destination identification is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -142,6 +161,7 @@ rsscr:threat-insertion-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:InsertionThreat .
 
 rsscr:threat-masquerade-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "A Category 3 transmission is masquerade-exposed when authentication and source/destination identification are both explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -149,6 +169,7 @@ rsscr:threat-masquerade-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:MasqueradeThreat .
 
 rsscr:threat-repetition-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "An open transmission is repetition-exposed when sequence protection is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -156,6 +177,7 @@ rsscr:threat-repetition-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:RepetitionThreat .
 
 rsscr:threat-resequencing-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:criterionStatement "An open transmission is resequencing-exposed when sequence protection is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -192,6 +214,7 @@ rsscr:l1-control-basis a rss-crit:JudgementBasis ;
     rss-crit:revisionConditions "Replace with reviewed IEC 62443-3-3 source locations and interpretations for SR 3.1, SR 5.1, SR 6.1 and SR 7.2 before release."@en .
 
 rsscr:l1-authentication-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-rail:assessesControlWeakness rss-rail:missingMessageAuthentication ;
     rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -200,6 +223,7 @@ rsscr:l1-authentication-criterion a rss-crit:Criterion ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:l1-integrity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-rail:assessesControlWeakness rss-rail:missingIntegrityProtection ;
     rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -208,6 +232,7 @@ rsscr:l1-integrity-criterion a rss-crit:Criterion ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:l1-rate-limiting-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-rail:assessesControlWeakness rss-rail:missingRateLimiting ;
     rss-rail:weaknessFlowType rss-rail:DoSExposedFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -216,6 +241,7 @@ rsscr:l1-rate-limiting-criterion a rss-crit:Criterion ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:l1-monitoring-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-rail:assessesControlWeakness rss-rail:missingMonitoring ;
     rss-rail:weaknessFlowType rss-rail:UnauditedFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -224,6 +250,7 @@ rsscr:l1-monitoring-criterion a rss-crit:Criterion ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:l1-segmentation-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-rail:assessesControlWeakness rss-rail:missingSegmentation ;
     rss-rail:weaknessFlowType rss-rail:UnsegmentedCrossBoundaryFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;

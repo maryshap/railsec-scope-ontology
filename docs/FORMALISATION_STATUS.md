@@ -30,6 +30,16 @@
 
 - Phase 2 Step 13: Run orchestrator. Executes the stages as one controlled analysis with bounded iteration, refusal semantics and run-scoped results. Exposed and fixed two defects invisible to single-Run stage tests: colliding result identifiers across Runs, and asymmetric instance-set joins producing derivations that cite results never created. Determinism is now evidenced by test rather than claimed (CR-B-019).
 
+## Canonical Phase 2 numbering correction
+
+The revised sixteen-step plan remains authoritative. Later working labels did
+not renumber its final steps: CR-B-021/022 are enabling and ETCS-track changes,
+and CR-B-023 is an additional Step 12 L1 rule slice. Canonical Step 13 remains
+partial: reachability, witness paths, candidate projection and selection coverage are now implemented, while the admitted weighted-ordering method remains open; canonical Step 14 is CQ
+oracles (21 answered, 5 empty by design, 19 pending after the L3 slice); canonical Step 15 is a
+predeclared performance target; canonical Step 16 is the retained EV-B1–EV-B11
+evidence package. See `PHASE2_EXECUTION.md` and `PHASE2_GAP_AUDIT.md`.
+
 ## Release blockers (not hidden as implementation completion)
 
 1. Every legacy-rule triage row is `domain-review-required`; M5 criterion/rule content cannot be released from unverified standard citations.
@@ -38,5 +48,5 @@
 4. DataObjects, Actors/Roles, interface security flags and the old AHP model remain explicitly unmapped, with reasons in `cases/etcs/unmapped.csv`.
 5. K-22 manual copyright/source-text review and w3id redirect registration remain release actions.
 6. The synthetic EN 50159 category criteria currently rest on an explicit provisional JudgementBasis. Exact standard edition, source locations and reviewed interpretations are still required before release.
-7. Threat, safety-critical elevation, fail-safe, SIL-risk and access-risk criteria are executable but remain provisional pending source review. The orchestrator/L3 implementation remains Phase 2 work.
+7. Threat, safety-critical elevation, fail-safe, SIL-risk, access-risk and control-weakness criteria are executable but remain provisional pending source review. L3, CQ-oracle completion, the performance target and the evidence package remain Phase 2 work.
 8. The ETCS ABox explicitly types nine assets as `SafetyCriticalAsset`, but none of those classifications has a supporting `AssertedFact` or `JudgementBasis`. Because Steps 12.3–12.6 depend on that classification, this provenance gap must be resolved before the ETCS case is executed by the orchestrator; no source or judgement is fabricated as a default.

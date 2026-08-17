@@ -82,6 +82,9 @@ class OrchestratorContractTest(unittest.TestCase):
         graph, run = self.result.graph, self.result.run_iri
         self.assertEqual(self.result.iterations, int(graph.value(run, RES.iterationCount)))
         self.assertIsNotNone(graph.value(run, RES.artefactDigest))
+        self.assertIsNotNone(graph.value(run, RES.startTime))
+        self.assertIsNotNone(graph.value(run, RES.endTime))
+        self.assertTrue(list(graph.objects(run, RES.usedVersion)))
 
     def test_it_declares_the_instance_sets_it_consumed(self) -> None:
         used = list(self.result.graph.objects(self.result.run_iri, RES.usedInstanceSet))
@@ -155,6 +158,8 @@ class RefusalTest(unittest.TestCase):
         self.assertFalse(result.publishable)
         self.assertTrue(any("instance set" in reason for reason in result.refusals))
         self.assertEqual(0, len(list(result.graph.subjects(RDF.type, RES.CriterionEvaluation))))
+        self.assertIsNotNone(result.graph.value(result.run_iri, RES.artefactDigest))
+        self.assertIsNotNone(result.graph.value(result.run_iri, RES.endTime))
 
     def test_non_convergence_is_refused_rather_than_reported(self) -> None:
         original = orchestrator.MAX_ITERATIONS

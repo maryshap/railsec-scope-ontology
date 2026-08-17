@@ -105,10 +105,10 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 ## Що ще не можна називати завершеним
 
 - Category rule працює на provisional JudgementBasis; production M5 criteria не release-ready без exact standard SourceLocation/Interpretation review.
-- Решта Phase 2 rule blocks та orchestrator/L3 ще не реалізовані.
+- Основні Phase 2 rule blocks та orchestrator реалізовані. L3 вже виконує reachability, witness paths, candidate-set projection і coverage для явного Selection; weighted ordering очікує затвердженого методу.
 - Для CQ-01–CQ-45 потрібна повна P/N/U fixture-oracle matrix; smoke execution недостатньо для наукової валідації.
 - Workbook boundary mapping має бути підтверджений domain expert.
 - K-22 вимагає ручного copyright/source-text review.
-- Старий AHP ordering і L3 reachability/path/coverage computations ще не перенесені в нову архітектуру.
+- Старий AHP навмисно не перенесений. Reachability/path/coverage реалізовані в новій архітектурі; factor computation і replacement ordering method ще мають бути затверджені.
 
 Отже, зараз репозиторій має працюючу формальну основу, validation layers і structurally valid ETCS migration. Він навмисно не видає неперевірені legacy rules за доведену railway semantics.

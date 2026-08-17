@@ -23,11 +23,11 @@
 **Ні.** Нова система ще не завершена.
 
 - TBox M1–M4 і записана Gate B revision `Payload` проходять OWL 2 DL/HermiT.
-- M5 Railway має vocabulary baseline і перший Category 1/2/3 vertical slice.
+- M5 Railway має vocabulary baseline та executable category, threat, criticality, fail-safe, SIL, access і control-weakness slices.
 - Новий ETCS ABox структурно мігрований, а synthetic fixtures ростуть разом із rules.
 - SHACL K-assets і 45 CQ виконуються; повні P/N/U oracles ще будуються.
-- Transmission category rules уже працюють через three-valued CriterionEvaluation; інші M5 rule blocks ще попереду.
-- L3 computations та orchestrator: ще не створені.
+- Railway rules працюють через three-valued CriterionEvaluation і run-scoped materialisation.
+- Orchestrator та L3 reachability/path/coverage створені; weighted ordering очікує затвердженого методу й factor set.
 - ETCS semantic comparison чекає завершення основного M5 pipeline.
 
 Тому старий код зараз залишається **працюючим legacy reference**, а новий репозиторій — **правильно структурованою, але ще незавершеною replacement implementation**.

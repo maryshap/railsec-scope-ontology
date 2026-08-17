@@ -13,7 +13,7 @@ rss-rule:CandidateFromSatisfiedEvaluation a rss-rule:DLSafeRule ;
     rss-rule:implementationFile "classify-candidate.rq" ;
     rss-rule:ruleIdentifier "L2-R01" ;
     rss-rule:enabled true ;
-    dcterms:description "A satisfied evaluation of a criterion that determines CandidateExaminationTarget membership entails that membership for the named element."@en .
+    dcterms:description "A satisfied evaluation of a criterion that determines an assessment-bearing category entails that category membership for the named element. The historical identifier is retained for compatibility although the implementation is now category-generic."@en .
 
 rss-rule:phase2RuleVersion a rss-crit:ArtefactVersion ;
     rss-crit:versionIdentifier "0.1.0-phase2" .
@@ -87,6 +87,40 @@ rss-rule:ClassifyVulnerableFlow a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:ruleIdentifier "M5-R10" ;
     rss-rule:enabled true ;
     dcterms:description "Materialises the vulnerable flow subtype implied by a satisfied control-weakness evaluation."@en .
+
+rss-rule:CategoryAssignmentMaterialiser a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Records CategoryAssignment individuals only after the corresponding satisfied evaluation and class entailment already exist."@en .
+
+rss-rule:L3ReachabilityMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Deterministic directed graph traversal from L1/L2-classified entry points over vulnerable information-flow edges. Produces shortest witness paths and never category membership."@en .
+
+rss-rule:L3ReachabilityMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of the declared L3 reachability method."@en .
+
+rss-rule:CandidateSetProjectionMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Deterministic projection of materialised CandidateExaminationTarget assignments belonging to one Run."@en .
+
+rss-rule:CandidateSetProjectionMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of candidate-set projection in the Run orchestrator."@en .
+
+rss-rule:SelectionCoverageMeasure a rss-crit:CoverageMeasure ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:measureDefinition "Number of distinct candidate elements included in the declared Selection divided by the number of distinct eligible candidate elements." ;
+    rss-crit:eligibilityScope "Materialised CandidateExaminationTarget assignments in one run-scoped CandidateSet." ;
+    rss-crit:exclusionDeclaration "No implicit exclusions. Assessor exclusions remain visible as candidate elements not included in the Selection." .
+
+rss-rule:SelectionCoverageMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Computes the declared selection-coverage ratio; returns notComputable for an empty candidate universe."@en .
+
+rss-rule:SelectionCoverageMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of the declared selection-coverage method."@en .
 
 rss-rule:DLSafeRule a owl:Class .
 rss-rule:implementationFile a owl:DatatypeProperty .

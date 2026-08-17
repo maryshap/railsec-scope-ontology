@@ -37,6 +37,8 @@ from pathlib import Path
 from pyshacl import validate
 from rdflib import Graph, Literal, Namespace, RDF, URIRef, XSD
 
+import l3
+
 
 PROJECT = Path(__file__).resolve().parents[1]
 
@@ -60,15 +62,14 @@ STAGE_RULES = [
     "evaluate-sil-risk.rq",
     "evaluate-access-risk-asset.rq",
     "evaluate-access-path-risk.rq",
+    "evaluate-control-weakness.rq",
+    "classify-vulnerable-flow.rq",
     "classify-candidate.rq",
 ]
 
 # Categories that only L1 or L2 may confer. If an individual acquires one of
 # these without a corresponding evaluation, a computation has classified
 # something it is not permitted to classify.
-GUARDED_CATEGORIES = [CRIT.CandidateExaminationTarget]
-
-
 @dataclass
 class RunResult:
     """Outcome of one Run. `publishable` is false if any check failed."""
@@ -116,6 +117,21 @@ def artefact_digest(paths: list[Path]) -> str:
     return digest.hexdigest()
 
 
+def _record_run(result: RunResult, graph: Graph, artefacts: list[Path]) -> None:
+    """Write the Run record on both success and every refusal path."""
+    if not result.finished:
+        result.finished = datetime.now(timezone.utc).isoformat()
+    graph.add((result.run_iri, RES.iterationCount, Literal(result.iterations)))
+    graph.add((result.run_iri, RES.artefactDigest, Literal(artefact_digest(artefacts))))
+    graph.add((result.run_iri, RES.publishable, Literal(result.publishable, datatype=XSD.boolean)))
+    graph.add((result.run_iri, RES.startTime, Literal(result.started, datatype=XSD.dateTime)))
+    graph.add((result.run_iri, RES.endTime, Literal(result.finished, datatype=XSD.dateTime)))
+    for version in sorted(graph.subjects(RDF.type, CRIT.ArtefactVersion), key=str):
+        graph.add((result.run_iri, RES.usedVersion, version))
+    for reason in result.refusals:
+        graph.add((result.run_iri, RES.refusalReason, Literal(reason)))
+
+
 def reasoner_available() -> bool:
     return bool(shutil.which("java")) and (PROJECT / "tools" / "robot.jar").exists()
 
@@ -154,24 +170,104 @@ def apply_rules(graph: Graph) -> int:
     return len(graph) - before
 
 
-def apply_l3(graph: Graph) -> int:
-    """External computation hook, called inside the loop.
+def _result_iri(kind: str, *parts: URIRef | str) -> URIRef:
+    material = "\u001f".join(map(str, parts)).encode("utf-8")
+    return RUN[f"{kind}-{hashlib.sha256(material).hexdigest()}"]
 
-    Empty until reachability lands. It is deliberately positioned here rather
-    than after the loop: entry-point classification consumes reachability facts,
-    so an L3 call placed after convergence would leave those criteria
-    permanently undetermined.
+
+def materialise_assignments(graph: Graph, run_iri: URIRef) -> int:
+    """Record already-entailed assessment-bearing memberships.
+
+    The materialiser does not decide membership. It requires all three inputs:
+    a satisfied evaluation in this Run, a criterion/category declaration and
+    the corresponding class entailment already present in the graph.
     """
-    return 0
+    before = len(graph)
+    for evaluation in sorted(graph.subjects(RDF.type, RES.CriterionEvaluation), key=str):
+        if graph.value(evaluation, RES.producedByRun) != run_iri:
+            continue
+        if graph.value(evaluation, RES.hasEvaluationOutcome) != RES.satisfied:
+            continue
+        element = graph.value(evaluation, RES.evaluationConcernsElement)
+        criterion = graph.value(evaluation, RES.evaluatesCriterion)
+        if not isinstance(element, URIRef) or not isinstance(criterion, URIRef):
+            continue
+        for category in sorted(graph.objects(criterion, CRIT.determinesMembershipOf), key=str):
+            if (category, RDF.type, CRIT.AssessmentBearingCategory) not in graph:
+                continue
+            if (element, RDF.type, category) not in graph:
+                continue
+            assignment = _result_iri("assignment", run_iri, evaluation, category)
+            record = _result_iri("assignment-record", assignment)
+            step = _result_iri("assignment-step", assignment)
+            graph.add((assignment, RDF.type, RES.CategoryAssignment))
+            graph.add((assignment, RES.materialisesEvaluation, evaluation))
+            graph.add((assignment, RES.assignsCategory, category))
+            graph.add((assignment, RES.producedByRun, run_iri))
+            graph.add((assignment, RES.hasDerivationRecord, record))
+            graph.add((record, RDF.type, RES.DerivationRecord))
+            graph.add((record, RES.completenessStatus, Literal("complete")))
+            graph.add((record, RES.hasStep, step))
+            graph.add((step, RDF.type, RES.DerivationStep))
+            graph.add((step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+            graph.add((step, RES.layerIdentifier, Literal("materialiser")))
+            graph.add((step, RES.appliedCriterion, criterion))
+            graph.add((step, RES.executedByMechanism, RULE.CategoryAssignmentMaterialiser))
+            graph.add((step, RES.usedEntity, evaluation))
+            graph.add((step, RES.generatedResult, assignment))
+    return len(graph) - before
+
+
+def materialise_candidate_set(graph: Graph, run_iri: URIRef) -> int:
+    """Project this Run's candidate assignments into one identified set."""
+    assignments = sorted([
+        assignment
+        for assignment in graph.subjects(RDF.type, RES.CategoryAssignment)
+        if graph.value(assignment, RES.producedByRun) == run_iri
+        and graph.value(assignment, RES.assignsCategory) == CRIT.CandidateExaminationTarget
+    ], key=str)
+    if not assignments:
+        return 0
+
+    before = len(graph)
+    candidate_set = _result_iri("candidate-set", run_iri)
+    record = _result_iri("candidate-set-record", candidate_set)
+    step = _result_iri("candidate-set-step", candidate_set)
+    graph.add((candidate_set, RDF.type, RES.CandidateSet))
+    graph.add((candidate_set, RES.producedByRun, run_iri))
+    graph.add((candidate_set, RES.hasDerivationRecord, record))
+    for assignment in assignments:
+        graph.add((candidate_set, RES.hasCandidateAssignment, assignment))
+    graph.add((record, RDF.type, RES.DerivationRecord))
+    graph.add((record, RES.completenessStatus, Literal("complete")))
+    graph.add((record, RES.hasStep, step))
+    graph.add((step, RDF.type, RES.DerivationStep))
+    graph.add((step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+    graph.add((step, RES.layerIdentifier, Literal("orchestrator")))
+    graph.add((step, RES.appliedComputation, RULE.CandidateSetProjectionMethod))
+    graph.add((step, RES.executedByMechanism, RULE.CandidateSetProjectionMechanism))
+    graph.add((step, RES.generatedResult, candidate_set))
+    for assignment in assignments:
+        graph.add((step, RES.usedEntity, assignment))
+    return len(graph) - before
+
+
+def apply_l3(graph: Graph, run_iri: URIRef) -> int:
+    """Run declared L3 computations inside the fixed-point loop."""
+    return l3.apply(graph, run_iri)
 
 
 def guarded_category_violations(graph: Graph) -> list[str]:
     """Members of a guarded category that have no evaluation behind them."""
     violations = []
-    for category in GUARDED_CATEGORIES:
+    categories = sorted(graph.subjects(RDF.type, CRIT.AssessmentBearingCategory), key=str)
+    for category in categories:
         for member in graph.subjects(RDF.type, category):
             supported = any(
                 graph.value(evaluation, RES.hasEvaluationOutcome) == RES.satisfied
+                and category in set(
+                    graph.objects(graph.value(evaluation, RES.evaluatesCriterion), CRIT.determinesMembershipOf)
+                )
                 for evaluation in graph.subjects(RES.evaluationConcernsElement, member)
             )
             if not supported:
@@ -186,9 +282,16 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
     result.run_iri = RUN[run_identifier]
 
     graph = Graph()
-    contributing = _ontology_modules() + [PROJECT / "imports" / "prov-o-dl.ttl",
-                                          PROJECT / "rules" / "rules.ttl"] + list(instance_files)
-    for path in contributing:
+    load_paths = _ontology_modules() + [PROJECT / "imports" / "prov-o-dl.ttl",
+                                        PROJECT / "rules" / "rules.ttl"] + list(instance_files)
+    artefacts = load_paths + [
+        PROJECT / "rules" / filename for filename in STAGE_RULES
+    ] + [
+        Path(__file__), PROJECT / "scripts" / "l3.py",
+        PROJECT / "shapes" / "railway.ttl",
+        PROJECT / "shapes" / "criterion-slice.ttl",
+    ]
+    for path in load_paths:
         graph.parse(path)
 
     # The Run individual must exist before the loop: every rule binds ?run from
@@ -204,7 +307,7 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
     if not instance_sets:
         result.refuse("no instance set present in the input; a Run must consume at least one")
         result.graph = graph
-        result.finished = datetime.now(timezone.utc).isoformat()
+        _record_run(result, graph, artefacts)
         return result
     for instance_set in instance_sets:
         graph.add((result.run_iri, RES.usedInstanceSet, instance_set))
@@ -216,7 +319,7 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
     if not conforms:
         result.refuse("input validation failed; no derivation attempted")
         result.graph = graph
-        result.finished = datetime.now(timezone.utc).isoformat()
+        _record_run(result, graph, artefacts)
         return result
 
     # 3. bounded reasoner <-> rules <-> L3 loop
@@ -227,7 +330,9 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
         reasoned = run_reasoner(graph)
         result.reasoner_invoked = result.reasoner_invoked or reasoned
         apply_rules(graph)
-        apply_l3(graph)
+        materialise_assignments(graph, result.run_iri)
+        materialise_candidate_set(graph, result.run_iri)
+        apply_l3(graph, result.run_iri)
         if len(graph) == before:
             result.converged = True
             break
@@ -251,12 +356,7 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
         result.refuse(f"unsupported classification: {violation}")
 
     # 7. record the run
-    result.finished = datetime.now(timezone.utc).isoformat()
-    graph.add((result.run_iri, RES.iterationCount, Literal(result.iterations)))
-    graph.add((result.run_iri, RES.artefactDigest, Literal(artefact_digest(contributing))))
-    graph.add((result.run_iri, RES.publishable, Literal(result.publishable, datatype=XSD.boolean)))
-    for reason in result.refusals:
-        graph.add((result.run_iri, RES.refusalReason, Literal(reason)))
+    _record_run(result, graph, artefacts)
 
     result.graph = graph
     return result

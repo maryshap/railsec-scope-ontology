@@ -548,3 +548,48 @@ evaluations: 258 satisfied, 630 not satisfied, 592 undetermined. It classifies
 cross-boundary flows. These are the first confirmed findings in the case; the
 EN 50159 stages had returned none, because the transferred protection facts
 record those controls as present on almost every flow.
+
+## CR-B-024 — canonical Step 13 L3 reachability and coverage slice
+
+**Numbering correction.** The revised sixteen-step Phase 2 plan remains the
+canonical sequence. CR-B-021/022 are enabling and ETCS-track work, and CR-B-023
+is an additional Step 12 rule slice. It does not replace canonical Step 15,
+which is the predeclared performance target.
+
+**Change.** The Run orchestrator now executes the control-weakness rules,
+materialises `CategoryAssignment` records only after a satisfied evaluation and
+the corresponding class entailment exist, and projects candidate assignments
+into a run-scoped `CandidateSet`. L3 performs deterministic directed closure
+from materialised `EntryPoint` assignments over vulnerable-flow edges. It emits
+`ReachabilityResult`, shortest witness `DependencyChain` records and complete
+versioned derivation evidence. For an explicit assessor `Selection`, it also
+computes the declared candidate-selection coverage ratio.
+
+**Layer authority.** L3 produces paths and numbers only. It never creates a
+`CriterionEvaluation`, a `CategoryAssignment` or assessment-bearing membership.
+The category classifier was generalised from CandidateExaminationTarget to any
+declared `AssessmentBearingCategory`; the materialiser independently checks
+evaluation, declared category and existing entailment before recording it.
+
+**Unknown and human-decision boundary.** The computation does not invent an
+entry point without a materialised L1/L2 assignment, does not claim a path when
+the entry has no declared access mechanism, does not traverse a flow that is
+not classified as vulnerable, and does not create a default Selection. Coverage
+therefore runs only when the assessor supplies the Selection explicitly.
+
+**Rejected alternatives.** Asserting reachability as an OWL transitive property
+was rejected because concrete paths and computation provenance would be lost.
+Copying the legacy AHP weights was rejected because the legacy values have not
+been admitted as a versioned method and factor set. Automatically selecting all
+candidates was rejected because Selection is an assessor decision, not a
+computation result.
+
+**Reproducibility correction.** Run digests now include rule queries, L3 and
+orchestrator source and validation shapes, rather than only parsed RDF inputs.
+Every refusal path records the digest and time bounds, and Runs record the
+artefact versions present in the execution graph.
+
+**Evidence effect.** The synthetic L3 fixture promotes reachability, path,
+candidate, derivation, coverage and version CQs to asserted oracles. CQ coverage
+is now 21 answered, 5 empty by design and 19 pending; structural-shape focus
+coverage is 12 of 21. Weighted ordering remains the explicit Step 13 blocker.

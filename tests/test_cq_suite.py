@@ -17,23 +17,44 @@ PENDING          the capability the query interrogates is not implemented, so
 
 from __future__ import annotations
 
+import sys
 import unittest
+from functools import lru_cache
 from pathlib import Path
 
-from rdflib import Graph
+from rdflib import Graph, Namespace, RDF
 from rdflib.plugins.sparql import prepareQuery
 
 
 PROJECT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT / "scripts"))
+
+import l3  # noqa: E402
+import orchestrator  # noqa: E402
+
+FX_L3 = Namespace("https://w3id.org/railsec-scope/fixture/l3/")
+RES = Namespace("https://w3id.org/railsec-scope/results#")
 
 ANSWERED: dict[str, int] = {
     "CQ-01": 328,
     "CQ-03": 141,
     "CQ-04": 33,
+    "CQ-05": 2,
+    "CQ-06": 2,
+    "CQ-07": 2,
+    "CQ-09": 1,
+    "CQ-10": 1,
+    "CQ-12": 5,
+    "CQ-13": 1,
     "CQ-22": 1,
+    "CQ-24": 10,
+    "CQ-25": 8,
     "CQ-28": 1,
     "CQ-31": 1,
+    "CQ-33": 1,
+    "CQ-34": 1,
     "CQ-36": 1391,  # +17: nine classification assumptions, four identity assumptions, two bases, one agent, one instance-set reference
+    "CQ-40": 10,
     "CQ-41": 92,
     "CQ-43": 35,
 }
@@ -42,20 +63,14 @@ EMPTY_BY_DESIGN: dict[str, str] = {
     "CQ-19": "ORF-25: no authorisation status may be produced by a definition, rule or computation",
     "CQ-27": "ORF-34: no material finding may have an incomplete derivation record in a valid release",
     "CQ-32": "ORF-39: no instance may violate a declared structural constraint",
+    "CQ-35": "the explicit L3 fixture Selection matches its CandidateSet exactly",
     "CQ-39": "ORF-47: no term or criterion is deprecated at this version",
 }
 
 PENDING: dict[str, str] = {
     "CQ-02": "boundary exclusion rationale not populated",
-    "CQ-05": "L3 reachability not implemented (ReachabilityResult)",
-    "CQ-06": "L3 reachability not implemented",
-    "CQ-07": "L3 reachability not implemented",
     "CQ-08": "L3 reachability and RunComparison not implemented",
-    "CQ-09": "candidate criterion not implemented beyond the vertical slice",
-    "CQ-10": "candidate criterion not implemented beyond the vertical slice",
     "CQ-11": "safety impact rules not implemented (SafetyImpactResult)",
-    "CQ-12": "L3 dependency chains not implemented (DependencyChain)",
-    "CQ-13": "candidate and reachability criteria not implemented",
     "CQ-14": "assessor decisions not populated (Override)",
     "CQ-15": "ordering not implemented (OrderingResult)",
     "CQ-16": "ordering not implemented (FactorValue)",
@@ -64,17 +79,11 @@ PENDING: dict[str, str] = {
     "CQ-20": "criterion provenance not transferred to annotations (SourceLocation)",
     "CQ-21": "interpretation records not created",
     "CQ-23": "criterion provenance not transferred to annotations",
-    "CQ-24": "derivation records produced only inside the category slice",
-    "CQ-25": "derivation records produced only inside the category slice",
     "CQ-26": "unresolved inputs not recorded on derivation records",
     "CQ-29": "asserted absence not populated",
     "CQ-30": "unresolved inputs not recorded",
-    "CQ-33": "coverage measures not declared (CoverageMeasure)",
-    "CQ-34": "coverage results not produced (CoverageResult)",
-    "CQ-35": "selections not represented (Selection)",
     "CQ-37": "subsystem extension not present",
     "CQ-38": "RunComparison not implemented",
-    "CQ-40": "run version records not produced",
     "CQ-42": "flow characteristics not populated",
     "CQ-44": "property-loss consequences not populated",
     "CQ-45": "ordering not implemented",
@@ -88,6 +97,42 @@ def representative_graph() -> Graph:
     graph.parse(PROJECT / "cases" / "etcs" / "classification-provenance.ttl")
     graph.parse(PROJECT / "fixtures" / "criterion-slice" / "positive.ttl")
     return graph
+
+
+@lru_cache(maxsize=1)
+def l3_oracle_graph() -> Graph:
+    """Purpose-built Step 13 graph; kept separate from ETCS row-count oracles."""
+    graph = Graph()
+    for path in sorted((PROJECT / "ontology").glob("*.ttl")):
+        graph.parse(path)
+    graph.parse(PROJECT / "rules" / "rules.ttl")
+    graph.parse(PROJECT / "fixtures" / "l3" / "minimal.ttl")
+
+    classifier = (PROJECT / "rules" / "classify-candidate.rq").read_text(encoding="utf-8")
+    graph += graph.query(classifier).graph
+    orchestrator.materialise_assignments(graph, FX_L3.run)
+    orchestrator.materialise_candidate_set(graph, FX_L3.run)
+
+    candidate_set = next(
+        item for item in graph.subjects(RDF.type, RES.CandidateSet)
+        if graph.value(item, RES.producedByRun) == FX_L3.run
+    )
+    graph.add((FX_L3.selection, RDF.type, RES.Selection))
+    graph.add((FX_L3.selection, Namespace("https://w3id.org/railsec-scope/criteria#").hasVersion, FX_L3.version))
+    graph.add((FX_L3.selection, RES.selectionBasedOnCandidateSet, candidate_set))
+    graph.add((FX_L3.selection, RES.includesElement, FX_L3.target))
+    l3.apply(graph, FX_L3.run)
+    return graph
+
+
+L3_ORACLE_CQS = {
+    "CQ-05", "CQ-06", "CQ-07", "CQ-09", "CQ-10", "CQ-12", "CQ-13",
+    "CQ-24", "CQ-25", "CQ-33", "CQ-34", "CQ-35", "CQ-40",
+}
+
+
+def graph_for(name: str, default: Graph) -> Graph:
+    return l3_oracle_graph() if name in L3_ORACLE_CQS else default
 
 
 def run(graph: Graph, name: str) -> list:
@@ -117,19 +162,19 @@ class CompetencyQuestionAnswerTest(unittest.TestCase):
     def test_answered_questions_return_the_expected_number_of_rows(self) -> None:
         for name, expected in sorted(ANSWERED.items()):
             with self.subTest(cq=name):
-                rows = run(self.graph, name)
+                rows = run(graph_for(name, self.graph), name)
                 self.assertEqual(expected, len(rows), f"{name} returned {len(rows)} rows, expected {expected}. If intended, update the count deliberately.")
 
     def test_questions_empty_by_design_return_nothing(self) -> None:
         for name, reason in sorted(EMPTY_BY_DESIGN.items()):
             with self.subTest(cq=name):
-                rows = run(self.graph, name)
+                rows = run(graph_for(name, self.graph), name)
                 self.assertEqual(0, len(rows), f"{name} must be empty: {reason}. Got {len(rows)} rows.")
 
     def test_pending_questions_are_still_pending(self) -> None:
         for name, reason in sorted(PENDING.items()):
             with self.subTest(cq=name):
-                rows = run(self.graph, name)
+                rows = run(graph_for(name, self.graph), name)
                 self.assertEqual(0, len(rows), f"{name} now returns {len(rows)} rows ({reason} appears resolved). Promote it to ANSWERED with an asserted row count.")
 
 

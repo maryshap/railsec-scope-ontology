@@ -1,18 +1,43 @@
 # Phase 2 execution record
 
-| Step | Current outcome | Evidence |
-|---|---|---|
-| 9 — M5 vocabulary | First complete vocabulary baseline implemented; `Payload` recorded as a conceptual revision | `core.ttl`, `railway.ttl`, `CONCEPTUAL_CHANGE_CATALOG.tsv`, M5 SHACL |
-| 10 — boundary decision | Implemented as explicit `undeterminedBoundary` with honest coverage | CR-B-009, K-01 shape, `boundary-assessment-coverage.rq` and regression fixture |
-| 11 — synthetic architecture | Minimal category skeleton implemented; grows per rule block | `fixtures/railway-category/minimal.ttl` |
-| 12.1 — transmission category | Implemented as evaluation then classification; generic stage coverage is 3/5 in the minimal fixture | category rules, `evaluation-stage-coverage.rq`, no-category and HermiT category-conflict fixtures |
-| 12.2 — transmission threats | Implemented provisionally as seven three-valued evaluations; 4/6 fixture flows are determined and category unknowns propagate | `evaluate-transmission-threat.rq`, threat fixture, CR-B-012 and regression test |
-| 12.3 — safety-critical elevation | Implemented provisionally for the two mappings expressible with the approved payload distinction; threat or payload unknowns propagate | `evaluate-critical-violation.rq`, critical fixture, CR-B-013 and regression test |
-| 12.4 — fail-safe compromise | Implemented provisionally for legacy R2.4.1/R2.4.2 as asset evaluations; R2.4.3 remains deferred pending zone/remediation vocabulary | `evaluate-fail-safe-compromise.rq`, fail-safe fixture, CR-B-014 and regression test |
-| 12.5 — maximum SIL risk | Implemented provisionally for legacy v3 R2.5.3 as an asset evaluation aggregating fail-safe compromise; R2.5.1/R2.5.2 deferred pending an attack technique vocabulary | `evaluate-sil-risk.rq`, SIL fixture, CR-B-015 and regression test |
-| 12.6 — access risk | Implemented provisionally for legacy v3 R2.6.1-R2.6.4 as asset and flow evaluations; an unstated access inventory is undetermined, and remote access risk consumes threat evaluations | `evaluate-access-risk-asset.rq`, `evaluate-access-path-risk.rq`, access fixture, CR-B-016 and regression test |
-| ETCS provenance prerequisite | Pending: all nine explicit `SafetyCriticalAsset` classifications lack a supporting `AssertedFact`/`JudgementBasis`; they must be sourced or reclassified before the ETCS case is used by Steps 12.3–12.6 | `cases/etcs/abox.ttl`, `cases/etcs/LEGACY_ARCHITECTURE_SOURCES.md` |
-| 13 — Run orchestrator | Minimal Run implemented: bounded reasoner/rules loop with refusal on non-convergence, input and output validation, guarded-category check, run-scoped results and evidenced determinism. L3 hook present inside the loop and empty | `scripts/orchestrator.py`, CR-B-019 and contract tests |
-| 14–16 | Pending | L3 reachability and coverage, CQ oracles, performance target and evidence episodes |
+This record follows the canonical revised Phase 2 plan with sixteen top-level
+steps. Later working labels such as "Step 14b", "Step 14c" and "Step 15 control
+weakness" describe useful additions, but do not renumber the canonical plan.
 
-The category fixture is synthetic evidence about the implementation contract, not an EN 50159 source. Its criteria use a provisional `JudgementBasis`; release requires reviewed standard locations and interpretations.
+| Step | Current outcome | Evidence / remaining work |
+|---|---|---|
+| 9 — finish M5 vocabulary | Complete for the rule blocks admitted so far. Later vocabulary additions remain governed Gate B revisions. | `core.ttl`, `railway.ttl`, `CONCEPTUAL_CHANGE_CATALOG.tsv`, M5 SHACL |
+| 10 — boundary decision | Complete: explicit `undeterminedBoundary` with honest coverage. | CR-B-009, K-01, `boundary-assessment-coverage.rq` |
+| 11 — synthetic architecture | Complete as growing block-specific fixtures with positive, negative and unknown cases. | `fixtures/railway-*`, reasoner conflict fixture |
+| 12 — rules one block at a time | The six planned railway blocks are executable. Nineteen of twenty-five legacy L2 rules are implemented; six remain governed deferrals. The later L1 control-weakness block is an additional Step 12 rule slice, not canonical Step 15. | M5-R01–M5-R10, CR-B-012–CR-B-016 and CR-B-023 |
+| 13 — orchestrator, then L3 | **Partial.** The bounded Run orchestrator, generic category materialiser, run-scoped candidate projection, deterministic reachability/witness paths and explicit-selection coverage are implemented. Factor computation and a governed weighted-ordering method remain. | `scripts/orchestrator.py`, `scripts/l3.py`, `fixtures/l3/minimal.ttl`, CR-B-019 |
+| 14 — competency-question oracles | **Partial.** All 45 queries parse; 21 have row-count oracles, 5 are empty by design and 19 remain pending. | `tests/test_cq_suite.py`, `docs/TEST_COVERAGE_AUDIT.md` |
+| 15 — performance target | **Pending.** A 180-second threat-stage observation exists, but no numerical target was fixed before measurement for a fixed fixture and environment. | ORN-02b; `PerformanceTarget` vocabulary exists, no target individual exists |
+| 16 — evidence episodes | **Pending.** Earlier fixtures provide partial evidence, but EV-B1–EV-B11 have not been executed and retained as one evidence package. | Gate B conceptual model §15 |
+
+## Numbering reconciliation
+
+CR-B-021 (criteria module), CR-B-022 (ETCS transmission environment) and
+CR-B-023 (L1 control weakness) remain valid changes. Their historical working
+step labels do not replace canonical Steps 14–16:
+
+- CR-B-021 and CR-B-022 are enabling/module and separate ETCS-track work;
+- CR-B-023 is an additional Step 12 vertical rule slice;
+- canonical Step 14 is CQ oracles;
+- canonical Step 15 is the predeclared performance target;
+- canonical Step 16 is the retained evidence package.
+
+## Closure order
+
+1. Reachability, path closure, candidate projection and coverage are complete.
+2. Admit an ordering method before implementing weighted ordering. The frozen
+   model identifies factor sets, factor values and a versioned method, but does
+   not itself choose weights or an AHP replacement.
+3. Implement generic ordering and coverage against synthetic input and retain
+   L3 provenance without producing assessment-bearing class membership.
+4. Promote CQ oracles as the corresponding capabilities become available.
+5. Fix the Step 15 threshold before benchmarking the fixed fixture/environment.
+6. Execute EV-B1–EV-B11 and retain outputs for Step 16.
+
+The ETCS case remains a separate evidence track. Its facts may exercise the
+ontology, but case completion is not a substitute for closing the main track.

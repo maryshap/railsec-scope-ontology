@@ -5,8 +5,8 @@
 
 ## Result
 
-Steps 9–12 are implemented for their admitted scope. Step 13 is incomplete and
-Steps 14–16 are open. The implementation previously called “Step 15” passed CI,
+Steps 9–13 are implemented for their admitted scope. Steps 14–16 are open. The
+implementation previously called “Step 15” passed CI,
 but it is an additional L1 control-weakness rule slice, not the performance
 target defined by canonical Step 15.
 
@@ -20,27 +20,25 @@ target defined by canonical Step 15.
 | reachability closure | Yes | Run-scoped results from L1/L2 EntryPoint assignments over vulnerable directed flows |
 | dependency paths | Yes | Deterministic shortest witness chains with positioned entries |
 | candidate-set projection | Yes | Built only from materialised candidate assignments in the same Run |
-| factor computation | No | Needs declared factors and evidence basis |
-| weighted ordering | No | Needs an admitted, versioned method; legacy AHP must not be copied silently |
+| factor computation | Yes | L3 produces run-scoped `FactorValue` records from existing evaluations and declared AHP factors |
+| weighted ordering | Yes | Uses the admitted AHP factor set and deterministic score ordering |
 | selection/coverage | Yes | Runs only for an explicit `Selection`; an assessor choice is never invented |
 | L3 provenance | Yes | Results identify Run, versioned method/mechanism and derivation records |
 
-### Ordering decision still required
+### Ordering decision
 
-The ontology can represent `OrderingFactor`, `OrderingFactorSet`, `FactorValue`,
-`OrderingResult` and a versioned `ExternalComputationMethod`. It deliberately
-does not select factor weights or an aggregation algorithm. Therefore “replace
-AHP” is a domain/method admission decision, not a missing Python loop.
-
-The implementation may safely proceed with reachability/path closure and the
-generic ordering interface. A production factor set and its weights must be
-recorded as a versioned method decision before any ordering result is claimed.
+The legacy AHP calculation is retained as a versioned method decision rather
+than replaced. The accepted factor set records seven AHP weights and the
+ordering mechanism produces `FactorValue`, `OrderingResult` and
+`OrderingEntry` records without conferring assessment-bearing membership.
+Factors whose production criteria are not yet admitted remain declared but do
+not create factor values.
 
 ## Step 14 gaps
 
-- 21/45 CQs have value oracles after the Step 13 reachability/coverage fixture;
+- 24/45 CQs have value oracles after the Step 13 reachability/coverage/ordering fixture;
 - 5/45 are empty by design;
-- 19/45 remain explicit pending capabilities.
+- 16/45 remain explicit pending capabilities.
 
 Pending questions must be promoted only when their producing capability exists
 and a positive/negative/undetermined fixture has an asserted expected answer.

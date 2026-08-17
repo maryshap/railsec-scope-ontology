@@ -46,6 +46,8 @@ ANSWERED: dict[str, int] = {
     "CQ-10": 1,
     "CQ-12": 5,
     "CQ-13": 1,
+    "CQ-15": 7,
+    "CQ-16": 4,
     "CQ-22": 1,
     "CQ-24": 10,
     "CQ-25": 8,
@@ -57,6 +59,7 @@ ANSWERED: dict[str, int] = {
     "CQ-40": 10,
     "CQ-41": 92,
     "CQ-43": 35,
+    "CQ-45": 3,
 }
 
 EMPTY_BY_DESIGN: dict[str, str] = {
@@ -72,9 +75,7 @@ PENDING: dict[str, str] = {
     "CQ-08": "L3 reachability and RunComparison not implemented",
     "CQ-11": "safety impact rules not implemented (SafetyImpactResult)",
     "CQ-14": "assessor decisions not populated (Override)",
-    "CQ-15": "ordering not implemented (OrderingResult)",
-    "CQ-16": "ordering not implemented (FactorValue)",
-    "CQ-17": "ordering not implemented",
+    "CQ-17": "cross-ordering comparison fixture not implemented",
     "CQ-18": "examination constraints not populated",
     "CQ-20": "criterion provenance not transferred to annotations (SourceLocation)",
     "CQ-21": "interpretation records not created",
@@ -86,7 +87,6 @@ PENDING: dict[str, str] = {
     "CQ-38": "RunComparison not implemented",
     "CQ-42": "flow characteristics not populated",
     "CQ-44": "property-loss consequences not populated",
-    "CQ-45": "ordering not implemented",
 }
 
 ALL_CQ = [f"CQ-{n:02d}" for n in range(1, 46)]
@@ -121,13 +121,15 @@ def l3_oracle_graph() -> Graph:
     graph.add((FX_L3.selection, Namespace("https://w3id.org/railsec-scope/criteria#").hasVersion, FX_L3.version))
     graph.add((FX_L3.selection, RES.selectionBasedOnCandidateSet, candidate_set))
     graph.add((FX_L3.selection, RES.includesElement, FX_L3.target))
+    graph.add((FX_L3.selection, RES.includesElement, FX_L3["first-hop"]))
+    graph.add((FX_L3.selection, RES.includesElement, FX_L3["second-hop"]))
     l3.apply(graph, FX_L3.run)
     return graph
 
 
 L3_ORACLE_CQS = {
     "CQ-05", "CQ-06", "CQ-07", "CQ-09", "CQ-10", "CQ-12", "CQ-13",
-    "CQ-24", "CQ-25", "CQ-33", "CQ-34", "CQ-35", "CQ-40",
+    "CQ-15", "CQ-16", "CQ-24", "CQ-25", "CQ-33", "CQ-34", "CQ-35", "CQ-40", "CQ-45",
 }
 
 

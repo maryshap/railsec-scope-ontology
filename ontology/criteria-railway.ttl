@@ -215,6 +215,7 @@ rsscr:l1-control-basis a rss-crit:JudgementBasis ;
 
 rsscr:l1-authentication-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
+    rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPAuthenticationFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingMessageAuthentication ;
     rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -224,6 +225,7 @@ rsscr:l1-authentication-criterion a rss-crit:Criterion ;
 
 rsscr:l1-integrity-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
+    rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPIntegrityFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingIntegrityProtection ;
     rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -233,6 +235,7 @@ rsscr:l1-integrity-criterion a rss-crit:Criterion ;
 
 rsscr:l1-rate-limiting-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
+    rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPRateLimitingFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingRateLimiting ;
     rss-rail:weaknessFlowType rss-rail:DoSExposedFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -242,6 +245,7 @@ rsscr:l1-rate-limiting-criterion a rss-crit:Criterion ;
 
 rsscr:l1-monitoring-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
+    rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPLoggingFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingMonitoring ;
     rss-rail:weaknessFlowType rss-rail:UnauditedFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
@@ -251,6 +255,7 @@ rsscr:l1-monitoring-criterion a rss-crit:Criterion ;
 
 rsscr:l1-segmentation-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
+    rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPSegmentationFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingSegmentation ;
     rss-rail:weaknessFlowType rss-rail:UnsegmentedCrossBoundaryFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;

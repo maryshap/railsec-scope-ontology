@@ -149,6 +149,186 @@ def _candidate_elements(graph: Graph, candidate_set: URIRef) -> set[URIRef]:
     return elements
 
 
+def _candidate_assignments(graph: Graph, candidate_set: URIRef) -> list[URIRef]:
+    return sorted(
+        [item for item in graph.objects(candidate_set, RES.hasCandidateAssignment) if isinstance(item, URIRef)],
+        key=str,
+    )
+
+
+def _factor_sets(graph: Graph) -> list[URIRef]:
+    return sorted(graph.subjects(RDF.type, CRIT.OrderingFactorSet), key=str)
+
+
+def _factor_weight(graph: Graph, factor: URIRef) -> Decimal | None:
+    value = graph.value(factor, CRIT.factorWeight)
+    if value is None:
+        return None
+    return Decimal(str(value))
+
+
+def _evaluation_for_factor(
+    graph: Graph, run_iri: URIRef, element: URIRef, factor: URIRef
+) -> URIRef | None:
+    for evaluation in sorted(graph.subjects(RDF.type, RES.CriterionEvaluation), key=str):
+        if graph.value(evaluation, RES.producedByRun) != run_iri:
+            continue
+        if graph.value(evaluation, RES.evaluationConcernsElement) != element:
+            continue
+        criterion = graph.value(evaluation, RES.evaluatesCriterion)
+        if criterion and (criterion, CRIT.determinesApplicabilityOf, factor) in graph:
+            return evaluation
+    return None
+
+
+def _add_factor_value(
+    graph: Graph,
+    run_iri: URIRef,
+    assignment: URIRef,
+    factor: URIRef,
+    evaluation: URIRef,
+) -> Decimal | None:
+    result = _iri("factor-value", run_iri, assignment, factor)
+    record = _iri("factor-record", result)
+    step = _iri("factor-step", result)
+    outcome = graph.value(evaluation, RES.hasEvaluationOutcome)
+    weight = _factor_weight(graph, factor)
+
+    graph.add((result, RDF.type, RES.FactorValue))
+    graph.add((result, RES.factorValueForCandidate, assignment))
+    graph.add((result, RES.valueOfFactor, factor))
+    graph.add((result, RES.valueBasis, evaluation))
+    graph.add((result, RES.producedByRun, run_iri))
+    graph.add((result, RES.hasDerivationRecord, record))
+    graph.add((record, RDF.type, RES.DerivationRecord))
+    graph.add((record, RES.hasStep, step))
+    graph.add((step, RDF.type, RES.DerivationStep))
+    graph.add((step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+    graph.add((step, RES.layerIdentifier, Literal("L3")))
+    graph.add((step, RES.appliedComputation, RULE.AHPRiskOrderingMethod))
+    graph.add((step, RES.executedByMechanism, RULE.AHPRiskOrderingMechanism))
+    graph.add((step, RES.usedEntity, assignment))
+    graph.add((step, RES.usedEntity, factor))
+    graph.add((step, RES.usedEntity, evaluation))
+    graph.add((step, RES.generatedResult, result))
+
+    if outcome == RES.satisfied and weight is not None:
+        graph.add((result, RES.hasComputationOutcome, RES.valuePresent))
+        graph.add((result, RES.representedValue, Literal(weight, datatype=XSD.decimal)))
+        graph.add((record, RES.completenessStatus, Literal("complete")))
+        return weight
+    if outcome == RES.notSatisfied:
+        graph.add((result, RES.hasComputationOutcome, RES.valuePresent))
+        graph.add((result, RES.representedValue, Literal(Decimal("0"), datatype=XSD.decimal)))
+        graph.add((record, RES.completenessStatus, Literal("complete")))
+        return Decimal("0")
+
+    unresolved = _iri("unresolved-factor", result)
+    graph.add((result, RES.hasComputationOutcome, RES.notComputable))
+    graph.add((record, RES.completenessStatus, Literal("incomplete")))
+    graph.add((record, RES.hasUnresolvedInput, unresolved))
+    graph.add((unresolved, RDF.type, RES.UnresolvedInput))
+    return None
+
+
+def _add_ordering(
+    graph: Graph,
+    run_iri: URIRef,
+    candidate_set: URIRef,
+    factor_set: URIRef,
+    scores: dict[URIRef, Decimal | None],
+) -> None:
+    ordering = _iri("ordering", run_iri, candidate_set, factor_set, RULE.AHPRiskOrderingMethod)
+    record = _iri("ordering-record", ordering)
+    step = _iri("ordering-step", ordering)
+    graph.add((ordering, RDF.type, RES.OrderingResult))
+    graph.add((ordering, RES.producedByRun, run_iri))
+    graph.add((ordering, RES.ordersCandidateSet, candidate_set))
+    graph.add((ordering, RES.usesFactorSet, factor_set))
+    graph.add((ordering, RES.producedByMethod, RULE.AHPRiskOrderingMethod))
+    graph.add((ordering, CRIT.hasVersion, RULE.phase2RuleVersion))
+    graph.add((ordering, RES.hasDerivationRecord, record))
+    graph.add((record, RDF.type, RES.DerivationRecord))
+    graph.add((record, RES.hasStep, step))
+    graph.add((step, RDF.type, RES.DerivationStep))
+    graph.add((step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+    graph.add((step, RES.layerIdentifier, Literal("L3")))
+    graph.add((step, RES.appliedComputation, RULE.AHPRiskOrderingMethod))
+    graph.add((step, RES.executedByMechanism, RULE.AHPRiskOrderingMechanism))
+    graph.add((step, RES.usedEntity, candidate_set))
+    graph.add((step, RES.usedEntity, factor_set))
+    graph.add((step, RES.generatedResult, ordering))
+
+    complete = all(value is not None for value in scores.values())
+    graph.add((record, RES.completenessStatus, Literal("complete" if complete else "incomplete")))
+    if not complete:
+        unresolved = _iri("unresolved-ordering", ordering)
+        graph.add((record, RES.hasUnresolvedInput, unresolved))
+        graph.add((unresolved, RDF.type, RES.UnresolvedInput))
+
+    ranked = sorted(
+        scores,
+        key=lambda assignment: (
+            scores[assignment] is None,
+            -(scores[assignment] or Decimal("0")),
+            str(assignment),
+        ),
+    )
+    for position, assignment in enumerate(ranked, start=1):
+        entry = _iri("ordering-entry", ordering, assignment)
+        graph.add((ordering, RES.hasOrderingEntry, entry))
+        graph.add((entry, RDF.type, RES.OrderingEntry))
+        graph.add((entry, RES.ranksAssignment, assignment))
+        graph.add((entry, RES.orderingPosition, Literal(position, datatype=XSD.positiveInteger)))
+        score = scores[assignment]
+        if score is None:
+            graph.add((entry, RES.tieIdentifier, Literal("not-computable")))
+        else:
+            graph.add((entry, RES.tieIdentifier, Literal(str(score))))
+
+
+def apply_ordering(graph: Graph, run_iri: URIRef) -> int:
+    """Compute declared AHP factor values and one ordering per CandidateSet."""
+    before = len(graph)
+    factor_sets = _factor_sets(graph)
+    candidate_sets = sorted(
+        [
+            item for item in graph.subjects(RDF.type, RES.CandidateSet)
+            if graph.value(item, RES.producedByRun) == run_iri
+        ],
+        key=str,
+    )
+    for candidate_set in candidate_sets:
+        assignments = _candidate_assignments(graph, candidate_set)
+        if not assignments:
+            continue
+        for factor_set in factor_sets:
+            factors = sorted(graph.objects(factor_set, CRIT.hasFactor), key=str)
+            scores: dict[URIRef, Decimal | None] = {}
+            for assignment in assignments:
+                evaluation = graph.value(assignment, RES.materialisesEvaluation)
+                element = graph.value(evaluation, RES.evaluationConcernsElement) if evaluation else None
+                if not isinstance(element, URIRef):
+                    continue
+                score = Decimal("0")
+                computable = True
+                for factor in factors:
+                    if not isinstance(factor, URIRef):
+                        continue
+                    factor_evaluation = _evaluation_for_factor(graph, run_iri, element, factor)
+                    if factor_evaluation is None:
+                        continue
+                    value = _add_factor_value(graph, run_iri, assignment, factor, factor_evaluation)
+                    if value is None:
+                        computable = False
+                    else:
+                        score += value
+                scores[assignment] = score if computable else None
+            if scores:
+                _add_ordering(graph, run_iri, candidate_set, factor_set, scores)
+    return len(graph) - before
+
+
 def _add_coverage(graph: Graph, run_iri: URIRef, candidate_set: URIRef, selection: URIRef) -> None:
     result = _iri("coverage", run_iri, candidate_set, selection, RULE.SelectionCoverageMeasure)
     record = _iri("coverage-record", result)
@@ -215,5 +395,6 @@ def apply(graph: Graph, run_iri: URIRef) -> int:
                     graph, run_iri, entry, assignment, mechanism,
                     target, nodes, flows,
                 )
+    apply_ordering(graph, run_iri)
     apply_coverage(graph, run_iri)
     return len(graph) - before

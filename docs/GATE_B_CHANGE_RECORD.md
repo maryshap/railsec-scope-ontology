@@ -592,4 +592,13 @@ artefact versions present in the execution graph.
 **Evidence effect.** The synthetic L3 fixture promotes reachability, path,
 candidate, derivation, coverage and version CQs to asserted oracles. CQ coverage
 is now 21 answered, 5 empty by design and 19 pending; structural-shape focus
-coverage is 12 of 21. Weighted ordering remains the explicit Step 13 blocker.
+coverage is 12 of 21. Weighted ordering was the remaining explicit Step 13
+blocker before the ordering closure addendum below.
+
+**Step 13 ordering closure addendum.** The AHP factor set is retained rather
+than replaced after review of the weight-derivation justification. The seven
+weights are recorded as a versioned `OrderingFactorSet`; L3 now produces
+`FactorValue`, `OrderingResult` and `OrderingEntry` records from existing
+evaluations without assigning assessment-bearing membership. Factors whose
+production criteria are not yet admitted remain declared but produce no factor
+values.

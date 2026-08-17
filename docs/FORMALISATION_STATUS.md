@@ -35,8 +35,8 @@
 The revised sixteen-step plan remains authoritative. Later working labels did
 not renumber its final steps: CR-B-021/022 are enabling and ETCS-track changes,
 and CR-B-023 is an additional Step 12 L1 rule slice. Canonical Step 13 remains
-partial: reachability, witness paths, candidate projection and selection coverage are now implemented, while the admitted weighted-ordering method remains open; canonical Step 14 is CQ
-oracles (21 answered, 5 empty by design, 19 pending after the L3 slice); canonical Step 15 is a
+implemented for the admitted scope: reachability, witness paths, candidate projection, AHP factor values, weighted ordering and selection coverage are now implemented; canonical Step 14 is CQ
+oracles (24 answered, 5 empty by design, 16 pending after the L3 ordering slice); canonical Step 15 is a
 predeclared performance target; canonical Step 16 is the retained EV-B1–EV-B11
 evidence package. See `PHASE2_EXECUTION.md` and `PHASE2_GAP_AUDIT.md`.
 

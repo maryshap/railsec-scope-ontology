@@ -4,8 +4,8 @@
 node in the data being validated. A shape with no focus nodes conforms
 vacuously and proves nothing.
 
-Measured on the current data, 12 of 21 node shapes have focus nodes; the other
-9 conform because the capability whose output they constrain does not yet
+Measured on the current data, 14 of 21 node shapes have focus nodes; the other
+7 conform because the capability whose output they constrain does not yet
 produce data. This test records that state explicitly so that a green SHACL run
 cannot be read as evidence for shapes that were never reached.
 
@@ -47,6 +47,8 @@ EXERCISED: dict[str, int] = {
     "K09DerivationStepShape": 6,
     "K10IncompleteRecordShape": 6,
     "K16PathPositionShape": 5,
+    "K15OrderingResultShape": 1,
+    "K16OrderingPositionShape": 3,
     "K17CoverageMeasureShape": 1,
     "K18CoverageResultShape": 1,
     "K18SelectionShape": 1,
@@ -59,8 +61,6 @@ UNEXERCISED: dict[str, str] = {
     "K12AuthorisationNotGeneratedShape": "authorisation assertions not populated",
     "K13AssessorDecisionShape": "assessor decisions not implemented",
     "K14DecisionNotEvidenceShape": "assessor decisions not implemented",
-    "K15OrderingResultShape": "ordering not implemented",
-    "K16OrderingPositionShape": "ordering not implemented",
     "K21DeprecationShape": "nothing deprecated at this version",
 }
 
@@ -89,6 +89,8 @@ def l3_evidence_graph() -> Graph:
     graph.add((FX_L3.selection, CRIT.hasVersion, FX_L3.version))
     graph.add((FX_L3.selection, RES.selectionBasedOnCandidateSet, candidate_set))
     graph.add((FX_L3.selection, RES.includesElement, FX_L3.target))
+    graph.add((FX_L3.selection, RES.includesElement, FX_L3["first-hop"]))
+    graph.add((FX_L3.selection, RES.includesElement, FX_L3["second-hop"]))
     l3.apply(graph, FX_L3.run)
     return graph
 

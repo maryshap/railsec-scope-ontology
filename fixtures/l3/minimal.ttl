@@ -44,6 +44,42 @@ fx:candidate-evaluation a rss-res:CriterionEvaluation ;
     rss-res:hasEvaluationOutcome rss-res:satisfied ;
     rss-res:producedByRun fx:run .
 
+fx:first-hop-candidate-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:first-hop ;
+    rss-res:evaluatesCriterion fx:candidate-criterion ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:second-hop-candidate-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:second-hop ;
+    rss-res:evaluatesCriterion fx:candidate-criterion ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:first-hop-auth-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:first-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-authentication-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:first-hop-integrity-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:first-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-integrity-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:second-hop-auth-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:second-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-authentication-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:notSatisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:second-hop-logging-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:second-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-monitoring-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
 fx:entry a rss-core:Asset ;
     rss-core:reachableBy fx:remote-access .
 fx:middle a rss-core:Asset .

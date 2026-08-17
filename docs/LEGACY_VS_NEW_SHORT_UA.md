@@ -27,7 +27,7 @@
 - Новий ETCS ABox структурно мігрований, а synthetic fixtures ростуть разом із rules.
 - SHACL K-assets і 45 CQ виконуються; повні P/N/U oracles ще будуються.
 - Railway rules працюють через three-valued CriterionEvaluation і run-scoped materialisation.
-- Orchestrator та L3 reachability/path/coverage створені; weighted ordering очікує затвердженого методу й factor set.
+- Orchestrator та L3 reachability/path/coverage/ordering створені; AHP factor set збережений як версійований method decision.
 - ETCS semantic comparison чекає завершення основного M5 pipeline.
 
 Тому старий код зараз залишається **працюючим legacy reference**, а новий репозиторій — **правильно структурованою, але ще незавершеною replacement implementation**.

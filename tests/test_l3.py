@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sys
 import unittest
+from decimal import Decimal
 from pathlib import Path
 
 from rdflib import Graph, Namespace, RDF
@@ -102,9 +103,45 @@ class L3ReachabilityTest(unittest.TestCase):
         l3.apply_coverage(self.graph, FX.run)
         coverage = next(self.graph.subjects(RDF.type, RES.CoverageResult))
         self.assertEqual(RES.valuePresent, self.graph.value(coverage, RES.hasComputationOutcome))
-        self.assertEqual(1.0, float(self.graph.value(coverage, RES.representedValue)))
+        self.assertEqual(Decimal("0.3333333333333333333333333333"), self.graph.value(coverage, RES.representedValue).toPython())
         self.assertEqual(candidate_set, self.graph.value(coverage, RES.measuredCandidateSet))
         self.assertEqual(selection, self.graph.value(coverage, RES.measuredSelection))
+
+    def test_ahp_ordering_produces_factor_values_and_positions(self) -> None:
+        l3.apply_ordering(self.graph, FX.run)
+        values = {
+            self.graph.value(value, RES.valueOfFactor): self.graph.value(value, RES.representedValue).toPython()
+            for value in self.graph.subjects(RDF.type, RES.FactorValue)
+            if self.graph.value(self.graph.value(value, RES.factorValueForCandidate), RES.materialisesEvaluation)
+            == FX["first-hop-candidate-evaluation"]
+        }
+        self.assertEqual(
+            {
+                Namespace("https://w3id.org/railsec-scope/rules#").AHPAuthenticationFactor: Decimal("0.3517"),
+                Namespace("https://w3id.org/railsec-scope/rules#").AHPIntegrityFactor: Decimal("0.2513"),
+            },
+            values,
+        )
+
+        ordering = next(self.graph.subjects(RDF.type, RES.OrderingResult))
+        ranked = sorted(
+            (
+                int(self.graph.value(entry, RES.orderingPosition)),
+                self.graph.value(
+                    self.graph.value(entry, RES.ranksAssignment),
+                    RES.materialisesEvaluation,
+                ),
+            )
+            for entry in self.graph.objects(ordering, RES.hasOrderingEntry)
+        )
+        self.assertEqual(
+            [
+                (1, FX["first-hop-candidate-evaluation"]),
+                (2, FX["second-hop-candidate-evaluation"]),
+                (3, FX["candidate-evaluation"]),
+            ],
+            ranked,
+        )
 
 
 if __name__ == "__main__":

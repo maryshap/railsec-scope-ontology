@@ -88,6 +88,27 @@ rss-rule:ClassifyVulnerableFlow a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:enabled true ;
     dcterms:description "Materialises the vulnerable flow subtype implied by a satisfied control-weakness evaluation."@en .
 
+rss-rule:EvaluateAssetZoneClassification a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-asset-zone-classification.rq" ;
+    rss-rule:ruleIdentifier "M5-R12" ;
+    rss-rule:enabled true ;
+    dcterms:description "Evaluates asset exposure, Category 3 asset context and entry-point candidacy from explicit asset-to-zone membership; missing zone inventory yields undetermined."@en .
+
+rss-rule:EvaluateRemediationPriority a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-remediation-priority.rq" ;
+    rss-rule:ruleIdentifier "M5-R13" ;
+    rss-rule:enabled true ;
+    dcterms:description "Evaluates high-priority remediation for safety-critical assets with satisfied fail-safe compromise in a mobile railway zone."@en .
+
+rss-rule:ClassifyDerivedMembership a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "classify-derived-membership.rq" ;
+    rss-rule:ruleIdentifier "M5-R14" ;
+    rss-rule:enabled true ;
+    dcterms:description "Materialises class membership only from a satisfied criterion that explicitly determines that membership."@en .
+
 rss-rule:CategoryAssignmentMaterialiser a rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
     dcterms:description "Records CategoryAssignment individuals only after the corresponding satisfied evaluation and class entailment already exist."@en .

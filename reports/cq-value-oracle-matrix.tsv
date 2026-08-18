@@ -18,10 +18,10 @@ CQ-16	answered	4	l3
 CQ-17	deferred		none	cross-ordering comparison fixture not implemented
 CQ-18	deferred		none	examination constraints not populated
 CQ-19	empty-by-design	0	representative	ORF-25: no authorisation status may be produced by a definition, rule or computation
-CQ-20	answered	29	ontology
-CQ-21	answered	24	ontology
+CQ-20	answered	40	ontology
+CQ-21	answered	33	ontology
 CQ-22	answered	1	representative	
-CQ-23	answered	29	ontology
+CQ-23	answered	40	ontology
 CQ-24	answered	28	l3	
 CQ-25	answered	15	l3	
 CQ-26	deferred		none	unresolved inputs not recorded on derivation records

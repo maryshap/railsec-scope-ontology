@@ -25,7 +25,12 @@ RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
 RULE = Namespace("https://w3id.org/railsec-scope/rules#")
 
-VIOLATIONS = [RAIL.criticalAuthenticityViolation, RAIL.criticalIntegrityViolation]
+VIOLATIONS = [
+    RAIL.criticalAuthenticityViolation,
+    RAIL.criticalIntegrityViolation,
+    RAIL.criticalTimelinessViolation,
+    RAIL.criticalSequenceViolation,
+]
 
 STAGE_RULES = [
     "evaluate-transmission-category.rq",
@@ -36,18 +41,32 @@ STAGE_RULES = [
 EXPECTED = {
     (FX["cat3-flow"], RAIL.criticalAuthenticityViolation): RES.satisfied,
     (FX["cat3-flow"], RAIL.criticalIntegrityViolation): RES.satisfied,
+    (FX["cat3-flow"], RAIL.criticalTimelinessViolation): RES.undetermined,
+    (FX["cat3-flow"], RAIL.criticalSequenceViolation): RES.undetermined,
     (FX["cat2-flow"], RAIL.criticalAuthenticityViolation): RES.notSatisfied,
     (FX["cat2-flow"], RAIL.criticalIntegrityViolation): RES.notSatisfied,
+    (FX["cat2-flow"], RAIL.criticalTimelinessViolation): RES.notSatisfied,
+    (FX["cat2-flow"], RAIL.criticalSequenceViolation): RES.notSatisfied,
     (FX["cat1-flow"], RAIL.criticalAuthenticityViolation): RES.notSatisfied,
     (FX["cat1-flow"], RAIL.criticalIntegrityViolation): RES.notSatisfied,
+    (FX["cat1-flow"], RAIL.criticalTimelinessViolation): RES.notSatisfied,
+    (FX["cat1-flow"], RAIL.criticalSequenceViolation): RES.notSatisfied,
     (TH["protected-cat3-flow"], RAIL.criticalAuthenticityViolation): RES.notSatisfied,
     (TH["protected-cat3-flow"], RAIL.criticalIntegrityViolation): RES.notSatisfied,
+    (TH["protected-cat3-flow"], RAIL.criticalTimelinessViolation): RES.notSatisfied,
+    (TH["protected-cat3-flow"], RAIL.criticalSequenceViolation): RES.notSatisfied,
     (CV["no-payload-flow"], RAIL.criticalAuthenticityViolation): RES.undetermined,
     (CV["no-payload-flow"], RAIL.criticalIntegrityViolation): RES.undetermined,
+    (CV["no-payload-flow"], RAIL.criticalTimelinessViolation): RES.undetermined,
+    (CV["no-payload-flow"], RAIL.criticalSequenceViolation): RES.undetermined,
     (FX["unknown-flow"], RAIL.criticalAuthenticityViolation): RES.undetermined,
     (FX["unknown-flow"], RAIL.criticalIntegrityViolation): RES.undetermined,
+    (FX["unknown-flow"], RAIL.criticalTimelinessViolation): RES.undetermined,
+    (FX["unknown-flow"], RAIL.criticalSequenceViolation): RES.undetermined,
     (FX["no-input-flow"], RAIL.criticalAuthenticityViolation): RES.undetermined,
     (FX["no-input-flow"], RAIL.criticalIntegrityViolation): RES.undetermined,
+    (FX["no-input-flow"], RAIL.criticalTimelinessViolation): RES.undetermined,
+    (FX["no-input-flow"], RAIL.criticalSequenceViolation): RES.undetermined,
 }
 
 
@@ -166,13 +185,13 @@ class Phase2CriticalElevationTest(unittest.TestCase):
         }
         critical = coverage["critical-violation"]
         self.assertEqual(7, int(critical.totalCandidates))
-        self.assertEqual(4, int(critical.determinedCandidates))
-        self.assertEqual(3, int(critical.undeterminedCandidates))
-        self.assertEqual(Decimal(4) / Decimal(7), Decimal(str(critical.stageCoverage)))
+        self.assertEqual(3, int(critical.determinedCandidates))
+        self.assertEqual(4, int(critical.undeterminedCandidates))
+        self.assertEqual(Decimal(3) / Decimal(7), Decimal(str(critical.stageCoverage)))
 
     def test_critical_criteria_have_source_locations_and_judgement_basis(self) -> None:
         criteria = list(self.graph.subjects(RAIL.assessesCriticalViolation, None))
-        self.assertEqual(2, len(criteria))
+        self.assertEqual(4, len(criteria))
         for criterion in criteria:
             basis = self.graph.value(criterion, CRIT.restsOnJudgement)
             self.assertIsNotNone(basis)

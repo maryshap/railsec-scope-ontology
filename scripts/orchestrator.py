@@ -60,10 +60,13 @@ STAGE_RULES = [
     "evaluate-critical-violation.rq",
     "evaluate-fail-safe-compromise.rq",
     "evaluate-sil-risk.rq",
+    "evaluate-remediation-priority.rq",
     "evaluate-access-risk-asset.rq",
     "evaluate-access-path-risk.rq",
     "evaluate-control-weakness.rq",
     "classify-vulnerable-flow.rq",
+    "evaluate-asset-zone-classification.rq",
+    "classify-derived-membership.rq",
     "classify-candidate.rq",
 ]
 

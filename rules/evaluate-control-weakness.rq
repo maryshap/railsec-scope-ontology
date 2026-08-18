@@ -44,6 +44,7 @@ WHERE {
   OPTIONAL { ?flow rss-rail:rateLimitingEnabled ?rateLimiting }
   OPTIONAL { ?flow rss-rail:monitoringEnabled ?monitoring }
   OPTIONAL { ?flow rss-rail:networkSegmentationEnabled ?segmentation }
+  OPTIONAL { ?flow rss-rail:encryptionEnabled ?encryption }
   OPTIONAL { ?flow rss-rail:wirelessMedium ?wireless }
   OPTIONAL { ?flow rss-rail:crossesTrustBoundary ?crossesBoundary }
 
@@ -63,7 +64,10 @@ WHERE {
     IF(?weakness = rss-rail:missingSegmentation,
        IF(!BOUND(?segmentation) || !BOUND(?crossesBoundary), rss-res:undetermined,
           IF(!?segmentation && ?crossesBoundary, rss-res:satisfied, rss-res:notSatisfied)),
-       rss-res:undetermined)))))
+    IF(?weakness = rss-rail:missingEncryption,
+       IF(!BOUND(?encryption) || !BOUND(?crossesBoundary), rss-res:undetermined,
+          IF(!?encryption && ?crossesBoundary, rss-res:satisfied, rss-res:notSatisfied)),
+       rss-res:undetermined))))))
     AS ?outcome
   )
   BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)

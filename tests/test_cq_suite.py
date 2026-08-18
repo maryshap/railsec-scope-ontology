@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import sys
 import unittest
+import csv
 from functools import lru_cache
 from pathlib import Path
 
@@ -90,6 +91,7 @@ PENDING: dict[str, str] = {
 }
 
 ALL_CQ = [f"CQ-{n:02d}" for n in range(1, 46)]
+MATRIX = PROJECT / "reports" / "cq-value-oracle-matrix.tsv"
 
 
 def representative_graph() -> Graph:
@@ -154,6 +156,28 @@ class CompetencyQuestionRegistryTest(unittest.TestCase):
         for name in ALL_CQ:
             with self.subTest(cq=name):
                 prepareQuery((PROJECT / "queries" / "cq" / f"{name}.rq").read_text(encoding="utf-8"))
+
+    def test_value_oracle_matrix_matches_the_registry(self) -> None:
+        with MATRIX.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle, delimiter="\t"))
+        self.assertEqual(ALL_CQ, sorted(row["cq"] for row in rows))
+        by_cq = {row["cq"]: row for row in rows}
+        for name, expected in ANSWERED.items():
+            row = by_cq[name]
+            self.assertEqual("answered", row["status"])
+            self.assertEqual(str(expected), row["expected_rows"])
+            self.assertIn(row["oracle_graph"], {"representative", "l3"})
+        for name, reason in EMPTY_BY_DESIGN.items():
+            row = by_cq[name]
+            self.assertEqual("empty-by-design", row["status"])
+            self.assertEqual("0", row["expected_rows"])
+            self.assertEqual(reason, row["reason"])
+        for name, reason in PENDING.items():
+            row = by_cq[name]
+            self.assertEqual("deferred", row["status"])
+            self.assertEqual("", row["expected_rows"])
+            self.assertEqual("none", row["oracle_graph"])
+            self.assertEqual(reason, row["reason"])
 
 
 class CompetencyQuestionAnswerTest(unittest.TestCase):

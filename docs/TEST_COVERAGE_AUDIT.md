@@ -10,6 +10,10 @@ The executable files alone do not establish semantic coverage. This audit record
 
 Every CQ belongs to exactly one class. A pending CQ that starts returning data fails until it is deliberately promoted and given an answer oracle.
 
+`reports/cq-value-oracle-matrix.tsv` is the retained Step 14 matrix. The CQ
+suite checks that it matches the executable registry, so the matrix cannot
+drift silently from the tests.
+
 ## SHACL shapes
 
 - 14/21 node shapes currently have focus nodes across the ETCS, architecture and synthetic L3 evidence graphs.

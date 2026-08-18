@@ -11,7 +11,7 @@ weakness" describe useful additions, but do not renumber the canonical plan.
 | 11 — synthetic architecture | Complete as growing block-specific fixtures with positive, negative and unknown cases. | `fixtures/railway-*`, reasoner conflict fixture |
 | 12 — rules one block at a time | The six planned railway blocks are executable. Nineteen of twenty-five legacy L2 rules are implemented; six remain governed deferrals. The later L1 control-weakness block is an additional Step 12 rule slice, not canonical Step 15. | M5-R01–M5-R10, CR-B-012–CR-B-016 and CR-B-023 |
 | 13 — orchestrator, then L3 | **Implemented for admitted scope.** The bounded Run orchestrator, generic category materialiser, run-scoped candidate projection, deterministic reachability/witness paths, AHP factor values, weighted ordering and explicit-selection coverage are implemented. | `scripts/orchestrator.py`, `scripts/l3.py`, `fixtures/l3/minimal.ttl`, CR-B-019 |
-| 14 — competency-question oracles | **Partial.** All 45 queries parse; 24 have row-count oracles, 5 are empty by design and 16 remain pending. | `tests/test_cq_suite.py`, `docs/TEST_COVERAGE_AUDIT.md` |
+| 14 — competency-question oracles | **Complete as a value-oracle matrix.** All 45 queries parse and are classified: 24 have row-count oracles, 5 are empty by design and 16 are explicitly deferred to missing producing capabilities. | `tests/test_cq_suite.py`, `reports/cq-value-oracle-matrix.tsv`, `docs/TEST_COVERAGE_AUDIT.md` |
 | 15 — performance target | **Pending.** A 180-second threat-stage observation exists, but no numerical target was fixed before measurement for a fixed fixture and environment. | ORN-02b; `PerformanceTarget` vocabulary exists, no target individual exists |
 | 16 — evidence episodes | **Pending.** Earlier fixtures provide partial evidence, but EV-B1–EV-B11 have not been executed and retained as one evidence package. | Gate B conceptual model §15 |
 
@@ -30,9 +30,8 @@ step labels do not replace canonical Steps 14–16:
 ## Closure order
 
 1. Step 13 is closed for the admitted scope, including AHP ordering.
-2. Promote CQ oracles as the corresponding capabilities become available.
-3. Fix the Step 15 threshold before benchmarking the fixed fixture/environment.
-4. Execute EV-B1–EV-B11 and retain outputs for Step 16.
+2. Fix the Step 15 threshold before benchmarking the fixed fixture/environment.
+3. Execute EV-B1–EV-B11 and retain outputs for Step 16.
 
 The ETCS case remains a separate evidence track. Its facts may exercise the
 ontology, but case completion is not a substitute for closing the main track.

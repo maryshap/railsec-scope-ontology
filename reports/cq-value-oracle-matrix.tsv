@@ -1,0 +1,46 @@
+cq	status	expected_rows	oracle_graph	reason
+CQ-01	answered	328	representative	
+CQ-02	deferred		none	boundary exclusion rationale not populated
+CQ-03	answered	141	representative	
+CQ-04	answered	33	representative	
+CQ-05	answered	2	l3	
+CQ-06	answered	2	l3	
+CQ-07	answered	2	l3	
+CQ-08	deferred		none	L3 reachability and RunComparison not implemented
+CQ-09	answered	3	l3	
+CQ-10	answered	6	l3	
+CQ-11	deferred		none	safety impact rules not implemented (SafetyImpactResult)
+CQ-12	answered	5	l3	
+CQ-13	answered	1	l3	
+CQ-14	deferred		none	assessor decisions not populated (Override)
+CQ-15	answered	7	l3	
+CQ-16	answered	4	l3	
+CQ-17	deferred		none	cross-ordering comparison fixture not implemented
+CQ-18	deferred		none	examination constraints not populated
+CQ-19	empty-by-design	0	representative	ORF-25: no authorisation status may be produced by a definition, rule or computation
+CQ-20	deferred		none	criterion provenance not transferred to annotations (SourceLocation)
+CQ-21	deferred		none	interpretation records not created
+CQ-22	answered	1	representative	
+CQ-23	deferred		none	criterion provenance not transferred to annotations
+CQ-24	answered	28	l3	
+CQ-25	answered	15	l3	
+CQ-26	deferred		none	unresolved inputs not recorded on derivation records
+CQ-27	empty-by-design	0	representative	ORF-34: no material finding may have an incomplete derivation record in a valid release
+CQ-28	answered	1	representative	
+CQ-29	deferred		none	asserted absence not populated
+CQ-30	deferred		none	unresolved inputs not recorded
+CQ-31	answered	1	representative	
+CQ-32	empty-by-design	0	representative	ORF-39: no instance may violate a declared structural constraint
+CQ-33	answered	1	l3	
+CQ-34	answered	1	l3	
+CQ-35	empty-by-design	0	l3	the explicit L3 fixture Selection matches its CandidateSet exactly
+CQ-36	answered	1391	representative	
+CQ-37	deferred		none	subsystem extension not present
+CQ-38	deferred		none	RunComparison not implemented
+CQ-39	empty-by-design	0	representative	ORF-47: no term or criterion is deprecated at this version
+CQ-40	answered	23	l3	
+CQ-41	answered	92	representative	
+CQ-42	deferred		none	flow characteristics not populated
+CQ-43	answered	35	representative	
+CQ-44	deferred		none	property-loss consequences not populated
+CQ-45	answered	3	l3	

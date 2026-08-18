@@ -4,8 +4,8 @@
 node in the data being validated. A shape with no focus nodes conforms
 vacuously and proves nothing.
 
-Measured on the current data, 14 of 21 node shapes have focus nodes; the other
-7 conform because the capability whose output they constrain does not yet
+Measured on the current data, 15 of 21 node shapes have focus nodes; the other
+6 conform because the capability whose output they constrain does not yet
 produce data. This test records that state explicitly so that a green SHACL run
 cannot be read as evidence for shapes that were never reached.
 
@@ -44,6 +44,7 @@ EXERCISED: dict[str, int] = {
     "K03InformationFlowShape": 148,
     "K04AccessPreconditionShape": 1,
     "K05CriterionProvenanceShape": 26,
+    "K06SourceLocationShape": 22,
     "K09DerivationStepShape": 6,
     "K10IncompleteRecordShape": 6,
     "K16PathPositionShape": 5,
@@ -55,7 +56,6 @@ EXERCISED: dict[str, int] = {
 }
 
 UNEXERCISED: dict[str, str] = {
-    "K06SourceLocationShape": "source locations not transferred to annotations",
     "K07VersionedArtefactShape": "artefact versions present only in fixtures",
     "K08MaterialDesignationShape": "material findings designated only in the category slice",
     "K12AuthorisationNotGeneratedShape": "authorisation assertions not populated",

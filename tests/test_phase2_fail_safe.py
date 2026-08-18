@@ -137,13 +137,14 @@ class Phase2FailSafeTest(unittest.TestCase):
         self.assertEqual(2, int(stage.undeterminedCandidates))
         self.assertEqual(Decimal(1) / Decimal(2), Decimal(str(stage.stageCoverage)))
 
-    def test_criteria_are_provisional_and_do_not_claim_source_locations(self) -> None:
+    def test_criteria_have_source_locations_and_judgement_basis(self) -> None:
         criteria = list(self.graph.subjects(RAIL.assessesFailSafeCompromiseFrom, None))
         self.assertEqual(2, len(criteria))
         for criterion in criteria:
             basis = self.graph.value(criterion, CRIT.restsOnJudgement)
             self.assertIsNotNone(basis)
-            self.assertIsNone(self.graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(self.graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(self.graph.value(criterion, CRIT.appliesInterpretation))
             self.assertIn("implementation history", str(self.graph.value(basis, CRIT.reasoning)))
 
     def test_rule_reaches_a_fixed_point(self) -> None:

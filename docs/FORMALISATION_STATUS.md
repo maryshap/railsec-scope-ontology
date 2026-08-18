@@ -36,17 +36,17 @@ The revised sixteen-step plan remains authoritative. Later working labels did
 not renumber its final steps: CR-B-021/022 are enabling and ETCS-track changes,
 and CR-B-023 is an additional Step 12 L1 rule slice. Canonical Step 13 remains
 implemented for the admitted scope: reachability, witness paths, candidate projection, AHP factor values, weighted ordering and selection coverage are now implemented; canonical Step 14 is CQ
-oracles (24 answered, 5 empty by design, 16 pending after the L3 ordering slice); canonical Step 15 is a
+oracles (27 answered, 5 empty by design, 13 pending after railway source locations were formalised); canonical Step 15 is a
 predeclared performance target; canonical Step 16 is the retained EV-B1–EV-B11
 evidence package. See `PHASE2_EXECUTION.md` and `PHASE2_GAP_AUDIT.md`.
 
 ## Release blockers (not hidden as implementation completion)
 
-1. Every legacy-rule triage row is `domain-review-required`; M5 criterion/rule content cannot be released from unverified standard citations.
-2. The 32 pending CQs still need their Gate A P/N/U expected-answer fixtures and value oracles; the registry makes this gap visible but does not close it.
+1. Deferred legacy rules still need implement/retire/future-version decisions before ontology completion.
+2. The 13 pending CQs still need their producing capability or an explicit non-ontology-scope decision; the registry makes this gap visible but does not close it.
 3. The workbook-derived boundary mapping (External primary zone → `external`, otherwise `inScope`) needs domain approval.
 4. DataObjects, Actors/Roles, interface security flags and the old AHP model remain explicitly unmapped, with reasons in `cases/etcs/unmapped.csv`.
 5. K-22 manual copyright/source-text review and w3id redirect registration remain release actions.
-6. The synthetic EN 50159 category criteria currently rest on an explicit provisional JudgementBasis. Exact standard edition, source locations and reviewed interpretations are still required before release.
-7. Threat, safety-critical elevation, fail-safe, SIL-risk, access-risk and control-weakness criteria are executable but remain provisional pending source review. L3, CQ-oracle completion, the performance target and the evidence package remain Phase 2 work.
+6. Railway criteria now carry source-location and interpretation records, but standards that were only available through legacy/project evidence retain secondary consultation status until publication review.
+7. Threat, safety-critical elevation, fail-safe, SIL-risk, access-risk and control-weakness criteria are executable; remaining ontology-completion work is the deferred-rule boundary and any admitted vocabulary additions.
 8. The ETCS ABox explicitly types nine assets as `SafetyCriticalAsset`, but none of those classifications has a supporting `AssertedFact` or `JudgementBasis`. Because Steps 12.3–12.6 depend on that classification, this provenance gap must be resolved before the ETCS case is executed by the orchestrator; no source or judgement is fabricated as a default.

@@ -49,7 +49,10 @@ ANSWERED: dict[str, int] = {
     "CQ-13": 1,
     "CQ-15": 7,
     "CQ-16": 4,
+    "CQ-20": 29,
+    "CQ-21": 24,
     "CQ-22": 1,
+    "CQ-23": 29,
     "CQ-24": 28,
     "CQ-25": 15,
     "CQ-28": 1,
@@ -78,9 +81,6 @@ PENDING: dict[str, str] = {
     "CQ-14": "assessor decisions not populated (Override)",
     "CQ-17": "cross-ordering comparison fixture not implemented",
     "CQ-18": "examination constraints not populated",
-    "CQ-20": "criterion provenance not transferred to annotations (SourceLocation)",
-    "CQ-21": "interpretation records not created",
-    "CQ-23": "criterion provenance not transferred to annotations",
     "CQ-26": "unresolved inputs not recorded on derivation records",
     "CQ-29": "asserted absence not populated",
     "CQ-30": "unresolved inputs not recorded",
@@ -98,6 +98,14 @@ def representative_graph() -> Graph:
     graph = Graph().parse(PROJECT / "cases" / "etcs" / "abox.ttl")
     graph.parse(PROJECT / "cases" / "etcs" / "classification-provenance.ttl")
     graph.parse(PROJECT / "fixtures" / "criterion-slice" / "positive.ttl")
+    return graph
+
+
+@lru_cache(maxsize=1)
+def ontology_oracle_graph() -> Graph:
+    graph = Graph()
+    for path in sorted((PROJECT / "ontology").glob("*.ttl")):
+        graph.parse(path)
     return graph
 
 
@@ -134,9 +142,15 @@ L3_ORACLE_CQS = {
     "CQ-15", "CQ-16", "CQ-24", "CQ-25", "CQ-33", "CQ-34", "CQ-35", "CQ-40", "CQ-45",
 }
 
+ONTOLOGY_ORACLE_CQS = {"CQ-20", "CQ-21", "CQ-23"}
+
 
 def graph_for(name: str, default: Graph) -> Graph:
-    return l3_oracle_graph() if name in L3_ORACLE_CQS else default
+    if name in L3_ORACLE_CQS:
+        return l3_oracle_graph()
+    if name in ONTOLOGY_ORACLE_CQS:
+        return ontology_oracle_graph()
+    return default
 
 
 def run(graph: Graph, name: str) -> list:
@@ -166,7 +180,7 @@ class CompetencyQuestionRegistryTest(unittest.TestCase):
             row = by_cq[name]
             self.assertEqual("answered", row["status"])
             self.assertEqual(str(expected), row["expected_rows"])
-            self.assertIn(row["oracle_graph"], {"representative", "l3"})
+            self.assertIn(row["oracle_graph"], {"representative", "l3", "ontology"})
         for name, reason in EMPTY_BY_DESIGN.items():
             row = by_cq[name]
             self.assertEqual("empty-by-design", row["status"])

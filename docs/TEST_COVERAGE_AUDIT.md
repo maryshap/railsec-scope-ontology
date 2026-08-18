@@ -4,9 +4,9 @@ The executable files alone do not establish semantic coverage. This audit record
 
 ## Competency questions
 
-- 24/45 CQs return an asserted number of rows on an explicitly assigned representative fixture.
+- 27/45 CQs return an asserted number of rows on an explicitly assigned representative fixture.
 - 5/45 are required to be empty by design.
-- 16/45 are pending capabilities and are asserted empty as a ratchet.
+- 13/45 are pending capabilities and are asserted empty as a ratchet.
 
 Every CQ belongs to exactly one class. A pending CQ that starts returning data fails until it is deliberately promoted and given an answer oracle.
 
@@ -16,8 +16,8 @@ drift silently from the tests.
 
 ## SHACL shapes
 
-- 14/21 node shapes currently have focus nodes across the ETCS, architecture and synthetic L3 evidence graphs.
-- 7/21 are implemented and have negative fixtures, but remain vacuous on the positive evidence because their producing capability is pending.
+- 15/21 node shapes currently have focus nodes across the ETCS, architecture and synthetic L3 evidence graphs.
+- 6/21 are implemented and have negative fixtures, but remain vacuous on the positive evidence because their producing capability is pending.
 
 Every node shape is registered as exercised or unexercised. New unregistered shapes and accidental loss of focus-node coverage fail the suite.
 

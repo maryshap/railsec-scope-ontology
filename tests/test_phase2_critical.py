@@ -170,13 +170,14 @@ class Phase2CriticalElevationTest(unittest.TestCase):
         self.assertEqual(3, int(critical.undeterminedCandidates))
         self.assertEqual(Decimal(4) / Decimal(7), Decimal(str(critical.stageCoverage)))
 
-    def test_critical_criteria_are_explicitly_provisional(self) -> None:
+    def test_critical_criteria_have_source_locations_and_judgement_basis(self) -> None:
         criteria = list(self.graph.subjects(RAIL.assessesCriticalViolation, None))
         self.assertEqual(2, len(criteria))
         for criterion in criteria:
             basis = self.graph.value(criterion, CRIT.restsOnJudgement)
             self.assertIsNotNone(basis)
-            self.assertIsNone(self.graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(self.graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(self.graph.value(criterion, CRIT.appliesInterpretation))
             self.assertIn("exact source location", str(self.graph.value(basis, CRIT.reasoning)))
 
     def test_rule_requires_an_upstream_threat_evaluation(self) -> None:

@@ -14,6 +14,7 @@ Checks the contract a Run must satisfy, not merely that it executes:
 from __future__ import annotations
 
 import hashlib
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -45,9 +46,11 @@ def canonical(graph: Graph, run_iri: URIRef) -> set:
     """
     marker = str(run_iri)
     digest = hashlib.sha256(marker.encode("utf-8")).hexdigest()
+    digest_pattern = re.compile(r"[0-9a-f]{32,64}")
 
     def mask(term) -> str:
-        return str(term).replace(marker, "RUN").replace(digest, "DIGEST")
+        value = str(term).replace(marker, "RUN").replace(digest, "DIGEST")
+        return digest_pattern.sub("DIGEST", value)
 
     return {
         (mask(s), str(p), mask(o))

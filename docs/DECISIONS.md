@@ -1,4 +1,70 @@
-# Gate B change record
+# Decisions
+
+Every governed conceptual/implementation decision since the Gate B freeze, in one file. Replaces the former GATE_B_CHANGE_RECORD.md, CONCEPTUAL_CHANGE_POLICY.md, CONCEPTUAL_CHANGE_CATALOG.tsv, K_CONSTRAINT_IMPLEMENTATION.md, IMPORT_GRAPH.md and PROV_O_MAPPING.md — six files that referenced each other and had to be kept in sync by hand. Content below is unedited from those files (only concatenated with section headers), so nothing technical was rewritten or lost in this consolidation.
+
+## Admission policy
+
+The frozen Gate B catalogue remains the approved baseline. A term absent from that baseline cannot become accepted merely because it appears in code.
+
+## Admission classes
+
+- **Extension:** a new class that is a named specialisation of an already approved class, does not change a closed value set, and does not participate in a K-constraint or competency question. The catalogue must name its approved parent and change record.
+- **Revision:** a new root/conceptual entity, a term that changes a closed value set, or any new term that participates in a K-constraint or competency question. Revision requires conceptual reapproval before release.
+
+Properties and individuals that change the conceptual contract are registered too. The implementation audit verifies every registered term exists with the declared kind. It also rejects an `extension` entry without an approved named parent or with K/CQ participation.
+
+`Payload` is a **revision**, not an extension: it is a new generic M1 entity rather than a specialisation below one of the frozen 76 classes. `undeterminedBoundary` is also a recorded revision of a closed value set under CR-B-009 even though individuals are not part of the class-count audit.
+
+The 76-row matrix remains evidence for the frozen baseline only. The conceptual-change catalogue is reviewed beside it; neither document alone is presented as evidence of full conceptual equivalence.
+
+## Conceptual change catalog
+
+Machine-checked registry: every row must exist with its declared kind; an `extension` row without an approved named parent or with K/CQ participation is rejected.
+
+| term | home_module | term_kind | change_kind | named_parent | participates_in_k_or_cq | change_record |
+|---|---|---|---|---|---|---|
+| Payload | M1 | class | revision | - | false | CR-B-008 |
+| evaluationStageIdentifier | M2 | datatypeProperty | revision | - | true | CR-B-011 |
+| stageCandidateTypeIri | M2 | datatypeProperty | revision | - | true | CR-B-011 |
+| CriticalViolationType | M5 | class | revision | - | true | CR-B-013 |
+| criticalAuthenticityViolation | M5 | individual | revision | CriticalViolationType | true | CR-B-013 |
+| criticalIntegrityViolation | M5 | individual | revision | CriticalViolationType | true | CR-B-013 |
+| assessesCriticalViolation | M5 | objectProperty | revision | - | true | CR-B-013 |
+| elevatesTransmissionThreat | M5 | objectProperty | revision | - | true | CR-B-013 |
+| assessesFailSafeCompromiseFrom | M5 | objectProperty | revision | - | true | CR-B-014 |
+| SILRiskType | M5 | class | revision | - | true | CR-B-015 |
+| maximumSILRisk | M5 | individual | revision | SILRiskType | true | CR-B-015 |
+| assessesSILRisk | M5 | objectProperty | revision | - | true | CR-B-015 |
+| AccessRiskType | M5 | class | revision | - | true | CR-B-016 |
+| privilegedMaintenanceAccessRisk | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| privilegedSupplierAccessRisk | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| highRiskMaintenancePath | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| remoteAccessRisk | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| assessesAccessRisk | M5 | objectProperty | revision | - | true | CR-B-016 |
+| assessesAccessMechanism | M5 | objectProperty | revision | - | true | CR-B-016 |
+| iterationCount | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| artefactDigest | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| publishable | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| refusalReason | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| VulnerableFlow | M5 | class | revision | RailwayInformationFlow | true | CR-B-023 |
+| DoSExposedFlow | M5 | class | revision | VulnerableFlow | true | CR-B-023 |
+| UnauditedFlow | M5 | class | revision | VulnerableFlow | true | CR-B-023 |
+| UnsegmentedCrossBoundaryFlow | M5 | class | revision | VulnerableFlow | true | CR-B-023 |
+| ControlWeaknessType | M5 | class | revision | - | true | CR-B-023 |
+| missingMessageAuthentication | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingIntegrityProtection | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingRateLimiting | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingMonitoring | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingSegmentation | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| assessesControlWeakness | M5 | objectProperty | revision | - | true | CR-B-023 |
+| weaknessFlowType | M5 | objectProperty | revision | - | true | CR-B-023 |
+| rateLimitingEnabled | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| monitoringEnabled | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| networkSegmentationEnabled | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| crossesTrustBoundary | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| wirelessMedium | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+
+## Change record (CR-B-001 to CR-B-023)
 
 The Gate B conceptual package is frozen. This register records every issue discovered during formalisation, including clarifications that do not change the architecture. No implementation file may silently override the conceptual package.
 
@@ -549,56 +615,89 @@ cross-boundary flows. These are the first confirmed findings in the case; the
 EN 50159 stages had returned none, because the transferred protection facts
 record those controls as present on almost every flow.
 
-## CR-B-024 — canonical Step 13 L3 reachability and coverage slice
+## K-constraint implementation map
 
-**Numbering correction.** The revised sixteen-step Phase 2 plan remains the
-canonical sequence. CR-B-021/022 are enabling and ETCS-track work, and CR-B-023
-is an additional Step 12 rule slice. It does not replace canonical Step 15,
-which is the predeclared performance target.
+| Constraint | Authority | Executable artefact |
+|---|---|---|
+| K-01–K-10 | SHACL Core/SPARQL; K-10 follows orchestrator capture | `shapes/constraints.ttl` |
+| K-11 | SHACL Core | `shapes/criterion-slice.ttl` |
+| K-12–K-18 | SHACL Core/SPARQL | `shapes/constraints.ttl` |
+| K-19–K-20 | build-time module inspection | `scripts/publication_lint.py` |
+| K-21 | SHACL Core | `shapes/constraints.ttl` |
+| K-22 | automated guard plus mandatory manual review | `scripts/publication_lint.py`, `docs/PUBLICATION_REVIEW.md` |
+| K-23 | post-L2 entailment/assignment agreement | `queries/K-23-assignment-agreement.rq` |
+| K-24 | stage-authority query plus SHACL regression slice | `queries/K-24-layer-authority.rq`, `shapes/criterion-slice.ttl` |
 
-**Change.** The Run orchestrator now executes the control-weakness rules,
-materialises `CategoryAssignment` records only after a satisfied evaluation and
-the corresponding class entailment exist, and projects candidate assignments
-into a run-scoped `CandidateSet`. L3 performs deterministic directed closure
-from materialised `EntryPoint` assignments over vulnerable-flow edges. It emits
-`ReachabilityResult`, shortest witness `DependencyChain` records and complete
-versioned derivation evidence. For an explicit assessor `Selection`, it also
-computes the declared candidate-selection coverage ratio.
+The positive architecture fixture and the two negative fixture groups are executed by `tests/`. Structural validation deliberately runs before RDFS/OWL inference so that a property domain cannot silently turn an incorrectly typed position owner into a conforming record.
 
-**Layer authority.** L3 produces paths and numbers only. It never creates a
-`CriterionEvaluation`, a `CategoryAssignment` or assessment-bearing membership.
-The category classifier was generalised from CandidateExaminationTarget to any
-declared `AssessmentBearingCategory`; the materialiser independently checks
-evaluation, declared category and existing entailment before recording it.
+## Module import graph
 
-**Unknown and human-decision boundary.** The computation does not invent an
-entry point without a materialised L1/L2 assignment, does not claim a path when
-the entry has no declared access mechanism, does not traverse a flow that is
-not classified as vulnerable, and does not create a default Selection. Coverage
-therefore runs only when the assessor supplies the Selection explicitly.
+**Decision ID:** IMPORT-B-001
+**Status:** fixed for the 0.1.0 line
 
-**Rejected alternatives.** Asserting reachability as an OWL transitive property
-was rejected because concrete paths and computation provenance would be lost.
-Copying the legacy AHP weights was rejected because the legacy values have not
-been admitted as a versioned method and factor set. Automatically selecting all
-candidates was rejected because Selection is an assessor decision, not a
-computation result.
+```mermaid
+flowchart LR
+  V["Validation root (build-only)"] --> M4["M4 Assessment"]
+  V --> M5["M5 Railway"]
+  V --> M5C["M5 Railway criteria"]
+  V --> RULES["Rule metadata"]
+  M4 --> M3["M3 Results"]
+  M3 --> M2["M2 Criteria"]
+  M2 --> M1["M1 Core"]
+  M5 --> M2
+  M5 --> M1
+  M5C --> M5
+  RULES --> M3
+  M1 --> META["Suite metadata"]
+  M2 --> META
+  M3 --> META
+  M4 --> META
+  M1 --> PROV["PROV-O DL projection"]
+```
 
-**Reproducibility correction.** Run digests now include rule queries, L3 and
-orchestrator source and validation shapes, rather than only parsed RDF inputs.
-Every refusal path records the digest and time bounds, and Runs record the
-artefact versions present in the execution graph.
+M2 and M3 use PROV-O through the transitive M1 import, while their project-specific mappings are declared in their home modules. The reusable railway-criteria ontology is an M5 reference-data module: it imports the M5 railway vocabulary and is imported by the build validation root. M6 case datasets contain individuals only; the validation orchestrator loads them with M5 and the validation root rather than making terminology modules import case data.
 
-**Evidence effect.** The synthetic L3 fixture promotes reachability, path,
-candidate, derivation, coverage and version CQs to asserted oracles. CQ coverage
-is now 21 answered, 5 empty by design and 19 pending; structural-shape focus
-coverage is 12 of 21. Weighted ordering was the remaining explicit Step 13
-blocker before the ordering closure addendum below.
+The graph is acyclic. `ontology/validation.ttl` is a build entry point, not a public terminology module, which avoids making the suite metadata import its own importers.
 
-**Step 13 ordering closure addendum.** The AHP factor set is retained rather
-than replaced after review of the weight-derivation justification. The seven
-weights are recorded as a versioned `OrderingFactorSet`; L3 now produces
-`FactorValue`, `OrderingResult` and `OrderingEntry` records from existing
-evaluations without assigning assessment-bearing membership. Factors whose
-production criteria are not yet admitted remain declared but produce no factor
-values.
+## PROV-O mapping (D-B8b)
+
+**Status:** initial formal mapping for the 0.1.0 baseline.
+**Authority:** D-B8a and the frozen Gate B conceptual package.
+
+## Class mappings
+
+| Project class | PROV-O class | Mapping | Rationale |
+|---|---|---|---|
+| `rss-core:Assertion` | `prov:Entity` | subclass | Assertions are identifiable inputs used by activities. |
+| `rss-crit:VersionedArtefact` | `prov:Entity` | subclass | Versioned artefacts are entities used by Runs and steps. |
+| `rss-crit:Criterion` | `prov:Entity` | inherited subclass | Criterion-specific semantics remain local. |
+| `rss-crit:ExternalComputationMethod` | `prov:Plan` | subclass | The method is a plan followed by an external computation, not the executing activity. |
+| `rss-res:DerivedResult` | `prov:Entity` | subclass | Results are generated entities. |
+| `rss-res:UnresolvedInput` | `prov:Entity` | subclass | It is an identifiable record, not an assertion that the missing fact is false. |
+| `rss-res:PerformanceMeasurement` | `prov:Entity` | subclass | A measurement is generated evidence about a Run. |
+| `rss-res:Run` | `prov:Activity` | subclass | A Run is the encompassing execution activity. |
+| `rss-res:DerivationStep` | `prov:Activity` | subclass | Each step uses and generates entities. |
+| `rss-res:Mechanism` | `prov:SoftwareAgent` | subclass | The versioned mechanism bears responsibility for executing a step. |
+| `rss-res:DerivationRecord` | `prov:Bundle` | subclass | The record is a named provenance bundle assembled across layers. |
+
+Subclass mappings are used rather than equivalence because the project classes carry stronger domain-specific meaning and constraints.
+
+## Property mappings
+
+| Project property | PROV-O property | Mapping |
+|---|---|---|
+| `rss-res:producedByRun` | `prov:wasGeneratedBy` | subproperty |
+| `rss-res:usedVersion` | `prov:used` | subproperty |
+| `rss-res:usedInstanceSet` | `prov:used` | subproperty |
+| `rss-res:usedEntity` | `prov:used` | subproperty |
+| `rss-res:generatedResult` | `prov:generated` | subproperty |
+| `rss-res:appliedCriterion` | `prov:used` | subproperty |
+| `rss-res:executedByMechanism` | `prov:wasAssociatedWith` | subproperty |
+
+M5 access-exclusion assumptions use the projected `prov:wasAttributedTo` property directly so the assessor responsible for the judgement is machine-readable. No local subproperty is introduced.
+
+`rss-res:appliedComputation` is deliberately **not** a subproperty of `prov:hadPlan`: `prov:hadPlan` relates a qualified Association to a Plan, not an Activity directly to a Plan. If qualified associations are required in the derivation implementation, the orchestrator will emit a `prov:Association` with `prov:hadPlan`; the direct project property remains the domain query shortcut.
+
+## Import policy
+
+Production modules import the stable PROV-O ontology IRI `http://www.w3.org/ns/prov-o`. The build must resolve it to a locally pinned, checksum-recorded copy; tests must not depend on live network retrieval. No project class or property is declared equivalent to a PROV-O term in the 0.1.0 line.

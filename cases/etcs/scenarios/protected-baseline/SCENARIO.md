@@ -6,9 +6,17 @@ Reference point for scenario comparison. Not a claim about the real ETCS deploym
 
 ## What this scenario asserts
 
-- All 7 per-interface protection-control properties (`authenticationEnabled`, `encryptionEnabled`, `integrityProtectionEnabled`, `safetyCodeEnabled`, `sequenceProtectionEnabled`, `sourceDestinationIdentifierEnabled`, `timeoutMechanismEnabled`) are `true` for all 88 interfaces.
+**Regenerated as 0.2.0.** The first version (0.1.0) attached these facts to
+Interface individuals, inheriting the same attachment defect fixed in the
+real case data by `CARRIESPAYLOAD_FLOW_FIX.md` — it would have produced
+`undetermined` everywhere regardless of scenario intent, because the rules
+read these properties off flows, not interfaces. 0.2.0 attaches every fact
+to the 148 `RailwayInformationFlow` individuals directly.
+
+- All 7 per-flow protection-control properties (`authenticationEnabled`, `encryptionEnabled`, `integrityProtectionEnabled`, `safetyCodeEnabled`, `sequenceProtectionEnabled`, `sourceDestinationIdentifierEnabled`, `timeoutMechanismEnabled`) are `true` for all 148 flows.
+- `payload-DO-21` is attached to `flow-if-ts-03-forward` and `flow-if-ts-06-forward` — both single-flow interfaces, no direction assumption needed.
 - All 3 L1 controls (`monitoringEnabled`, `networkSegmentationEnabled`, `rateLimitingEnabled`) are `true` for all 148 flows.
-- All 3 EN 50159 category conditions (`environmentControlledValue`, `participantSetFixedValue`, `unauthorisedAccessExcludedValue`) are `true` for all 148 flows — unlike the real data, where only 52/88 interfaces had a supportable determination.
+- All 3 EN 50159 category conditions are `true` for all 148 flows — unlike the real data, where only 52/88 interfaces had a supportable determination.
 
 ## What this scenario does not touch
 

@@ -2,17 +2,21 @@
 
 ## What's missing
 
-5 safety-related payload classifications (transferred correctly from the
-legacy model as `SafetyRelatedPayload` individuals) are currently **not**
-attached to any flow:
+3 safety-related payload classifications remain unattached — down from 5.
+The other 2 (`payload-DO-21` on `IF-TS-03` and `IF-TS-06`) were resolved
+directly: both interfaces have exactly one flow traversing them, so there
+was no direction to choose — attaching the payload to that sole flow is a
+correction, not a guess, and has been applied to
+`cases/etcs/security-facts.ttl` already.
+
+The 3 that remain genuinely ambiguous, because their interface has two
+flows and the legacy model doesn't record which one carries the payload:
 
 | Payload | Was attached to (interface, wrong) | Candidate flows (need a direction decision) |
 |---|---|---|
 | `payload-DO-04` | `interface-if-ct-01` | `flow-if-ct-01-forward`, `flow-if-ct-01-reverse` |
 | `payload-DO-04` | `interface-if-rad-03` | `flow-if-rad-03-forward`, `flow-if-rad-03-reverse` |
 | `payload-DO-05` | `interface-if-rad-01` | `flow-if-rad-01-forward`, `flow-if-rad-01-reverse` |
-| `payload-DO-21` | `interface-if-ts-03` | `flow-if-ts-03-forward`, `flow-if-ts-03-reverse` |
-| `payload-DO-21` | `interface-if-ts-06` | `flow-if-ts-06-forward`, `flow-if-ts-06-reverse` |
 
 ## Why this isn't fixed alongside the protection-property fix
 

@@ -329,7 +329,7 @@ correct and non-widening domain.
 
 **Corrections.**
 
-1. `FORMALISATION_STATUS.md` Step 1 stated fixed counts of object and datatype
+1. `STATUS.md` Step 1 stated fixed counts of object and datatype
    properties. Those counts were accurate at the freeze and have since grown
    through admitted revisions, so the sentence had become false as written. It
    now states the frozen class baseline explicitly and defers the property claim

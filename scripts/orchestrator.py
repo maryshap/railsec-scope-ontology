@@ -395,12 +395,43 @@ def summarise(result: RunResult) -> str:
 
 
 if __name__ == "__main__":
+    import argparse
     import sys
 
-    files = [Path(argument) for argument in sys.argv[1:]] or [
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "files",
+        nargs="*",
+        type=Path,
+        help=(
+            "instance-set/case files to load, in addition to the ontology "
+            "modules and rules (always loaded)"
+        ),
+    )
+    parser.add_argument("--run-id", default="cli", help="run identifier (default: cli)")
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help=(
+            "write the full result graph (facts + derived evaluations + "
+            "Run/DerivationRecord provenance) to this Turtle file"
+        ),
+    )
+    args = parser.parse_args()
+
+    files = args.files or [
         PROJECT / "cases" / "etcs" / "abox.ttl",
         PROJECT / "cases" / "etcs" / "classification-provenance.ttl",
     ]
-    outcome = execute(files, run_identifier="cli")
+    outcome = execute(files, run_identifier=args.run_id)
     print(summarise(outcome))
+
+    if args.output is not None and outcome.graph is not None:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        outcome.graph.serialize(destination=str(args.output), format="turtle")
+        print(f"\nresult graph written: {args.output} ({len(outcome.graph)} triples)")
+    elif args.output is not None:
+        print("\nno graph to write (Run was refused before any graph existed)")
+
     sys.exit(0 if outcome.publishable else 1)

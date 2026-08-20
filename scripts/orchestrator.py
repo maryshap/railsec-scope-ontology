@@ -278,8 +278,9 @@ def guarded_category_violations(graph: Graph) -> list[str]:
     return violations
 
 
-def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
+def execute(instance_files: list[Path], run_identifier: str, progress=None) -> RunResult:
     """Execute one Run over the given instance set."""
+    progress = progress or (lambda _message: None)
     result = RunResult()
     result.started = datetime.now(timezone.utc).isoformat()
     result.run_iri = RUN[run_identifier]
@@ -294,8 +295,11 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
         PROJECT / "shapes" / "railway.ttl",
         PROJECT / "shapes" / "criterion-slice.ttl",
     ]
+    progress(f"loading {len(load_paths)} input artefacts")
     for path in load_paths:
+        progress(f"  parse {path.relative_to(PROJECT)}")
         graph.parse(path)
+    progress(f"loaded graph: {len(graph)} triples")
 
     # The Run individual must exist before the loop: every rule binds ?run from
     # the data, so a Run recorded only at the end would produce no results at all.
@@ -316,9 +320,11 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
         graph.add((result.run_iri, RES.usedInstanceSet, instance_set))
 
     # 2. validate inputs before deriving anything
+    progress("input validation")
     conforms, _, report = validate(data_graph=graph, shacl_graph=_input_shapes(),
                                    inference="none", advanced=True)
     result.input_validation_conforms = conforms
+    progress(f"input validation: {'conforms' if conforms else 'FAILED'}")
     if not conforms:
         result.refuse("input validation failed; no derivation attempted")
         result.graph = graph
@@ -330,12 +336,18 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
     for iteration in range(1, MAX_ITERATIONS + 1):
         result.iterations = iteration
         before = len(graph)
+        progress(f"iteration {iteration}: reasoner")
         reasoned = run_reasoner(graph)
         result.reasoner_invoked = result.reasoner_invoked or reasoned
+        progress(f"iteration {iteration}: rules")
         apply_rules(graph)
+        progress(f"iteration {iteration}: materialise assignments")
         materialise_assignments(graph, result.run_iri)
+        progress(f"iteration {iteration}: materialise candidate set")
         materialise_candidate_set(graph, result.run_iri)
+        progress(f"iteration {iteration}: L3")
         apply_l3(graph, result.run_iri)
+        progress(f"iteration {iteration}: {len(graph) - before} triples added")
         if len(graph) == before:
             result.converged = True
             break
@@ -348,17 +360,21 @@ def execute(instance_files: list[Path], run_identifier: str) -> RunResult:
         result.refuse("description-logic reasoner was not invoked; entailments are unverified")
 
     # 5. validate the derived graph
+    progress("output validation")
     conforms, _, report = validate(data_graph=graph, shacl_graph=_output_shapes(),
                                    inference="none", advanced=True)
     result.output_validation_conforms = conforms
+    progress(f"output validation: {'conforms' if conforms else 'FAILED'}")
     if not conforms:
         result.refuse("output validation failed")
 
     # 6. no classification outside L1/L2
+    progress("guarded category check")
     for violation in guarded_category_violations(graph):
         result.refuse(f"unsupported classification: {violation}")
 
     # 7. record the run
+    progress("record run")
     _record_run(result, graph, artefacts)
 
     result.graph = graph
@@ -418,13 +434,22 @@ if __name__ == "__main__":
             "Run/DerivationRecord provenance) to this Turtle file"
         ),
     )
+    parser.add_argument(
+        "--progress",
+        action="store_true",
+        help="print Run progress messages before each long stage",
+    )
     args = parser.parse_args()
 
     files = args.files or [
         PROJECT / "cases" / "etcs" / "abox.ttl",
         PROJECT / "cases" / "etcs" / "classification-provenance.ttl",
     ]
-    outcome = execute(files, run_identifier=args.run_id)
+    outcome = execute(
+        files,
+        run_identifier=args.run_id,
+        progress=print if args.progress else None,
+    )
     print(summarise(outcome))
 
     if args.output is not None and outcome.graph is not None:

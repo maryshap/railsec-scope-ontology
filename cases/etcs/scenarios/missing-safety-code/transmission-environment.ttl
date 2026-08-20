@@ -41,7 +41,7 @@ case:flow-if-ct-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -49,7 +49,7 @@ case:flow-if-ct-01-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -71,7 +71,7 @@ case:flow-if-ct-01-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-01-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-01-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -79,7 +79,7 @@ case:flow-if-ct-01-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-01-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-01-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -101,7 +101,7 @@ case:flow-if-ct-02-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-02-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-02-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -109,7 +109,7 @@ case:flow-if-ct-02-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-02-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-02-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -131,7 +131,7 @@ case:flow-if-ct-02-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-02-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-02-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -139,7 +139,7 @@ case:flow-if-ct-02-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-02-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-02-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -161,7 +161,7 @@ case:flow-if-ct-03-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-03-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-03-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -169,7 +169,7 @@ case:flow-if-ct-03-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-03-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-03-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -191,7 +191,7 @@ case:flow-if-ct-03-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-03-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-03-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -199,7 +199,7 @@ case:flow-if-ct-03-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-03-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-03-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -221,7 +221,7 @@ case:flow-if-ct-04-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-04-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-04-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -229,7 +229,7 @@ case:flow-if-ct-04-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-04-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-04-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -251,7 +251,7 @@ case:flow-if-ct-05-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-05-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-05-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -259,7 +259,7 @@ case:flow-if-ct-05-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-05-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-05-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -281,7 +281,7 @@ case:flow-if-ct-05-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-05-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-05-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -289,7 +289,7 @@ case:flow-if-ct-05-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-05-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-05-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -311,7 +311,7 @@ case:flow-if-ct-06-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-06-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-06-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -319,7 +319,7 @@ case:flow-if-ct-06-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-06-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-06-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -341,7 +341,7 @@ case:flow-if-ct-07-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-07-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-07-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -349,7 +349,7 @@ case:flow-if-ct-07-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-07-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-07-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -371,7 +371,7 @@ case:flow-if-ct-08-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-08-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-08-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -379,7 +379,7 @@ case:flow-if-ct-08-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-08-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-08-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -401,7 +401,7 @@ case:flow-if-ct-09-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-09-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-09-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -409,7 +409,7 @@ case:flow-if-ct-09-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-09-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-09-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -431,7 +431,7 @@ case:flow-if-ct-10-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-10-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-10-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -439,7 +439,7 @@ case:flow-if-ct-10-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-10-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-10-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -461,7 +461,7 @@ case:flow-if-ct-11-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-11-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-11-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -469,7 +469,7 @@ case:flow-if-ct-11-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-11-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-11-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -491,7 +491,7 @@ case:flow-if-ct-12-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-12-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-12-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -499,7 +499,7 @@ case:flow-if-ct-12-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-12-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-12-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -521,7 +521,7 @@ case:flow-if-ct-13-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-13-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-13-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -529,7 +529,7 @@ case:flow-if-ct-13-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-13-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-13-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -551,7 +551,7 @@ case:flow-if-ct-13-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-13-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-13-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -559,7 +559,7 @@ case:flow-if-ct-13-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-13-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-13-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -581,7 +581,7 @@ case:flow-if-ct-14-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-14-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-14-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -589,7 +589,7 @@ case:flow-if-ct-14-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-14-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-14-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -611,7 +611,7 @@ case:flow-if-ct-14-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-14-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-14-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -619,7 +619,7 @@ case:flow-if-ct-14-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-14-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-14-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -641,7 +641,7 @@ case:flow-if-ct-15-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-15-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-15-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -649,7 +649,7 @@ case:flow-if-ct-15-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-15-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-15-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -671,7 +671,7 @@ case:flow-if-ct-16-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-16-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-16-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -679,7 +679,7 @@ case:flow-if-ct-16-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-16-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-16-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -701,7 +701,7 @@ case:flow-if-ct-16-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-16-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-16-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -709,7 +709,7 @@ case:flow-if-ct-16-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-16-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-16-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -731,7 +731,7 @@ case:flow-if-ct-17-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-17-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-17-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -739,7 +739,7 @@ case:flow-if-ct-17-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-17-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-17-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -761,7 +761,7 @@ case:flow-if-ct-17-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-17-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-17-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -769,7 +769,7 @@ case:flow-if-ct-17-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-17-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-17-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -791,7 +791,7 @@ case:flow-if-ct-18-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-18-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-18-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -799,7 +799,7 @@ case:flow-if-ct-18-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-18-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-18-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -821,7 +821,7 @@ case:flow-if-ct-18-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-18-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-18-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -829,7 +829,7 @@ case:flow-if-ct-18-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-18-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-18-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -851,7 +851,7 @@ case:flow-if-ct-19-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-19-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-19-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -859,7 +859,7 @@ case:flow-if-ct-19-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-19-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-19-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -881,7 +881,7 @@ case:flow-if-ct-19-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-19-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-19-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -889,7 +889,7 @@ case:flow-if-ct-19-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-19-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-19-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -911,7 +911,7 @@ case:flow-if-ct-20-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-20-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-20-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -919,7 +919,7 @@ case:flow-if-ct-20-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-20-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-20-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -941,7 +941,7 @@ case:flow-if-ct-20-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-20-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-20-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -949,7 +949,7 @@ case:flow-if-ct-20-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-20-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-20-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -971,7 +971,7 @@ case:flow-if-ct-21-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-21-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-21-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -979,7 +979,7 @@ case:flow-if-ct-21-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-21-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-21-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1001,7 +1001,7 @@ case:flow-if-ct-22-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-22-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-22-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1009,7 +1009,7 @@ case:flow-if-ct-22-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-22-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-22-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1031,7 +1031,7 @@ case:flow-if-ct-23-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-23-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-23-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1039,7 +1039,7 @@ case:flow-if-ct-23-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-23-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-23-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1061,7 +1061,7 @@ case:flow-if-ct-24-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ct-24-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-24-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1069,7 +1069,7 @@ case:flow-if-ct-24-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ct-24-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ct-24-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1091,7 +1091,7 @@ case:flow-if-ext-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ext-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ext-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1099,7 +1099,7 @@ case:flow-if-ext-01-forward-protected-environment-control a rss-rail:Environment
 case:flow-if-ext-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ext-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1121,7 +1121,7 @@ case:flow-if-ext-01-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ext-01-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ext-01-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1129,7 +1129,7 @@ case:flow-if-ext-01-reverse-protected-environment-control a rss-rail:Environment
 case:flow-if-ext-01-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ext-01-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1151,7 +1151,7 @@ case:flow-if-inf-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-inf-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-inf-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1159,7 +1159,7 @@ case:flow-if-inf-01-forward-protected-environment-control a rss-rail:Environment
 case:flow-if-inf-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-inf-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1181,7 +1181,7 @@ case:flow-if-it-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1189,7 +1189,7 @@ case:flow-if-it-01-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1211,7 +1211,7 @@ case:flow-if-it-02-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-02-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-02-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1219,7 +1219,7 @@ case:flow-if-it-02-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-02-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-02-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1241,7 +1241,7 @@ case:flow-if-it-03-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-03-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-03-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1249,7 +1249,7 @@ case:flow-if-it-03-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-03-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-03-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1271,7 +1271,7 @@ case:flow-if-it-04-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-04-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-04-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1279,7 +1279,7 @@ case:flow-if-it-04-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-04-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-04-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1301,7 +1301,7 @@ case:flow-if-it-05-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-05-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-05-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1309,7 +1309,7 @@ case:flow-if-it-05-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-05-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-05-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1331,7 +1331,7 @@ case:flow-if-it-06-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-06-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-06-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1339,7 +1339,7 @@ case:flow-if-it-06-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-06-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-06-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1361,7 +1361,7 @@ case:flow-if-it-07-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-07-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-07-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1369,7 +1369,7 @@ case:flow-if-it-07-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-07-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-07-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1391,7 +1391,7 @@ case:flow-if-it-08-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-08-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-08-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1399,7 +1399,7 @@ case:flow-if-it-08-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-08-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-08-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1421,7 +1421,7 @@ case:flow-if-it-09-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-09-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-09-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1429,7 +1429,7 @@ case:flow-if-it-09-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-09-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-09-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1451,7 +1451,7 @@ case:flow-if-it-09-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-09-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-09-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1459,7 +1459,7 @@ case:flow-if-it-09-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-09-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-09-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1481,7 +1481,7 @@ case:flow-if-it-10-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-10-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-10-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1489,7 +1489,7 @@ case:flow-if-it-10-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-10-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-10-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1511,7 +1511,7 @@ case:flow-if-it-10-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-10-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-10-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1519,7 +1519,7 @@ case:flow-if-it-10-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-10-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-10-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1541,7 +1541,7 @@ case:flow-if-it-11-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-11-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-11-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1549,7 +1549,7 @@ case:flow-if-it-11-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-11-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-11-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1571,7 +1571,7 @@ case:flow-if-it-11-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-11-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-11-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1579,7 +1579,7 @@ case:flow-if-it-11-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-11-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-11-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1601,7 +1601,7 @@ case:flow-if-it-12-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-12-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-12-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1609,7 +1609,7 @@ case:flow-if-it-12-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-12-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-12-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1631,7 +1631,7 @@ case:flow-if-it-12-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-12-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-12-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1639,7 +1639,7 @@ case:flow-if-it-12-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-12-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-12-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1661,7 +1661,7 @@ case:flow-if-it-13-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-13-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-13-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1669,7 +1669,7 @@ case:flow-if-it-13-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-13-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-13-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1691,7 +1691,7 @@ case:flow-if-it-14-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-14-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-14-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1699,7 +1699,7 @@ case:flow-if-it-14-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-14-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-14-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1721,7 +1721,7 @@ case:flow-if-it-14-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-14-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-14-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1729,7 +1729,7 @@ case:flow-if-it-14-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-14-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-14-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1751,7 +1751,7 @@ case:flow-if-it-15-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-it-15-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-15-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1759,7 +1759,7 @@ case:flow-if-it-15-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-it-15-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-it-15-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1781,7 +1781,7 @@ case:flow-if-ob-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1789,7 +1789,7 @@ case:flow-if-ob-01-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1811,7 +1811,7 @@ case:flow-if-ob-01-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-01-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-01-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1819,7 +1819,7 @@ case:flow-if-ob-01-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-01-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-01-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1841,7 +1841,7 @@ case:flow-if-ob-02-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-02-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-02-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1849,7 +1849,7 @@ case:flow-if-ob-02-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-02-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-02-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1871,7 +1871,7 @@ case:flow-if-ob-02-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-02-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-02-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1879,7 +1879,7 @@ case:flow-if-ob-02-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-02-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-02-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1901,7 +1901,7 @@ case:flow-if-ob-03-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-03-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-03-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1909,7 +1909,7 @@ case:flow-if-ob-03-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-03-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-03-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1931,7 +1931,7 @@ case:flow-if-ob-03-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-03-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-03-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1939,7 +1939,7 @@ case:flow-if-ob-03-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-03-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-03-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1961,7 +1961,7 @@ case:flow-if-ob-04-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-04-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-04-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1969,7 +1969,7 @@ case:flow-if-ob-04-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-04-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-04-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1991,7 +1991,7 @@ case:flow-if-ob-04-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-04-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-04-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -1999,7 +1999,7 @@ case:flow-if-ob-04-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-04-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-04-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2021,7 +2021,7 @@ case:flow-if-ob-05-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-05-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-05-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2029,7 +2029,7 @@ case:flow-if-ob-05-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-05-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-05-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2051,7 +2051,7 @@ case:flow-if-ob-05-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-05-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-05-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2059,7 +2059,7 @@ case:flow-if-ob-05-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-05-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-05-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2081,7 +2081,7 @@ case:flow-if-ob-06-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-06-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-06-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2089,7 +2089,7 @@ case:flow-if-ob-06-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-06-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-06-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2111,7 +2111,7 @@ case:flow-if-ob-06-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-06-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-06-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2119,7 +2119,7 @@ case:flow-if-ob-06-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-06-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-06-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2141,7 +2141,7 @@ case:flow-if-ob-07-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-07-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-07-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2149,7 +2149,7 @@ case:flow-if-ob-07-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-07-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-07-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2171,7 +2171,7 @@ case:flow-if-ob-07-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-07-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-07-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2179,7 +2179,7 @@ case:flow-if-ob-07-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-07-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-07-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2201,7 +2201,7 @@ case:flow-if-ob-08-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-08-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-08-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2209,7 +2209,7 @@ case:flow-if-ob-08-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-08-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-08-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2231,7 +2231,7 @@ case:flow-if-ob-08-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-08-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-08-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2239,7 +2239,7 @@ case:flow-if-ob-08-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-08-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-08-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2261,7 +2261,7 @@ case:flow-if-ob-09-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-09-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-09-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2269,7 +2269,7 @@ case:flow-if-ob-09-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-09-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-09-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2291,7 +2291,7 @@ case:flow-if-ob-09-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-09-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-09-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2299,7 +2299,7 @@ case:flow-if-ob-09-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-09-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-09-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2321,7 +2321,7 @@ case:flow-if-ob-10-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-10-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-10-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2329,7 +2329,7 @@ case:flow-if-ob-10-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-10-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-10-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2351,7 +2351,7 @@ case:flow-if-ob-10-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-10-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-10-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2359,7 +2359,7 @@ case:flow-if-ob-10-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-10-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-10-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2381,7 +2381,7 @@ case:flow-if-ob-11-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-11-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-11-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2389,7 +2389,7 @@ case:flow-if-ob-11-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-11-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-11-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2411,7 +2411,7 @@ case:flow-if-ob-11-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-11-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-11-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2419,7 +2419,7 @@ case:flow-if-ob-11-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-11-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-11-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2441,7 +2441,7 @@ case:flow-if-ob-12-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-12-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-12-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2449,7 +2449,7 @@ case:flow-if-ob-12-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-12-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-12-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2471,7 +2471,7 @@ case:flow-if-ob-12-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-12-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-12-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2479,7 +2479,7 @@ case:flow-if-ob-12-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-12-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-12-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2501,7 +2501,7 @@ case:flow-if-ob-13-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-13-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-13-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2509,7 +2509,7 @@ case:flow-if-ob-13-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-13-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-13-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2531,7 +2531,7 @@ case:flow-if-ob-13-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-13-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-13-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2539,7 +2539,7 @@ case:flow-if-ob-13-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-13-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-13-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2561,7 +2561,7 @@ case:flow-if-ob-14-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-14-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-14-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2569,7 +2569,7 @@ case:flow-if-ob-14-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-14-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-14-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2591,7 +2591,7 @@ case:flow-if-ob-14-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-14-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-14-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2599,7 +2599,7 @@ case:flow-if-ob-14-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-14-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-14-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2621,7 +2621,7 @@ case:flow-if-ob-15-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-15-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-15-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2629,7 +2629,7 @@ case:flow-if-ob-15-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-15-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-15-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2651,7 +2651,7 @@ case:flow-if-ob-15-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ob-15-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-15-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2659,7 +2659,7 @@ case:flow-if-ob-15-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ob-15-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ob-15-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2681,7 +2681,7 @@ case:flow-if-om-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2689,7 +2689,7 @@ case:flow-if-om-01-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2711,7 +2711,7 @@ case:flow-if-om-01-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-01-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-01-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2719,7 +2719,7 @@ case:flow-if-om-01-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-01-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-01-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2741,7 +2741,7 @@ case:flow-if-om-02-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-02-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-02-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2749,7 +2749,7 @@ case:flow-if-om-02-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-02-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-02-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2771,7 +2771,7 @@ case:flow-if-om-02-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-02-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-02-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2779,7 +2779,7 @@ case:flow-if-om-02-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-02-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-02-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2801,7 +2801,7 @@ case:flow-if-om-03-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-03-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-03-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2809,7 +2809,7 @@ case:flow-if-om-03-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-03-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-03-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2831,7 +2831,7 @@ case:flow-if-om-03-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-03-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-03-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2839,7 +2839,7 @@ case:flow-if-om-03-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-03-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-03-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2861,7 +2861,7 @@ case:flow-if-om-04-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-04-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-04-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2869,7 +2869,7 @@ case:flow-if-om-04-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-04-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-04-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2891,7 +2891,7 @@ case:flow-if-om-04-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-04-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-04-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2899,7 +2899,7 @@ case:flow-if-om-04-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-04-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-04-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2921,7 +2921,7 @@ case:flow-if-om-05-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-05-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-05-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2929,7 +2929,7 @@ case:flow-if-om-05-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-05-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-05-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2951,7 +2951,7 @@ case:flow-if-om-05-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-05-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-05-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2959,7 +2959,7 @@ case:flow-if-om-05-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-05-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-05-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2981,7 +2981,7 @@ case:flow-if-om-06-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-06-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-06-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -2989,7 +2989,7 @@ case:flow-if-om-06-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-06-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-06-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3011,7 +3011,7 @@ case:flow-if-om-06-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-06-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-06-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3019,7 +3019,7 @@ case:flow-if-om-06-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-06-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-06-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3041,7 +3041,7 @@ case:flow-if-om-07-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-07-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-07-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3049,7 +3049,7 @@ case:flow-if-om-07-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-07-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-07-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3071,7 +3071,7 @@ case:flow-if-om-07-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-07-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-07-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3079,7 +3079,7 @@ case:flow-if-om-07-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-07-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-07-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3101,7 +3101,7 @@ case:flow-if-om-08-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-08-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-08-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3109,7 +3109,7 @@ case:flow-if-om-08-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-08-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-08-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3131,7 +3131,7 @@ case:flow-if-om-08-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-08-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-08-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3139,7 +3139,7 @@ case:flow-if-om-08-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-08-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-08-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3161,7 +3161,7 @@ case:flow-if-om-09-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-09-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-09-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3169,7 +3169,7 @@ case:flow-if-om-09-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-09-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-09-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3191,7 +3191,7 @@ case:flow-if-om-09-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-09-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-09-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3199,7 +3199,7 @@ case:flow-if-om-09-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-09-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-09-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3221,7 +3221,7 @@ case:flow-if-om-10-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-10-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-10-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3229,7 +3229,7 @@ case:flow-if-om-10-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-10-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-10-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3251,7 +3251,7 @@ case:flow-if-om-10-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-10-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-10-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3259,7 +3259,7 @@ case:flow-if-om-10-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-10-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-10-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3281,7 +3281,7 @@ case:flow-if-om-11-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-11-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-11-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3289,7 +3289,7 @@ case:flow-if-om-11-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-11-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-11-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3311,7 +3311,7 @@ case:flow-if-om-11-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-11-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-11-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3319,7 +3319,7 @@ case:flow-if-om-11-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-11-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-11-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3341,7 +3341,7 @@ case:flow-if-om-12-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-12-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-12-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3349,7 +3349,7 @@ case:flow-if-om-12-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-12-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-12-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3371,7 +3371,7 @@ case:flow-if-om-12-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-12-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-12-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3379,7 +3379,7 @@ case:flow-if-om-12-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-12-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-12-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3401,7 +3401,7 @@ case:flow-if-om-13-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-13-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-13-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3409,7 +3409,7 @@ case:flow-if-om-13-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-13-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-13-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3431,7 +3431,7 @@ case:flow-if-om-13-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-13-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-13-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3439,7 +3439,7 @@ case:flow-if-om-13-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-13-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-13-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3461,7 +3461,7 @@ case:flow-if-om-14-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-14-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-14-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3469,7 +3469,7 @@ case:flow-if-om-14-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-14-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-14-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3491,7 +3491,7 @@ case:flow-if-om-14-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-14-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-14-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3499,7 +3499,7 @@ case:flow-if-om-14-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-14-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-14-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3521,7 +3521,7 @@ case:flow-if-om-15-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-15-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-15-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3529,7 +3529,7 @@ case:flow-if-om-15-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-15-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-15-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3551,7 +3551,7 @@ case:flow-if-om-15-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-15-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-15-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3559,7 +3559,7 @@ case:flow-if-om-15-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-15-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-15-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3581,7 +3581,7 @@ case:flow-if-om-16-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-16-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-16-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3589,7 +3589,7 @@ case:flow-if-om-16-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-16-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-16-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3611,7 +3611,7 @@ case:flow-if-om-16-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-16-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-16-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3619,7 +3619,7 @@ case:flow-if-om-16-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-16-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-16-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3641,7 +3641,7 @@ case:flow-if-om-17-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-17-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-17-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3649,7 +3649,7 @@ case:flow-if-om-17-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-17-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-17-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3671,7 +3671,7 @@ case:flow-if-om-17-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-om-17-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-17-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3679,7 +3679,7 @@ case:flow-if-om-17-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-om-17-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-om-17-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3701,7 +3701,7 @@ case:flow-if-rad-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-rad-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3709,7 +3709,7 @@ case:flow-if-rad-01-forward-protected-environment-control a rss-rail:Environment
 case:flow-if-rad-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3731,7 +3731,7 @@ case:flow-if-rad-01-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-rad-01-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-01-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3739,7 +3739,7 @@ case:flow-if-rad-01-reverse-protected-environment-control a rss-rail:Environment
 case:flow-if-rad-01-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-01-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3761,7 +3761,7 @@ case:flow-if-rad-02-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-rad-02-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-02-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3769,7 +3769,7 @@ case:flow-if-rad-02-forward-protected-environment-control a rss-rail:Environment
 case:flow-if-rad-02-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-02-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3791,7 +3791,7 @@ case:flow-if-rad-02-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-rad-02-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-02-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3799,7 +3799,7 @@ case:flow-if-rad-02-reverse-protected-environment-control a rss-rail:Environment
 case:flow-if-rad-02-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-02-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3821,7 +3821,7 @@ case:flow-if-rad-03-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-rad-03-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-03-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3829,7 +3829,7 @@ case:flow-if-rad-03-forward-protected-environment-control a rss-rail:Environment
 case:flow-if-rad-03-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-03-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3851,7 +3851,7 @@ case:flow-if-rad-03-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-rad-03-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-03-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3859,7 +3859,7 @@ case:flow-if-rad-03-reverse-protected-environment-control a rss-rail:Environment
 case:flow-if-rad-03-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-rad-03-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3881,7 +3881,7 @@ case:flow-if-ts-01-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-01-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-01-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3889,7 +3889,7 @@ case:flow-if-ts-01-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-01-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-01-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3911,7 +3911,7 @@ case:flow-if-ts-01-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-01-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-01-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3919,7 +3919,7 @@ case:flow-if-ts-01-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-01-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-01-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3941,7 +3941,7 @@ case:flow-if-ts-02-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-02-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-02-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3949,7 +3949,7 @@ case:flow-if-ts-02-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-02-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-02-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3971,7 +3971,7 @@ case:flow-if-ts-02-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-02-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-02-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -3979,7 +3979,7 @@ case:flow-if-ts-02-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-02-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-02-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4001,7 +4001,7 @@ case:flow-if-ts-03-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-03-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-03-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4009,7 +4009,7 @@ case:flow-if-ts-03-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-03-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-03-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4031,7 +4031,7 @@ case:flow-if-ts-04-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-04-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-04-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4039,7 +4039,7 @@ case:flow-if-ts-04-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-04-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-04-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4061,7 +4061,7 @@ case:flow-if-ts-04-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-04-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-04-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4069,7 +4069,7 @@ case:flow-if-ts-04-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-04-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-04-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4091,7 +4091,7 @@ case:flow-if-ts-05-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-05-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-05-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4099,7 +4099,7 @@ case:flow-if-ts-05-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-05-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-05-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4121,7 +4121,7 @@ case:flow-if-ts-06-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-06-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-06-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4129,7 +4129,7 @@ case:flow-if-ts-06-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-06-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-06-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4151,7 +4151,7 @@ case:flow-if-ts-07-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-07-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-07-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4159,7 +4159,7 @@ case:flow-if-ts-07-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-07-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-07-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4181,7 +4181,7 @@ case:flow-if-ts-08-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-08-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-08-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4189,7 +4189,7 @@ case:flow-if-ts-08-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-08-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-08-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4211,7 +4211,7 @@ case:flow-if-ts-08-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-08-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-08-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4219,7 +4219,7 @@ case:flow-if-ts-08-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-08-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-08-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4241,7 +4241,7 @@ case:flow-if-ts-09-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-09-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-09-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4249,7 +4249,7 @@ case:flow-if-ts-09-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-09-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-09-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4271,7 +4271,7 @@ case:flow-if-ts-09-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-09-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-09-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4279,7 +4279,7 @@ case:flow-if-ts-09-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-09-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-09-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4301,7 +4301,7 @@ case:flow-if-ts-10-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-10-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-10-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4309,7 +4309,7 @@ case:flow-if-ts-10-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-10-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-10-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4331,7 +4331,7 @@ case:flow-if-ts-10-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-10-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-10-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4339,7 +4339,7 @@ case:flow-if-ts-10-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-10-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-10-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4361,7 +4361,7 @@ case:flow-if-ts-11-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-11-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-11-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4369,7 +4369,7 @@ case:flow-if-ts-11-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-11-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-11-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4391,7 +4391,7 @@ case:flow-if-ts-11-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-11-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-11-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4399,7 +4399,7 @@ case:flow-if-ts-11-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-11-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-11-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4421,7 +4421,7 @@ case:flow-if-ts-12-forward rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-12-forward-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-12-forward ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4429,7 +4429,7 @@ case:flow-if-ts-12-forward-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-12-forward-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-12-forward ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4451,7 +4451,7 @@ case:flow-if-ts-12-reverse rss-rail:crossesTrustBoundary true ;
 case:flow-if-ts-12-reverse-protected-environment-control a rss-rail:EnvironmentControlFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-12-reverse ;
     rss-rail:environmentControlledValue true ;
     rss-res:assertedInInstanceSet case:instance-set .
@@ -4459,7 +4459,7 @@ case:flow-if-ts-12-reverse-protected-environment-control a rss-rail:EnvironmentC
 case:flow-if-ts-12-reverse-protected-participant-set a rss-rail:ParticipantSetFixedFact ;
     prov:wasAttributedTo case:assessor ;
     prov:wasDerivedFrom case:scenario-protected-baseline-transmission-basis ;
-    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-rail:transmissionAssertionSubject case:flow-if-ts-12-reverse ;
     rss-rail:participantSetFixedValue true ;
     rss-res:assertedInInstanceSet case:instance-set .

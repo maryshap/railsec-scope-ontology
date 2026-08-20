@@ -30,6 +30,8 @@ rss-rail:OperationalAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; 
 rss-rail:RailwayPayload a owl:Class ; rdfs:subClassOf rss-core:Payload ; rdfs:label "Railway payload"@en .
 rss-rail:SafetyRelatedPayload a owl:Class ; rdfs:subClassOf rss-rail:RailwayPayload ; rdfs:label "Safety-related payload"@en .
 rss-rail:NonSafetyPayload a owl:Class ; rdfs:subClassOf rss-rail:RailwayPayload ; rdfs:label "Non-safety payload"@en .
+rss-rail:EmergencyCommandData a owl:Class ; rdfs:subClassOf rss-rail:SafetyRelatedPayload ; rdfs:label "Emergency command data"@en .
+rss-rail:PositionStatusData a owl:Class ; rdfs:subClassOf rss-rail:SafetyRelatedPayload ; rdfs:label "Position status data"@en .
 [] a owl:AllDisjointClasses ; owl:members ( rss-rail:SafetyRelatedPayload rss-rail:NonSafetyPayload ) .
 
 ### EN 50159 transmission-category vocabulary
@@ -118,6 +120,10 @@ rss-rail:sil4 a owl:NamedIndividual, rss-rail:SafetyIntegrityLevel ; rdfs:label 
 [] a owl:AllDifferent ; owl:distinctMembers ( rss-rail:sil0 rss-rail:sil1 rss-rail:sil2 rss-rail:sil3 rss-rail:sil4 ) .
 
 rss-rail:RailwaySecurityZone a owl:Class ; rdfs:subClassOf rss-core:Group ; rdfs:label "Railway security zone"@en .
+rss-rail:ExternalZone a owl:Class ; rdfs:subClassOf rss-rail:RailwaySecurityZone ; rdfs:label "External railway security zone"@en .
+rss-rail:PartiallyTrustedZone a owl:Class ; rdfs:subClassOf rss-rail:RailwaySecurityZone ; rdfs:label "Partially trusted railway security zone"@en .
+rss-rail:DMZZone a owl:Class ; rdfs:subClassOf rss-rail:PartiallyTrustedZone ; rdfs:label "DMZ railway security zone"@en .
+rss-rail:MobileZone a owl:Class ; rdfs:subClassOf rss-rail:RailwaySecurityZone ; rdfs:label "Mobile railway security zone"@en .
 rss-rail:MaintenanceAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Maintenance access"@en .
 rss-rail:SupplierAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Supplier access"@en .
 rss-rail:RemoteAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism ; rdfs:subClassOf rss-core:AccessMechanism ; rdfs:label "Remote access"@en .
@@ -139,14 +145,22 @@ rss-rail:failSafeDependsOn a owl:ObjectProperty ;
 # criterion outcome, never as a class typed onto a flow.
 
 rss-rail:CriticalViolationType a owl:Class ;
-    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-rail:criticalAuthenticityViolation rss-rail:criticalIntegrityViolation ) ] ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        rss-rail:criticalAuthenticityViolation rss-rail:criticalIntegrityViolation
+        rss-rail:criticalTimelinessViolation rss-rail:criticalSequenceViolation ) ] ;
     rdfs:label "Critical violation type"@en .
 rss-rail:criticalAuthenticityViolation a owl:NamedIndividual, rss-rail:CriticalViolationType ;
     rdfs:label "Critical authenticity violation"@en .
 rss-rail:criticalIntegrityViolation a owl:NamedIndividual, rss-rail:CriticalViolationType ;
     rdfs:label "Critical integrity violation"@en .
+rss-rail:criticalTimelinessViolation a owl:NamedIndividual, rss-rail:CriticalViolationType ;
+    rdfs:label "Critical timeliness violation"@en .
+rss-rail:criticalSequenceViolation a owl:NamedIndividual, rss-rail:CriticalViolationType ;
+    rdfs:label "Critical sequence violation"@en .
 [] a owl:AllDifferent ;
-    owl:distinctMembers ( rss-rail:criticalAuthenticityViolation rss-rail:criticalIntegrityViolation ) .
+    owl:distinctMembers (
+        rss-rail:criticalAuthenticityViolation rss-rail:criticalIntegrityViolation
+        rss-rail:criticalTimelinessViolation rss-rail:criticalSequenceViolation ) .
 
 rss-rail:assessesCriticalViolation a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-crit:Criterion ;
@@ -157,6 +171,10 @@ rss-rail:elevatesTransmissionThreat a owl:ObjectProperty, owl:FunctionalProperty
     rdfs:domain rss-crit:Criterion ;
     rdfs:range rss-rail:TransmissionThreat ;
     rdfs:label "elevates transmission threat"@en .
+rss-rail:requiresPayloadClass a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range owl:Thing ;
+    rdfs:label "requires payload class"@en .
 
 ### Fail-safe compromise evaluation (Step 12.4, CR-B-014)
 
@@ -213,18 +231,27 @@ rss-rail:VulnerableFlow a owl:Class ; rdfs:subClassOf rss-rail:RailwayInformatio
 rss-rail:DoSExposedFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Denial-of-service exposed flow"@en .
 rss-rail:UnauditedFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Unaudited flow"@en .
 rss-rail:UnsegmentedCrossBoundaryFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Unsegmented cross-boundary flow"@en .
+rss-rail:ConfidentialityVulnerableFlow a owl:Class ; rdfs:subClassOf rss-rail:VulnerableFlow ; rdfs:label "Confidentiality-vulnerable flow"@en .
+rss-rail:ExposedAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; rdfs:label "Exposed railway asset"@en .
+rss-rail:PartiallyExposedAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; rdfs:label "Partially exposed railway asset"@en .
+rss-rail:Category3AssetContext a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; rdfs:label "Category 3 asset context"@en .
 
 rss-rail:ControlWeaknessType a owl:Class ;
     owl:equivalentClass [ a owl:Class ; owl:oneOf (
         rss-rail:missingMessageAuthentication rss-rail:missingIntegrityProtection
-        rss-rail:missingRateLimiting rss-rail:missingMonitoring rss-rail:missingSegmentation ) ] ;
+        rss-rail:missingRateLimiting rss-rail:missingMonitoring rss-rail:missingSegmentation
+        rss-rail:missingEncryption ) ] ;
     rdfs:label "Control weakness type"@en .
 rss-rail:missingMessageAuthentication a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing message authentication"@en .
 rss-rail:missingIntegrityProtection a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing integrity protection"@en .
 rss-rail:missingRateLimiting a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing rate limiting"@en .
 rss-rail:missingMonitoring a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing monitoring and logging"@en .
 rss-rail:missingSegmentation a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing network segmentation"@en .
-[] a owl:AllDifferent ; owl:distinctMembers ( rss-rail:missingMessageAuthentication rss-rail:missingIntegrityProtection rss-rail:missingRateLimiting rss-rail:missingMonitoring rss-rail:missingSegmentation ) .
+rss-rail:missingEncryption a owl:NamedIndividual, rss-rail:ControlWeaknessType ; rdfs:label "Missing encryption"@en .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    rss-rail:missingMessageAuthentication rss-rail:missingIntegrityProtection
+    rss-rail:missingRateLimiting rss-rail:missingMonitoring rss-rail:missingSegmentation
+    rss-rail:missingEncryption ) .
 
 rss-rail:assessesControlWeakness a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-crit:Criterion ; rdfs:range rss-rail:ControlWeaknessType ;
@@ -232,9 +259,21 @@ rss-rail:assessesControlWeakness a owl:ObjectProperty, owl:FunctionalProperty ;
 rss-rail:weaknessFlowType a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-crit:Criterion ; rdfs:range owl:Thing ;
     rdfs:label "weakness flow type"@en .
+rss-rail:assessesZoneClass a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range owl:Thing ;
+    rdfs:label "assesses zone class"@en .
 
 rss-rail:rateLimitingEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "rate limiting enabled"@en .
 rss-rail:monitoringEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "monitoring and logging enabled"@en .
 rss-rail:networkSegmentationEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "network segmentation enabled"@en .
 rss-rail:crossesTrustBoundary a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "crosses trust boundary"@en .
 rss-rail:wirelessMedium a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "wireless medium"@en .
+
+rss-rail:RemediationPriorityType a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-rail:highPriorityRemediation ) ] ;
+    rdfs:label "Remediation priority type"@en .
+rss-rail:highPriorityRemediation a owl:NamedIndividual, rss-rail:RemediationPriorityType ;
+    rdfs:label "High-priority remediation"@en .
+rss-rail:assessesRemediationPriority a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-crit:Criterion ; rdfs:range rss-rail:RemediationPriorityType ;
+    rdfs:label "assesses remediation priority"@en .

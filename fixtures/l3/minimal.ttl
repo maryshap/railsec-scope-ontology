@@ -1,0 +1,126 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix fx: <https://w3id.org/railsec-scope/fixture/l3/> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+
+fx:version a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "l3-fixture-1" .
+
+fx:instance-set a rss-res:InstanceSet ;
+    rss-crit:hasVersion fx:version ;
+    dcterms:source "Purpose-built L3 fixture; not railway evidence."@en .
+
+fx:run a rss-res:Run ;
+    rss-res:runIdentifier "l3-test" ;
+    rss-res:usedInstanceSet fx:instance-set ;
+    rss-res:usedVersion fx:version .
+
+fx:basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Synthetic classification inputs for testing layer separation."@en ;
+    rss-crit:revisionConditions "Fixture only; never use as domain evidence."@en .
+
+fx:entry-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion fx:version ;
+    rss-crit:determinesMembershipOf rss-crit:EntryPoint ;
+    rss-crit:restsOnJudgement fx:basis .
+
+fx:candidate-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion fx:version ;
+    rss-crit:criterionStatement "An explicitly evaluated synthetic target is a candidate examination target."@en ;
+    rss-crit:determinesMembershipOf rss-crit:CandidateExaminationTarget ;
+    rss-crit:restsOnJudgement fx:basis .
+
+fx:entry-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:entry ;
+    rss-res:evaluatesCriterion fx:entry-criterion ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:candidate-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:target ;
+    rss-res:evaluatesCriterion fx:candidate-criterion ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:first-hop-candidate-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:first-hop ;
+    rss-res:evaluatesCriterion fx:candidate-criterion ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:second-hop-candidate-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:second-hop ;
+    rss-res:evaluatesCriterion fx:candidate-criterion ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:first-hop-auth-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:first-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-authentication-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:first-hop-integrity-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:first-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-integrity-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:second-hop-auth-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:second-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-authentication-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:notSatisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:second-hop-logging-evaluation a rss-res:CriterionEvaluation ;
+    rss-res:evaluationConcernsElement fx:second-hop ;
+    rss-res:evaluatesCriterion <https://w3id.org/railsec-scope/criteria/railway/l1-monitoring-criterion> ;
+    rss-res:hasEvaluationOutcome rss-res:satisfied ;
+    rss-res:producedByRun fx:run .
+
+fx:entry a rss-core:Asset ;
+    rss-core:reachableBy fx:remote-access .
+fx:middle a rss-core:Asset .
+fx:target a rss-core:Asset .
+fx:not-reached a rss-core:Asset .
+
+fx:remote-access a rss-core:AccessMechanism ;
+    rss-core:requiresPrecondition fx:network-access .
+fx:network-access a rss-core:AccessPrecondition ;
+    rss-core:preconditionSupportedBy fx:network-assumption .
+fx:network-assumption a rss-core:Assumption ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus .
+
+fx:first-hop a rss-rail:RailwayInformationFlow, rss-rail:VulnerableFlow ;
+    rss-core:hasOrigin fx:entry ;
+    rss-core:hasDestination fx:middle .
+fx:second-hop a rss-rail:RailwayInformationFlow, rss-rail:VulnerableFlow ;
+    rss-core:hasOrigin fx:middle ;
+    rss-core:hasDestination fx:target .
+fx:non-vulnerable-hop a rss-rail:RailwayInformationFlow ;
+    rss-core:hasOrigin fx:target ;
+    rss-core:hasDestination fx:not-reached .
+
+fx:entry-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:entry ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+fx:middle-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:middle ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+fx:target-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:target ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+fx:not-reached-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:not-reached ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+fx:first-hop-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:first-hop ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+fx:second-hop-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:second-hop ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+fx:non-vulnerable-hop-boundary a rss-core:BoundaryStatusAssertion ;
+    rss-core:statusSubject fx:non-vulnerable-hop ; rss-core:boundaryStatusValue rss-core:inScope ;
+    rss-res:assertedInInstanceSet fx:instance-set .

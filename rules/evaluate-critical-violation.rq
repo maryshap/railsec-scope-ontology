@@ -34,6 +34,8 @@ WHERE {
   ?criterion a rss-crit:Criterion ;
       rss-rail:assessesCriticalViolation ?violation ;
       rss-rail:elevatesTransmissionThreat ?threat .
+  OPTIONAL { ?criterion rss-rail:requiresPayloadClass ?explicitPayloadClass }
+  BIND(COALESCE(?explicitPayloadClass, rss-rail:SafetyRelatedPayload) AS ?requiredPayloadClass)
 
   ?threatEvaluation a rss-res:CriterionEvaluation ;
       rss-res:evaluationConcernsElement ?flow ;
@@ -45,20 +47,20 @@ WHERE {
   # Absence of a payload statement is unknown, not a negative assertion.
   OPTIONAL {
     ?flow rss-core:carriesPayload ?payload .
-    OPTIONAL { ?payload a rss-rail:SafetyRelatedPayload . BIND(true AS ?safetyPayload) }
-    OPTIONAL { ?payload a rss-rail:NonSafetyPayload . BIND(false AS ?nonSafetyPayload) }
   }
 
-  BIND(IF(BOUND(?safetyPayload), true,
-          IF(BOUND(?nonSafetyPayload), false, ?unboundPayload)) AS ?payloadSafetyRelated)
+  BIND(EXISTS { ?flow rss-core:carriesPayload ?anyPayload . } AS ?payloadStated)
+  BIND(EXISTS { ?flow rss-core:carriesPayload ?matchingPayload . ?matchingPayload a ?requiredPayloadClass . } AS ?requiredPayloadMatched)
+  BIND(EXISTS { ?flow rss-core:carriesPayload ?negativePayload . ?negativePayload a rss-rail:NonSafetyPayload . } AS ?nonSafetyPayloadStated)
   BIND(?threatOutcome = rss-res:satisfied AS ?threatExposed)
   BIND(?threatOutcome = rss-res:undetermined AS ?threatUndetermined)
 
   BIND(
     IF(?threatUndetermined, rss-res:undetermined,
        IF(!?threatExposed, rss-res:notSatisfied,
-          IF(!BOUND(?payloadSafetyRelated), rss-res:undetermined,
-             IF(?payloadSafetyRelated, rss-res:satisfied, rss-res:notSatisfied))))
+          IF(!?payloadStated, rss-res:undetermined,
+             IF(?requiredPayloadMatched, rss-res:satisfied,
+                IF(?nonSafetyPayloadStated, rss-res:notSatisfied, rss-res:undetermined)))))
     AS ?outcome
   )
   BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)

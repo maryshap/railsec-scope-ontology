@@ -11,7 +11,7 @@ from rdflib import Graph, Namespace, OWL, RDF, RDFS
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-GATE_B = PROJECT / "docs" / "GATE_B_CONCEPTUAL_MODEL_V1_0.md"
+GATE_B = PROJECT / "docs" / "CONCEPTUAL_MODEL.md"
 ONTOLOGY_DIR = PROJECT / "ontology"
 CHANGE_CATALOGUE = PROJECT / "docs" / "CONCEPTUAL_CHANGE_CATALOG.tsv"
 

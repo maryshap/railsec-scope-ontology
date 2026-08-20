@@ -122,12 +122,13 @@ class Phase2TransmissionThreatTest(unittest.TestCase):
         conforms, _, report = validate(data_graph=graph, shacl_graph=shapes, inference="none", advanced=True)
         self.assertTrue(conforms, report)
 
-    def test_threat_criteria_do_not_claim_normative_legacy_authority(self) -> None:
+    def test_threat_criteria_have_source_locations_and_judgement_basis(self) -> None:
         graph = load_graph()
         for criterion in graph.subjects(RAIL.assessesTransmissionThreat, None):
             basis = graph.value(criterion, CRIT.restsOnJudgement)
             self.assertIsNotNone(basis)
-            self.assertIsNone(graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(graph.value(criterion, CRIT.appliesInterpretation))
             self.assertIn("legacy documents are implementation history", str(graph.value(basis, CRIT.reasoning)))
 
 

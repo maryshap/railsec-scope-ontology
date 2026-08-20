@@ -286,8 +286,9 @@ def execute(instance_files: list[Path], run_identifier: str, progress=None) -> R
     result.run_iri = RUN[run_identifier]
 
     graph = Graph()
+    instance_paths = [path if path.is_absolute() else PROJECT / path for path in instance_files]
     load_paths = _ontology_modules() + [PROJECT / "imports" / "prov-o-dl.ttl",
-                                        PROJECT / "rules" / "rules.ttl"] + list(instance_files)
+                                        PROJECT / "rules" / "rules.ttl"] + instance_paths
     artefacts = load_paths + [
         PROJECT / "rules" / filename for filename in STAGE_RULES
     ] + [

@@ -164,10 +164,12 @@ def run_reasoner(graph: Graph) -> bool:
     return True
 
 
-def apply_rules(graph: Graph) -> int:
+def apply_rules(graph: Graph, progress=None) -> int:
     """Apply every rule stage once. Returns the number of triples added."""
     before = len(graph)
     for filename in STAGE_RULES:
+        if progress is not None:
+            progress(f"  rule {filename}")
         query = (PROJECT / "rules" / filename).read_text(encoding="utf-8")
         graph += graph.query(query).graph
     return len(graph) - before
@@ -341,7 +343,7 @@ def execute(instance_files: list[Path], run_identifier: str, progress=None) -> R
         reasoned = run_reasoner(graph)
         result.reasoner_invoked = result.reasoner_invoked or reasoned
         progress(f"iteration {iteration}: rules")
-        apply_rules(graph)
+        apply_rules(graph, progress=progress)
         progress(f"iteration {iteration}: materialise assignments")
         materialise_assignments(graph, result.run_iri)
         progress(f"iteration {iteration}: materialise candidate set")

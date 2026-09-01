@@ -42,7 +42,6 @@ WHERE {
       rss-rail:assessesCriticalViolation ?violation ;
       rss-rail:elevatesTransmissionThreat ?threat .
 
-  BIND(IRI(CONCAT(STR(?flow), "/evaluation/threat/", ENCODE_FOR_URI(STRAFTER(STR(?threat), "#")), "/run/", MD5(STR(?run)))) AS ?threatEvaluation)
   ?threatEvaluation a rss-res:CriterionEvaluation ;
       rss-res:evaluationConcernsElement ?flow ;
       rss-res:evaluatesCriterion ?threatCriterion ;

@@ -5,6 +5,7 @@ PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
 PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
 PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
 PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+PREFIX rsscr: <https://w3id.org/railsec-scope/criteria/railway/>
 
 # M5-R13 remediation priority (legacy v3 R2.4.3). A mobile-zone asset with a
 # satisfied fail-safe compromise receives a high-priority remediation evaluation.
@@ -29,8 +30,30 @@ CONSTRUCT {
       rss-res:generatedResult ?evaluation .
 }
 WHERE {
-  ?asset a rss-rail:SafetyCriticalAsset .
-  ?run a rss-res:Run .
+  {
+    SELECT ?asset ?run ?criterion ?priority ?zoneClass
+           (SUM(IF(?failSafeOutcome = rss-res:satisfied, 1, 0)) AS ?satisfiedCount)
+           (SUM(IF(?failSafeOutcome = rss-res:undetermined, 1, 0)) AS ?undeterminedCount)
+    WHERE {
+      ?asset a rss-rail:SafetyCriticalAsset .
+      ?run a rss-res:Run .
+      VALUES (?criterion ?priority ?zoneClass) {
+        (rsscr:mobile-zone-remediation-criterion rss-rail:highPriorityRemediation rss-rail:MobileZone)
+      }
+      ?criterion a rss-crit:Criterion .
+
+      ?failSafeEvaluation a rss-res:CriterionEvaluation ;
+          rss-res:evaluationConcernsElement ?asset ;
+          rss-res:evaluatesCriterion ?failSafeCriterion ;
+          rss-res:hasEvaluationOutcome ?failSafeOutcome ;
+          rss-res:producedByRun ?run .
+      ?failSafeCriterion rss-rail:assessesFailSafeCompromiseFrom ?violation .
+    }
+    GROUP BY ?asset ?run ?criterion ?priority ?zoneClass
+  }
+  VALUES (?criterion ?priority ?zoneClass) {
+    (rsscr:mobile-zone-remediation-criterion rss-rail:highPriorityRemediation rss-rail:MobileZone)
+  }
   ?criterion a rss-crit:Criterion ;
       rss-rail:assessesRemediationPriority ?priority ;
       rss-rail:assessesZoneClass ?zoneClass .
@@ -42,18 +65,22 @@ WHERE {
       rss-res:producedByRun ?run .
   ?failSafeCriterion rss-rail:assessesFailSafeCompromiseFrom ?violation .
 
-  BIND(EXISTS {
+  OPTIONAL {
     ?asset rss-core:memberOf ?anyZone .
     ?anyZone a ?anyZoneClass .
     ?anyZoneClass rdfs:subClassOf* rss-rail:RailwaySecurityZone .
-  } AS ?zoneInventoryStated)
-  BIND(EXISTS {
+  }
+  OPTIONAL {
     ?asset rss-core:memberOf ?matchedZone .
     ?matchedZone a ?matchedZoneClass .
     ?matchedZoneClass rdfs:subClassOf* ?zoneClass .
-  } AS ?zoneClassMatched)
-  BIND(IF(?failSafeOutcome = rss-res:undetermined || !?zoneInventoryStated, rss-res:undetermined,
-          IF(?failSafeOutcome = rss-res:satisfied && ?zoneClassMatched, rss-res:satisfied, rss-res:notSatisfied)) AS ?outcome)
+  }
+  BIND(BOUND(?anyZone) AS ?zoneInventoryStated)
+  BIND(BOUND(?matchedZone) AS ?zoneClassMatched)
+  BIND(?satisfiedCount > 0 AS ?anySatisfied)
+  BIND(?undeterminedCount > 0 AS ?anyUndetermined)
+  BIND(IF(?anyUndetermined || !?zoneInventoryStated, rss-res:undetermined,
+          IF(?anySatisfied && ?zoneClassMatched, rss-res:satisfied, rss-res:notSatisfied)) AS ?outcome)
   BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
   BIND(IRI(CONCAT(STR(?asset), "/evaluation/remediation/", ENCODE_FOR_URI(STRAFTER(STR(?priority), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)
   BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)

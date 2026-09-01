@@ -30,6 +30,7 @@ import hashlib
 import shutil
 import subprocess
 import tempfile
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -170,8 +171,11 @@ def apply_rules(graph: Graph, progress=None) -> int:
     for filename in STAGE_RULES:
         if progress is not None:
             progress(f"  rule {filename}")
+        started = time.perf_counter()
         query = (PROJECT / "rules" / filename).read_text(encoding="utf-8")
         graph += graph.query(query).graph
+        if progress is not None:
+            progress(f"  rule {filename}: {time.perf_counter() - started:.1f}s")
     return len(graph) - before
 
 
@@ -280,7 +284,12 @@ def guarded_category_violations(graph: Graph) -> list[str]:
     return violations
 
 
-def execute(instance_files: list[Path], run_identifier: str, progress=None) -> RunResult:
+def execute(
+    instance_files: list[Path],
+    run_identifier: str,
+    progress=None,
+    skip_output_validation: bool = False,
+) -> RunResult:
     """Execute one Run over the given instance set."""
     progress = progress or (lambda _message: None)
     result = RunResult()
@@ -363,13 +372,18 @@ def execute(instance_files: list[Path], run_identifier: str, progress=None) -> R
         result.refuse("description-logic reasoner was not invoked; entailments are unverified")
 
     # 5. validate the derived graph
-    progress("output validation")
-    conforms, _, report = validate(data_graph=graph, shacl_graph=_output_shapes(),
-                                   inference="none", advanced=True)
-    result.output_validation_conforms = conforms
-    progress(f"output validation: {'conforms' if conforms else 'FAILED'}")
-    if not conforms:
-        result.refuse("output validation failed")
+    if skip_output_validation:
+        progress("output validation: skipped")
+        result.output_validation_conforms = False
+        result.refuse("output validation skipped; Run is for local export only")
+    else:
+        progress("output validation")
+        conforms, _, report = validate(data_graph=graph, shacl_graph=_output_shapes(),
+                                       inference="none", advanced=True)
+        result.output_validation_conforms = conforms
+        progress(f"output validation: {'conforms' if conforms else 'FAILED'}")
+        if not conforms:
+            result.refuse("output validation failed")
 
     # 6. no classification outside L1/L2
     progress("guarded category check")
@@ -442,6 +456,14 @@ if __name__ == "__main__":
         action="store_true",
         help="print Run progress messages before each long stage",
     )
+    parser.add_argument(
+        "--skip-output-validation",
+        action="store_true",
+        help=(
+            "write a local exploration graph without running the expensive "
+            "derived-graph SHACL validation; the Run is marked non-publishable"
+        ),
+    )
     args = parser.parse_args()
 
     files = args.files or [
@@ -452,6 +474,7 @@ if __name__ == "__main__":
         files,
         run_identifier=args.run_id,
         progress=print if args.progress else None,
+        skip_output_validation=args.skip_output_validation,
     )
     print(summarise(outcome))
 
@@ -462,4 +485,9 @@ if __name__ == "__main__":
     elif args.output is not None:
         print("\nno graph to write (Run was refused before any graph existed)")
 
+    # A skipped output validation deliberately makes the Run non-publishable,
+    # but local exploration/export commands should still finish successfully
+    # once the requested graph file has been written.
+    if args.skip_output_validation and args.output is not None and outcome.graph is not None:
+        sys.exit(0)
     sys.exit(0 if outcome.publishable else 1)

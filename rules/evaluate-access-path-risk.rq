@@ -5,6 +5,7 @@ PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
 PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
 PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
 PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+PREFIX rsscr: <https://w3id.org/railsec-scope/criteria/railway/>
 
 # M5-R08 access path risk on an information flow (legacy v3 R2.6.2, R2.6.4).
 #
@@ -34,45 +35,59 @@ CONSTRUCT {
       rss-res:generatedResult ?evaluation .
 }
 WHERE {
-  ?flow a rss-rail:RailwayInformationFlow .
-  ?run a rss-res:Run .
-  ?criterion a rss-crit:Criterion ;
-      rss-rail:assessesAccessRisk ?risk ;
-      rss-rail:assessesAccessMechanism ?mechanismClass .
-  FILTER(?risk = rss-rail:highRiskMaintenancePath || ?risk = rss-rail:remoteAccessRisk)
+  {
+    SELECT ?flow ?run ?risk ?criterion
+           (MAX(IF(BOUND(?safetyAsset), 1, 0)) AS ?terminatesAtSafetyCriticalCount)
+           (MAX(IF(BOUND(?anyOrigin), 1, 0)) AS ?originStatedCount)
+           (MAX(IF(BOUND(?anyOriginMechanism), 1, 0)) AS ?originInventoryStatedCount)
+           (MAX(IF(BOUND(?originMechanism), 1, 0)) AS ?originMechanismPresentCount)
+           (MAX(IF(BOUND(?anyFlowMechanism), 1, 0)) AS ?flowInventoryStatedCount)
+           (MAX(IF(BOUND(?flowMechanism), 1, 0)) AS ?flowMechanismPresentCount)
+           (COUNT(?threatOutcome) AS ?threatEvalCount)
+           (SUM(IF(?threatOutcome = rss-res:satisfied, 1, 0)) AS ?threatSatisfiedCount)
+           (SUM(IF(?threatOutcome = rss-res:undetermined, 1, 0)) AS ?threatUndeterminedCount)
+    WHERE {
+      ?flow a rss-rail:RailwayInformationFlow .
+      ?run a rss-res:Run .
+      VALUES (?risk ?criterion ?mechanismClass) {
+        (rss-rail:highRiskMaintenancePath rsscr:access-maintenance-path-criterion rss-rail:MaintenanceAccess)
+        (rss-rail:remoteAccessRisk rsscr:access-remote-access-criterion rss-rail:RemoteAccess)
+      }
+      ?criterion a rss-crit:Criterion ;
+          rss-rail:assessesAccessRisk ?risk ;
+          rss-rail:assessesAccessMechanism ?mechanismClass .
 
-  # Maintenance path inputs.
-  BIND(EXISTS { ?flow rss-core:hasDestination ?safetyAsset . ?safetyAsset a rss-rail:SafetyCriticalAsset . } AS ?terminatesAtSafetyCritical)
-  BIND(EXISTS { ?flow rss-core:hasOrigin ?anyOrigin . } AS ?originStated)
-  BIND(EXISTS { ?flow rss-core:hasOrigin ?statedOrigin . ?statedOrigin rss-core:reachableBy ?anyOriginMechanism . } AS ?originInventoryStated)
-  BIND(EXISTS { ?flow rss-core:hasOrigin ?matchedOrigin . ?matchedOrigin rss-core:reachableBy ?originMechanism . ?originMechanism rdf:type ?mechanismClass . } AS ?originMechanismPresent)
+      OPTIONAL { ?flow rss-core:hasDestination ?safetyAsset . ?safetyAsset a rss-rail:SafetyCriticalAsset . }
+      OPTIONAL { ?flow rss-core:hasOrigin ?anyOrigin . }
+      OPTIONAL { ?flow rss-core:hasOrigin ?statedOrigin . ?statedOrigin rss-core:reachableBy ?anyOriginMechanism . }
+      OPTIONAL { ?flow rss-core:hasOrigin ?matchedOrigin . ?matchedOrigin rss-core:reachableBy ?originMechanism . ?originMechanism rdf:type ?mechanismClass . }
+      OPTIONAL { ?flow rss-core:reachableBy ?anyFlowMechanism . }
+      OPTIONAL { ?flow rss-core:reachableBy ?flowMechanism . ?flowMechanism rdf:type ?mechanismClass . }
 
-  # Remote access inputs.
-  BIND(EXISTS { ?flow rss-core:reachableBy ?anyFlowMechanism . } AS ?flowInventoryStated)
-  BIND(EXISTS { ?flow rss-core:reachableBy ?flowMechanism . ?flowMechanism rdf:type ?mechanismClass . } AS ?flowMechanismPresent)
-  BIND(EXISTS {
-    ?threatEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?flow ;
-        rss-res:evaluatesCriterion ?threatCriterion ;
-        rss-res:hasEvaluationOutcome rss-res:satisfied ;
-        rss-res:producedByRun ?run .
-    ?threatCriterion rss-rail:assessesTransmissionThreat ?anyThreat .
-  } AS ?anyThreatSatisfied)
-  BIND(EXISTS {
-    ?undeterminedEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?flow ;
-        rss-res:evaluatesCriterion ?undeterminedCriterion ;
-        rss-res:hasEvaluationOutcome rss-res:undetermined ;
-        rss-res:producedByRun ?run .
-    ?undeterminedCriterion rss-rail:assessesTransmissionThreat ?anyUndeterminedThreat .
-  } AS ?anyThreatUndetermined)
-  BIND(EXISTS {
-    ?knownEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?flow ;
-        rss-res:evaluatesCriterion ?knownCriterion ;
-        rss-res:producedByRun ?run .
-    ?knownCriterion rss-rail:assessesTransmissionThreat ?anyKnownThreat .
-  } AS ?threatStageRan)
+      VALUES ?threat {
+        rss-rail:RepetitionThreat rss-rail:DeletionThreat rss-rail:InsertionThreat
+        rss-rail:ResequencingThreat rss-rail:CorruptionThreat rss-rail:DelayThreat
+        rss-rail:MasqueradeThreat
+      }
+      BIND(IRI(CONCAT(STR(?flow), "/evaluation/threat/", ENCODE_FOR_URI(STRAFTER(STR(?threat), "#")), "/run/", MD5(STR(?run)))) AS ?threatEvaluation)
+      OPTIONAL {
+        ?threatEvaluation rss-res:evaluationConcernsElement ?flow ;
+            rss-res:hasEvaluationOutcome ?threatOutcome ;
+            rss-res:producedByRun ?run .
+      }
+    }
+    GROUP BY ?flow ?run ?risk ?criterion
+  }
+
+  BIND(?terminatesAtSafetyCriticalCount > 0 AS ?terminatesAtSafetyCritical)
+  BIND(?originStatedCount > 0 AS ?originStated)
+  BIND(?originInventoryStatedCount > 0 AS ?originInventoryStated)
+  BIND(?originMechanismPresentCount > 0 AS ?originMechanismPresent)
+  BIND(?flowInventoryStatedCount > 0 AS ?flowInventoryStated)
+  BIND(?flowMechanismPresentCount > 0 AS ?flowMechanismPresent)
+  BIND(?threatEvalCount > 0 AS ?threatStageRan)
+  BIND(?threatSatisfiedCount > 0 AS ?anyThreatSatisfied)
+  BIND(?threatUndeterminedCount > 0 AS ?anyThreatUndetermined)
 
   BIND(
     IF(?risk = rss-rail:highRiskMaintenancePath,

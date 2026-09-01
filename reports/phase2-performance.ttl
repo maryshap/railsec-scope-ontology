@@ -1,0 +1,27 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix phase2: <https://w3id.org/railsec-scope/evidence/phase2/> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+phase2:phase2-performance-version a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "phase2-performance-2026-08-18" .
+
+phase2:github-actions-windows-latest a rss-res:ExecutionEnvironment ;
+    rss-res:operatingSystem "GitHub Actions windows-latest runner" ;
+    rss-res:runtimeVersions "Python 3.12, Temurin Java 17, ROBOT 1.9.10, dependencies pinned by requirements.txt" ;
+    rss-res:hardwareConfiguration "GitHub-hosted runner; exact hardware is provider-controlled and therefore not claimed as portable evidence." .
+
+phase2:full-validation-target a rss-res:PerformanceTarget ;
+    rss-crit:hasVersion phase2:phase2-performance-version ;
+    rss-res:measuredStage "full-validate-workflow" ;
+    rss-res:thresholdSeconds 900.0 ;
+    rss-res:representativeFixtureIdentifier "https://github.com/maryshap/railsec-scope-ontology/actions/workflows/validate.yml"^^xsd:anyURI ;
+    dcterms:description "Predeclared Phase 2 target for the full GitHub validation workflow after Step 15 closure: OWL profile checks, HermiT reasoning, generated-report regression, Gate B audit, publication lint, semantic tests and expected inconsistency checks must complete within 900 seconds on the declared CI environment."@en .
+
+phase2:historical-ci-observation-before-target a rss-res:PerformanceMeasurement ;
+    rss-res:measuredStage "full-validate-workflow" ;
+    rss-res:elapsedTimeSeconds 600.0 ;
+    rss-res:inputSize 116 ;
+    rss-res:inputSizeUnit "unittest cases plus OWL/ROBOT validation stages" ;
+    dcterms:description "Historical observation from the green Step 13 CI run visible in the pull-request UI. It is retained as context only and is not treated as proof against the Step 15 target because the target was not yet predeclared."@en .

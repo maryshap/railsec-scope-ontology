@@ -3,6 +3,7 @@ PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
 PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
 PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
 PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+PREFIX rsscr: <https://w3id.org/railsec-scope/criteria/railway/>
 
 CONSTRUCT {
   ?evaluation a rss-res:CriterionEvaluation ;
@@ -26,37 +27,35 @@ CONSTRUCT {
 WHERE {
   ?flow a rss-rail:RailwayInformationFlow .
   ?run a rss-res:Run .
+  VALUES (?threat ?criterion) {
+    (rss-rail:RepetitionThreat rsscr:threat-repetition-criterion)
+    (rss-rail:DeletionThreat rsscr:threat-deletion-criterion)
+    (rss-rail:InsertionThreat rsscr:threat-insertion-criterion)
+    (rss-rail:ResequencingThreat rsscr:threat-resequencing-criterion)
+    (rss-rail:CorruptionThreat rsscr:threat-corruption-criterion)
+    (rss-rail:DelayThreat rsscr:threat-delay-criterion)
+    (rss-rail:MasqueradeThreat rsscr:threat-masquerade-criterion)
+  }
   ?criterion a rss-crit:Criterion ;
       rss-rail:assessesTransmissionThreat ?threat .
-  VALUES ?threat {
-    rss-rail:RepetitionThreat rss-rail:DeletionThreat rss-rail:InsertionThreat
-    rss-rail:ResequencingThreat rss-rail:CorruptionThreat rss-rail:DelayThreat
-    rss-rail:MasqueradeThreat
-  }
 
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/Category1Transmission/run/", MD5(STR(?run)))) AS ?cat1Evaluation)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/Category2Transmission/run/", MD5(STR(?run)))) AS ?cat2Evaluation)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/Category3Transmission/run/", MD5(STR(?run)))) AS ?cat3Evaluation)
   OPTIONAL {
-    ?cat1Evaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?flow ;
-        rss-res:evaluatesCriterion ?cat1Criterion ;
+    ?cat1Evaluation rss-res:evaluationConcernsElement ?flow ;
         rss-res:hasEvaluationOutcome ?cat1Outcome ;
         rss-res:producedByRun ?run .
-    ?cat1Criterion rss-crit:determinesMembershipOf rss-rail:Category1Transmission .
   }
   OPTIONAL {
-    ?cat2Evaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?flow ;
-        rss-res:evaluatesCriterion ?cat2Criterion ;
+    ?cat2Evaluation rss-res:evaluationConcernsElement ?flow ;
         rss-res:hasEvaluationOutcome ?cat2Outcome ;
         rss-res:producedByRun ?run .
-    ?cat2Criterion rss-crit:determinesMembershipOf rss-rail:Category2Transmission .
   }
   OPTIONAL {
-    ?cat3Evaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?flow ;
-        rss-res:evaluatesCriterion ?cat3Criterion ;
+    ?cat3Evaluation rss-res:evaluationConcernsElement ?flow ;
         rss-res:hasEvaluationOutcome ?cat3Outcome ;
         rss-res:producedByRun ?run .
-    ?cat3Criterion rss-crit:determinesMembershipOf rss-rail:Category3Transmission .
   }
 
   OPTIONAL { ?flow rss-rail:sequenceProtectionEnabled ?sequenceProtection . }

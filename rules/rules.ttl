@@ -13,7 +13,7 @@ rss-rule:CandidateFromSatisfiedEvaluation a rss-rule:DLSafeRule ;
     rss-rule:implementationFile "classify-candidate.rq" ;
     rss-rule:ruleIdentifier "L2-R01" ;
     rss-rule:enabled true ;
-    dcterms:description "A satisfied evaluation of a criterion that determines CandidateExaminationTarget membership entails that membership for the named element."@en .
+    dcterms:description "A satisfied evaluation of a criterion that determines an assessment-bearing category entails that category membership for the named element. The historical identifier is retained for compatibility although the implementation is now category-generic."@en .
 
 rss-rule:phase2RuleVersion a rss-crit:ArtefactVersion ;
     rss-crit:versionIdentifier "0.1.0-phase2" .
@@ -87,6 +87,115 @@ rss-rule:ClassifyVulnerableFlow a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:ruleIdentifier "M5-R10" ;
     rss-rule:enabled true ;
     dcterms:description "Materialises the vulnerable flow subtype implied by a satisfied control-weakness evaluation."@en .
+
+rss-rule:EvaluateAssetZoneClassification a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-asset-zone-classification.rq" ;
+    rss-rule:ruleIdentifier "M5-R12" ;
+    rss-rule:enabled true ;
+    dcterms:description "Evaluates asset exposure, Category 3 asset context and entry-point candidacy from explicit asset-to-zone membership; missing zone inventory yields undetermined."@en .
+
+rss-rule:EvaluateRemediationPriority a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "evaluate-remediation-priority.rq" ;
+    rss-rule:ruleIdentifier "M5-R13" ;
+    rss-rule:enabled true ;
+    dcterms:description "Evaluates high-priority remediation for safety-critical assets with satisfied fail-safe compromise in a mobile railway zone."@en .
+
+rss-rule:ClassifyDerivedMembership a rss-rule:DLSafeRule, rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-rule:implementationFile "classify-derived-membership.rq" ;
+    rss-rule:ruleIdentifier "M5-R14" ;
+    rss-rule:enabled true ;
+    dcterms:description "Materialises class membership only from a satisfied criterion that explicitly determines that membership."@en .
+
+rss-rule:CategoryAssignmentMaterialiser a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Records CategoryAssignment individuals only after the corresponding satisfied evaluation and class entailment already exist."@en .
+
+rss-rule:L3ReachabilityMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Deterministic directed graph traversal from L1/L2-classified entry points over vulnerable information-flow edges. Produces shortest witness paths and never category membership."@en .
+
+rss-rule:L3ReachabilityMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of the declared L3 reachability method."@en .
+
+rss-rule:CandidateSetProjectionMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Deterministic projection of materialised CandidateExaminationTarget assignments belonging to one Run."@en .
+
+rss-rule:CandidateSetProjectionMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of candidate-set projection in the Run orchestrator."@en .
+
+rss-rule:SelectionCoverageMeasure a rss-crit:CoverageMeasure ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:measureDefinition "Number of distinct candidate elements included in the declared Selection divided by the number of distinct eligible candidate elements." ;
+    rss-crit:eligibilityScope "Materialised CandidateExaminationTarget assignments in one run-scoped CandidateSet." ;
+    rss-crit:exclusionDeclaration "No implicit exclusions. Assessor exclusions remain visible as candidate elements not included in the Selection." .
+
+rss-rule:SelectionCoverageMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Computes the declared selection-coverage ratio; returns notComputable for an empty candidate universe."@en .
+
+rss-rule:SelectionCoverageMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of the declared selection-coverage method."@en .
+
+rss-rule:AHPRiskOrderingFactorSet a rss-crit:OrderingFactorSet ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:hasFactor rss-rule:AHPAuthenticationFactor,
+        rss-rule:AHPIntegrityFactor,
+        rss-rule:AHPWirelessExposureFactor,
+        rss-rule:AHPRateLimitingFactor,
+        rss-rule:AHPBoundaryCrossingFactor,
+        rss-rule:AHPSegmentationFactor,
+        rss-rule:AHPLoggingFactor ;
+    dcterms:description "AHP-derived Layer 4 risk-scoring factor set. The pairwise matrix has CR 0.0551 and is accepted as a versioned assessor judgement; wireless exposure and boundary crossing remain declared factors even where their criteria are not yet implemented."@en .
+
+rss-rule:AHPAuthenticationFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.3517 ;
+    dcterms:description "Authentication absence risk contribution from the accepted AHP matrix."@en .
+
+rss-rule:AHPIntegrityFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.2513 ;
+    dcterms:description "Integrity-protection absence risk contribution from the accepted AHP matrix."@en .
+
+rss-rule:AHPWirelessExposureFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.1159 ;
+    dcterms:description "Wireless exposure risk contribution from the accepted AHP matrix; no production criterion is admitted for this factor in the current slice."@en .
+
+rss-rule:AHPRateLimitingFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.1014 ;
+    dcterms:description "Rate-limiting absence risk contribution from the accepted AHP matrix."@en .
+
+rss-rule:AHPBoundaryCrossingFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.0739 ;
+    dcterms:description "Trust-boundary crossing risk contribution from the accepted AHP matrix; no production criterion is admitted for this factor in the current slice."@en .
+
+rss-rule:AHPSegmentationFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.0565 ;
+    dcterms:description "Segmentation absence risk contribution from the accepted AHP matrix."@en .
+
+rss-rule:AHPLoggingFactor a rss-crit:OrderingFactor ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    rss-crit:factorWeight 0.0492 ;
+    dcterms:description "Monitoring and logging absence risk contribution from the accepted AHP matrix."@en .
+
+rss-rule:AHPRiskOrderingMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Deterministic ordering method using the accepted AHP risk weights: a satisfied factor evaluation contributes its declared weight, a not-satisfied evaluation contributes zero, and an undetermined evaluation makes that factor value not computable. Ordering entries are sorted by descending computable score with lexical tie-breaks."@en .
+
+rss-rule:AHPRiskOrderingMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase2RuleVersion ;
+    dcterms:description "Python implementation of the declared AHP risk-ordering method."@en .
 
 rss-rule:DLSafeRule a owl:Class .
 rss-rule:implementationFile a owl:DatatypeProperty .

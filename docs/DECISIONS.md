@@ -183,8 +183,8 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Trigger:** a transmission can be exposed to several EN 50159 threats at once, while the seven threat kinds are distinct vocabulary classes. Directly typing one flow as several disjoint threat classes would make the ontology inconsistent and would discard the three-valued outcome required downstream.
 - **Decision:** each threat criterion produces a `CriterionEvaluation` with `satisfied`, `notSatisfied` or `undetermined`. The criterion identifies the assessed threat through `assessesTransmissionThreat`. Category 2/3 applicability is consumed from upstream category evaluations belonging to the same Run.
 - **Rejected alternative:** assert legacy `*Vulnerability` classes directly on flows or infer threat exposure from M5 safeguard annotations. The first conflicts with the threat taxonomy and hides unknowns; the second turns documentation links into unsourced executable criteria.
-- **Implementation consequence:** Step 12.2 produces seven evaluations per railway flow and no direct threat membership. Legacy R2.2 mappings remain a provisional `JudgementBasis` until reviewed standard `SourceLocation` and `Interpretation` records are supplied.
-- **Reapproval required:** yes before public release because the provisional mappings are not normative evidence.
+- **Implementation consequence:** Step 12.2 produces seven evaluations per railway flow and no direct threat membership. The original provisional source status is superseded by CR-B-024, which reviews EN 50159:2010 and changes the executable semantics for category applicability and alternative defences.
+- **Reapproval required:** yes before public release because the executable semantics changed under CR-B-024 and must be regenerated in case-study evidence.
 
 ## CR-B-013 — Safety-critical elevation vocabulary (Step 12.3)
 
@@ -192,7 +192,7 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Admission class:** revision, not extension. The type is a new conceptual entity rather than a specialisation below one of the frozen 76 classes, and all five terms participate in criteria and therefore in evaluation results. Conceptual reapproval is required before release.
 - **Rationale:** the provisional interpretation gives masquerade and corruption the highest priority for safety-related communication. Elevation is a criterion outcome, mirroring the transmission-threat stage; no flow is typed directly with a violation class, preserving ORF-12 and ORF-13.
 - **Rejected alternative:** copy all four legacy Block 2.3 rules by inventing emergency-command and position-status payload classes. Only R2.3.1 and R2.3.2, expressible using the approved `SafetyRelatedPayload` / `NonSafetyPayload` distinction, are implemented. R2.3.3 delay elevation on emergency-command payload and R2.3.4 resequencing elevation on position-status payload remain deferred until a separate payload-vocabulary revision is approved.
-- **Provenance status:** the two criteria rest on a provisional `JudgementBasis`. Exact EN 50159 edition, source location and reviewed interpretation are required before release, as for the category and threat stages.
+- **Provenance status:** superseded by CR-B-024. The criteria now cite EN 50159:2010 clause 7.1 as the source for the four fundamental safety services, while the payload-specific elevation remains an explicitly recorded assessor prioritisation policy.
 - **Reapproval required:** yes before public release.
 
 ## CR-B-014 — Fail-safe compromise is an asset evaluation (Step 12.4)
@@ -200,8 +200,8 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Change:** M5 gains the functional Criterion property `assessesFailSafeCompromiseFrom`, linking a fail-safe criterion to the critical-violation type it consumes.
 - **Decision:** fail-safe compromise is represented by a three-valued `CriterionEvaluation` concerning a `SafetyCriticalAsset`. It requires an upstream critical-violation evaluation for a flow terminating at that asset and an explicit architecture chain in which the asset realises a safety function whose fail-safe behaviour depends on the asset.
 - **Rejected alternative:** infer or assert the legacy `FailSafeVulnerability` class directly on the asset. Direct typing would hide unknown dependencies and upstream `undetermined` outcomes and would bypass the provenance chain.
-- **Scope limitation:** legacy R2.4.1 and R2.4.2 are implemented provisionally. R2.4.3 is deferred because `MobileOperationalZone` and a governed remediation-priority result are absent from the approved vocabulary; neither is invented in this step.
-- **Provenance status:** the criteria rest on a provisional `JudgementBasis`. The legacy clause claims are implementation history, not normative evidence; reviewed source locations and interpretations remain release requirements.
+- **Scope limitation:** superseded by later Phase 2 gap closure. R2.4.3 is now admitted through a governed `MobileZone` and remediation-priority criterion.
+- **Provenance status:** superseded by CR-B-024. The fail-safe criteria now cite EN 50126-1:2017, EN 50159:2010 and prTS 50701 D8E4:2020 as reviewed sources, with the propagation model recorded as an assessor interpretation rather than a verbatim standard rule.
 - **Reapproval required:** yes before public release.
 
 ## CR-B-015 — SIL risk vocabulary (Step 12.5)
@@ -226,17 +226,16 @@ Both require an attack technique vocabulary, which the approved model does not
 contain and which would be a further conceptual revision. They are deferred
 rather than approximated.
 
-**Criterion decision deferred.** The legacy rationale equates a safety-critical
-asset with SIL 4. The implemented criterion uses safety-critical class
-membership only and does not consult `hasSafetyIntegrityLevel`, so an asset
-without a recorded SIL is not treated as unknown at this stage. Requiring an
-explicit SIL-4 assignment, and returning undetermined where none is recorded, is
-a defensible alternative and is recorded here for decision rather than chosen
-silently.
+**Criterion decision.** Superseded by CR-B-024. The legacy rationale equating a
+safety-critical asset with SIL 4 is not retained. The implemented criterion is a
+safety-integrity scoping concern for penetration-test prioritisation and does
+not infer or allocate a SIL. Any real SIL value must be supplied separately as
+an attributed `SILAssignmentAssumption` over a safety-related electronic
+function, with a matching `hasSafetyIntegrityLevel` value.
 
-**Provenance status.** The criterion rests on a recorded provisional
-`JudgementBasis`. Reviewed IEC 61508 and EN 50126 source locations and
-interpretations are still required before release.
+**Provenance status.** Superseded by CR-B-024. The criterion cites
+EN 50126-1:2017 and EN 50126-2:2017; IEC 61508 is not used as evidence for this
+Phase 2 rule.
 
 **Closed-set note.** `SILRiskType` currently contains one individual. Adding the
 deferred SIL attack types later changes a closed value set and is therefore a
@@ -267,9 +266,9 @@ exists. An element with a stated inventory that does not contain the assessed
 mechanism is notSatisfied. This distinction is the reason the stage needs three
 values, and it is the point most likely to be lost in a later refactoring.
 
-**Provenance status.** All four criteria rest on a recorded provisional
-`JudgementBasis`. Reviewed TS 50701 source locations and interpretations are
-still required before release.
+**Provenance status.** Superseded by CR-B-024. The criteria now cite
+prTS 50701 D8E4:2020 as the project-supplied current review source and record
+the access-risk model as assessor policy.
 
 ## CR-B-017 — classification provenance and K-25 (Step 12.7)
 
@@ -701,3 +700,42 @@ M5 access-exclusion assumptions use the projected `prov:wasAttributedTo` propert
 ## Import policy
 
 Production modules import the stable PROV-O ontology IRI `http://www.w3.org/ns/prov-o`. The build must resolve it to a locally pinned, checksum-recorded copy; tests must not depend on live network retrieval. No project class or property is declared equivalent to a PROV-O term in the 0.1.0 line.
+
+## CR-B-024 — Primary-standard review corrections for L1–L2
+
+**Reviewed documents.** EN 50159:2010, EN 50126-1:2017,
+EN 50126-2:2017, IEC 62443-3-3:2013 and the project-supplied
+prTS 50701 D8E4:2020 are treated as the current review set. The prTS source is
+identified as a 2020 draft rather than being presented as the published 2021
+technical specification.
+
+**Category correction.** EN 50159:2010 clauses 6.3.1–6.3.3 define Category 1
+from Pr1+Pr2+Pr3, Category 2 from failure of Pr1 or Pr2 together with Pr3, and
+Category 3 from failure of Pr3 independently of Pr1/Pr2. The earlier rule did
+not require Pr3 for Category 1 and incorrectly conditioned Category 3 on
+Pr1/Pr2; both errors are corrected.
+
+**Threat correction.** EN 50159:2010 clause 6.4 applies every Clause 5 threat
+to every category except masquerade, which applies only to open Categories 2
+and 3. Clause 7.4.2 Table 1 is an alternatives matrix. One enabled listed
+defence is sufficient to avoid an exposure finding; exposure is returned only
+when every listed alternative is explicitly false; a partial inventory without
+a positive alternative is `undetermined`. The legacy aggregate
+`sequenceProtectionEnabled` remains compatibility data and is not accepted as
+a substitute for the specific Table 1 mechanisms.
+
+**Assessor-policy boundary.** EN 50159:2010 does not define
+`EmergencyCommandData`, `PositionStatusData`, project critical-violation
+classes, asset-level Category 3 context or the project's remediation priorities.
+These are retained only as explicitly labelled assessor classifications or
+prioritisation policies. IEC 62443-3-3:2013 requirements are system
+capabilities; mapping them onto boolean per-flow observations is likewise an
+explicit assessor interpretation.
+
+**SIL correction.** EN 50126-1:2017 clause 3.70 and EN 50126-2:2017 clause
+10.2 allocate SIL to safety-related electronic functions through the safety
+process. Cybersecurity findings and `SafetyCriticalAsset` membership do not
+allocate a SIL. The derived M5-R06 result is renamed semantically as a
+safety-integrity scoping concern, while any actual SIL value requires a
+separate, attributed `SILAssignmentAssumption` with a `JudgementBasis` (K-26)
+until safety-case evidence supports an asserted fact.

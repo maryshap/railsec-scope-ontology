@@ -23,6 +23,13 @@ fx:cat1-fixed a rss-rail:ParticipantSetFixedFact ;
     rss-rail:transmissionAssertionSubject fx:cat1-flow ;
     rss-res:assertedInInstanceSet fx:instance-set .
 
+fx:cat1-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
+    prov:wasAttributedTo fx:assessor ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-rail:transmissionAssertionSubject fx:cat1-flow ;
+    rss-rail:unauthorisedAccessExcludedValue true ;
+    rss-res:assertedInInstanceSet fx:instance-set .
+
 fx:cat2-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
     prov:wasAttributedTo fx:assessor ;
     rss-core:hasEpistemicStatus rss-core:assumptionStatus ;

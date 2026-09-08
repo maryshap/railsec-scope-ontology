@@ -31,8 +31,8 @@ rsscr:criteria-module-version a rss-crit:ArtefactVersion ;
 
 rsscr:access-maintenance-access-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:ts50701-7-2-location ;
-    rss-crit:criterionStatement "A safety-critical asset reachable by maintenance access carries a privileged access risk."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-6-5-2-location ;
+    rss-crit:criterionStatement "Under the assessor's access-risk policy informed by prTS 50701 D8E4:2020, a safety-critical asset reachable by maintenance access carries a privileged access risk."@en ;
     rss-crit:evaluationStageIdentifier "access-risk" ;
     rss-crit:appliesInterpretation rsscr:access-risk-interpretation ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -42,8 +42,8 @@ rsscr:access-maintenance-access-criterion a rss-crit:Criterion ;
 
 rsscr:access-maintenance-path-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:ts50701-7-2-2-location ;
-    rss-crit:criterionStatement "A flow terminating at a safety-critical asset whose origin is reachable by maintenance access is a high-risk maintenance path."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-6-5-2-location ;
+    rss-crit:criterionStatement "Under the assessor's access-risk policy informed by prTS 50701 D8E4:2020, a flow terminating at a safety-critical asset whose origin is reachable by maintenance access is a high-risk maintenance path."@en ;
     rss-crit:evaluationStageIdentifier "access-path" ;
     rss-crit:appliesInterpretation rsscr:access-risk-interpretation ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -53,8 +53,8 @@ rsscr:access-maintenance-path-criterion a rss-crit:Criterion ;
 
 rsscr:access-remote-access-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:ts50701-3-1-60-location ;
-    rss-crit:criterionStatement "A flow reachable by remote access that carries a satisfied transmission-threat evaluation is a remote access risk."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-3-1-59-location ;
+    rss-crit:criterionStatement "Under the assessor's access-risk policy informed by prTS 50701 D8E4:2020, a flow reachable by remote access that carries a satisfied transmission-threat evaluation is a remote access risk."@en ;
     rss-crit:evaluationStageIdentifier "access-path" ;
     rss-crit:appliesInterpretation rsscr:access-risk-interpretation ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -64,8 +64,8 @@ rsscr:access-remote-access-criterion a rss-crit:Criterion ;
 
 rsscr:access-supplier-access-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:ts50701-7-2-location ;
-    rss-crit:criterionStatement "A safety-critical asset reachable by supplier access carries a privileged supply chain risk."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-6-5-2-location ;
+    rss-crit:criterionStatement "Under the assessor's access-risk policy informed by prTS 50701 D8E4:2020, a safety-critical asset reachable by supplier access carries a privileged supply-chain risk."@en ;
     rss-crit:evaluationStageIdentifier "access-risk" ;
     rss-crit:appliesInterpretation rsscr:access-risk-interpretation ;
     rss-crit:restsOnJudgement rsscr:access-access-basis ;
@@ -75,8 +75,9 @@ rsscr:access-supplier-access-criterion a rss-crit:Criterion ;
 
 rsscr:category-category-1-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-6-2-location ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-6-3-1-location ;
     rss-crit:determinesMembershipOf rss-rail:Category1Transmission ;
+    rss-crit:criterionStatement "A transmission is Category 1 only when Pr1, Pr2 and Pr3 of EN 50159:2010 are all satisfied."@en ;
     rss-crit:evaluationStageIdentifier "transmission-category" ;
     rss-crit:appliesInterpretation rsscr:category-interpretation ;
     rss-crit:restsOnJudgement rsscr:category-category-basis ;
@@ -84,8 +85,9 @@ rsscr:category-category-1-criterion a rss-crit:Criterion ;
 
 rsscr:category-category-2-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-6-3-location ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-6-3-2-location ;
     rss-crit:determinesMembershipOf rss-rail:Category2Transmission ;
+    rss-crit:criterionStatement "A transmission is Category 2 when Pr1 or Pr2 is not satisfied and Pr3 is satisfied, as specified by EN 50159:2010."@en ;
     rss-crit:evaluationStageIdentifier "transmission-category" ;
     rss-crit:appliesInterpretation rsscr:category-interpretation ;
     rss-crit:restsOnJudgement rsscr:category-category-basis ;
@@ -93,8 +95,9 @@ rsscr:category-category-2-criterion a rss-crit:Criterion ;
 
 rsscr:category-category-3-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-6-4-location ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-6-3-3-location ;
     rss-crit:determinesMembershipOf rss-rail:Category3Transmission ;
+    rss-crit:criterionStatement "A transmission is Category 3 whenever Pr3 is not satisfied, independently of Pr1 and Pr2, as specified by EN 50159:2010."@en ;
     rss-crit:evaluationStageIdentifier "transmission-category" ;
     rss-crit:appliesInterpretation rsscr:category-interpretation ;
     rss-crit:restsOnJudgement rsscr:category-category-basis ;
@@ -103,7 +106,7 @@ rsscr:category-category-3-criterion a rss-crit:Criterion ;
 rsscr:critical-authenticity-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:derivedFromSourceLocation rsscr:en50159-7-1-location ;
-    rss-crit:criterionStatement "A masquerade-exposed flow carrying a safety-related payload is a critical authenticity violation."@en ;
+    rss-crit:criterionStatement "Under the recorded assessor prioritisation policy, a masquerade-exposed flow carrying a safety-related payload is a critical authenticity violation."@en ;
     rss-crit:evaluationStageIdentifier "critical-violation" ;
     rss-crit:appliesInterpretation rsscr:critical-violation-interpretation ;
     rss-crit:restsOnJudgement rsscr:critical-critical-basis ;
@@ -114,7 +117,7 @@ rsscr:critical-authenticity-criterion a rss-crit:Criterion ;
 rsscr:critical-integrity-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
     rss-crit:derivedFromSourceLocation rsscr:en50159-7-1-location ;
-    rss-crit:criterionStatement "A corruption-exposed flow carrying a safety-related payload is a critical integrity violation."@en ;
+    rss-crit:criterionStatement "Under the recorded assessor prioritisation policy, a corruption-exposed flow carrying a safety-related payload is a critical integrity violation."@en ;
     rss-crit:evaluationStageIdentifier "critical-violation" ;
     rss-crit:appliesInterpretation rsscr:critical-violation-interpretation ;
     rss-crit:restsOnJudgement rsscr:critical-critical-basis ;
@@ -124,8 +127,8 @@ rsscr:critical-integrity-criterion a rss-crit:Criterion ;
 
 rsscr:critical-timeliness-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-7-2-location ;
-    rss-crit:criterionStatement "A delay-exposed flow carrying emergency command data is a critical timeliness violation."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-7-1-location ;
+    rss-crit:criterionStatement "Under the recorded assessor prioritisation policy, a delay-exposed flow carrying assessor-classified emergency command data is a critical timeliness violation."@en ;
     rss-crit:evaluationStageIdentifier "critical-violation" ;
     rss-crit:appliesInterpretation rsscr:critical-violation-interpretation ;
     rss-crit:restsOnJudgement rsscr:critical-critical-basis ;
@@ -136,8 +139,8 @@ rsscr:critical-timeliness-criterion a rss-crit:Criterion ;
 
 rsscr:critical-sequence-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-7-3-location ;
-    rss-crit:criterionStatement "A resequencing-exposed flow carrying position status data is a critical sequence violation."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-7-1-location ;
+    rss-crit:criterionStatement "Under the recorded assessor prioritisation policy, a resequencing-exposed flow carrying assessor-classified position/status data is a critical sequence violation."@en ;
     rss-crit:evaluationStageIdentifier "critical-violation" ;
     rss-crit:appliesInterpretation rsscr:critical-violation-interpretation ;
     rss-crit:restsOnJudgement rsscr:critical-critical-basis ;
@@ -148,7 +151,7 @@ rsscr:critical-sequence-criterion a rss-crit:Criterion ;
 
 rsscr:failsafe-authenticity-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50126-4-location, rsscr:en50159-3-1-52-location, rsscr:ts50701-annex-d-p1-location ;
+    rss-crit:derivedFromSourceLocation rsscr:en50126-1-3-68-location, rsscr:en50159-3-1-52-location, rsscr:ts50701-5-5-4-location ;
     rss-crit:criterionStatement "A safety-critical asset has an authenticity-driven fail-safe compromise when its fail-safe function depends on that asset and an incoming flow has a satisfied critical-authenticity evaluation."@en ;
     rss-crit:evaluationStageIdentifier "fail-safe-compromise" ;
     rss-crit:appliesInterpretation rsscr:failsafe-interpretation ;
@@ -158,7 +161,7 @@ rsscr:failsafe-authenticity-criterion a rss-crit:Criterion ;
 
 rsscr:failsafe-integrity-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50126-4-location, rsscr:en50159-3-1-52-location, rsscr:ts50701-annex-d-p1-location ;
+    rss-crit:derivedFromSourceLocation rsscr:en50126-1-3-68-location, rsscr:en50159-3-1-52-location, rsscr:ts50701-5-5-4-location ;
     rss-crit:criterionStatement "A safety-critical asset has an integrity-driven fail-safe compromise when its fail-safe function depends on that asset and an incoming flow has a satisfied critical-integrity evaluation."@en ;
     rss-crit:evaluationStageIdentifier "fail-safe-compromise" ;
     rss-crit:appliesInterpretation rsscr:failsafe-interpretation ;
@@ -168,8 +171,8 @@ rsscr:failsafe-integrity-criterion a rss-crit:Criterion ;
 
 rsscr:sil-maximum-risk-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec61508-location, rsscr:en50126-4-location ;
-    rss-crit:criterionStatement "A safety-critical asset whose fail-safe compromise evaluation is satisfied carries the maximum SIL risk."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50126-1-3-70-location, rsscr:en50126-2-10-2-8-location ;
+    rss-crit:criterionStatement "Under the recorded assessor scoping policy, a safety-critical asset whose fail-safe compromise evaluation is satisfied carries the maximum safety-integrity concern; this result does not allocate a SIL."@en ;
     rss-crit:evaluationStageIdentifier "sil-risk" ;
     rss-crit:appliesInterpretation rsscr:sil-risk-interpretation ;
     rss-crit:restsOnJudgement rsscr:sil-sil-basis ;
@@ -178,8 +181,8 @@ rsscr:sil-maximum-risk-criterion a rss-crit:Criterion ;
 
 rsscr:threat-corruption-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-2-location ;
-    rss-crit:criterionStatement "An open transmission is corruption-exposed when a safety code is explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "A transmission is corruption-exposed only when every EN 50159:2010 Table 1 alternative (safety code and cryptographic technique) is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -188,8 +191,8 @@ rsscr:threat-corruption-criterion a rss-crit:Criterion ;
 
 rsscr:threat-delay-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-5-location ;
-    rss-crit:criterionStatement "An open transmission is delay-exposed when its timeout mechanism is explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "A transmission is delay-exposed only when every EN 50159:2010 Table 1 alternative (time stamp and time-out) is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -198,8 +201,8 @@ rsscr:threat-delay-criterion a rss-crit:Criterion ;
 
 rsscr:threat-deletion-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-4-location ;
-    rss-crit:criterionStatement "An open transmission is deletion-exposed when its timeout mechanism is explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "A transmission is deletion-exposed when the EN 50159:2010 Table 1 defence, a sequence number, is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -208,8 +211,8 @@ rsscr:threat-deletion-criterion a rss-crit:Criterion ;
 
 rsscr:threat-insertion-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-3-location ;
-    rss-crit:criterionStatement "A Category 3 transmission is insertion-exposed when source/destination identification is explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "A transmission is insertion-exposed only when every EN 50159:2010 Table 1 alternative (sequence number, source identifier, feedback message and identification procedure) is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -218,8 +221,8 @@ rsscr:threat-insertion-criterion a rss-crit:Criterion ;
 
 rsscr:threat-masquerade-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-1-location ;
-    rss-crit:criterionStatement "A Category 3 transmission is masquerade-exposed when authentication and source/destination identification are both explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-6-4-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "An open Category 2 or 3 transmission is masquerade-exposed only when every EN 50159:2010 Table 1 alternative (feedback message, identification procedure and cryptographic technique) is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -228,8 +231,8 @@ rsscr:threat-masquerade-criterion a rss-crit:Criterion ;
 
 rsscr:threat-repetition-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-6-location ;
-    rss-crit:criterionStatement "An open transmission is repetition-exposed when sequence protection is explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "A transmission is repetition-exposed only when every EN 50159:2010 Table 1 alternative (sequence number and time stamp) is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -238,8 +241,8 @@ rsscr:threat-repetition-criterion a rss-crit:Criterion ;
 
 rsscr:threat-resequencing-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-5-2-7-location ;
-    rss-crit:criterionStatement "An open transmission is resequencing-exposed when sequence protection is explicitly absent."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-5-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:criterionStatement "A transmission is resequencing-exposed only when every EN 50159:2010 Table 1 alternative (sequence number and time stamp) is explicitly absent."@en ;
     rss-crit:evaluationStageIdentifier "transmission-threat" ;
     rss-crit:appliesInterpretation rsscr:threat-interpretation ;
     rss-crit:restsOnJudgement rsscr:threat-threat-basis ;
@@ -247,43 +250,43 @@ rsscr:threat-resequencing-criterion a rss-crit:Criterion ;
     rss-rail:assessesTransmissionThreat rss-rail:ResequencingThreat .
 
 rsscr:sil-sil-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy v3 R2.5.3. A safety-critical asset whose fail-safe mechanism is itself compromised is the worst case. The legacy clause claims are implementation history, not normative evidence."@en ;
-    rss-crit:revisionConditions "Replace with reviewed IEC 61508 and EN 50126 SourceLocation and Interpretation records before release. Decide separately whether an explicit SIL-4 assignment is required in addition to safety-critical class membership."@en .
+    rss-crit:reasoning "Assessor scoping policy retained from legacy R2.5.3: a safety-critical asset with a satisfied fail-safe compromise is assigned the highest safety-integrity concern for penetration-test prioritisation. EN 50126-1:2017 and EN 50126-2:2017 do not make this a SIL allocation."@en ;
+    rss-crit:revisionConditions "Revise if the assessor changes the prioritisation policy. A real SIL value must be recorded separately against a safety-related electronic function and reviewed when safety-case evidence becomes available."@en .
 
 rsscr:critical-critical-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy R2.3.1 and R2.3.2 into three-valued elevation evaluations. Legacy material gives masquerade and corruption the highest priority for safety-related communication; the exact source location and reviewed interpretation are still required."@en ;
-    rss-crit:revisionConditions "Replace with reviewed EN 50159 SourceLocation and Interpretation records, and decide whether the finer legacy payload distinctions (emergency command, position status) are admitted, before release."@en .
+    rss-crit:reasoning "Assessor prioritisation policy over the four fundamental safety services named in EN 50159:2010 clause 7.1. EN 50159:2010 does not define the project's critical-violation classes or its payload-specific elevation rules."@en ;
+    rss-crit:revisionConditions "Revise when the assessor changes the criticality policy or when authoritative payload semantics replace the EmergencyCommandData and PositionStatusData judgement classes."@en .
 
 rsscr:failsafe-fail-safe-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy R2.4.1 and R2.4.2. The legacy clause claims are implementation history, not normative evidence."@en ;
-    rss-crit:revisionConditions "Replace with reviewed IEC 61508 and EN 50126 SourceLocation and Interpretation records before release."@en .
+    rss-crit:reasoning "Assessor propagation model linking explicit safety-function dependencies to incoming critical-violation evidence. It is informed by EN 50126-1:2017, EN 50159:2010 and prTS 50701 D8E4:2020 but is not a rule stated verbatim by those documents."@en ;
+    rss-crit:revisionConditions "Revise when the safety architecture or safety-function dependency evidence changes."@en .
 
 rsscr:category-category-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Synthetic executable interpretation of the user-approved EN 50159 category distinction. Exact standard edition and clause remain domain-review requirements."@en ;
-    rss-crit:revisionConditions "Replace with a reviewed SourceLocation plus Interpretation before release."@en .
+    rss-crit:reasoning "Executable three-valued rendering of Pr1, Pr2 and Pr3 in EN 50159:2010 clauses 6.3.1-6.3.3. Unknown inputs remain undetermined rather than being treated as false."@en ;
+    rss-crit:revisionConditions "Revise if the input assertion vocabulary changes or a later EN 50159 edition changes the category preconditions."@en .
 
 rsscr:access-access-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy v3 R2.6.1-R2.6.4. R2.6.1 is re-subjected from the maintenance actor to the safety-critical asset, because actors and roles are not in the approved model. The legacy clause claims are implementation history, not normative evidence."@en ;
-    rss-crit:revisionConditions "Replace with reviewed TS 50701 SourceLocation and Interpretation records before release, and decide whether an actor and role vocabulary is admitted so that R2.6.1 can be expressed on its original subject."@en .
+    rss-crit:reasoning "Assessor access-risk policy informed by the maintenance, supplier, remote-access and zoning guidance in prTS 50701 D8E4:2020. Legacy R2.6.1 is re-subjected from a maintenance actor to the safety-critical asset because actors and roles are outside the approved L1-L2 model."@en ;
+    rss-crit:revisionConditions "Revise if an actor/role vocabulary is admitted or if the project's access inventory semantics change."@en .
 
 rsscr:threat-threat-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Provisional refactoring of legacy R2.2.1-R2.2.7 into three-valued threat evaluations. The legacy documents are implementation history, not normative evidence."@en ;
-    rss-crit:revisionConditions "Replace each provisional mapping with reviewed EN 50159 SourceLocation and Interpretation records before release."@en .
+    rss-crit:reasoning "Executable three-valued rendering of EN 50159:2010 clauses 5, 6.4 and 7.4.2. Table 1 is treated as a set of alternative defences, never as a one-defence-per-threat mandate."@en ;
+    rss-crit:revisionConditions "Revise if a later EN 50159 edition changes threat applicability or the threats/defences matrix."@en .
 
 ### L1 control weakness criteria (IEC 62443-3-3), legacy v3 block 1.1.
 rsscr:l1-control-basis a rss-crit:JudgementBasis ;
-    rss-crit:reasoning "Refactoring of the legacy IEC 62443-3-3 control rules. Each control is assessed independently: the absence of any one is a finding, following the defence-in-depth principle stated in the legacy design. The legacy clause references are implementation history, not verified citations."@en ;
-    rss-crit:revisionConditions "Replace with reviewed IEC 62443-3-3 source locations and interpretations for SR 3.1, SR 5.1, SR 6.1 and SR 7.2 before release."@en .
+    rss-crit:reasoning "Assessor mapping from the system capabilities in IEC 62443-3-3:2013 to per-flow observations used for penetration-test scoping. Each control is assessed independently; the standard does not itself define the project's boolean flow properties."@en ;
+    rss-crit:revisionConditions "Review the per-flow mapping if the observation model changes or if a later IEC 62443-3-3 edition replaces the 2013 source."@en .
 
 rsscr:l1-authentication-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-3-sr-3-1-location ;
+    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-3-sr-1-2-location ;
     rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPAuthenticationFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingMessageAuthentication ;
     rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
     rss-crit:appliesInterpretation rsscr:l1-control-interpretation ;
-    rss-crit:criterionStatement "A flow without message authentication is vulnerable."@en ;
+    rss-crit:criterionStatement "Under the assessor's per-flow mapping of IEC 62443-3-3:2013 SR 1.2, a flow without authentication evidence is vulnerable."@en ;
     rss-crit:evaluationStageIdentifier "control-weakness" ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
@@ -295,31 +298,31 @@ rsscr:l1-integrity-criterion a rss-crit:Criterion ;
     rss-rail:weaknessFlowType rss-rail:VulnerableFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
     rss-crit:appliesInterpretation rsscr:l1-control-interpretation ;
-    rss-crit:criterionStatement "A flow without integrity protection is vulnerable."@en ;
+    rss-crit:criterionStatement "Under the assessor's per-flow mapping of IEC 62443-3-3:2013 SR 3.1, a flow without communication-integrity protection is vulnerable."@en ;
     rss-crit:evaluationStageIdentifier "control-weakness" ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:l1-rate-limiting-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-3-sr-7-2-location ;
+    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-3-sr-7-1-re-1-location ;
     rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPRateLimitingFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingRateLimiting ;
     rss-rail:weaknessFlowType rss-rail:DoSExposedFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
     rss-crit:appliesInterpretation rsscr:l1-control-interpretation ;
-    rss-crit:criterionStatement "A wireless flow without rate limiting is exposed to denial of service."@en ;
+    rss-crit:criterionStatement "Under the assessor's per-flow mapping of IEC 62443-3-3:2013 SR 7.1 RE 1, a wireless flow without rate limiting is exposed to denial of service."@en ;
     rss-crit:evaluationStageIdentifier "control-weakness" ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
 rsscr:l1-monitoring-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-3-sr-6-1-location ;
+    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-3-sr-6-2-location ;
     rss-crit:determinesApplicabilityOf <https://w3id.org/railsec-scope/rules#AHPLoggingFactor> ;
     rss-rail:assessesControlWeakness rss-rail:missingMonitoring ;
     rss-rail:weaknessFlowType rss-rail:UnauditedFlow ;
     rss-crit:restsOnJudgement rsscr:l1-control-basis ;
     rss-crit:appliesInterpretation rsscr:l1-control-interpretation ;
-    rss-crit:criterionStatement "A flow without monitoring and logging is unaudited."@en ;
+    rss-crit:criterionStatement "Under the assessor's per-flow mapping of IEC 62443-3-3:2013 SR 6.2, a flow without monitoring evidence is unaudited."@en ;
     rss-crit:evaluationStageIdentifier "control-weakness" ;
     rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI .
 
@@ -351,9 +354,9 @@ rsscr:l1-confidentiality-criterion a rss-crit:Criterion ;
 
 rsscr:asset-exposed-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-2-6-location ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-6-5-3-location ;
     rss-crit:determinesMembershipOf rss-rail:ExposedAsset ;
-    rss-crit:criterionStatement "An asset placed in an external railway security zone is exposed."@en ;
+    rss-crit:criterionStatement "Under the assessor's zone taxonomy informed by prTS 50701 D8E4:2020, an asset placed in an external railway security zone is exposed."@en ;
     rss-crit:evaluationStageIdentifier "asset-zone-classification" ;
     rss-crit:appliesInterpretation rsscr:zone-exposure-interpretation ;
     rss-crit:restsOnJudgement rsscr:zone-exposure-basis ;
@@ -362,9 +365,9 @@ rsscr:asset-exposed-criterion a rss-crit:Criterion ;
 
 rsscr:asset-partially-exposed-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-2-6-location ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-6-5-3-location ;
     rss-crit:determinesMembershipOf rss-rail:PartiallyExposedAsset ;
-    rss-crit:criterionStatement "An asset placed in a partially trusted railway security zone is partially exposed."@en ;
+    rss-crit:criterionStatement "Under the assessor's zone taxonomy informed by prTS 50701 D8E4:2020, an asset placed in a partially trusted railway security zone is partially exposed."@en ;
     rss-crit:evaluationStageIdentifier "asset-zone-classification" ;
     rss-crit:appliesInterpretation rsscr:zone-exposure-interpretation ;
     rss-crit:restsOnJudgement rsscr:zone-exposure-basis ;
@@ -373,9 +376,9 @@ rsscr:asset-partially-exposed-criterion a rss-crit:Criterion ;
 
 rsscr:category-3-asset-context-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:en50159-6-3-location ;
+    rss-crit:derivedFromSourceLocation rsscr:en50159-6-3-3-location ;
     rss-crit:determinesMembershipOf rss-rail:Category3AssetContext ;
-    rss-crit:criterionStatement "An asset placed in an external railway security zone operates in a Category 3 asset context."@en ;
+    rss-crit:criterionStatement "Under the assessor's architecture projection, an asset placed in an external railway security zone is flagged as a Category 3 asset context; EN 50159:2010 categorises transmission systems, not assets."@en ;
     rss-crit:evaluationStageIdentifier "asset-zone-classification" ;
     rss-crit:appliesInterpretation rsscr:zone-exposure-interpretation ;
     rss-crit:restsOnJudgement rsscr:zone-exposure-basis ;
@@ -384,9 +387,9 @@ rsscr:category-3-asset-context-criterion a rss-crit:Criterion ;
 
 rsscr:entry-external-zone-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-2-6-location ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-6-5-3-location ;
     rss-crit:determinesMembershipOf rss-crit:EntryPoint ;
-    rss-crit:criterionStatement "An asset placed in an external railway security zone is an entry point candidate."@en ;
+    rss-crit:criterionStatement "Under the assessor's attack-surface policy informed by prTS 50701 D8E4:2020, an asset placed in an external railway security zone is an entry-point candidate."@en ;
     rss-crit:evaluationStageIdentifier "asset-zone-classification" ;
     rss-crit:appliesInterpretation rsscr:entry-point-interpretation ;
     rss-crit:restsOnJudgement rsscr:zone-exposure-basis ;
@@ -395,9 +398,9 @@ rsscr:entry-external-zone-criterion a rss-crit:Criterion ;
 
 rsscr:entry-dmz-zone-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:iec62443-3-2-6-location ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-3-1-32-location, rsscr:ts50701-6-5-3-location ;
     rss-crit:determinesMembershipOf rss-crit:EntryPoint ;
-    rss-crit:criterionStatement "An asset placed in a DMZ railway security zone is an entry point candidate."@en ;
+    rss-crit:criterionStatement "Under the assessor's attack-surface policy informed by prTS 50701 D8E4:2020, an asset placed in a DMZ railway security zone is an entry-point candidate."@en ;
     rss-crit:evaluationStageIdentifier "asset-zone-classification" ;
     rss-crit:appliesInterpretation rsscr:entry-point-interpretation ;
     rss-crit:restsOnJudgement rsscr:zone-exposure-basis ;
@@ -406,8 +409,8 @@ rsscr:entry-dmz-zone-criterion a rss-crit:Criterion ;
 
 rsscr:mobile-zone-remediation-criterion a rss-crit:Criterion ;
     rss-crit:hasVersion rsscr:criteria-module-version ;
-    rss-crit:derivedFromSourceLocation rsscr:ts50701-location, rsscr:en50126-4-location ;
-    rss-crit:criterionStatement "A safety-critical asset with a satisfied fail-safe compromise in a mobile railway zone requires high-priority remediation."@en ;
+    rss-crit:derivedFromSourceLocation rsscr:ts50701-5-5-4-location, rsscr:ts50701-6-5-3-location ;
+    rss-crit:criterionStatement "Under the assessor's remediation policy informed by prTS 50701 D8E4:2020, a safety-critical asset with a satisfied fail-safe compromise in a mobile railway zone requires high-priority remediation."@en ;
     rss-crit:evaluationStageIdentifier "remediation-priority" ;
     rss-crit:appliesInterpretation rsscr:remediation-priority-interpretation ;
     rss-crit:restsOnJudgement rsscr:failsafe-fail-safe-basis ;
@@ -418,126 +421,111 @@ rsscr:mobile-zone-remediation-criterion a rss-crit:Criterion ;
 ### Reviewed source locations and interpretations for production criteria.
 
 rsscr:source-en50159 a rss-crit:Source ;
-    rss-crit:fullReference "EN 50159: Railway applications - Communication, signalling and processing systems - Safety-related communication in transmission systems." ;
+    rss-crit:fullReference "EN 50159:2010, Railway applications - Communication, signalling and processing systems - Safety-related communication in transmission systems." ;
     rss-crit:sourceRole "railway transmission threat and category source" .
 
 rsscr:source-en50126 a rss-crit:Source ;
-    rss-crit:fullReference "EN 50126-1:2017: Railway applications - The specification and demonstration of Reliability, Availability, Maintainability and Safety (RAMS)." ;
+    rss-crit:fullReference "EN 50126-1:2017 and EN 50126-2:2017, Railway applications - The specification and demonstration of Reliability, Availability, Maintainability and Safety (RAMS)." ;
     rss-crit:sourceRole "railway safety lifecycle and safety-function context source" .
 
-rsscr:source-iec61508 a rss-crit:Source ;
-    rss-crit:fullReference "IEC 61508: Functional safety of electrical/electronic/programmable electronic safety-related systems." ;
-    rss-crit:sourceRole "functional-safety integrity context source" .
-
 rsscr:source-iec62443-3-3 a rss-crit:Source ;
-    rss-crit:fullReference "IEC 62443-3-3: Industrial communication networks - Network and system security - System security requirements and security levels." ;
+    rss-crit:fullReference "IEC 62443-3-3:2013, Industrial communication networks - Network and system security - System security requirements and security levels." ;
     rss-crit:sourceRole "industrial-control-system security requirement source" .
 
-rsscr:source-iec62443-3-2 a rss-crit:Source ;
-    rss-crit:fullReference "IEC 62443-3-2: Security for industrial automation and control systems - Security risk assessment for system design." ;
-    rss-crit:sourceRole "zone/conduit exposure and entry-point source" .
-
 rsscr:source-ts50701 a rss-crit:Source ;
-    rss-crit:fullReference "CLC/TS 50701: Railway applications - Cybersecurity." ;
+    rss-crit:fullReference "prTS 50701 D8E4:2020, Railway applications - Cybersecurity (project-supplied draft treated as the current review source)." ;
     rss-crit:sourceRole "railway cybersecurity access and methodological-principle source" .
 
 rsscr:edition-en50159-2010 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-en50159 ;
     rss-crit:editionLabel "2010 edition" ;
-    rss-crit:consultationStatus "secondary" .
+    rss-crit:consultationStatus "primary document reviewed" .
 
 rsscr:edition-en50126-1-2017 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-en50126 ;
     rss-crit:editionLabel "EN 50126-1:2017" ;
-    rss-crit:consultationStatus "secondary" .
+    rss-crit:consultationStatus "primary document reviewed" .
 
-rsscr:edition-iec61508 a rss-crit:SourceEdition ;
-    rss-crit:editionOf rsscr:source-iec61508 ;
-    rss-crit:editionLabel "IEC 61508 family, edition not pinned in the legacy material" ;
-    rss-crit:consultationStatus "secondary" .
+rsscr:edition-en50126-2-2017 a rss-crit:SourceEdition ;
+    rss-crit:editionOf rsscr:source-en50126 ;
+    rss-crit:editionLabel "EN 50126-2:2017" ;
+    rss-crit:consultationStatus "primary document reviewed" .
 
 rsscr:edition-iec62443-3-3 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-iec62443-3-3 ;
-    rss-crit:editionLabel "IEC 62443-3-3, edition not pinned in the legacy material" ;
-    rss-crit:consultationStatus "secondary" .
-
-rsscr:edition-iec62443-3-2 a rss-crit:SourceEdition ;
-    rss-crit:editionOf rsscr:source-iec62443-3-2 ;
-    rss-crit:editionLabel "IEC 62443-3-2, edition not pinned in the legacy material" ;
-    rss-crit:consultationStatus "secondary" .
+    rss-crit:editionLabel "IEC 62443-3-3:2013, Edition 1.0" ;
+    rss-crit:consultationStatus "primary document reviewed" .
 
 rsscr:edition-ts50701 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-ts50701 ;
-    rss-crit:editionLabel "CLC/TS 50701, edition not pinned in the legacy material" ;
-    rss-crit:consultationStatus "secondary" .
+    rss-crit:editionLabel "prTS 50701 D8E4:2020 (version dated 2020-09-25)" ;
+    rss-crit:consultationStatus "project-supplied draft reviewed as current source" .
 
-rsscr:en50159-5-2-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.1" .
-rsscr:en50159-5-2-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.2" .
-rsscr:en50159-5-2-3-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.3" .
-rsscr:en50159-5-2-4-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.4" .
-rsscr:en50159-5-2-5-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.5" .
-rsscr:en50159-5-2-6-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.6" .
-rsscr:en50159-5-2-7-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "5.2.7" .
+rsscr:en50159-5-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "Clause 5" .
 rsscr:en50159-6-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.2" .
 rsscr:en50159-6-3-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.3" .
 rsscr:en50159-6-4-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.4" .
+rsscr:en50159-6-3-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.3.1" .
+rsscr:en50159-6-3-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.3.2" .
+rsscr:en50159-6-3-3-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.3.3" .
 rsscr:en50159-7-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "7.1" .
-rsscr:en50159-7-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "7.2" .
-rsscr:en50159-7-3-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "7.3" .
+rsscr:en50159-7-4-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "7.4.2, Table 1" .
 rsscr:en50159-3-1-52-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "3.1.52" .
-rsscr:en50126-4-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50126-1-2017 ; rss-crit:sourceLocator "4" .
-rsscr:iec61508-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec61508 ; rss-crit:sourceLocator "functional safety integrity concept" .
-rsscr:iec62443-3-2-6-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-2 ; rss-crit:sourceLocator "6" .
+rsscr:en50126-1-3-68-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50126-1-2017 ; rss-crit:sourceLocator "3.68" .
+rsscr:en50126-1-3-70-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50126-1-2017 ; rss-crit:sourceLocator "3.70" .
+rsscr:en50126-2-10-2-8-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50126-2-2017 ; rss-crit:sourceLocator "10.2.8" .
 rsscr:iec62443-3-3-fr-4-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "FR 4" .
+rsscr:iec62443-3-3-sr-1-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 1.2" .
 rsscr:iec62443-3-3-sr-3-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 3.1" .
 rsscr:iec62443-3-3-sr-5-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 5.1" .
-rsscr:iec62443-3-3-sr-6-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 6.1" .
-rsscr:iec62443-3-3-sr-7-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 7.2" .
-rsscr:ts50701-3-1-60-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "3.1.60" .
-rsscr:ts50701-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "railway cybersecurity scope" .
+rsscr:iec62443-3-3-sr-6-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 6.2" .
+rsscr:iec62443-3-3-sr-7-1-re-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-iec62443-3-3 ; rss-crit:sourceLocator "SR 7.1 RE 1" .
+rsscr:ts50701-3-1-32-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "3.1.32" .
+rsscr:ts50701-3-1-59-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "3.1.59" .
+rsscr:ts50701-5-5-4-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "5.5.4" .
+rsscr:ts50701-6-5-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "6.5.2" .
+rsscr:ts50701-6-5-3-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "6.5.3" .
 rsscr:ts50701-6-3-1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "6.3.1" .
-rsscr:ts50701-7-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "7.2" .
-rsscr:ts50701-7-2-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "7.2.2" .
 rsscr:ts50701-annex-d-p1-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-ts50701 ; rss-crit:sourceLocator "Annex D, Principle 1" .
 
 rsscr:category-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:en50159-6-2-location, rsscr:en50159-6-3-location, rsscr:en50159-6-4-location ;
-    rss-crit:interpretationProposition "EN 50159 transmission categories are evaluated from controlled environment, fixed participant set and unauthorised-access exclusion inputs; category membership is then materialised only from a satisfied evaluation." ;
+    rss-crit:interprets rsscr:en50159-6-3-1-location, rsscr:en50159-6-3-2-location, rsscr:en50159-6-3-3-location ;
+    rss-crit:interpretationProposition "EN 50159:2010 Category 1 requires Pr1, Pr2 and Pr3; Category 2 requires failure of Pr1 or Pr2 together with satisfaction of Pr3; Category 3 follows from failure of Pr3 independently of Pr1 and Pr2." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:threat-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:en50159-5-2-1-location, rsscr:en50159-5-2-2-location, rsscr:en50159-5-2-3-location, rsscr:en50159-5-2-4-location, rsscr:en50159-5-2-5-location, rsscr:en50159-5-2-6-location, rsscr:en50159-5-2-7-location ;
-    rss-crit:interpretationProposition "The seven EN 50159 transmission-threat classes are represented as three-valued CriterionEvaluation results over railway information flows, preserving undetermined upstream category or control inputs." ;
+    rss-crit:interprets rsscr:en50159-5-location, rsscr:en50159-6-4-location, rsscr:en50159-7-4-2-location ;
+    rss-crit:interpretationProposition "The seven EN 50159:2010 Clause 5 threats are three-valued evaluations. Table 1 defences are alternatives: any explicitly enabled listed defence protects the flow; exposure requires every listed alternative to be explicitly absent; a partial inventory remains undetermined. All threats apply to all categories except masquerade, which applies only to open Categories 2 and 3." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:critical-violation-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:en50159-7-1-location, rsscr:en50159-7-2-location, rsscr:en50159-7-3-location ;
-    rss-crit:interpretationProposition "Critical-violation criteria elevate satisfied transmission-threat evaluations when the flow carries the required safety-related payload class; missing payload classification remains undetermined." ;
+    rss-crit:interprets rsscr:en50159-7-1-location ;
+    rss-crit:interpretationProposition "EN 50159:2010 identifies authenticity, integrity, timeliness and sequence as fundamental safety services. The project's elevation of particular threat/payload combinations to critical violations is an assessor prioritisation policy, not a classification stated by the standard; missing payload classification remains undetermined." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:failsafe-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:en50126-4-location, rsscr:en50159-3-1-52-location, rsscr:ts50701-annex-d-p1-location ;
-    rss-crit:interpretationProposition "Fail-safe compromise is evaluated only through explicit safety-function realisation, fail-safe dependency and incoming critical-violation evidence, so missing dependency information remains undetermined." ;
+    rss-crit:interprets rsscr:en50126-1-3-68-location, rsscr:en50159-3-1-52-location, rsscr:ts50701-5-5-4-location ;
+    rss-crit:interpretationProposition "EN 50126-1:2017 defines safety functions, EN 50159:2010 defines the safety-related transmission function, and prTS 50701 D8E4:2020 requires safety information to feed cybersecurity assessment. The project's fail-safe compromise propagation is an assessor model over explicit function dependencies; missing dependency information remains undetermined." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:sil-risk-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:iec61508-location, rsscr:en50126-4-location ;
-    rss-crit:interpretationProposition "Maximum SIL risk is represented as a derived evaluation of a safety-critical asset whose fail-safe compromise is satisfied; explicit SIL allocation remains safety-case evidence rather than an information-security scoping input." ;
+    rss-crit:interprets rsscr:en50126-1-3-70-location, rsscr:en50126-2-10-2-8-location ;
+    rss-crit:interpretationProposition "EN 50126-1:2017 and EN 50126-2:2017 allocate SIL to safety-related electronic functions through the safety process. The derived result is therefore only an assessor's safety-integrity scoping concern; it neither infers nor allocates a SIL. Any SIL value must be supplied as a separately attributed assessor assignment or safety-case fact." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:access-risk-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:ts50701-3-1-60-location, rsscr:ts50701-7-2-location, rsscr:ts50701-7-2-2-location ;
-    rss-crit:interpretationProposition "Maintenance, supplier and remote access are evaluated from explicit access mechanisms on assets or flow origins; an unstated access inventory remains undetermined rather than negative." ;
+    rss-crit:interprets rsscr:ts50701-3-1-59-location, rsscr:ts50701-6-5-2-location ;
+    rss-crit:interpretationProposition "prTS 50701 D8E4:2020 defines remote access and gives explicit maintenance-access zoning guidance. The project's maintenance, supplier and remote-access risk classifications are assessor policies evaluated from explicit access inventories; an unstated inventory remains undetermined rather than negative." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:l1-control-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:iec62443-3-3-fr-4-location, rsscr:iec62443-3-3-sr-3-1-location, rsscr:iec62443-3-3-sr-5-1-location, rsscr:iec62443-3-3-sr-6-1-location, rsscr:iec62443-3-3-sr-7-2-location, rsscr:ts50701-6-3-1-location ;
+    rss-crit:interprets rsscr:iec62443-3-3-fr-4-location, rsscr:iec62443-3-3-sr-1-2-location, rsscr:iec62443-3-3-sr-3-1-location, rsscr:iec62443-3-3-sr-5-1-location, rsscr:iec62443-3-3-sr-6-2-location, rsscr:iec62443-3-3-sr-7-1-re-1-location, rsscr:ts50701-6-3-1-location ;
     rss-crit:interpretationProposition "Implemented L1 control-weakness criteria assess absence of authentication, integrity protection, encryption, rate limiting, segmentation and monitoring as independent control findings." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
@@ -547,19 +535,19 @@ rsscr:zone-exposure-basis a rss-crit:JudgementBasis ;
     rss-crit:revisionConditions "Replace with reviewed IEC 62443-3-2 and EN 50159 source locations if the final standards review changes the admitted zone terminology."@en .
 
 rsscr:zone-exposure-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:iec62443-3-2-6-location, rsscr:en50159-6-3-location ;
-    rss-crit:interpretationProposition "Asset exposure and Category 3 asset context are derived from explicit asset membership in external or partially trusted railway security zones." ;
+    rss-crit:interprets rsscr:ts50701-6-5-3-location, rsscr:en50159-6-3-3-location ;
+    rss-crit:interpretationProposition "prTS 50701 D8E4:2020 requires zones and conduits to be defined and documented. External/partially-trusted labels and the projection of EN 50159:2010 Category 3 context from transmissions to assets are explicit assessor taxonomies, not standard-defined asset classes." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:entry-point-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:iec62443-3-2-6-location ;
-    rss-crit:interpretationProposition "Entry-point candidacy is derived from explicit asset membership in external or DMZ railway security zones; later ATT&CK-specific entry-point rules are kept for the L3 layer." ;
+    rss-crit:interprets rsscr:ts50701-3-1-32-location, rsscr:ts50701-6-5-3-location ;
+    rss-crit:interpretationProposition "prTS 50701 D8E4:2020 defines a DMZ and requires zone/conduit documentation. Treating assets in external or DMZ zones as entry-point candidates is an assessor attack-surface policy; ATT&CK-specific entry-point rules remain in L3." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .
 
 rsscr:remediation-priority-interpretation a rss-crit:Interpretation ;
-    rss-crit:interprets rsscr:ts50701-location, rsscr:en50126-4-location ;
-    rss-crit:interpretationProposition "High-priority remediation is derived only when a safety-critical asset has a satisfied fail-safe compromise evaluation and is explicitly placed in a mobile railway zone." ;
+    rss-crit:interprets rsscr:ts50701-5-5-4-location, rsscr:ts50701-6-5-3-location ;
+    rss-crit:interpretationProposition "The high-priority result is an assessor remediation policy combining safety impact and an explicitly assigned mobile-zone context; prTS 50701 D8E4:2020 does not define the project's MobileZone class or this exact priority rule." ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "source locations formalised from reviewed project evidence" .

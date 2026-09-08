@@ -11,27 +11,43 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 fx:cat1-flow rss-rail:authenticationEnabled false ;
+    rss-rail:cryptographicMessageProtectionEnabled false ;
+    rss-rail:feedbackMessageEnabled false ;
+    rss-rail:identificationProcedureEnabled false ;
     rss-rail:safetyCodeEnabled false ;
-    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sequenceNumberEnabled false ;
     rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timestampEnabled false ;
     rss-rail:timeoutMechanismEnabled false .
 
 fx:cat2-flow rss-rail:authenticationEnabled false ;
+    rss-rail:cryptographicMessageProtectionEnabled false ;
+    rss-rail:feedbackMessageEnabled false ;
+    rss-rail:identificationProcedureEnabled false ;
     rss-rail:safetyCodeEnabled false ;
-    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sequenceNumberEnabled false ;
     rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timestampEnabled false ;
     rss-rail:timeoutMechanismEnabled false .
 
 fx:cat3-flow rss-rail:authenticationEnabled false ;
+    rss-rail:cryptographicMessageProtectionEnabled false ;
+    rss-rail:feedbackMessageEnabled false ;
+    rss-rail:identificationProcedureEnabled false ;
     rss-rail:safetyCodeEnabled false ;
-    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sequenceNumberEnabled false ;
     rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timestampEnabled false ;
     rss-rail:timeoutMechanismEnabled false .
 
 fx:unknown-flow rss-rail:authenticationEnabled false ;
+    rss-rail:cryptographicMessageProtectionEnabled false ;
+    rss-rail:feedbackMessageEnabled false ;
+    rss-rail:identificationProcedureEnabled false ;
     rss-rail:safetyCodeEnabled false ;
-    rss-rail:sequenceProtectionEnabled false ;
+    rss-rail:sequenceNumberEnabled false ;
     rss-rail:sourceDestinationIdentifierEnabled false ;
+    rss-rail:timestampEnabled false ;
     rss-rail:timeoutMechanismEnabled false .
 
 th:protected-access a rss-rail:UnauthorisedAccessExclusionAssumption ;
@@ -55,7 +71,11 @@ th:protected-fixed a rss-rail:ParticipantSetFixedFact ;
 
 th:protected-cat3-flow a rss-rail:RailwayInformationFlow ;
     rss-rail:authenticationEnabled true ;
+    rss-rail:cryptographicMessageProtectionEnabled true ;
+    rss-rail:feedbackMessageEnabled true ;
+    rss-rail:identificationProcedureEnabled true ;
     rss-rail:safetyCodeEnabled true ;
-    rss-rail:sequenceProtectionEnabled true ;
+    rss-rail:sequenceNumberEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled true ;
+    rss-rail:timestampEnabled true ;
     rss-rail:timeoutMechanismEnabled true .

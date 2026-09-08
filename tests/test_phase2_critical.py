@@ -48,9 +48,9 @@ EXPECTED = {
     (FX["cat2-flow"], RAIL.criticalTimelinessViolation): RES.notSatisfied,
     (FX["cat2-flow"], RAIL.criticalSequenceViolation): RES.notSatisfied,
     (FX["cat1-flow"], RAIL.criticalAuthenticityViolation): RES.notSatisfied,
-    (FX["cat1-flow"], RAIL.criticalIntegrityViolation): RES.notSatisfied,
-    (FX["cat1-flow"], RAIL.criticalTimelinessViolation): RES.notSatisfied,
-    (FX["cat1-flow"], RAIL.criticalSequenceViolation): RES.notSatisfied,
+    (FX["cat1-flow"], RAIL.criticalIntegrityViolation): RES.undetermined,
+    (FX["cat1-flow"], RAIL.criticalTimelinessViolation): RES.undetermined,
+    (FX["cat1-flow"], RAIL.criticalSequenceViolation): RES.undetermined,
     (TH["protected-cat3-flow"], RAIL.criticalAuthenticityViolation): RES.notSatisfied,
     (TH["protected-cat3-flow"], RAIL.criticalIntegrityViolation): RES.notSatisfied,
     (TH["protected-cat3-flow"], RAIL.criticalTimelinessViolation): RES.notSatisfied,
@@ -185,19 +185,21 @@ class Phase2CriticalElevationTest(unittest.TestCase):
         }
         critical = coverage["critical-violation"]
         self.assertEqual(7, int(critical.totalCandidates))
-        self.assertEqual(3, int(critical.determinedCandidates))
-        self.assertEqual(4, int(critical.undeterminedCandidates))
-        self.assertEqual(Decimal(3) / Decimal(7), Decimal(str(critical.stageCoverage)))
+        self.assertEqual(2, int(critical.determinedCandidates))
+        self.assertEqual(5, int(critical.undeterminedCandidates))
+        self.assertEqual(Decimal(2) / Decimal(7), Decimal(str(critical.stageCoverage)))
 
     def test_critical_criteria_have_source_locations_and_judgement_basis(self) -> None:
         criteria = list(self.graph.subjects(RAIL.assessesCriticalViolation, None))
         self.assertEqual(4, len(criteria))
         for criterion in criteria:
             basis = self.graph.value(criterion, CRIT.restsOnJudgement)
+            location = self.graph.value(criterion, CRIT.derivedFromSourceLocation)
+            interpretation = self.graph.value(criterion, CRIT.appliesInterpretation)
             self.assertIsNotNone(basis)
-            self.assertIsNotNone(self.graph.value(criterion, CRIT.derivedFromSourceLocation))
-            self.assertIsNotNone(self.graph.value(criterion, CRIT.appliesInterpretation))
-            self.assertIn("exact source location", str(self.graph.value(basis, CRIT.reasoning)))
+            self.assertIn((basis, RDF.type, CRIT.JudgementBasis), self.graph)
+            self.assertIn((location, RDF.type, CRIT.SourceLocation), self.graph)
+            self.assertIn((interpretation, RDF.type, CRIT.Interpretation), self.graph)
 
     def test_rule_requires_an_upstream_threat_evaluation(self) -> None:
         graph = load_graph()

@@ -58,50 +58,70 @@ WHERE {
         rss-res:producedByRun ?run .
   }
 
-  OPTIONAL { ?flow rss-rail:sequenceProtectionEnabled ?sequenceProtection . }
+  OPTIONAL { ?flow rss-rail:sequenceNumberEnabled ?sequenceNumber . }
+  OPTIONAL { ?flow rss-rail:timestampEnabled ?timestamp . }
   OPTIONAL { ?flow rss-rail:timeoutMechanismEnabled ?timeoutMechanism . }
   OPTIONAL { ?flow rss-rail:sourceDestinationIdentifierEnabled ?sourceDestinationIdentifier . }
+  OPTIONAL { ?flow rss-rail:feedbackMessageEnabled ?feedbackMessage . }
+  OPTIONAL { ?flow rss-rail:identificationProcedureEnabled ?identificationProcedure . }
   OPTIONAL { ?flow rss-rail:safetyCodeEnabled ?safetyCode . }
-  OPTIONAL { ?flow rss-rail:authenticationEnabled ?authentication . }
+  OPTIONAL { ?flow rss-rail:cryptographicMessageProtectionEnabled ?cryptographicProtection . }
 
   BIND(IF(BOUND(?cat1Outcome), ?cat1Outcome = rss-res:satisfied, false) AS ?cat1Satisfied)
   BIND(IF(BOUND(?cat2Outcome), ?cat2Outcome = rss-res:satisfied, false) AS ?cat2Satisfied)
   BIND(IF(BOUND(?cat3Outcome), ?cat3Outcome = rss-res:satisfied, false) AS ?cat3Satisfied)
-  BIND((?threat = rss-rail:InsertionThreat || ?threat = rss-rail:MasqueradeThreat) AS ?category3Only)
-  BIND((?cat1Satisfied || (?category3Only && ?cat2Satisfied)) AS ?notApplicable)
-  BIND(IF(?category3Only, ?cat3Satisfied, (?cat2Satisfied || ?cat3Satisfied)) AS ?applicable)
+  # EN 50159:2010, 6.4 makes every Clause 5 threat applicable to every
+  # transmission category except masquerade, which applies only to the open
+  # Categories 2 and 3.
+  BIND(?threat = rss-rail:MasqueradeThreat AS ?openSystemOnly)
+  BIND(?openSystemOnly && ?cat1Satisfied AS ?notApplicable)
+  BIND(IF(?openSystemOnly, (?cat2Satisfied || ?cat3Satisfied), true) AS ?applicable)
 
+  # EN 50159:2010, 7.4.2 Table 1 is an alternatives matrix.  A threat is
+  # protected when any listed defence is explicitly true.  Exposure is
+  # asserted only when every listed alternative is explicitly known and false;
+  # a partial inventory without a positive defence remains undetermined.
   BIND(
     IF(?threat = rss-rail:RepetitionThreat || ?threat = rss-rail:ResequencingThreat,
-       BOUND(?sequenceProtection),
-       IF(?threat = rss-rail:DeletionThreat || ?threat = rss-rail:DelayThreat,
-          BOUND(?timeoutMechanism),
+       BOUND(?sequenceNumber) && BOUND(?timestamp),
+       IF(?threat = rss-rail:DeletionThreat,
+          BOUND(?sequenceNumber),
           IF(?threat = rss-rail:InsertionThreat,
-             BOUND(?sourceDestinationIdentifier),
+             BOUND(?sequenceNumber) && BOUND(?sourceDestinationIdentifier) &&
+             BOUND(?feedbackMessage) && BOUND(?identificationProcedure),
              IF(?threat = rss-rail:CorruptionThreat,
-                BOUND(?safetyCode),
-                ((BOUND(?authentication) && ?authentication = true) ||
-                 (BOUND(?sourceDestinationIdentifier) && ?sourceDestinationIdentifier = true) ||
-                 (BOUND(?authentication) && BOUND(?sourceDestinationIdentifier)))))))
-    AS ?mechanismKnown
+                BOUND(?safetyCode) && BOUND(?cryptographicProtection),
+                IF(?threat = rss-rail:DelayThreat,
+                   BOUND(?timestamp) && BOUND(?timeoutMechanism),
+                   BOUND(?feedbackMessage) && BOUND(?identificationProcedure) &&
+                   BOUND(?cryptographicProtection))))))
+    AS ?allAlternativesKnown
   )
   BIND(
     IF(?threat = rss-rail:RepetitionThreat || ?threat = rss-rail:ResequencingThreat,
-       ?sequenceProtection = true,
-       IF(?threat = rss-rail:DeletionThreat || ?threat = rss-rail:DelayThreat,
-          ?timeoutMechanism = true,
+       (BOUND(?sequenceNumber) && ?sequenceNumber = true) ||
+       (BOUND(?timestamp) && ?timestamp = true),
+       IF(?threat = rss-rail:DeletionThreat,
+          BOUND(?sequenceNumber) && ?sequenceNumber = true,
           IF(?threat = rss-rail:InsertionThreat,
-             ?sourceDestinationIdentifier = true,
+             (BOUND(?sequenceNumber) && ?sequenceNumber = true) ||
+             (BOUND(?sourceDestinationIdentifier) && ?sourceDestinationIdentifier = true) ||
+             (BOUND(?feedbackMessage) && ?feedbackMessage = true) ||
+             (BOUND(?identificationProcedure) && ?identificationProcedure = true),
              IF(?threat = rss-rail:CorruptionThreat,
-                ?safetyCode = true,
-                ((BOUND(?authentication) && ?authentication = true) ||
-                 (BOUND(?sourceDestinationIdentifier) && ?sourceDestinationIdentifier = true))))))
-    AS ?protectionEnabled
+                (BOUND(?safetyCode) && ?safetyCode = true) ||
+                (BOUND(?cryptographicProtection) && ?cryptographicProtection = true),
+                IF(?threat = rss-rail:DelayThreat,
+                   (BOUND(?timestamp) && ?timestamp = true) ||
+                   (BOUND(?timeoutMechanism) && ?timeoutMechanism = true),
+                   (BOUND(?feedbackMessage) && ?feedbackMessage = true) ||
+                   (BOUND(?identificationProcedure) && ?identificationProcedure = true) ||
+                   (BOUND(?cryptographicProtection) && ?cryptographicProtection = true))))))
+    AS ?anyAlternativeEnabled
   )
   BIND(
-    IF(?mechanismKnown,
-       IF(?protectionEnabled, rss-res:notSatisfied, rss-res:satisfied),
-       rss-res:undetermined)
+    IF(?anyAlternativeEnabled, rss-res:notSatisfied,
+       IF(?allAlternativesKnown, rss-res:satisfied, rss-res:undetermined))
     AS ?protectionOutcome
   )
   BIND(

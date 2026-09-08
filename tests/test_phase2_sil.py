@@ -1,4 +1,4 @@
-"""Step 12.5 — maximum SIL risk (M5-R06), legacy v3 R2.5.3.
+"""Step 12.5 — assessor safety-integrity concern (M5-R06), legacy v3 R2.5.3.
 
 The stage aggregates the fail-safe compromise evaluations of a safety-critical
 asset. It is the fifth link in the chain, so it also serves as the end-to-end
@@ -28,6 +28,9 @@ PROJECT = Path(__file__).resolve().parents[1]
 FS = Namespace("https://w3id.org/railsec-scope/fixture/railway-fail-safe/")
 SIL = Namespace("https://w3id.org/railsec-scope/fixture/railway-sil/")
 RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
+CORE = Namespace("https://w3id.org/railsec-scope/core#")
+CRIT = Namespace("https://w3id.org/railsec-scope/criteria#")
+PROV = Namespace("http://www.w3.org/ns/prov#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
 RULE = Namespace("https://w3id.org/railsec-scope/rules#")
 RSSCR = Namespace("https://w3id.org/railsec-scope/criteria/railway/")
@@ -103,6 +106,42 @@ class Phase2SILRiskTest(unittest.TestCase):
 
     def test_no_asset_is_typed_with_a_risk_class(self) -> None:
         self.assertEqual([], list(self.graph.subjects(RDF.type, RAIL.maximumSILRisk)))
+
+    def test_sil_assignment_requires_a_separate_attributed_assessor_judgement(self) -> None:
+        shapes = Graph().parse(PROJECT / "shapes" / "railway.ttl")
+        function = SIL["assessed-safety-function"]
+        graph = load_graph()
+        graph.add((function, RDF.type, CORE.SafetyFunction))
+        graph.add((function, RAIL.hasSafetyIntegrityLevel, RAIL.sil4))
+        conforms, _, _ = validate(data_graph=graph, shacl_graph=shapes, inference="none", advanced=True)
+        self.assertFalse(conforms, "a bare SIL value must not pass without an attributed judgement")
+
+        assignment = SIL["sil4-assignment"]
+        assessor = SIL.assessor
+        graph.add((assignment, RDF.type, RAIL.SILAssignmentAssumption))
+        graph.add((assignment, RAIL.silAssignmentSubject, function))
+        graph.add((assignment, RAIL.assignedSafetyIntegrityLevel, RAIL.sil4))
+        graph.add((assignment, CORE.hasEpistemicStatus, CORE.assumptionStatus))
+        graph.add((assignment, RES.assertedInInstanceSet, SIL["instance-set"]))
+        graph.add((assignment, PROV.wasDerivedFrom, RSSCR["sil-sil-basis"]))
+        graph.add((assignment, PROV.wasAttributedTo, assessor))
+        graph.add((assessor, RDF.type, PROV.Agent))
+        conforms, _, report = validate(data_graph=graph, shacl_graph=shapes, inference="none", advanced=True)
+        self.assertTrue(conforms, report)
+
+        mismatched = load_graph()
+        mismatched.add((function, RDF.type, CORE.SafetyFunction))
+        mismatched.add((function, RAIL.hasSafetyIntegrityLevel, RAIL.sil4))
+        mismatched.add((assignment, RDF.type, RAIL.SILAssignmentAssumption))
+        mismatched.add((assignment, RAIL.silAssignmentSubject, function))
+        mismatched.add((assignment, RAIL.assignedSafetyIntegrityLevel, RAIL.sil3))
+        mismatched.add((assignment, CORE.hasEpistemicStatus, CORE.assumptionStatus))
+        mismatched.add((assignment, RES.assertedInInstanceSet, SIL["instance-set"]))
+        mismatched.add((assignment, PROV.wasDerivedFrom, RSSCR["sil-sil-basis"]))
+        mismatched.add((assignment, PROV.wasAttributedTo, assessor))
+        mismatched.add((assessor, RDF.type, PROV.Agent))
+        conforms, _, _ = validate(data_graph=mismatched, shacl_graph=shapes, inference="none", advanced=True)
+        self.assertFalse(conforms, "the reified SIL assignment must match the direct SIL value")
 
     def test_each_evaluation_cites_the_fail_safe_input(self) -> None:
         for asset in EXPECTED:

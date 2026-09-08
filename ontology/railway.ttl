@@ -30,8 +30,14 @@ rss-rail:OperationalAsset a owl:Class ; rdfs:subClassOf rss-rail:RailwayAsset ; 
 rss-rail:RailwayPayload a owl:Class ; rdfs:subClassOf rss-core:Payload ; rdfs:label "Railway payload"@en .
 rss-rail:SafetyRelatedPayload a owl:Class ; rdfs:subClassOf rss-rail:RailwayPayload ; rdfs:label "Safety-related payload"@en .
 rss-rail:NonSafetyPayload a owl:Class ; rdfs:subClassOf rss-rail:RailwayPayload ; rdfs:label "Non-safety payload"@en .
-rss-rail:EmergencyCommandData a owl:Class ; rdfs:subClassOf rss-rail:SafetyRelatedPayload ; rdfs:label "Emergency command data"@en .
-rss-rail:PositionStatusData a owl:Class ; rdfs:subClassOf rss-rail:SafetyRelatedPayload ; rdfs:label "Position status data"@en .
+rss-rail:EmergencyCommandData a owl:Class ;
+    rdfs:subClassOf rss-rail:SafetyRelatedPayload ;
+    rdfs:label "Emergency command data (assessor classification)"@en ;
+    rsso:definition "Project-defined payload class used by an assessor to distinguish time-critical command data. EN 50159:2010 does not define this payload class."@en .
+rss-rail:PositionStatusData a owl:Class ;
+    rdfs:subClassOf rss-rail:SafetyRelatedPayload ;
+    rdfs:label "Position status data (assessor classification)"@en ;
+    rsso:definition "Project-defined payload class used by an assessor to distinguish sequence-sensitive position/status data. EN 50159:2010 does not define this payload class."@en .
 [] a owl:AllDisjointClasses ; owl:members ( rss-rail:SafetyRelatedPayload rss-rail:NonSafetyPayload ) .
 
 ### EN 50159 transmission-category vocabulary
@@ -98,14 +104,19 @@ rss-rail:assessesTransmissionThreat a owl:ObjectProperty, owl:FunctionalProperty
 
 # These are architecture observations. documentsAddressedThreat is an annotation
 # for human traceability only; no safeguard-to-threat inference axiom exists in M5.
-rss-rail:authenticationEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "authentication enabled"@en ; rsso:documentsAddressedThreat rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:integrityProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "integrity protection enabled"@en ; rsso:documentsAddressedThreat rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:sequenceProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "sequence protection enabled"@en ; rsso:documentsAddressedThreat rss-rail:RepetitionThreat, rss-rail:DeletionThreat, rss-rail:InsertionThreat, rss-rail:ResequencingThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:timeoutMechanismEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "timeout mechanism enabled"@en ; rsso:documentsAddressedThreat rss-rail:DelayThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:safetyCodeEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "safety code enabled"@en ; rsso:documentsAddressedThreat rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:sourceDestinationIdentifierEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "source/destination identifier enabled"@en ; rsso:documentsAddressedThreat rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:redundancyEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "redundancy enabled"@en ; rsso:documentsAddressedThreat rss-rail:DeletionThreat, rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159 §5; documentation link only"@en .
-rss-rail:encryptionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "encryption enabled"@en ; rsso:sourceLocatorNote "IEC 62443-3-3 FR4 — confidentiality; outside the EN 50159 safety-communication threat set"@en .
+rss-rail:authenticationEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "authentication enabled"@en ; rsso:sourceLocatorNote "IEC 62443-3-3:2013 SR 1.2; aggregate L1 control observation"@en .
+rss-rail:integrityProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "integrity protection enabled"@en ; rsso:sourceLocatorNote "IEC 62443-3-3:2013 SR 3.1; aggregate L1 control observation"@en .
+rss-rail:sequenceProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "aggregate sequence protection enabled"@en ; rsso:sourceLocatorNote "Legacy aggregate retained for compatibility; it is insufficient by itself for EN 50159:2010 §7.4.2 threat evaluation"@en .
+rss-rail:sequenceNumberEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "sequence number enabled"@en ; rsso:documentsAddressedThreat rss-rail:RepetitionThreat, rss-rail:DeletionThreat, rss-rail:InsertionThreat, rss-rail:ResequencingThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1"@en .
+rss-rail:timestampEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "timestamp enabled"@en ; rsso:documentsAddressedThreat rss-rail:RepetitionThreat, rss-rail:ResequencingThreat, rss-rail:DelayThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1"@en .
+rss-rail:timeoutMechanismEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "timeout mechanism enabled"@en ; rsso:documentsAddressedThreat rss-rail:DelayThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1"@en .
+rss-rail:safetyCodeEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "safety code enabled"@en ; rsso:documentsAddressedThreat rss-rail:CorruptionThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1"@en .
+rss-rail:sourceDestinationIdentifierEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "source/destination identifier enabled"@en ; rsso:documentsAddressedThreat rss-rail:InsertionThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1 (source identifier)"@en .
+rss-rail:feedbackMessageEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "feedback message enabled"@en ; rsso:documentsAddressedThreat rss-rail:InsertionThreat, rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1"@en .
+rss-rail:identificationProcedureEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "identification procedure enabled"@en ; rsso:documentsAddressedThreat rss-rail:InsertionThreat, rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159:2010 §§7.3.6 and 7.4.2 Table 1"@en .
+rss-rail:cryptographicMessageProtectionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "cryptographic message protection enabled"@en ; rsso:documentsAddressedThreat rss-rail:CorruptionThreat, rss-rail:MasqueradeThreat ; rsso:sourceLocatorNote "EN 50159:2010 §7.4.2 Table 1"@en .
+rss-rail:redundancyEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "redundancy enabled"@en ; rsso:sourceLocatorNote "Architecture observation; not used as an EN 50159:2010 §7.4.2 alternative defence"@en .
+rss-rail:encryptionEnabled a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-rail:RailwayInformationFlow ; rdfs:range xsd:boolean ; rdfs:label "encryption enabled"@en ; rsso:sourceLocatorNote "IEC 62443-3-3:2013 SR 4.1 and SR 4.3 — confidentiality; outside the EN 50159:2010 safety-communication threat set"@en .
 
 ### SIL, fail-safe dependency and railway access routes
 
@@ -130,8 +141,28 @@ rss-rail:RemoteAccess a owl:Class, owl:NamedIndividual, rss-core:AccessMechanism
 [] a owl:AllDisjointClasses ; owl:members ( rss-rail:MaintenanceAccess rss-rail:SupplierAccess rss-rail:RemoteAccess ) .
 
 rss-rail:hasSafetyIntegrityLevel a owl:ObjectProperty, owl:FunctionalProperty ;
-    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-rail:RailwayAsset rss-core:SafetyFunction ) ] ;
-    rdfs:range rss-rail:SafetyIntegrityLevel ; rdfs:label "has safety integrity level"@en .
+    rdfs:domain rss-core:SafetyFunction ;
+    rdfs:range rss-rail:SafetyIntegrityLevel ;
+    rdfs:label "has allocated safety integrity level"@en ;
+    rsso:sourceLocatorNote "EN 50126-1:2017 §§3.69–3.70 and EN 50126-2:2017 §§10.2.7–10.2.8; an allocated SIL is safety-case evidence, not an inferred asset property"@en .
+
+# A SIL value is never inferred from SafetyCriticalAsset membership or from a
+# cybersecurity finding.  Until a safety-case asserted fact is available, a
+# value is recorded as a separately attributed assessor judgement.
+rss-rail:SILAssignmentAssumption a owl:Class ;
+    rdfs:subClassOf rss-core:Assumption ;
+    rdfs:label "SIL assignment assumption"@en ;
+    rsso:definition "Attributed assessor judgement assigning a SIL to a safety-related electronic function pending, or transcribing, safety-case evidence under EN 50126-1:2017 and EN 50126-2:2017."@en .
+rss-rail:silAssignmentSubject a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionSubject ;
+    rdfs:domain rss-rail:SILAssignmentAssumption ;
+    rdfs:range rss-core:SafetyFunction ;
+    rdfs:label "SIL assignment subject"@en .
+rss-rail:assignedSafetyIntegrityLevel a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionObjectResource ;
+    rdfs:domain rss-rail:SILAssignmentAssumption ;
+    rdfs:range rss-rail:SafetyIntegrityLevel ;
+    rdfs:label "assigned safety integrity level"@en .
 rss-rail:failSafeDependsOn a owl:ObjectProperty ;
     rdfs:subPropertyOf rss-core:directlyDependsOn ;
     rdfs:domain rss-core:SafetyFunction ;
@@ -191,13 +222,15 @@ rss-rail:assessesFailSafeCompromiseFrom a owl:ObjectProperty, owl:FunctionalProp
 
 rss-rail:SILRiskType a owl:Class ;
     owl:equivalentClass [ a owl:Class ; owl:oneOf ( rss-rail:maximumSILRisk ) ] ;
-    rdfs:label "SIL risk type"@en .
-rss-rail:maximumSILRisk a owl:NamedIndividual, rss-rail:SILRiskType ; rdfs:label "Maximum SIL risk"@en .
+    rdfs:label "Safety-integrity scoping judgement type"@en ;
+    rsso:definition "Compatibility class for assessor judgements used to prioritise security scope. It does not represent or allocate a SIL."@en .
+rss-rail:maximumSILRisk a owl:NamedIndividual, rss-rail:SILRiskType ;
+    rdfs:label "Maximum safety-integrity concern (assessor judgement)"@en .
 
 rss-rail:assessesSILRisk a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-crit:Criterion ;
     rdfs:range rss-rail:SILRiskType ;
-    rdfs:label "assesses SIL risk"@en .
+    rdfs:label "assesses safety-integrity scoping judgement"@en .
 
 ### Access risk evaluation (Step 12.6, CR-B-016)
 # Legacy v3 R2.6.1-R2.6.4. Expressed as criterion outcomes; no element is typed

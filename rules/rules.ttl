@@ -23,21 +23,21 @@ rss-rule:EvaluateTransmissionCategory a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:implementationFile "evaluate-transmission-category.rq" ;
     rss-rule:ruleIdentifier "M5-R01" ;
     rss-rule:enabled true ;
-    dcterms:description "Produces three-valued CriterionEvaluation records from attributed category inputs; it does not assert category membership."@en .
+    dcterms:description "Implements EN 50159:2010 clauses 6.3.1-6.3.3 as three-valued CriterionEvaluation records over Pr1, Pr2 and attributed Pr3 inputs; it does not assert category membership."@en .
 
 rss-rule:ClassifyTransmissionCategory a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
     rss-rule:implementationFile "classify-transmission-category.rq" ;
     rss-rule:ruleIdentifier "M5-R02" ;
     rss-rule:enabled true ;
-    dcterms:description "Entails EN 50159 category membership only from a satisfied CriterionEvaluation."@en .
+    dcterms:description "Entails EN 50159:2010 category membership only from a satisfied CriterionEvaluation."@en .
 
 rss-rule:EvaluateTransmissionThreat a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
     rss-rule:implementationFile "evaluate-transmission-threat.rq" ;
     rss-rule:ruleIdentifier "M5-R03" ;
     rss-rule:enabled true ;
-    dcterms:description "Produces three-valued evaluations for the seven EN 50159 transmission threats. It consumes upstream category evaluations and never types a flow as a threat class."@en .
+    dcterms:description "Produces three-valued evaluations for the seven EN 50159:2010 transmission threats. It implements clause 6.4 applicability and treats the defences in 7.4.2 Table 1 as alternatives; a partial defence inventory without a positive alternative remains undetermined."@en .
 
 rss-rule:EvaluateCriticalViolation a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
@@ -58,7 +58,7 @@ rss-rule:EvaluateSILRisk a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-rule:implementationFile "evaluate-sil-risk.rq" ;
     rss-rule:ruleIdentifier "M5-R06" ;
     rss-rule:enabled true ;
-    dcterms:description "Aggregates fail-safe compromise evaluations of a safety-critical asset into a maximum SIL risk evaluation. Consumes evaluations rather than class membership and never types an asset with a risk class."@en .
+    dcterms:description "Applies an assessor policy that aggregates fail-safe compromise evaluations into a maximum safety-integrity scoping concern. It does not infer or allocate a SIL; SIL assignments are separately attributed assumptions under EN 50126-1:2017 and EN 50126-2:2017."@en .
 
 rss-rule:EvaluateAssetAccessRisk a rss-rule:DLSafeRule, rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;

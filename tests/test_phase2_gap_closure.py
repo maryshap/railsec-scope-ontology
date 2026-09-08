@@ -43,6 +43,19 @@ def outcome(graph: Graph, element, predicate, value):
 
 
 class Phase2GapClosureTest(unittest.TestCase):
+    def test_every_production_criterion_has_source_interpretation_and_judgement(self) -> None:
+        graph = load_graph()
+        criteria = set(graph.subjects(RDF.type, CRIT.Criterion))
+        self.assertEqual(33, len(criteria))
+        for criterion in criteria:
+            with self.subTest(criterion=criterion):
+                location = graph.value(criterion, CRIT.derivedFromSourceLocation)
+                interpretation = graph.value(criterion, CRIT.appliesInterpretation)
+                basis = graph.value(criterion, CRIT.restsOnJudgement)
+                self.assertIn((location, RDF.type, CRIT.SourceLocation), graph)
+                self.assertIn((interpretation, RDF.type, CRIT.Interpretation), graph)
+                self.assertIn((basis, RDF.type, CRIT.JudgementBasis), graph)
+
     def test_confidentiality_weakness_materialises_only_from_satisfied_evaluation(self) -> None:
         graph = load_graph()
         graph.add((FX.flow, RDF.type, RAIL.RailwayInformationFlow))

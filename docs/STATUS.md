@@ -8,7 +8,7 @@ status. These are separate states and must not be collapsed into one claim.
 | State | Status | Meaning |
 |---|---|---|
 | Phase 2 implementation | **Complete for the admitted scope** | Canonical Steps 9–16 are implemented with executable evidence. |
-| Ontology | **Implemented core; controlled follow-up remains** | M1–M5, admitted criteria and rule mechanisms are present. Twelve legacy rules are explicitly deferred to future capabilities and nine are not admitted as ontology rules. |
+| Ontology | **L1–L2 implemented and primary-source corrected; L3 remains** | M1–M5 and the admitted L1–L2 criteria/rules are present. The primary-standard review corrections are recorded in CR-B-024. Twelve legacy rules remain explicitly assigned to future capabilities and nine are not admitted as ontology rules. |
 | ETCS case study | **Structurally migrated; fact completion in progress** | The architecture and initial security facts are usable, but unknown inputs still produce legitimate `undetermined` results. |
 | Public release | **Not ready** | Source interpretation review, case evidence, persistent IRI setup and publication review remain. |
 
@@ -34,7 +34,7 @@ environment facts and the L1 control-weakness assessment.
 
 The current `migration/legacy-rule-triage.csv` is the operational register:
 
-- 33 rules are implemented with recorded sources;
+- 33 rules are implemented with recorded sources and explicit assessor-policy boundaries where a standard informs but does not entail the project rule;
 - 12 are deferred to explicitly named future capabilities, including the ATT&CK layer, reachability/external computation and organisational scope;
 - 9 are not admitted as ontology rules because they duplicate the railway threat taxonomy, lie outside the declared scope, or belong to ETL rather than reasoning;
 - no rule remains in an untriaged “implement now” state.
@@ -46,25 +46,24 @@ implementation gaps.
 
 - Competency questions: 27/45 have value oracles, 5/45 are empty by design and 13/45 are explicitly deferred pending producing capabilities.
 - SHACL: 15/21 node shapes have focus nodes across the current evidence graphs; 6/21 remain registered as vacuous pending their producing capabilities.
-- The ETCS L1 control run produced 1,480 evaluations: 258 satisfied, 630 not satisfied and 592 undetermined. Initial findings include 16 DoS-exposed flows, 53 unaudited flows and 60 unsegmented cross-boundary flows.
+- The pre-CR-B-024 ETCS L1 control run produced 1,480 evaluations. Its control-weakness counts remain regression evidence, but transmission-threat counts must be regenerated because EN 50159:2010 alternative-defence and category semantics changed.
 
 These numbers are regression evidence for the current data, not a claim that
 the ETCS case study is complete.
 
 ## Next work: ontology completion
 
-1. Complete reviewed interpretations and source locations for provisional criteria; a citation alone does not replace an interpretation record.
+1. Regenerate the ETCS scenario results under the corrected EN 50159:2010 semantics; this is case-study evidence, not additional ontology design.
 2. Populate the ETCS ABox through explicit scenarios over one stable architecture: protected baseline, controlled protection changes, unknown-data cases and an expert-report comparison case.
-3. Build the deferred attack/reachability capabilities only after their scope and evidence sources are approved; do not treat them as missing facts in the current ABox.
+3. Build the deferred L3 attack/reachability capabilities only after their scope and evidence sources are approved; do not treat them as missing facts in the current ABox.
 
 ## Public-release blockers
 
-1. Complete the normative source-text and interpretation review for provisional criteria.
-2. Complete and provenance-tag the ETCS facts required by the selected scenario criteria.
-3. Obtain independent expert evidence and define the comparison protocol for EV-B11.
-4. Review the workbook-derived boundary mapping and other remaining assessor assumptions.
-5. Register and test the w3id redirect.
-6. Complete K-22 copyright/source-text review and the final publication review.
+1. Complete and provenance-tag the ETCS facts required by the selected scenario criteria.
+2. Obtain independent expert evidence and define the comparison protocol for EV-B11.
+3. Review the workbook-derived boundary mapping and other remaining case-specific assessor assumptions.
+4. Register and test the w3id redirect.
+5. Complete K-22 copyright/source-text review and the final publication review.
 
 The nine ETCS `SafetyCriticalAsset` classifications already have an attributed
 `JudgementBasis` in `cases/etcs/classification-provenance.ttl`; this is not an

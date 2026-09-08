@@ -48,17 +48,27 @@ WHERE {
       rss-res:assertedInInstanceSet ?set .
   }
 
+  # EN 50159:2010, 6.3.1 defines Pr1 (fixed participant set), Pr2
+  # (known/fixed transmission characteristics) and Pr3 (negligible risk of
+  # unauthorised access).  Category 3 depends on Pr3 alone; it must not be
+  # suppressed merely because Pr1/Pr2 are true or unknown.
   BIND(BOUND(?controlled) && BOUND(?fixed) AS ?environmentKnown)
-  BIND(?environmentKnown && ?controlled = true && ?fixed = true AS ?fullyControlled)
-  BIND((BOUND(?controlled) && ?controlled = false) || (BOUND(?fixed) && ?fixed = false) AS ?notFullyControlled)
+  BIND(?environmentKnown && ?controlled = true && ?fixed = true AS ?pr1AndPr2Satisfied)
+  BIND((BOUND(?controlled) && ?controlled = false) || (BOUND(?fixed) && ?fixed = false) AS ?pr1OrPr2NotSatisfied)
   BIND(
     IF(?category = rss-rail:Category1Transmission,
-       IF(?fullyControlled, rss-res:satisfied, IF(?notFullyControlled, rss-res:notSatisfied, rss-res:undetermined)),
-       IF(?fullyControlled, rss-res:notSatisfied,
-          IF(!?notFullyControlled || !BOUND(?accessExcluded), rss-res:undetermined,
-             IF(?category = rss-rail:Category2Transmission,
-                IF(?accessExcluded = true, rss-res:satisfied, rss-res:notSatisfied),
-                IF(?accessExcluded = false, rss-res:satisfied, rss-res:notSatisfied)))))
+       IF(?pr1AndPr2Satisfied && BOUND(?accessExcluded) && ?accessExcluded = true,
+          rss-res:satisfied,
+          IF(?pr1OrPr2NotSatisfied || (BOUND(?accessExcluded) && ?accessExcluded = false),
+             rss-res:notSatisfied, rss-res:undetermined)),
+       IF(?category = rss-rail:Category2Transmission,
+          IF(?pr1OrPr2NotSatisfied && BOUND(?accessExcluded) && ?accessExcluded = true,
+             rss-res:satisfied,
+             IF(?pr1AndPr2Satisfied || (BOUND(?accessExcluded) && ?accessExcluded = false),
+                rss-res:notSatisfied, rss-res:undetermined)),
+          IF(BOUND(?accessExcluded),
+             IF(?accessExcluded = false, rss-res:satisfied, rss-res:notSatisfied),
+             rss-res:undetermined)))
     AS ?outcome
   )
   BIND(IRI(CONCAT(STR(?flow), "/evaluation/", ENCODE_FOR_URI(STRAFTER(STR(?category), "#")), "/run/", MD5(STR(?run)))) AS ?evaluation)

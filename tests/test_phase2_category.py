@@ -121,12 +121,13 @@ class Phase2TransmissionCategoryTest(unittest.TestCase):
         graph = Graph().parse(PROJECT / "ontology" / "ontology.ttl")
         graph.parse(PROJECT / "ontology" / "railway.ttl")
         self.assertIn((RSSO.documentsAddressedThreat, RDF.type, OWL.AnnotationProperty), graph)
-        self.assertIn((RAIL.integrityProtectionEnabled, RSSO.documentsAddressedThreat, RAIL.CorruptionThreat), graph)
+        self.assertIn((RAIL.safetyCodeEnabled, RSSO.documentsAddressedThreat, RAIL.CorruptionThreat), graph)
+        self.assertIn((RAIL.cryptographicMessageProtectionEnabled, RSSO.documentsAddressedThreat, RAIL.CorruptionThreat), graph)
         self.assertIn(
             (
                 RAIL.encryptionEnabled,
                 RSSO.sourceLocatorNote,
-                Literal("IEC 62443-3-3 FR4 — confidentiality; outside the EN 50159 safety-communication threat set", lang="en"),
+                Literal("IEC 62443-3-3:2013 SR 4.1 and SR 4.3 — confidentiality; outside the EN 50159:2010 safety-communication threat set", lang="en"),
             ),
             graph,
         )

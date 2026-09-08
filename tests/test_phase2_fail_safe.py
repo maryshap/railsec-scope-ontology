@@ -145,7 +145,7 @@ class Phase2FailSafeTest(unittest.TestCase):
             self.assertIsNotNone(basis)
             self.assertIsNotNone(self.graph.value(criterion, CRIT.derivedFromSourceLocation))
             self.assertIsNotNone(self.graph.value(criterion, CRIT.appliesInterpretation))
-            self.assertIn("implementation history", str(self.graph.value(basis, CRIT.reasoning)))
+            self.assertIn("EN 50126-1:2017", str(self.graph.value(basis, CRIT.reasoning)))
 
     def test_rule_reaches_a_fixed_point(self) -> None:
         before = len(self.graph)

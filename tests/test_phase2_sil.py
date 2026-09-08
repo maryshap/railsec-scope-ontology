@@ -26,6 +26,7 @@ from rdflib import Graph, Namespace, RDF
 
 PROJECT = Path(__file__).resolve().parents[1]
 FS = Namespace("https://w3id.org/railsec-scope/fixture/railway-fail-safe/")
+FX = Namespace("https://w3id.org/railsec-scope/fixture/railway-category/")
 SIL = Namespace("https://w3id.org/railsec-scope/fixture/railway-sil/")
 RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
 CORE = Namespace("https://w3id.org/railsec-scope/core#")
@@ -122,7 +123,7 @@ class Phase2SILRiskTest(unittest.TestCase):
         graph.add((assignment, RAIL.silAssignmentSubject, function))
         graph.add((assignment, RAIL.assignedSafetyIntegrityLevel, RAIL.sil4))
         graph.add((assignment, CORE.hasEpistemicStatus, CORE.assumptionStatus))
-        graph.add((assignment, RES.assertedInInstanceSet, SIL["instance-set"]))
+        graph.add((assignment, RES.assertedInInstanceSet, FX["instance-set"]))
         graph.add((assignment, PROV.wasDerivedFrom, RSSCR["sil-sil-basis"]))
         graph.add((assignment, PROV.wasAttributedTo, assessor))
         graph.add((assessor, RDF.type, PROV.Agent))
@@ -136,7 +137,7 @@ class Phase2SILRiskTest(unittest.TestCase):
         mismatched.add((assignment, RAIL.silAssignmentSubject, function))
         mismatched.add((assignment, RAIL.assignedSafetyIntegrityLevel, RAIL.sil3))
         mismatched.add((assignment, CORE.hasEpistemicStatus, CORE.assumptionStatus))
-        mismatched.add((assignment, RES.assertedInInstanceSet, SIL["instance-set"]))
+        mismatched.add((assignment, RES.assertedInInstanceSet, FX["instance-set"]))
         mismatched.add((assignment, PROV.wasDerivedFrom, RSSCR["sil-sil-basis"]))
         mismatched.add((assignment, PROV.wasAttributedTo, assessor))
         mismatched.add((assessor, RDF.type, PROV.Agent))

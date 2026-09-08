@@ -27,7 +27,7 @@ InformationFlow	M1	Element	carriesPayload,hasCharacteristic,hasDestination,hasOr
 Interface	M1	Element		traverses	0	Asset,InformationFlow	K-03
 PropertyLossScenario	M1		hasConsequence,scenarioConcernsElement,scenarioConcernsProperty	evaluatesScenario	0		
 Rationale	M1		rationaleText	hasExclusionRationale,hasRationale	0		K-02,K-13,K-14
-SafetyFunction	M1	Function	failSafeDependsOn	affectsFunction	0		
+SafetyFunction	M1	Function	failSafeDependsOn,hasSafetyIntegrityLevel	affectsFunction,silAssignmentSubject	0
 SecurityProperty	M1			scenarioConcernsProperty	0		
 SystemRole	M1			playsRole	0		
 ArtefactVersion	M2		versionIdentifier	hasVersion,usedVersion	0		K-07

@@ -86,6 +86,7 @@ https://w3id.org/railsec-scope/railway#RemediationPriorityType	http://www.w3.org
 https://w3id.org/railsec-scope/railway#RemoteAccess	https://w3id.org/railsec-scope/core#AccessMechanism
 https://w3id.org/railsec-scope/railway#RepetitionThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
 https://w3id.org/railsec-scope/railway#ResequencingThreat	https://w3id.org/railsec-scope/railway#TransmissionThreat
+https://w3id.org/railsec-scope/railway#SILAssignmentAssumption	https://w3id.org/railsec-scope/core#Assumption
 https://w3id.org/railsec-scope/railway#SILRiskType	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/railway#SafetyCriticalAsset	https://w3id.org/railsec-scope/railway#RailwayAsset
 https://w3id.org/railsec-scope/railway#SafetyIntegrityLevel	http://www.w3.org/2002/07/owl#Thing

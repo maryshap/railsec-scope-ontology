@@ -439,27 +439,27 @@ rsscr:source-ts50701 a rss-crit:Source ;
 rsscr:edition-en50159-2010 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-en50159 ;
     rss-crit:editionLabel "2010 edition" ;
-    rss-crit:consultationStatus "primary document reviewed" .
+    rss-crit:consultationStatus "full" .
 
 rsscr:edition-en50126-1-2017 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-en50126 ;
     rss-crit:editionLabel "EN 50126-1:2017" ;
-    rss-crit:consultationStatus "primary document reviewed" .
+    rss-crit:consultationStatus "full" .
 
 rsscr:edition-en50126-2-2017 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-en50126 ;
     rss-crit:editionLabel "EN 50126-2:2017" ;
-    rss-crit:consultationStatus "primary document reviewed" .
+    rss-crit:consultationStatus "full" .
 
 rsscr:edition-iec62443-3-3 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-iec62443-3-3 ;
     rss-crit:editionLabel "IEC 62443-3-3:2013, Edition 1.0" ;
-    rss-crit:consultationStatus "primary document reviewed" .
+    rss-crit:consultationStatus "full" .
 
 rsscr:edition-ts50701 a rss-crit:SourceEdition ;
     rss-crit:editionOf rsscr:source-ts50701 ;
     rss-crit:editionLabel "prTS 50701 D8E4:2020 (version dated 2020-09-25)" ;
-    rss-crit:consultationStatus "project-supplied draft reviewed as current source" .
+    rss-crit:consultationStatus "full" .
 
 rsscr:en50159-5-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "Clause 5" .
 rsscr:en50159-6-2-location a rss-crit:SourceLocation ; rss-crit:locatedInEdition rsscr:edition-en50159-2010 ; rss-crit:sourceLocator "6.2" .

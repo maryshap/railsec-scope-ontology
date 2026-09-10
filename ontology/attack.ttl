@@ -136,6 +136,9 @@ rss-attack:MITREAttackICS19_2 a rss-crit:SourceEdition ;
     rss-crit:editionLabel "ATT&CK for ICS 19.2 (STIX 2.1)" ;
     rss-crit:consultationStatus "full" .
 
+rss-attack:MITREAttackICS19_2VocabularyVersion a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "ATT&CK-ICS-19.2" .
+
 rss-attack:MITREAttackICS19_2Collection a rss-crit:SourceLocation ;
     rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
     rss-crit:sourceLocator "Official collection x-mitre-collection--90c00720-636b-4485-b342-8751d232bf09; https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/ics-attack/ics-attack-19.2.json" .

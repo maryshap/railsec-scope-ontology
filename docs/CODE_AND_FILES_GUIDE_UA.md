@@ -42,6 +42,8 @@ OWL відповідає за open-world semantics, hierarchy, disjointness, dom
 
 - `prov-o-source.ttl` — незмінена канонічна W3C копія для evidence.
 - `prov-o-dl.ttl` — мінімальна перевірена OWL 2 DL projection лише використаних PROV-O terms.
+- `attack-ics-19.2-projection.json` — pinned URL/checksum, object filters, expected counts і правило, що inclusion не означає railway applicability.
+- `attack-ics-19.2.ttl` — generated candidate vocabulary: 12 active tactics і 97 active techniques без ATT&CK descriptions або case mappings.
 - `README.md` — джерело, дата, checksum і пояснення, чому потрібна projection.
 
 CR-B-006 документує це рішення: канонічний PROV-O документ використовує property punning, яке OWLAPI відхиляє з DL profile.
@@ -99,6 +101,7 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 - `write_inferred_hierarchy.py` — stable reasoner report.
 - `write_entity_matrix.py` — 76-row traceability/formalisation inventory.
 - `write_cq_suite.py` — deterministic generator 45 query files.
+- `import_attack_ics.py` — dependency-free STIX 2.1 importer; відмовляється працювати при іншому checksum, collection version або object count.
 - `tests/` — CQ parsing/execution, K-shapes, publication lint, vertical slice й ETCS case.
 - `reports/inferred-class-hierarchy.tsv` — committed reasoner output для semantic diff.
 - `reports/entity-formalisation-matrix.tsv` — машинно згенерована карта всіх 76 entities.

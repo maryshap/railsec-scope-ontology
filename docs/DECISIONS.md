@@ -767,3 +767,30 @@ family in the approved module architecture. Direct `technique appliesTo element`
 embed the conclusion in the dictionary and bypass three-valued evaluation and
 provenance. Tracking the unversioned ATT&CK `latest` collection was rejected
 because results would not be reproducible after catalogue updates.
+
+## CR-B-026 — Controlled ATT&CK for ICS 19.2 projection
+
+**Decision.** The M7 candidate vocabulary is generated from the official
+ATT&CK for ICS 19.2 STIX 2.1 bundle. The manifest pins the collection ID,
+release, source SHA-256, projection SHA-256, included STIX object types and
+expected counts. The committed projection contains all 12 active tactics and
+97 active techniques, excluding revoked and deprecated objects.
+
+Projection is not railway relevance. Catalogue identity, labels, official URLs
+and technique-to-tactic relations are retained; descriptions, procedure
+examples, mitigations and technique-to-architecture mappings are not copied.
+A railway element can receive an applicable technique only through a sourced
+CriterionEvaluation with an explicit satisfied/notSatisfied/undetermined
+outcome.
+
+**Legacy source correction.** Legacy R4.1.4 cited ATT&CK ICS T0800 for the
+claim that a maintenance-zone asset is an entry point. In ATT&CK for ICS 19.2,
+T0800 is `Activate Firmware Update Mode`; it does not support that generic
+entry-point conclusion. The mapping is rejected and recorded as a source
+mismatch. A future maintenance-access technique criterion needs independent
+railway evidence.
+
+**Rejected alternatives.** Importing the changing `latest` bundle, silently
+accepting a changed checksum/count, copying the full ATT&CK descriptions, and
+labelling every ICS technique railway-applicable were rejected as
+non-reproducible, unnecessary or epistemically unsupported.

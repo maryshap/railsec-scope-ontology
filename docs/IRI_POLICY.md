@@ -46,6 +46,8 @@ https://w3id.org/railsec-scope/version/0.1.0/criteria
 https://w3id.org/railsec-scope/version/0.1.0/results
 https://w3id.org/railsec-scope/version/0.1.0/assessment
 https://w3id.org/railsec-scope/version/0.1.0/railway
+https://w3id.org/railsec-scope/version/0.1.0/attack
+https://w3id.org/railsec-scope/version/19.2/attack-ics-projection
 https://w3id.org/railsec-scope/case/{case-id}/version/{dataset-version}
 ```
 

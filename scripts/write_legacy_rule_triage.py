@@ -45,6 +45,8 @@ def decision(rule):
         return "implemented", "M5/RBox implemented criterion or computation", "Covered by the Phase 2 RSSO criteria/rule pipeline; legacy predicate names are not retained."
     if rule.id in IMPLEMENT_NOW:
         return "implement-now", "Ontology-complete gap closure", "Clean source and small vocabulary delta; implement as sourced criterion/vocabulary before declaring ontology complete."
+    if rule.id == "R4.1.4":
+        return "future-version", "L3 source correction required", "Do not implement as stated: ATT&CK for ICS T0800 is Activate Firmware Update Mode and does not support a generic maintenance-zone entry-point conclusion. A replacement applicability criterion requires separate railway evidence."
     if rule.id in FUTURE_L3:
         return "future-version", "L3/ATT&CK layer", "Normatively plausible, but semantically belongs to the future ATT&CK/L3 technique layer rather than Phase 2 L1/L2 criteria."
     if rule.id in FUTURE_COMPUTATION:
@@ -73,6 +75,8 @@ def review_status(rule_id: str, action: str) -> str:
         return "source-identified-open-implementation"
     if rule_id in RETIRED_OR_OUT_OF_SCOPE:
         return "triaged-not-admitted"
+    if rule_id == "R4.1.4":
+        return "source-mismatch-recorded"
     return "triaged-deferred"
 
 

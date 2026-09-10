@@ -8,7 +8,7 @@ status. These are separate states and must not be collapsed into one claim.
 | State | Status | Meaning |
 |---|---|---|
 | Phase 2 implementation | **Complete for the admitted scope** | Canonical Steps 9–16 are implemented with executable evidence. |
-| Ontology | **L1–L2 complete for scoping; L3 attack layer in progress** | M1–M5 and the admitted L1–L2 criteria/rules are present. M7 now provides the governed attack-vocabulary and attack-path schema foundation; technique catalogue projection, applicability criteria and attack-path computation remain to be completed. |
+| Ontology | **L1–L2 complete for scoping; L3 attack layer in progress** | M1–M5 and the admitted L1–L2 criteria/rules are present. M7 provides the governed attack schema and a checksum-pinned ATT&CK for ICS 19.2 projection; railway applicability criteria and attack-path computation remain to be completed. |
 | ETCS case study | **Structurally migrated; fact completion in progress** | The architecture and initial security facts are usable, but unknown inputs still produce legitimate `undetermined` results. |
 | Public release | **Not ready** | Source interpretation review, case evidence, persistent IRI setup and publication review remain. |
 

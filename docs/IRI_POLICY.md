@@ -27,6 +27,7 @@ This URI is the target public identifier. A public release must not be issued un
 | M3 Results | `https://w3id.org/railsec-scope/results` | `https://w3id.org/railsec-scope/results#` | `rss-res:` |
 | M4 Assessment | `https://w3id.org/railsec-scope/assessment` | `https://w3id.org/railsec-scope/assessment#` | `rss-assess:` |
 | M5 Railway | `https://w3id.org/railsec-scope/railway` | `https://w3id.org/railsec-scope/railway#` | `rss-rail:` |
+| M7 Attack analysis | `https://w3id.org/railsec-scope/attack` | `https://w3id.org/railsec-scope/attack#` | `rss-attack:` |
 | M6 Case | `https://w3id.org/railsec-scope/case/{case-id}` | `https://w3id.org/railsec-scope/case/{case-id}/resource/` | case-local |
 | SHACL shapes | `https://w3id.org/railsec-scope/shapes` | `https://w3id.org/railsec-scope/shapes#` | `rss-sh:` |
 | Rule metadata | `https://w3id.org/railsec-scope/rules` | `https://w3id.org/railsec-scope/rules#` | `rss-rule:` |
@@ -66,7 +67,7 @@ https://w3id.org/railsec-scope/case/{case-id}/version/{dataset-version}
 https://w3id.org/railsec-scope/case/{case-id}/resource/{local-id}
 ```
 
-The ETCS case identifier does not appear in M1–M5 term IRIs. Synthetic unit fixtures use `https://w3id.org/railsec-scope/fixture/{fixture-id}/` and cannot be cited as portability evidence.
+The ETCS case identifier does not appear in M1–M5 or M7 term IRIs. M6 is the replaceable case-data family. Synthetic unit fixtures use `https://w3id.org/railsec-scope/fixture/{fixture-id}/` and cannot be cited as portability evidence.
 
 ## 5. Identifier stability rules
 

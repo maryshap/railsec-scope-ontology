@@ -39,3 +39,8 @@ monitoringEnabled	M5	datatypeProperty	revision	-	true	CR-B-023
 networkSegmentationEnabled	M5	datatypeProperty	revision	-	true	CR-B-023
 crossesTrustBoundary	M5	datatypeProperty	revision	-	true	CR-B-023
 wirelessMedium	M5	datatypeProperty	revision	-	true	CR-B-023
+AttackTactic	M7	class	revision	VersionedArtefact	true	CR-B-025
+AttackTechnique	M7	class	revision	VersionedArtefact	true	CR-B-025
+AttackPathResult	M7	class	revision	DerivedResult	true	CR-B-025
+AttackPathStep	M7	class	revision	-	true	CR-B-025
+assessesAttackTechnique	M7	objectProperty	revision	-	true	CR-B-025

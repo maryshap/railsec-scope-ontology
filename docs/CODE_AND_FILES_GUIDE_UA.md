@@ -33,6 +33,7 @@
 - `results.ttl` (M3) — evaluations, assignments, Runs, derivation, reachability, ordering, coverage і performance; 26 classes. Тут знаходяться точні cardinality restrictions vertical slice.
 - `assessment.ttl` (M4) — AssessorDecision, Inclusion, Exclusion, Override; 4 classes.
 - `railway.ttl` (M5) — railway vocabulary: payload types, EN 50159 categories and threats, channel defences, traceable category-input assertions, SIL, access і fail-safe dependency. Safeguard→threat annotations є документацією, не reasoning axioms.
+- `attack.ttl` (M7) — versioned attack tactics/techniques and the L3 attack-path result schema. Застосовність техніки визначається через sourced `CriterionEvaluation`, а не прямим словниковим зв'язком. M6 залишається сімейством змінних case-data/ABox.
 - `validation.ttl` — build-only root, який завантажує M4, M5 і rule metadata як один closure; не є публічним модулем.
 
 OWL відповідає за open-world semantics, hierarchy, disjointness, domains/ranges і cardinality. Він не замінює SHACL closed-world validation.

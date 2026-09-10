@@ -739,3 +739,31 @@ allocate a SIL. The derived M5-R06 result is renamed semantically as a
 safety-integrity scoping concern, while any actual SIL value requires a
 separate, attributed `SILAssignmentAssumption` with a `JudgementBasis` (K-26)
 until safety-case evidence supports an asserted fact.
+
+## CR-B-025 — Separate M7 attack-analysis module
+
+**Decision.** L1–L2 remain the stable railway security-assessment scoping
+ontology. L3 attack vocabulary and computed attack paths enter through the new
+M7 module `ontology/attack.ttl`, which imports the existing result model but
+does not change L1–L2 category authority.
+
+`AttackTechnique` and `AttackTactic` are versioned vocabulary artefacts.
+`AttackPathResult` is a Run-derived result composed of positioned
+`AttackPathStep` records. A technique is applicable to an architecture element
+only through a sourced Criterion and its three-valued `CriterionEvaluation`.
+The ATT&CK catalogue relation between a technique and a tactic is dictionary
+content; a technique-to-weakness or technique-to-element conclusion is not.
+
+**Source boundary.** The vocabulary source is pinned to the official MITRE
+ATT&CK for ICS 19.2 STIX 2.1 collection. Importing the collection does not make
+every ICS technique railway-relevant. Railway applicability requires a
+separate criterion with source/interpretation or explicit judgement basis.
+
+**Rejected alternatives.** Adding attack classes to M5 was rejected because it
+would reopen the completed scoping vocabulary and mix assessment scope with
+attack modelling. Reusing M6 was rejected because M6 is the case-data/ABox
+family in the approved module architecture. Direct `technique appliesTo element` or
+`technique exploits weakness` assertions were rejected because they would
+embed the conclusion in the dictionary and bypass three-valued evaluation and
+provenance. Tracking the unversioned ATT&CK `latest` collection was rejected
+because results would not be reproducible after catalogue updates.

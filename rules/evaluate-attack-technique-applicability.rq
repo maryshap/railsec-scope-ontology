@@ -1,0 +1,113 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-attack: <https://w3id.org/railsec-scope/attack#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M7-R01. A technique-applicability Criterion consumes the outcomes of its
+# declared L1/L2 prerequisites for the same named flow and Run. It does not
+# consume inferred vulnerable-flow class membership and never asserts attack
+# occurrence. Missing, undetermined or conflicting evidence stays unknown.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?flow ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness ;
+      rss-res:hasUnresolvedInput ?unresolved .
+  ?unresolved a rss-res:UnresolvedInput .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L3" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateAttackTechniqueApplicability ;
+      rss-res:usedEntity ?usedEvaluation ;
+      prov:used ?flow, ?technique ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?flow a rss-rail:RailwayInformationFlow .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-attack:assessesAttackTechnique ?technique ;
+      rss-attack:requiresSatisfiedEvaluationOf ?requiredCriterion .
+
+  OPTIONAL {
+    ?usedEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?usedCriterion ;
+        rss-res:hasEvaluationOutcome ?usedOutcome ;
+        rss-res:producedByRun ?run .
+    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?usedCriterion .
+    FILTER(?usedOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+  }
+
+  BIND(EXISTS {
+    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?missingCriterion .
+    FILTER NOT EXISTS {
+      ?knownEvaluation a rss-res:CriterionEvaluation ;
+          rss-res:evaluationConcernsElement ?flow ;
+          rss-res:evaluatesCriterion ?missingCriterion ;
+          rss-res:hasEvaluationOutcome ?knownOutcome ;
+          rss-res:producedByRun ?run .
+      FILTER(?knownOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+    }
+  } AS ?hasMissing)
+
+  BIND(EXISTS {
+    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?unknownCriterion .
+    ?unknownEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?unknownCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:undetermined ;
+        rss-res:producedByRun ?run .
+  } AS ?hasUndetermined)
+
+  BIND(EXISTS {
+    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?negativeCriterion .
+    ?negativeEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?negativeCriterion ;
+        rss-res:hasEvaluationOutcome rss-res:notSatisfied ;
+        rss-res:producedByRun ?run .
+  } AS ?hasNegative)
+
+  BIND(EXISTS {
+    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?conflictCriterion .
+    ?firstEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?conflictCriterion ;
+        rss-res:hasEvaluationOutcome ?firstOutcome ;
+        rss-res:producedByRun ?run .
+    ?secondEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?flow ;
+        rss-res:evaluatesCriterion ?conflictCriterion ;
+        rss-res:hasEvaluationOutcome ?secondOutcome ;
+        rss-res:producedByRun ?run .
+    FILTER(?firstOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+    FILTER(?secondOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+    FILTER(?firstOutcome != ?secondOutcome)
+  } AS ?hasConflict)
+
+  BIND(
+    IF(?hasMissing || ?hasUndetermined || ?hasConflict, rss-res:undetermined,
+       IF(?hasNegative, rss-res:notSatisfied, rss-res:satisfied))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?flow), "/evaluation/attack-applicability/", MD5(CONCAT(STR(?criterion), STR(?run))))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  # An error in the false branch deliberately leaves the variable unbound, so
+  # complete records do not acquire a misleading UnresolvedInput.
+  BIND(IF(?outcome = rss-res:undetermined,
+          IRI(CONCAT(STR(?evaluation), "/unresolved/prerequisite")),
+          ?intentionallyUnbound) AS ?unresolved)
+  FILTER(isIRI(?flow) && isIRI(?run) && isIRI(?criterion) && isIRI(?technique))
+}

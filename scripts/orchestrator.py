@@ -69,6 +69,7 @@ STAGE_RULES = [
     "evaluate-asset-zone-classification.rq",
     "classify-derived-membership.rq",
     "classify-candidate.rq",
+    "evaluate-attack-technique-applicability.rq",
 ]
 
 # Categories that only L1 or L2 may confer. If an individual acquires one of

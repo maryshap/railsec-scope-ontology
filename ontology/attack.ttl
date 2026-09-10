@@ -66,6 +66,13 @@ rss-attack:assessesAttackTechnique a owl:ObjectProperty ;
     rdfs:comment "Identifies the technique assessed by a sourced Criterion. It does not state that the technique applies to any architecture element."@en ;
     rsso:requirement "L3-R03" .
 
+rss-attack:requiresSatisfiedEvaluationOf a owl:ObjectProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-crit:Criterion ;
+    rdfs:label "requires satisfied evaluation of"@en ;
+    rdfs:comment "Declares an upstream L1/L2 Criterion whose evaluation on the same named element and Run is a prerequisite of this attack-technique applicability Criterion. The three-valued evaluation rule consumes the upstream CriterionEvaluation, not inferred class membership."@en ;
+    rsso:requirement "L3-R03" .
+
 rss-attack:startsFromEntryPoint a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-attack:AttackPathResult ;
     rdfs:range rss-core:Element ;

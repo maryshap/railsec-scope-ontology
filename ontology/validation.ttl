@@ -4,6 +4,7 @@
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/attack>,
         <https://w3id.org/railsec-scope/attack/ics/19.2>,
+        <https://w3id.org/railsec-scope/criteria/attack>,
         <https://w3id.org/railsec-scope/criteria/railway>,
         <https://w3id.org/railsec-scope/railway>,
         <https://w3id.org/railsec-scope/rules> .

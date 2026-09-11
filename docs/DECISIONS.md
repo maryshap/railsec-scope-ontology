@@ -798,17 +798,21 @@ non-reproducible, unnecessary or epistemically unsupported.
 ## CR-B-027 — Railway-profile coverage register for ATT&CK techniques
 
 **Decision.** L3 maintains `imports/attack-ics-19.2-railway-profile.tsv` as the
-coverage register for the pinned ATT&CK ICS 19.2 projection. The register lists
+boundary register for the pinned ATT&CK ICS 19.2 projection. The register lists
 all 97 active projected techniques exactly once. It records whether a technique
-already has a sourced railway applicability Criterion or still requires review
-before any Criterion may be added.
+already has a sourced railway applicability Criterion, is selected for the
+minimal railway attack-path profile but still lacks its Criterion, or is outside
+the current profile boundary.
 
 The register is not an attack map and not an assertion that every ATT&CK ICS
 technique is railway-applicable. `implemented-criterion` is limited to
 techniques whose three-valued applicability criteria are implemented in
-`ontology/criteria-attack.ttl`. `source-review-required` is an explicit open
-state: catalogue identity is known, but railway relevance has not yet been
-claimed.
+`ontology/criteria-attack.ttl`. `selected-pending-criterion` is an explicit
+open implementation state: the technique is needed to complete the declared
+initial-access/lateral-movement to manipulation/impact chain, but no
+applicability can be materialised until a sourced Criterion is added.
+`not-admitted-current-profile` keeps the rest of the ATT&CK projection visible
+without claiming either railway applicability or railway irrelevance.
 
 **Rejected alternatives.** Leaving unimplemented techniques implicit was
 rejected because it makes the L3 boundary impossible to audit. Marking all

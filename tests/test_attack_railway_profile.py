@@ -53,21 +53,42 @@ class AttackRailwayProfileTest(unittest.TestCase):
         for technique_id, criterion in implemented.items():
             self.assertEqual("implemented-criterion", rows[technique_id]["profile_disposition"])
             self.assertEqual(criterion, rows[technique_id]["implemented_criterion"])
+            self.assertTrue(rows[technique_id]["profile_scope"])
         self.assertEqual(set(implemented), {
             row["technique_id"]
             for row in rows.values()
             if row["profile_disposition"] == "implemented-criterion"
         })
 
-    def test_unimplemented_techniques_do_not_claim_railway_applicability(self) -> None:
+    def test_minimal_attack_path_profile_has_an_explicit_pending_initial_access_technique(self) -> None:
+        rows = {row["technique_id"]: row for row in profile_rows()}
+        self.assertEqual("selected-pending-criterion", rows["T0886"]["profile_disposition"])
+        self.assertEqual("minimal-railway-attack-path-profile", rows["T0886"]["profile_scope"])
+        self.assertEqual("initial-access/lateral-movement", rows["T0886"]["attack_path_role"])
+        self.assertEqual("", rows["T0886"]["implemented_criterion"])
+        self.assertIn("no applicability is asserted yet", rows["T0886"]["notes"])
+
+    def test_minimal_attack_path_profile_covers_the_required_chain_roles(self) -> None:
+        roles = {
+            row["attack_path_role"]
+            for row in profile_rows()
+            if row["profile_scope"] == "minimal-railway-attack-path-profile"
+        }
+        self.assertIn("initial-access/lateral-movement", roles)
+        self.assertIn("traffic-position/lateral-movement", roles)
+        self.assertTrue(any(role.startswith("manipulation-") for role in roles))
+        self.assertTrue(any(role.endswith("-impact") or role == "availability-impact" for role in roles))
+
+    def test_unadmitted_techniques_do_not_claim_railway_applicability_or_irrelevance(self) -> None:
         implemented_ids = set(implemented_criterion_map())
         for row in profile_rows():
-            if row["technique_id"] in implemented_ids:
+            if row["technique_id"] in implemented_ids or row["profile_disposition"] == "selected-pending-criterion":
                 continue
             with self.subTest(technique=row["technique_id"]):
-                self.assertEqual("source-review-required", row["profile_disposition"])
+                self.assertEqual("not-admitted-current-profile", row["profile_disposition"])
+                self.assertEqual("outside-current-profile-boundary", row["profile_scope"])
                 self.assertEqual("", row["implemented_criterion"])
-                self.assertIn("No railway applicability is asserted", row["notes"])
+                self.assertIn("No railway applicability or irrelevance is asserted", row["notes"])
 
 
 if __name__ == "__main__":

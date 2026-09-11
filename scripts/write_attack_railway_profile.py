@@ -3,7 +3,9 @@
 
 The register is deliberately not an applicability map. It records which
 projected ATT&CK techniques already have sourced railway applicability
-criteria and which still require source review before a Criterion may be added.
+criteria, which techniques are selected for the current minimal railway attack
+path profile, and which projected catalogue techniques are not admitted to the
+current profile boundary.
 """
 
 from __future__ import annotations
@@ -25,11 +27,27 @@ FIELDS = [
     "tactic_ids",
     "source_url",
     "profile_disposition",
+    "profile_scope",
+    "attack_path_role",
     "implemented_criterion",
     "review_basis",
     "next_action",
     "notes",
 ]
+
+MINIMAL_PROFILE_ROLES = {
+    "T0886": "initial-access/lateral-movement",
+    "T0842": "collection/reconnaissance",
+    "T0830": "traffic-position/lateral-movement",
+    "T1692.001": "manipulation-command-authenticity",
+    "T1692.002": "manipulation-reporting-sequence",
+    "T0831": "manipulation-control",
+    "T0832": "manipulation-view",
+    "T0814": "availability-impact",
+    "T0815": "view-impact",
+    "T0829": "view-impact",
+    "T1691.001": "command-availability-impact",
+}
 
 
 def _reference(obj: dict[str, Any]) -> dict[str, Any]:
@@ -106,19 +124,37 @@ def profile_rows(source: Path, manifest_path: Path, criteria_path: Path) -> list
             )
         )
         implemented = implemented_by_technique.get(technique_id, [])
+        role = MINIMAL_PROFILE_ROLES.get(technique_id, "")
         if implemented:
             disposition = "implemented-criterion"
+            profile_scope = "minimal-railway-attack-path-profile" if role else "admitted-implemented-supporting-profile"
+            attack_path_role = role or "supporting-applicability-criterion"
             review_basis = "ATT&CK source location plus sourced L1/L2 prerequisite criterion"
             next_action = "Use in three-valued L3 applicability evaluation"
             notes = "Railway applicability is evaluated by ontology/criteria-attack.ttl."
-        else:
-            disposition = "source-review-required"
-            review_basis = "ATT&CK catalogue identity only"
+        elif role:
+            disposition = "selected-pending-criterion"
+            profile_scope = "minimal-railway-attack-path-profile"
+            attack_path_role = role
+            review_basis = "ATT&CK catalogue identity plus current L3 profile boundary"
             next_action = (
-                "Review the technique against railway architecture facts, L1/L2 outcomes "
-                "and approved sources before adding a Criterion."
+                "Add a sourced three-valued applicability Criterion before this technique "
+                "can materialise an AttackPathStep."
             )
-            notes = "No railway applicability is asserted by catalogue inclusion."
+            notes = (
+                "Selected to complete the initial-access/lateral-movement part of the "
+                "minimal railway attack-path profile; no applicability is asserted yet."
+            )
+        else:
+            disposition = "not-admitted-current-profile"
+            profile_scope = "outside-current-profile-boundary"
+            attack_path_role = ""
+            review_basis = "ATT&CK catalogue identity only; no project railway applicability decision"
+            next_action = (
+                "Do not use for L3 path materialisation unless a future profile revision "
+                "adds sourced railway applicability semantics."
+            )
+            notes = "No railway applicability or irrelevance is asserted by catalogue inclusion."
         rows.append(
             {
                 "technique_id": technique_id,
@@ -126,6 +162,8 @@ def profile_rows(source: Path, manifest_path: Path, criteria_path: Path) -> list
                 "tactic_ids": tactic_ids,
                 "source_url": reference.get("url", ""),
                 "profile_disposition": disposition,
+                "profile_scope": profile_scope,
+                "attack_path_role": attack_path_role,
                 "implemented_criterion": ";".join(implemented),
                 "review_basis": review_basis,
                 "next_action": next_action,

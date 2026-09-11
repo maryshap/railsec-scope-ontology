@@ -8,7 +8,7 @@ status. These are separate states and must not be collapsed into one claim.
 | State | Status | Meaning |
 |---|---|---|
 | Phase 2 implementation | **Complete for the admitted scope** | Canonical Steps 9–16 are implemented with executable evidence. |
-| Ontology | **L1–L2 complete for scoping; L3 attack layer in progress** | M1–M5 and the admitted L1–L2 criteria/rules are present. M7 provides the governed attack schema and a checksum-pinned ATT&CK for ICS 19.2 projection; railway applicability criteria and attack-path computation remain to be completed. |
+| Ontology | **L1–L2 complete for scoping; L3 complete for the declared minimal ATT&CK railway profile** | M1–M5 and the admitted L1–L2 criteria/rules are present. M7 provides the governed attack schema, checksum-pinned ATT&CK for ICS 19.2 projection, sourced railway applicability criteria for the declared minimal profile, attack-path materialisation, safety-impact linking and deterministic review ordering. |
 | ETCS case study | **Structurally migrated; fact completion in progress** | The architecture and initial security facts are usable, but unknown inputs still produce legitimate `undetermined` results. |
 | Public release | **Not ready** | Source interpretation review, case evidence, persistent IRI setup and publication review remain. |
 
@@ -51,11 +51,12 @@ implementation gaps.
 These numbers are regression evidence for the current data, not a claim that
 the ETCS case study is complete.
 
-## Next work: ontology completion
+## Next work: ontology application and validation
 
 1. Regenerate the ETCS scenario results under the corrected EN 50159:2010 semantics; this is case-study evidence, not additional ontology design.
 2. Populate the ETCS ABox through explicit scenarios over one stable architecture: protected baseline, controlled protection changes, unknown-data cases and an expert-report comparison case.
-3. Build the deferred L3 attack/reachability capabilities only after their scope and evidence sources are approved; do not treat them as missing facts in the current ABox.
+3. Apply the completed minimal L3 profile to ETCS only after the case-study facts needed for entry points, applicable techniques and safety links are explicitly populated.
+4. Any future ATT&CK techniques outside the declared minimal profile require a new sourced applicability criterion and profile revision before they can materialise attack-path steps.
 
 ## Public-release blockers
 

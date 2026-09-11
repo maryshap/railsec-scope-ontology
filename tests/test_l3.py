@@ -217,6 +217,73 @@ class L3ReachabilityTest(unittest.TestCase):
 
         self.assertEqual([], list(self.graph.subjects(RDF.type, ATTACK.AttackPathResult)))
 
+    def test_attack_path_is_not_materialised_from_undetermined_prerequisite(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+        )
+        self.graph.add((FX["first-hop-attack-criterion"], ATTACK.requiresSatisfiedEvaluationOf, FX["first-hop-weakness-criterion"]))
+        self.graph.add((FX["first-hop-weakness-criterion"], RDF.type, CRIT.Criterion))
+        self.graph.add((FX["first-hop-weakness-evaluation"], RDF.type, RES.CriterionEvaluation))
+        self.graph.add((FX["first-hop-weakness-evaluation"], RES.evaluationConcernsElement, FX["first-hop"]))
+        self.graph.add((FX["first-hop-weakness-evaluation"], RES.evaluatesCriterion, FX["first-hop-weakness-criterion"]))
+        self.graph.add((FX["first-hop-weakness-evaluation"], RES.hasEvaluationOutcome, RES.undetermined))
+        self.graph.add((FX["first-hop-weakness-evaluation"], RES.producedByRun, FX.run))
+
+        l3.apply(self.graph, FX.run)
+
+        self.assertEqual([], list(self.graph.subjects(RDF.type, ATTACK.AttackPathResult)))
+
+    def test_reachability_and_attack_paths_are_stable_in_the_presence_of_cycles(self) -> None:
+        self.graph.add((FX["cycle-hop"], RDF.type, RAIL.VulnerableFlow))
+        self.graph.add((FX["cycle-hop"], CORE.hasOrigin, FX.target))
+        self.graph.add((FX["cycle-hop"], CORE.hasDestination, FX.entry))
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["command-message"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["second-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["second-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["cycle-hop"],
+            FX["cycle-hop-attack-criterion"],
+            FX["remote-services"],
+            FX["cycle-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["cycle-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["cycle-hop-weakness-evaluation"],
+        )
+
+        l3.apply(self.graph, FX.run)
+
+        for chain in self.graph.subjects(RDF.type, RES.DependencyChain):
+            nodes = [
+                self.graph.value(entry, RES.chainNode)
+                for entry in self.graph.objects(chain, RES.hasChainEntry)
+            ]
+            with self.subTest(chain=chain):
+                self.assertEqual(len(nodes), len(set(nodes)))
+                self.assertNotIn(FX.entry, nodes[1:])
+
     def test_attack_path_steps_are_ordered_and_exclude_negative_techniques(self) -> None:
         add_attack_evaluation(
             self.graph,
@@ -290,6 +357,125 @@ class L3ReachabilityTest(unittest.TestCase):
         self.assertIn(FX["first-hop-weakness-evaluation"], used_evidence)
         self.assertIn(FX["second-hop-weakness-evaluation"], used_evidence)
         self.assertIn(reachability_result, used_evidence)
+
+    def test_multiple_satisfied_techniques_on_one_flow_are_materialised_deterministically(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-second-attack-criterion"],
+            FX["remote-services"],
+            FX["first-hop-second-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-second-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-second-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["command-message"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["second-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["second-hop-weakness-evaluation"],
+        )
+
+        l3.apply(self.graph, FX.run)
+
+        target_path = next(
+            path for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if self.graph.value(path, ATTACK.attackPathConcernsTarget) == FX.target
+        )
+        steps = sorted(
+            (
+                int(self.graph.value(step, ATTACK.attackPathStepPosition)),
+                self.graph.value(step, ATTACK.stepConcernsElement),
+                self.graph.value(step, ATTACK.stepUsesTechnique),
+            )
+            for step in self.graph.objects(target_path, ATTACK.hasAttackPathStep)
+        )
+        self.assertEqual(
+            [
+                (1, FX["first-hop"], FX["network-sniffing"]),
+                (2, FX["first-hop"], FX["remote-services"]),
+                (3, FX["second-hop"], FX["command-message"]),
+            ],
+            steps,
+        )
+
+    def test_branching_uses_deterministic_directed_shortest_path_choice(self) -> None:
+        self.graph.add((FX["alt-middle"], RDF.type, CORE.Asset))
+        self.graph.add((FX["aaa-entry-to-alt"], RDF.type, RAIL.VulnerableFlow))
+        self.graph.add((FX["aaa-entry-to-alt"], CORE.hasOrigin, FX.entry))
+        self.graph.add((FX["aaa-entry-to-alt"], CORE.hasDestination, FX["alt-middle"]))
+        self.graph.add((FX["alt-to-target"], RDF.type, RAIL.VulnerableFlow))
+        self.graph.add((FX["alt-to-target"], CORE.hasOrigin, FX["alt-middle"]))
+        self.graph.add((FX["alt-to-target"], CORE.hasDestination, FX.target))
+        add_attack_evaluation(
+            self.graph,
+            FX["aaa-entry-to-alt"],
+            FX["alt-first-attack-criterion"],
+            FX["network-sniffing"],
+            FX["alt-first-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["alt-first-weakness-criterion"],
+            prerequisite_evaluation=FX["alt-first-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["alt-to-target"],
+            FX["alt-second-attack-criterion"],
+            FX["command-message"],
+            FX["alt-second-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["alt-second-weakness-criterion"],
+            prerequisite_evaluation=FX["alt-second-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["later-branch-technique"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["remote-services"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["second-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["second-hop-weakness-evaluation"],
+        )
+
+        l3.apply(self.graph, FX.run)
+
+        target_path = next(
+            path for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if self.graph.value(path, ATTACK.attackPathConcernsTarget) == FX.target
+        )
+        ordered_flows = [
+            self.graph.value(step, ATTACK.stepConcernsElement)
+            for step in sorted(
+                self.graph.objects(target_path, ATTACK.hasAttackPathStep),
+                key=lambda step: int(self.graph.value(step, ATTACK.attackPathStepPosition)),
+            )
+        ]
+        self.assertEqual([FX["aaa-entry-to-alt"], FX["alt-to-target"]], ordered_flows)
 
     def test_attack_path_safety_impacts_link_paths_to_concerns_without_assigning_sil(self) -> None:
         add_attack_evaluation(

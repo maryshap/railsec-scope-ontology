@@ -906,3 +906,26 @@ external-zone-or-DMZ disjunction was rejected because the generic applicability
 rule treats multiple prerequisite criteria as conjunctions. Treating every
 railway asset as T0886-applicable was rejected because it would bypass the
 sourced railway entry-point evidence needed for attack-path materialisation.
+
+## CR-B-033 — L3 closure evidence is synthetic and profile-bounded
+
+**Decision.** L3 closure is asserted only for the declared minimal railway
+ATT&CK ICS 19.2 profile recorded in
+`imports/attack-ics-19.2-railway-profile.tsv`. The evidence package is
+synthetic and independent from ETCS case-study facts. It verifies positive
+attack-path materialisation, blocked paths, undetermined prerequisites,
+directed reachability, cycle resistance, deterministic branching, multiple
+techniques on one element, safety-critical target linkage, provenance for each
+path step, and deterministic attack-path review ordering without assigning SIL,
+probability or CVSS.
+
+The ETCS case study may use these mechanisms, but ETCS completion is not a
+precondition for L3 ontology completion. Conversely, adding a future ATT&CK
+technique outside the declared profile is a profile revision, not a hidden gap
+in the current L3 layer.
+
+**Rejected alternatives.** Treating ETCS scenario output as the only closure
+evidence was rejected because a case study can contain missing facts and still
+should not redefine ontology semantics. Claiming coverage for all projected
+ATT&CK ICS techniques was rejected because most projected techniques are kept
+visible but deliberately not admitted to the current railway profile.

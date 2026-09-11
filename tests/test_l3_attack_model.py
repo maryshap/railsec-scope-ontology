@@ -37,6 +37,16 @@ class L3AttackModelTest(unittest.TestCase):
         self.assertIn((ATTACK.stepConcernsElement, RDFS.range, CORE.Element), self.graph)
         self.assertIn((ATTACK.supportedByApplicabilityEvaluation, RDFS.range, RES.CriterionEvaluation), self.graph)
 
+    def test_technique_profiles_can_record_preconditions_and_effects_without_case_data(self) -> None:
+        self.assertIn((ATTACK.AttackTechniqueProfile, RDFS.subClassOf, CRIT.VersionedArtefact), self.graph)
+        self.assertIn((ATTACK.profileForTechnique, RDFS.range, ATTACK.AttackTechnique), self.graph)
+        self.assertIn((ATTACK.profileUsesApplicabilityCriterion, RDFS.range, CRIT.Criterion), self.graph)
+        self.assertIn((ATTACK.preconditionRequiresEvaluationOf, RDFS.range, CRIT.Criterion), self.graph)
+        self.assertIn((ATTACK.preconditionRequiresAccessMechanism, RDFS.range, CORE.AccessMechanism), self.graph)
+        self.assertIn((ATTACK.effectCreatesAttackState, RDFS.range, ATTACK.AttackState), self.graph)
+        self.assertIn((ATTACK.effectAffectsSecurityProperty, RDFS.range, CORE.SecurityProperty), self.graph)
+        self.assertEqual([], list(self.graph.subjects(RDF.type, ATTACK.AttackTechniqueProfile)))
+
     def test_every_attack_property_has_domain_and_range(self) -> None:
         for kind in (OWL.ObjectProperty, OWL.DatatypeProperty):
             for prop in self.graph.subjects(RDF.type, kind):

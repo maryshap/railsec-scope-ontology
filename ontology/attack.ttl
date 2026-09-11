@@ -42,8 +42,31 @@ rss-attack:AttackPathStep a owl:Class ;
     rdfs:label "Attack-path step"@en ;
     rsso:requirement "L3-R04" .
 
+rss-attack:AttackTechniqueProfile a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact ;
+    rdfs:label "Attack technique profile"@en ;
+    rdfs:comment "A project-controlled profile that records the railway execution context, required applicability evidence, preconditions and effects for one ATT&CK technique. It is not case data and does not assert that the technique has occurred."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:AttackTechniquePrecondition a owl:Class ;
+    rdfs:label "Attack technique precondition"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:AttackTechniqueEffect a owl:Class ;
+    rdfs:label "Attack technique effect"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:AttackState a owl:Class ;
+    rdfs:label "Attack state"@en ;
+    rdfs:comment "Project vocabulary for intermediate attack states that may be created by one technique and consumed by later attack-path steps."@en ;
+    rsso:requirement "L3-R04", "L3-R05" .
+
 [] a owl:AllDisjointClasses ;
-    owl:members ( rss-attack:AttackTactic rss-attack:AttackTechnique rss-attack:AttackPathStep ) .
+    owl:members (
+        rss-attack:AttackTactic rss-attack:AttackTechnique rss-attack:AttackPathStep
+        rss-attack:AttackTechniqueProfile rss-attack:AttackTechniquePrecondition
+        rss-attack:AttackTechniqueEffect rss-attack:AttackState
+    ) .
 
 ### Relations
 
@@ -116,6 +139,62 @@ rss-attack:supportedByApplicabilityEvaluation a owl:ObjectProperty, owl:Function
     rdfs:comment "The referenced evaluation must concern the step element, evaluate a Criterion linked to the step technique, and have a satisfied outcome before the step can enter a computed path."@en ;
     rsso:requirement "L3-R03", "L3-R04" .
 
+rss-attack:profileForTechnique a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-attack:AttackTechnique ;
+    rdfs:label "profile for technique"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:profileUsesApplicabilityCriterion a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-crit:Criterion ;
+    rdfs:label "profile uses applicability criterion"@en ;
+    rdfs:comment "Links a technique profile to the sourced three-valued Criterion that can make the technique applicable to a candidate element."@en ;
+    rsso:requirement "L3-R03", "L3-R05" .
+
+rss-attack:hasTechniquePrecondition a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-attack:AttackTechniquePrecondition ;
+    rdfs:label "has technique precondition"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:hasTechniqueEffect a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-attack:AttackTechniqueEffect ;
+    rdfs:label "has technique effect"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:preconditionRequiresEvaluationOf a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniquePrecondition ;
+    rdfs:range rss-crit:Criterion ;
+    rdfs:label "precondition requires evaluation of"@en ;
+    rdfs:comment "Identifies the upstream L1/L2 or L3 CriterionEvaluation evidence required by a technique precondition. The required outcome is represented by the consuming rule and remains three-valued."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:preconditionRequiresAccessMechanism a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniquePrecondition ;
+    rdfs:range rss-core:AccessMechanism ;
+    rdfs:label "precondition requires access mechanism"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:effectCreatesAttackState a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range rss-attack:AttackState ;
+    rdfs:label "effect creates attack state"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:effectEnablesAccessMechanism a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range rss-core:AccessMechanism ;
+    rdfs:label "effect enables access mechanism"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:effectAffectsSecurityProperty a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range rss-core:SecurityProperty ;
+    rdfs:label "effect affects security property"@en ;
+    rsso:requirement "L3-R05" .
+
 ### Identifiers and ordering
 
 rss-attack:attackExternalIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ;
@@ -129,6 +208,19 @@ rss-attack:attackPathStepPosition a owl:DatatypeProperty, owl:FunctionalProperty
     rdfs:range xsd:positiveInteger ;
     rdfs:label "attack-path step position"@en ;
     rsso:requirement "L3-R04" .
+
+rss-attack:executionCandidateTypeIri a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "execution candidate type IRI"@en ;
+    rdfs:comment "The class of architecture element on which this profiled technique may be evaluated, kept as an IRI literal so the executable rule can consume it without making ATT&CK dictionary membership into applicability."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:effectAffectsElementTypeIri a owl:DatatypeProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "effect affects element type IRI"@en ;
+    rsso:requirement "L3-R05" .
 
 ### Pinned source record — vocabulary source, not an applicability assertion
 

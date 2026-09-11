@@ -794,3 +794,73 @@ railway evidence.
 accepting a changed checksum/count, copying the full ATT&CK descriptions, and
 labelling every ICS technique railway-applicable were rejected as
 non-reproducible, unnecessary or epistemically unsupported.
+
+## CR-B-027 — Railway-profile coverage register for ATT&CK techniques
+
+**Decision.** L3 maintains `imports/attack-ics-19.2-railway-profile.tsv` as the
+coverage register for the pinned ATT&CK ICS 19.2 projection. The register lists
+all 97 active projected techniques exactly once. It records whether a technique
+already has a sourced railway applicability Criterion or still requires review
+before any Criterion may be added.
+
+The register is not an attack map and not an assertion that every ATT&CK ICS
+technique is railway-applicable. `implemented-criterion` is limited to
+techniques whose three-valued applicability criteria are implemented in
+`ontology/criteria-attack.ttl`. `source-review-required` is an explicit open
+state: catalogue identity is known, but railway relevance has not yet been
+claimed.
+
+**Rejected alternatives.** Leaving unimplemented techniques implicit was
+rejected because it makes the L3 boundary impossible to audit. Marking all
+unimplemented projected techniques as relevant was rejected because it would
+turn a candidate vocabulary into unsupported threat modelling.
+
+## CR-B-028 — Generic L3 applicability candidates and attack-aware traversal
+
+**Decision.** `evaluate-attack-technique-applicability.rq` no longer hard-codes
+`RailwayInformationFlow` as the only candidate type. The rule reads the
+candidate type from `rss-crit:stageCandidateTypeIri` on the Criterion and then
+evaluates same-element, same-Run prerequisites for that declared type. This
+allows future asset-level and entry-point-level ATT&CK criteria without moving
+case-study facts into the ontology.
+
+M7 also introduces explicit technique-profile vocabulary for execution
+candidate type, preconditions and effects. Profiles can refer to the sourced
+applicability Criterion, required access mechanism, upstream evaluation
+criterion, created attack state, enabled access mechanism and affected security
+property. These terms are schema-level vocabulary; no attack occurrence is
+asserted by declaring them.
+
+The Python L3 computation now includes an attack-aware traversal separate from
+generic reachability. Reachability still records directed paths over vulnerable
+flows from materialised entry points. Attack paths are emitted only when every
+flow hop in the witness path has at least one satisfied ATT&CK technique
+applicability evaluation. `notSatisfied` and `undetermined` technique
+evaluations remain visible evidence, but do not become attack-path steps.
+
+**Rejected alternatives.** Creating separate SPARQL files for flows, assets and
+entry points was rejected because it would duplicate the same three-valued
+logic and make criteria harder to audit. Treating every reachable vulnerable
+flow as an attack step was rejected because it would produce network routes
+with ATT&CK labels missing their evidence chain.
+
+## CR-B-029 — AttackPathResult requires a complete evidence chain
+
+**Decision.** An `AttackPathResult` is materialised only when the L3 traversal
+can record a complete proof chain for the path. The result has exactly one
+entry point, exactly one target, ordered `AttackPathStep` nodes, a technique
+for each step, a satisfied ATT&CK applicability evaluation for that technique,
+the satisfied upstream L1/L2 prerequisite evaluations used by that
+applicability criterion, directed flow/reachability evidence, the producing
+Run, the phase-3 mechanism version and a complete `DerivationRecord`.
+
+A satisfied attack-technique evaluation without its same-element, same-Run
+prerequisite/weakness evaluations is not enough to create a material attack
+path. This prevents L3 from presenting an ATT&CK-labelled route as an
+evidence-backed path when the underlying weakness evidence is missing.
+
+**Rejected alternatives.** Allowing path materialisation from a bare
+`satisfied` technique evaluation was rejected because it hides the rule chain
+that made the technique applicable. Recording only the reachability result was
+rejected because reachability says where an attacker can move, not which
+attack technique is justified at each step.

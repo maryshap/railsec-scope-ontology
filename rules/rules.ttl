@@ -131,6 +131,14 @@ rss-rule:L3ReachabilityMechanism a rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
     dcterms:description "Python implementation of the declared L3 reachability method."@en .
 
+rss-rule:AttackPathTraversalMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase3RuleVersion ;
+    dcterms:description "Deterministic attack-aware traversal from materialised entry points over directed vulnerable information-flow edges. A path step is emitted only for satisfied ATT&CK technique applicability evaluations; notSatisfied and undetermined technique evaluations remain visible evidence but do not enter the path."@en .
+
+rss-rule:AttackPathTraversalMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase3RuleVersion ;
+    dcterms:description "Python implementation of the L3 attack-path traversal method."@en .
+
 rss-rule:CandidateSetProjectionMethod a rss-crit:ExternalComputationMethod ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
     dcterms:description "Deterministic projection of materialised CandidateExaminationTarget assignments belonging to one Run."@en .

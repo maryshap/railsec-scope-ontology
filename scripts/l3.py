@@ -1,9 +1,10 @@
-"""Declared L3 computations for Phase 2 Step 13.
+"""Declared L3 computations.
 
 L3 owns paths and numbers, never assessment-bearing category membership.  The
-first implemented computation is deterministic reachability from an EntryPoint
-assignment over directed vulnerable-flow edges.  One shortest, lexicographically
-stable witness path is retained per entry/mechanism/target combination.
+first computation is deterministic reachability from an EntryPoint assignment
+over directed vulnerable-flow edges.  The attack-path computation builds on
+that directed reachability evidence, but emits ATT&CK steps only where every
+hop has satisfied technique-applicability evidence.
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef, XSD
 CORE = Namespace("https://w3id.org/railsec-scope/core#")
 CRIT = Namespace("https://w3id.org/railsec-scope/criteria#")
 RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
+ATTACK = Namespace("https://w3id.org/railsec-scope/attack#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
 RULE = Namespace("https://w3id.org/railsec-scope/rules#")
 L3 = Namespace("https://w3id.org/railsec-scope/l3/")
@@ -91,6 +93,61 @@ def _shortest_paths(
     return paths
 
 
+def _attack_prerequisite_evaluations(
+    graph: Graph,
+    run_iri: URIRef,
+    element: URIRef,
+    criterion: URIRef,
+) -> list[URIRef] | None:
+    required_criteria = sorted(
+        [item for item in graph.objects(criterion, ATTACK.requiresSatisfiedEvaluationOf) if isinstance(item, URIRef)],
+        key=str,
+    )
+    if not required_criteria:
+        return None
+
+    evidence: list[URIRef] = []
+    for required_criterion in required_criteria:
+        matching = sorted(
+            (
+                evaluation for evaluation in graph.subjects(RES.evaluatesCriterion, required_criterion)
+                if isinstance(evaluation, URIRef)
+                and graph.value(evaluation, RES.producedByRun) == run_iri
+                and graph.value(evaluation, RES.evaluationConcernsElement) == element
+                and graph.value(evaluation, RES.hasEvaluationOutcome) == RES.satisfied
+            ),
+            key=str,
+        )
+        if not matching:
+            return None
+        evidence.extend(matching)
+    return evidence
+
+
+def _satisfied_attack_evaluations(
+    graph: Graph,
+    run_iri: URIRef,
+    element: URIRef,
+) -> list[tuple[URIRef, URIRef, tuple[URIRef, ...]]]:
+    evaluations: list[tuple[URIRef, URIRef, tuple[URIRef, ...]]] = []
+    for evaluation in graph.subjects(RDF.type, RES.CriterionEvaluation):
+        if graph.value(evaluation, RES.producedByRun) != run_iri:
+            continue
+        if graph.value(evaluation, RES.evaluationConcernsElement) != element:
+            continue
+        if graph.value(evaluation, RES.hasEvaluationOutcome) != RES.satisfied:
+            continue
+        criterion = graph.value(evaluation, RES.evaluatesCriterion)
+        technique = graph.value(criterion, ATTACK.assessesAttackTechnique) if criterion else None
+        if not isinstance(criterion, URIRef) or not isinstance(evaluation, URIRef) or not isinstance(technique, URIRef):
+            continue
+        prerequisite_evidence = _attack_prerequisite_evaluations(graph, run_iri, element, criterion)
+        if prerequisite_evidence is None:
+            continue
+        evaluations.append((evaluation, technique, tuple(prerequisite_evidence)))
+    return sorted(set(evaluations), key=lambda item: (str(item[1]), str(item[0])))
+
+
 def _add_result(
     graph: Graph,
     run_iri: URIRef,
@@ -137,6 +194,63 @@ def _add_result(
     graph.add((step, RES.generatedResult, chain))
     for flow in flows:
         graph.add((step, PROV.used, flow))
+
+
+def _add_attack_path(
+    graph: Graph,
+    run_iri: URIRef,
+    entry: URIRef,
+    entry_assignment: URIRef,
+    mechanism: URIRef,
+    target: URIRef,
+    flow_evaluations: list[tuple[URIRef, list[tuple[URIRef, URIRef, tuple[URIRef, ...]]]]],
+) -> None:
+    evidence_key = "|".join(
+        f"{flow}=>{','.join(str(evaluation) for evaluation, _technique, _prerequisites in evaluations)}"
+        for flow, evaluations in flow_evaluations
+    )
+    result = _iri("attack-path", run_iri, entry, mechanism, target, evidence_key)
+    record = _iri("attack-path-record", result)
+    derivation_step = _iri("attack-path-derivation-step", result)
+    reachability_result = _iri("reachability", run_iri, entry, mechanism, target)
+
+    graph.add((result, RDF.type, ATTACK.AttackPathResult))
+    graph.add((result, ATTACK.startsFromEntryPoint, entry))
+    graph.add((result, ATTACK.attackPathConcernsTarget, target))
+    graph.add((result, RES.producedByRun, run_iri))
+    graph.add((result, RES.hasDerivationRecord, record))
+    graph.add((result, CRIT.hasVersion, RULE.phase3RuleVersion))
+    if (reachability_result, RDF.type, RES.ReachabilityResult) in graph:
+        graph.add((result, ATTACK.followsReachabilityResult, reachability_result))
+
+    graph.add((record, RDF.type, RES.DerivationRecord))
+    graph.add((record, RES.completenessStatus, Literal("complete")))
+    graph.add((record, RES.hasStep, derivation_step))
+    graph.add((derivation_step, RDF.type, RES.DerivationStep))
+    graph.add((derivation_step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+    graph.add((derivation_step, RES.layerIdentifier, Literal("L3")))
+    graph.add((derivation_step, RES.appliedComputation, RULE.AttackPathTraversalMethod))
+    graph.add((derivation_step, RES.executedByMechanism, RULE.AttackPathTraversalMechanism))
+    graph.add((derivation_step, RES.usedEntity, entry_assignment))
+    graph.add((derivation_step, RES.generatedResult, result))
+    if (reachability_result, RDF.type, RES.ReachabilityResult) in graph:
+        graph.add((derivation_step, RES.usedEntity, reachability_result))
+
+    position = 1
+    for flow, evaluations in flow_evaluations:
+        graph.add((derivation_step, PROV.used, flow))
+        for evaluation, technique, prerequisite_evidence in evaluations:
+            step = _iri("attack-path-step", result, str(position), evaluation)
+            graph.add((result, ATTACK.hasAttackPathStep, step))
+            graph.add((step, RDF.type, ATTACK.AttackPathStep))
+            graph.add((step, ATTACK.attackPathStepPosition, Literal(position, datatype=XSD.positiveInteger)))
+            graph.add((step, ATTACK.stepUsesTechnique, technique))
+            graph.add((step, ATTACK.stepConcernsElement, flow))
+            graph.add((step, ATTACK.supportedByApplicabilityEvaluation, evaluation))
+            graph.add((derivation_step, RES.usedEntity, evaluation))
+            for prerequisite_evaluation in prerequisite_evidence:
+                graph.add((derivation_step, RES.usedEntity, prerequisite_evaluation))
+            position += 1
 
 
 def _candidate_elements(graph: Graph, candidate_set: URIRef) -> set[URIRef]:
@@ -381,6 +495,29 @@ def apply_coverage(graph: Graph, run_iri: URIRef) -> int:
     return len(graph) - before
 
 
+def apply_attack_paths(graph: Graph, run_iri: URIRef) -> int:
+    """Build attack paths only where every directed hop has satisfied technique evidence."""
+    before = len(graph)
+    adjacency = _edges(graph)
+    for entry, assignment in _entry_assignments(graph, run_iri):
+        mechanisms = sorted(graph.objects(entry, CORE.reachableBy), key=str)
+        for mechanism in mechanisms:
+            if not isinstance(mechanism, URIRef):
+                continue
+            for target, _nodes, flows in _shortest_paths(adjacency, entry):
+                flow_evaluations = [
+                    (flow, _satisfied_attack_evaluations(graph, run_iri, flow))
+                    for flow in flows
+                ]
+                if not flow_evaluations or any(not evaluations for _flow, evaluations in flow_evaluations):
+                    continue
+                _add_attack_path(
+                    graph, run_iri, entry, assignment, mechanism,
+                    target, flow_evaluations,
+                )
+    return len(graph) - before
+
+
 def apply(graph: Graph, run_iri: URIRef) -> int:
     """Add deterministic reachability/path evidence and return triples added."""
     before = len(graph)
@@ -395,6 +532,7 @@ def apply(graph: Graph, run_iri: URIRef) -> int:
                     graph, run_iri, entry, assignment, mechanism,
                     target, nodes, flows,
                 )
+    apply_attack_paths(graph, run_iri)
     apply_ordering(graph, run_iri)
     apply_coverage(graph, run_iri)
     return len(graph) - before

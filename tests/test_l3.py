@@ -18,8 +18,10 @@ import orchestrator  # noqa: E402
 
 
 FX = Namespace("https://w3id.org/railsec-scope/fixture/l3/")
+ATTACK = Namespace("https://w3id.org/railsec-scope/attack#")
 CRIT = Namespace("https://w3id.org/railsec-scope/criteria#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
+RULE = Namespace("https://w3id.org/railsec-scope/rules#")
 
 
 def fixture_graph() -> Graph:
@@ -29,6 +31,34 @@ def fixture_graph() -> Graph:
     graph.parse(PROJECT / "rules" / "rules.ttl")
     graph.parse(PROJECT / "fixtures" / "l3" / "minimal.ttl")
     return graph
+
+
+def add_attack_evaluation(
+    graph: Graph,
+    flow,
+    criterion,
+    technique,
+    evaluation,
+    outcome,
+    prerequisite_criterion=None,
+    prerequisite_evaluation=None,
+) -> None:
+    graph.add((technique, RDF.type, ATTACK.AttackTechnique))
+    graph.add((criterion, RDF.type, CRIT.Criterion))
+    graph.add((criterion, ATTACK.assessesAttackTechnique, technique))
+    if prerequisite_criterion is not None and prerequisite_evaluation is not None:
+        graph.add((criterion, ATTACK.requiresSatisfiedEvaluationOf, prerequisite_criterion))
+        graph.add((prerequisite_criterion, RDF.type, CRIT.Criterion))
+        graph.add((prerequisite_evaluation, RDF.type, RES.CriterionEvaluation))
+        graph.add((prerequisite_evaluation, RES.evaluationConcernsElement, flow))
+        graph.add((prerequisite_evaluation, RES.evaluatesCriterion, prerequisite_criterion))
+        graph.add((prerequisite_evaluation, RES.hasEvaluationOutcome, RES.satisfied))
+        graph.add((prerequisite_evaluation, RES.producedByRun, FX.run))
+    graph.add((evaluation, RDF.type, RES.CriterionEvaluation))
+    graph.add((evaluation, RES.evaluationConcernsElement, flow))
+    graph.add((evaluation, RES.evaluatesCriterion, criterion))
+    graph.add((evaluation, RES.hasEvaluationOutcome, outcome))
+    graph.add((evaluation, RES.producedByRun, FX.run))
 
 
 class L3ReachabilityTest(unittest.TestCase):
@@ -142,6 +172,122 @@ class L3ReachabilityTest(unittest.TestCase):
             ],
             ranked,
         )
+
+    def test_attack_path_requires_satisfied_technique_evidence_for_every_hop(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+
+        l3.apply(self.graph, FX.run)
+
+        targets = {
+            self.graph.value(path, ATTACK.attackPathConcernsTarget)
+            for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+        }
+        self.assertEqual({FX.middle}, targets)
+
+    def test_attack_path_is_not_materialised_without_prerequisite_evidence(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["command-message"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+        )
+
+        l3.apply(self.graph, FX.run)
+
+        self.assertEqual([], list(self.graph.subjects(RDF.type, ATTACK.AttackPathResult)))
+
+    def test_attack_path_steps_are_ordered_and_exclude_negative_techniques(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-negative-criterion"],
+            FX["not-applicable-technique"],
+            FX["first-hop-negative-evaluation"],
+            RES.notSatisfied,
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["command-message"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["second-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["second-hop-weakness-evaluation"],
+        )
+
+        l3.apply(self.graph, FX.run)
+
+        target_path = next(
+            path for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if self.graph.value(path, ATTACK.attackPathConcernsTarget) == FX.target
+        )
+        self.assertEqual([FX.entry], list(self.graph.objects(target_path, ATTACK.startsFromEntryPoint)))
+        self.assertEqual([FX.target], list(self.graph.objects(target_path, ATTACK.attackPathConcernsTarget)))
+        self.assertEqual(FX.run, self.graph.value(target_path, RES.producedByRun))
+        self.assertEqual(RULE.phase3RuleVersion, self.graph.value(target_path, CRIT.hasVersion))
+        reachability_result = self.graph.value(target_path, ATTACK.followsReachabilityResult)
+        self.assertIn((reachability_result, RDF.type, RES.ReachabilityResult), self.graph)
+        steps = sorted(
+            (
+                int(self.graph.value(step, ATTACK.attackPathStepPosition)),
+                self.graph.value(step, ATTACK.stepConcernsElement),
+                self.graph.value(step, ATTACK.stepUsesTechnique),
+                self.graph.value(step, ATTACK.supportedByApplicabilityEvaluation),
+            )
+            for step in self.graph.objects(target_path, ATTACK.hasAttackPathStep)
+        )
+        self.assertEqual(
+            [
+                (1, FX["first-hop"], FX["network-sniffing"], FX["first-hop-attack-evaluation"]),
+                (2, FX["second-hop"], FX["command-message"], FX["second-hop-attack-evaluation"]),
+            ],
+            steps,
+        )
+        used_techniques = {item[2] for item in steps}
+        self.assertNotIn(FX["not-applicable-technique"], used_techniques)
+
+        record = self.graph.value(target_path, RES.hasDerivationRecord)
+        self.assertIn((record, RDF.type, RES.DerivationRecord), self.graph)
+        self.assertEqual("complete", str(self.graph.value(record, RES.completenessStatus)))
+        derivation_step = self.graph.value(record, RES.hasStep)
+        self.assertEqual(RULE.AttackPathTraversalMethod, self.graph.value(derivation_step, RES.appliedComputation))
+        self.assertEqual(RULE.AttackPathTraversalMechanism, self.graph.value(derivation_step, RES.executedByMechanism))
+        used_evidence = set(self.graph.objects(derivation_step, RES.usedEntity))
+        self.assertIn(FX["first-hop-attack-evaluation"], used_evidence)
+        self.assertIn(FX["second-hop-attack-evaluation"], used_evidence)
+        self.assertIn(FX["first-hop-weakness-evaluation"], used_evidence)
+        self.assertIn(FX["second-hop-weakness-evaluation"], used_evidence)
+        self.assertIn(reachability_result, used_evidence)
 
 
 if __name__ == "__main__":

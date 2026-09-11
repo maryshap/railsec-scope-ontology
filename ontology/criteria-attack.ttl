@@ -67,6 +67,83 @@ rssca:t0830-aitm-authentication-integrity-criterion a rss-crit:Criterion ;
     rss-attack:requiresSatisfiedEvaluationOf rsscr:l1-authentication-criterion,
         rsscr:l1-integrity-criterion .
 
+rssca:t1691-001-block-command-message-timeliness-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t1691-001-location ;
+    rss-crit:appliesInterpretation rssca:t1691-001-timeliness-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T1691.001 Command Message is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-timeliness violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1691.001> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-timeliness-criterion .
+
+rssca:t1692-002-reporting-message-sequence-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t1692-002-location ;
+    rss-crit:appliesInterpretation rssca:t1692-002-sequence-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T1692.002 Reporting Message is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-sequence violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1692.002> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-sequence-criterion .
+
+rssca:t0832-manipulation-of-view-sequence-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0832-location ;
+    rss-crit:appliesInterpretation rssca:t0832-sequence-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0832 Manipulation of View is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-sequence violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0832> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-sequence-criterion .
+
+rssca:t0830-aitm-critical-integrity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0830-location ;
+    rss-crit:appliesInterpretation rssca:t0830-critical-integrity-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0830 Adversary-in-the-Middle is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-integrity violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0830> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-integrity-criterion .
+
+rssca:t0831-manipulation-of-control-authenticity-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0831-location ;
+    rss-crit:appliesInterpretation rssca:t0831-authenticity-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0831 Manipulation of Control is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-authenticity violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0831> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-authenticity-criterion .
+
+rssca:t0815-denial-of-view-sequence-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0815-location ;
+    rss-crit:appliesInterpretation rssca:t0815-sequence-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0815 Denial of View is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-sequence violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0815> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-sequence-criterion .
+
+rssca:t0829-loss-of-view-sequence-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0829-location ;
+    rss-crit:appliesInterpretation rssca:t0829-sequence-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0829 Loss of View is relevant to a RailwayInformationFlow when that same flow has a satisfied L2 critical-sequence violation evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayInformationFlow"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0829> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-sequence-criterion .
+
 ### Exact ATT&CK ICS 19.2 source locations
 
 rssca:t0842-location a rss-crit:SourceLocation ;
@@ -84,6 +161,30 @@ rssca:t1692-001-location a rss-crit:SourceLocation ;
 rssca:t0830-location a rss-crit:SourceLocation ;
     rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
     rss-crit:sourceLocator "T0830 Adversary-in-the-Middle; https://attack.mitre.org/techniques/T0830" .
+
+rssca:t1691-001-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T1691.001 Command Message; https://attack.mitre.org/techniques/T1691/001" .
+
+rssca:t1692-002-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T1692.002 Reporting Message; https://attack.mitre.org/techniques/T1692/002" .
+
+rssca:t0832-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T0832 Manipulation of View; https://attack.mitre.org/techniques/T0832" .
+
+rssca:t0831-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T0831 Manipulation of Control; https://attack.mitre.org/techniques/T0831" .
+
+rssca:t0815-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T0815 Denial of View; https://attack.mitre.org/techniques/T0815" .
+
+rssca:t0829-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T0829 Loss of View; https://attack.mitre.org/techniques/T0829" .
 
 ### Recorded interpretations — ATT&CK descriptions are not treated as railway entailments
 
@@ -112,5 +213,54 @@ rssca:t0830-authentication-integrity-interpretation a rss-crit:Interpretation ;
     rss-crit:interprets rssca:t0830-location ;
     rss-crit:interpretationProposition "A flow with both authentication and integrity weaknesses is relevant to the traffic-modification manifestation of T0830." ;
     rss-crit:reasoning "ATT&CK states that established adversary-in-the-middle access can block, modify or inject traffic. Requiring both L1 weakness evaluations is a conservative railway test-planning policy and is not a claim that these weaknesses alone establish privileged network access."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t1691-001-timeliness-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t1691-001-location ;
+    rss-crit:interpretationProposition "A flow with a critical timeliness violation is relevant to testing blocked command-message delivery under T1691.001." ;
+    rss-crit:reasoning "ATT&CK describes T1691.001 as blocking a command message from reaching its intended target and notes that blocked command messages can inhibit response functions. The L2 critical-timeliness criterion supplies the railway evidence that delayed emergency-command communication is safety-relevant; this mapping does not assert that blocking has occurred."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t1692-002-sequence-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t1692-002-location ;
+    rss-crit:interpretationProposition "A flow with a critical sequence violation over position/status data is relevant to testing spoofed reporting messages under T1692.002." ;
+    rss-crit:reasoning "ATT&CK describes T1692.002 as spoofing reporting messages that contain telemetry data about the current state of equipment and the industrial process. The L2 critical-sequence criterion supplies the railway evidence that position/status sequence integrity is critical; this mapping does not infer that telemetry has been spoofed."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0832-sequence-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0832-location ;
+    rss-crit:interpretationProposition "A flow with a critical sequence violation over position/status data is relevant to testing manipulation of reported view under T0832." ;
+    rss-crit:reasoning "ATT&CK describes T0832 as manipulating information reported back to operators or controllers, so the process may be in a different state than reported. The L2 critical-sequence criterion supplies the railway evidence that a sequence-affected position/status flow is a critical reporting concern; this mapping does not assert operator deception or process manipulation."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0830-critical-integrity-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0830-location ;
+    rss-crit:interpretationProposition "A flow with a critical integrity violation is relevant to testing adversary-in-the-middle traffic modification under T0830." ;
+    rss-crit:reasoning "ATT&CK states that adversary-in-the-middle access can block, modify or inject traffic. The L2 critical-integrity criterion supplies the railway evidence that corruption of a safety-related payload is critical; this mapping does not assert that adversary-in-the-middle access exists."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0831-authenticity-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0831-location ;
+    rss-crit:interpretationProposition "A flow with a critical authenticity violation is relevant to testing manipulation of control under T0831." ;
+    rss-crit:reasoning "ATT&CK describes T0831 as manipulating physical process control and includes spoof command messages among its methods. The L2 critical-authenticity criterion supplies the railway evidence that masquerade-exposed safety-related communication is critical; this mapping does not assert that physical control was manipulated."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0815-sequence-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0815-location ;
+    rss-crit:interpretationProposition "A flow with a critical sequence violation over position/status data is relevant to testing temporary denial of reported view under T0815." ;
+    rss-crit:reasoning "ATT&CK describes T0815 as denying operator visibility by preventing status and reporting messages. The L2 critical-sequence criterion supplies the railway evidence that a position/status reporting flow is critical; this mapping does not assert that operator visibility has been denied."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0829-sequence-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0829-location ;
+    rss-crit:interpretationProposition "A flow with a critical sequence violation over position/status data is relevant to testing sustained loss of reported view under T0829." ;
+    rss-crit:reasoning "ATT&CK describes T0829 as sustained reporting or visibility loss that hides the present state of operations. The L2 critical-sequence criterion supplies the railway evidence that a position/status reporting flow is critical; this mapping does not assert that loss of view has occurred."@en ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .

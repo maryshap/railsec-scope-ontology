@@ -37,11 +37,90 @@ WHERE {
   ?run a rss-res:Run .
   ?criterion a rss-crit:Criterion ;
       rss-attack:assessesAttackTechnique ?technique ;
-      rss-attack:requiresSatisfiedEvaluationOf ?requiredCriterion ;
+      rss-attack:requiresSatisfiedEvaluationOf ?anchorCriterion ;
       rss-crit:stageCandidateTypeIri ?candidateTypeIri .
+  ?anchorEvaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?candidate ;
+      rss-res:evaluatesCriterion ?anchorCriterion ;
+      rss-res:hasEvaluationOutcome ?anchorOutcome ;
+      rss-res:producedByRun ?run .
+  FILTER(?anchorOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
   BIND(IRI(STR(?candidateTypeIri)) AS ?candidateType)
-  ?candidate a ?declaredType .
-  ?declaredType rdfs:subClassOf* ?candidateType .
+  {
+    ?candidate a ?candidateType .
+  }
+  UNION
+  {
+    ?candidate a ?declaredType .
+    ?declaredType rdfs:subClassOf ?candidateType .
+  }
+  {
+    ?candidate a rss-crit:CandidateExaminationTarget .
+  }
+  UNION
+  {
+    ?candidate a rss-crit:EntryPoint .
+  }
+
+  {
+    SELECT ?run ?criterion ?candidate
+           (SUM(?presentFlag) AS ?presentCount)
+           (COUNT(?requiredCriterion) AS ?requiredCount)
+           (SUM(?undeterminedFlag) AS ?undeterminedCount)
+           (SUM(?negativeFlag) AS ?negativeCount)
+           (SUM(?conflictFlag) AS ?conflictCount)
+    WHERE {
+      {
+        SELECT ?run ?criterion ?candidate ?requiredCriterion
+               (MAX(IF(BOUND(?knownEvaluation), 1, 0)) AS ?presentFlag)
+               (MAX(IF(!BOUND(?knownOutcome), 0, IF(?knownOutcome = rss-res:undetermined, 1, 0))) AS ?undeterminedFlag)
+               (MAX(IF(!BOUND(?knownOutcome), 0, IF(?knownOutcome = rss-res:notSatisfied, 1, 0))) AS ?negativeFlag)
+               (COUNT(DISTINCT ?knownOutcome) AS ?outcomeKinds)
+        WHERE {
+          ?run a rss-res:Run .
+          ?criterion a rss-crit:Criterion ;
+              rss-attack:assessesAttackTechnique ?technique ;
+              rss-attack:requiresSatisfiedEvaluationOf ?anchorCriterion ;
+              rss-attack:requiresSatisfiedEvaluationOf ?requiredCriterion ;
+              rss-crit:stageCandidateTypeIri ?candidateTypeIri .
+          ?anchorEvaluation a rss-res:CriterionEvaluation ;
+              rss-res:evaluationConcernsElement ?candidate ;
+              rss-res:evaluatesCriterion ?anchorCriterion ;
+              rss-res:hasEvaluationOutcome ?anchorOutcome ;
+              rss-res:producedByRun ?run .
+          FILTER(?anchorOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+          BIND(IRI(STR(?candidateTypeIri)) AS ?candidateType)
+          {
+            ?candidate a ?candidateType .
+          }
+          UNION
+          {
+            ?candidate a ?declaredType .
+            ?declaredType rdfs:subClassOf ?candidateType .
+          }
+          {
+            ?candidate a rss-crit:CandidateExaminationTarget .
+          }
+          UNION
+          {
+            ?candidate a rss-crit:EntryPoint .
+          }
+          OPTIONAL {
+            ?knownEvaluation a rss-res:CriterionEvaluation ;
+                rss-res:evaluationConcernsElement ?candidate ;
+                rss-res:evaluatesCriterion ?requiredCriterion ;
+                rss-res:hasEvaluationOutcome ?knownOutcome ;
+                rss-res:producedByRun ?run .
+            FILTER(?knownOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+          }
+        }
+        GROUP BY ?run ?criterion ?candidate ?requiredCriterion
+      }
+      BIND(IF(?outcomeKinds > 1, 1, 0) AS ?conflictFlag)
+    }
+    GROUP BY ?run ?criterion ?candidate
+  }
+  FILTER(?presentCount > 0)
 
   OPTIONAL {
     ?usedEvaluation a rss-res:CriterionEvaluation ;
@@ -53,56 +132,9 @@ WHERE {
     FILTER(?usedOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
   }
 
-  BIND(EXISTS {
-    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?missingCriterion .
-    FILTER NOT EXISTS {
-      ?knownEvaluation a rss-res:CriterionEvaluation ;
-          rss-res:evaluationConcernsElement ?candidate ;
-          rss-res:evaluatesCriterion ?missingCriterion ;
-          rss-res:hasEvaluationOutcome ?knownOutcome ;
-          rss-res:producedByRun ?run .
-      FILTER(?knownOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
-    }
-  } AS ?hasMissing)
-
-  BIND(EXISTS {
-    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?unknownCriterion .
-    ?unknownEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?candidate ;
-        rss-res:evaluatesCriterion ?unknownCriterion ;
-        rss-res:hasEvaluationOutcome rss-res:undetermined ;
-        rss-res:producedByRun ?run .
-  } AS ?hasUndetermined)
-
-  BIND(EXISTS {
-    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?negativeCriterion .
-    ?negativeEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?candidate ;
-        rss-res:evaluatesCriterion ?negativeCriterion ;
-        rss-res:hasEvaluationOutcome rss-res:notSatisfied ;
-        rss-res:producedByRun ?run .
-  } AS ?hasNegative)
-
-  BIND(EXISTS {
-    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?conflictCriterion .
-    ?firstEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?candidate ;
-        rss-res:evaluatesCriterion ?conflictCriterion ;
-        rss-res:hasEvaluationOutcome ?firstOutcome ;
-        rss-res:producedByRun ?run .
-    ?secondEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?candidate ;
-        rss-res:evaluatesCriterion ?conflictCriterion ;
-        rss-res:hasEvaluationOutcome ?secondOutcome ;
-        rss-res:producedByRun ?run .
-    FILTER(?firstOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
-    FILTER(?secondOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
-    FILTER(?firstOutcome != ?secondOutcome)
-  } AS ?hasConflict)
-
   BIND(
-    IF(?hasMissing || ?hasUndetermined || ?hasConflict, rss-res:undetermined,
-       IF(?hasNegative, rss-res:notSatisfied, rss-res:satisfied))
+    IF(?presentCount < ?requiredCount || ?undeterminedCount > 0 || ?conflictCount > 0, rss-res:undetermined,
+       IF(?negativeCount > 0, rss-res:notSatisfied, rss-res:satisfied))
     AS ?outcome
   )
   BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)

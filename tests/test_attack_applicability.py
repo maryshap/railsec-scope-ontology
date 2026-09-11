@@ -28,7 +28,9 @@ def load_graph() -> Graph:
     graph.parse(PROJECT / "rules" / "rules.ttl")
     graph.add((FX.run, RDF.type, RES.Run))
     graph.add((FX.flow, RDF.type, RAIL.RailwayInformationFlow))
+    graph.add((FX.flow, RDF.type, CRIT.CandidateExaminationTarget))
     graph.add((FX.asset, RDF.type, RAIL.SafetyCriticalAsset))
+    graph.add((FX.asset, RDF.type, CRIT.CandidateExaminationTarget))
     return graph
 
 

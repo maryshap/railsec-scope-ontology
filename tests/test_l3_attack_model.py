@@ -44,6 +44,14 @@ class L3AttackModelTest(unittest.TestCase):
         self.assertIn((ATTACK.safetyImpactConcernsPayload, RDFS.range, CORE.Payload), self.graph)
         self.assertIn((ATTACK.safetyImpactKind, RDFS.range, Namespace("http://www.w3.org/2001/XMLSchema#").string), self.graph)
 
+    def test_attack_paths_can_be_ordered_for_review_without_risk_or_sil_assignment(self) -> None:
+        self.assertIn((ATTACK.ranksAttackPath, RDFS.domain, RES.OrderingEntry), self.graph)
+        self.assertIn((ATTACK.ranksAttackPath, RDFS.range, ATTACK.AttackPathResult), self.graph)
+        self.assertIn((ATTACK.attackPathPriorityScore, RDFS.domain, RES.OrderingEntry), self.graph)
+        self.assertIn((ATTACK.attackPathPriorityScore, RDFS.range, Namespace("http://www.w3.org/2001/XMLSchema#").decimal), self.graph)
+        self.assertIn((ATTACK.attackPathSafetyImpactCount, RDFS.domain, RES.OrderingEntry), self.graph)
+        self.assertIn((ATTACK.attackPathStepCount, RDFS.domain, RES.OrderingEntry), self.graph)
+
     def test_technique_profiles_can_record_preconditions_and_effects_without_case_data(self) -> None:
         self.assertIn((ATTACK.AttackTechniqueProfile, RDFS.subClassOf, CRIT.VersionedArtefact), self.graph)
         self.assertIn((ATTACK.profileForTechnique, RDFS.range, ATTACK.AttackTechnique), self.graph)

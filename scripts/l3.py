@@ -660,6 +660,98 @@ def apply_safety_impacts(graph: Graph, run_iri: URIRef) -> int:
     return len(graph) - before
 
 
+def _attack_path_steps(graph: Graph, path: URIRef) -> list[URIRef]:
+    return sorted(
+        [step for step in graph.objects(path, ATTACK.hasAttackPathStep) if isinstance(step, URIRef)],
+        key=lambda step: (
+            int(graph.value(step, ATTACK.attackPathStepPosition).toPython())
+            if graph.value(step, ATTACK.attackPathStepPosition) is not None else 0,
+            str(step),
+        ),
+    )
+
+
+def _attack_path_safety_impacts(graph: Graph, run_iri: URIRef, path: URIRef) -> list[URIRef]:
+    return sorted(
+        [
+            impact for impact in graph.subjects(ATTACK.safetyImpactFromAttackPath, path)
+            if isinstance(impact, URIRef) and graph.value(impact, RES.producedByRun) == run_iri
+        ],
+        key=str,
+    )
+
+
+def _add_attack_path_ordering(
+    graph: Graph,
+    run_iri: URIRef,
+    metrics: dict[URIRef, tuple[int, int, Decimal]],
+) -> None:
+    ordering = _iri("attack-path-ordering", run_iri, RULE.AttackPathOrderingMethod)
+    record = _iri("attack-path-ordering-record", ordering)
+    step = _iri("attack-path-ordering-step", ordering)
+    graph.add((ordering, RDF.type, RES.OrderingResult))
+    graph.add((ordering, RES.producedByRun, run_iri))
+    graph.add((ordering, RES.producedByMethod, RULE.AttackPathOrderingMethod))
+    graph.add((ordering, CRIT.hasVersion, RULE.phase3RuleVersion))
+    graph.add((ordering, RES.hasDerivationRecord, record))
+    graph.add((record, RDF.type, RES.DerivationRecord))
+    graph.add((record, RES.hasStep, step))
+    graph.add((record, RES.completenessStatus, Literal("complete")))
+    graph.add((step, RDF.type, RES.DerivationStep))
+    graph.add((step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+    graph.add((step, RES.layerIdentifier, Literal("L3")))
+    graph.add((step, RES.appliedComputation, RULE.AttackPathOrderingMethod))
+    graph.add((step, RES.executedByMechanism, RULE.AttackPathOrderingMechanism))
+    graph.add((step, RES.generatedResult, ordering))
+
+    ranked = sorted(
+        metrics,
+        key=lambda path: (
+            -metrics[path][2],
+            -metrics[path][0],
+            metrics[path][1],
+            str(path),
+        ),
+    )
+    for position, path in enumerate(ranked, start=1):
+        safety_count, step_count, score = metrics[path]
+        entry = _iri("attack-path-ordering-entry", ordering, path)
+        graph.add((ordering, RES.hasOrderingEntry, entry))
+        graph.add((entry, RDF.type, RES.OrderingEntry))
+        graph.add((entry, ATTACK.ranksAttackPath, path))
+        graph.add((entry, RES.orderingPosition, Literal(position, datatype=XSD.positiveInteger)))
+        graph.add((entry, ATTACK.attackPathSafetyImpactCount, Literal(safety_count, datatype=XSD.nonNegativeInteger)))
+        graph.add((entry, ATTACK.attackPathStepCount, Literal(step_count, datatype=XSD.nonNegativeInteger)))
+        graph.add((entry, ATTACK.attackPathPriorityScore, Literal(score, datatype=XSD.decimal)))
+        graph.add((entry, RES.tieIdentifier, Literal(f"safety={safety_count};steps={step_count};path={path}")))
+        graph.add((step, RES.usedEntity, path))
+        for impact in _attack_path_safety_impacts(graph, run_iri, path):
+            graph.add((step, RES.usedEntity, impact))
+
+
+def apply_attack_path_ordering(graph: Graph, run_iri: URIRef) -> int:
+    """Order materialised attack paths for analyst review without assigning risk or SIL."""
+    before = len(graph)
+    paths = sorted(
+        [
+            path for path in graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if isinstance(path, URIRef) and graph.value(path, RES.producedByRun) == run_iri
+        ],
+        key=str,
+    )
+    if not paths:
+        return 0
+
+    metrics: dict[URIRef, tuple[int, int, Decimal]] = {}
+    for path in paths:
+        safety_count = len(_attack_path_safety_impacts(graph, run_iri, path))
+        step_count = len(_attack_path_steps(graph, path))
+        score = Decimal(safety_count * 1000 - step_count)
+        metrics[path] = (safety_count, step_count, score)
+    _add_attack_path_ordering(graph, run_iri, metrics)
+    return len(graph) - before
+
+
 def apply(graph: Graph, run_iri: URIRef) -> int:
     """Add deterministic reachability/path evidence and return triples added."""
     before = len(graph)
@@ -676,6 +768,7 @@ def apply(graph: Graph, run_iri: URIRef) -> int:
                 )
     apply_attack_paths(graph, run_iri)
     apply_safety_impacts(graph, run_iri)
+    apply_attack_path_ordering(graph, run_iri)
     apply_ordering(graph, run_iri)
     apply_coverage(graph, run_iri)
     return len(graph) - before

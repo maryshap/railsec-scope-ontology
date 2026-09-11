@@ -158,6 +158,13 @@ rss-attack:safetyImpactConcernsPayload a owl:ObjectProperty ;
     rdfs:label "safety impact concerns payload"@en ;
     rsso:requirement "L3-R06" .
 
+rss-attack:ranksAttackPath a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range rss-attack:AttackPathResult ;
+    rdfs:label "ranks attack path"@en ;
+    rdfs:comment "Links an ordering entry to the attack path being prioritised. This is review ordering evidence, not proof of attack occurrence."@en ;
+    rsso:requirement "L3-R07" .
+
 rss-attack:profileForTechnique a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-attack:AttackTechniqueProfile ;
     rdfs:range rss-attack:AttackTechnique ;
@@ -234,6 +241,25 @@ rss-attack:safetyImpactKind a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:label "safety impact kind"@en ;
     rdfs:comment "Controlled implementation label for why an attack path is linked to a safety concern, e.g. safety-critical-asset, safety-function-dependency, fail-safe-dependency, or safety-related-payload. The value is not a SIL."@en ;
     rsso:requirement "L3-R06" .
+
+rss-attack:attackPathPriorityScore a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "attack-path priority score"@en ;
+    rdfs:comment "Deterministic review-priority score for ordering materialised attack paths. It is derived from path evidence and safety-impact links; it is not a SIL, CVSS score or probability."@en ;
+    rsso:requirement "L3-R07" .
+
+rss-attack:attackPathSafetyImpactCount a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "attack-path safety-impact count"@en ;
+    rsso:requirement "L3-R07" .
+
+rss-attack:attackPathStepCount a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "attack-path step count"@en ;
+    rsso:requirement "L3-R07" .
 
 rss-attack:executionCandidateTypeIri a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain rss-attack:AttackTechniqueProfile ;

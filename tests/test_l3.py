@@ -375,6 +375,68 @@ class L3ReachabilityTest(unittest.TestCase):
         self.assertEqual([], list(self.graph.triples((None, RAIL.hasSafetyIntegrityLevel, None))))
         self.assertEqual([], list(self.graph.triples((None, RAIL.assignedSafetyIntegrityLevel, None))))
 
+    def test_attack_path_ordering_prioritises_safety_impact_without_assigning_sil(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["command-message"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["second-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["second-hop-weakness-evaluation"],
+        )
+        self.graph.add((FX.target, RDF.type, RAIL.SafetyCriticalAsset))
+        self.graph.add((FX["safety-function"], RDF.type, CORE.SafetyFunction))
+        self.graph.add((FX["safety-function"], CORE.directlyDependsOn, FX.target))
+        self.graph.add((FX["safety-payload"], RDF.type, RAIL.SafetyRelatedPayload))
+        self.graph.add((FX["second-hop"], CORE.carriesPayload, FX["safety-payload"]))
+
+        l3.apply(self.graph, FX.run)
+
+        target_path = next(
+            path for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if self.graph.value(path, ATTACK.attackPathConcernsTarget) == FX.target
+        )
+        middle_path = next(
+            path for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if self.graph.value(path, ATTACK.attackPathConcernsTarget) == FX.middle
+        )
+        ordering = next(self.graph.subjects(RES.producedByMethod, RULE.AttackPathOrderingMethod))
+        entries = sorted(
+            (
+                int(self.graph.value(entry, RES.orderingPosition)),
+                self.graph.value(entry, ATTACK.ranksAttackPath),
+                int(self.graph.value(entry, ATTACK.attackPathSafetyImpactCount)),
+                int(self.graph.value(entry, ATTACK.attackPathStepCount)),
+                Decimal(str(self.graph.value(entry, ATTACK.attackPathPriorityScore))),
+            )
+            for entry in self.graph.objects(ordering, RES.hasOrderingEntry)
+        )
+        self.assertEqual(target_path, entries[0][1])
+        self.assertEqual(middle_path, entries[1][1])
+        self.assertGreater(entries[0][2], entries[1][2])
+        self.assertLess(entries[1][3], entries[0][3])
+        self.assertGreater(entries[0][4], entries[1][4])
+        record = self.graph.value(ordering, RES.hasDerivationRecord)
+        step = self.graph.value(record, RES.hasStep)
+        self.assertEqual(RULE.AttackPathOrderingMethod, self.graph.value(step, RES.appliedComputation))
+        self.assertEqual(RULE.AttackPathOrderingMechanism, self.graph.value(step, RES.executedByMechanism))
+        self.assertIn(target_path, set(self.graph.objects(step, RES.usedEntity)))
+
+        self.assertEqual([], list(self.graph.triples((None, RAIL.hasSafetyIntegrityLevel, None))))
+        self.assertEqual([], list(self.graph.triples((None, RAIL.assignedSafetyIntegrityLevel, None))))
+
 
 if __name__ == "__main__":
     unittest.main()

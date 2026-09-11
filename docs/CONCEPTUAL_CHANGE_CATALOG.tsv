@@ -75,3 +75,7 @@ safetyImpactFromAttackPath	M7	objectProperty	revision	-	true	CR-B-030
 safetyImpactConcernsElement	M7	objectProperty	revision	-	true	CR-B-030
 safetyImpactConcernsPayload	M7	objectProperty	revision	-	true	CR-B-030
 safetyImpactKind	M7	datatypeProperty	revision	-	true	CR-B-030
+ranksAttackPath	M7	objectProperty	revision	-	true	CR-B-031
+attackPathPriorityScore	M7	datatypeProperty	revision	-	true	CR-B-031
+attackPathSafetyImpactCount	M7	datatypeProperty	revision	-	true	CR-B-031
+attackPathStepCount	M7	datatypeProperty	revision	-	true	CR-B-031

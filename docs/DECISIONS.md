@@ -872,3 +872,11 @@ attack technique is justified at each step.
 This is an impact-linking step, not safety-case analysis. L3 does not infer, allocate or overwrite SIL. Any SIL value remains an explicitly sourced safety-case or assessor assertion.
 
 **Rejected alternatives.** Inferring SIL from `SafetyCriticalAsset`, `SafetyFunction` or path reachability was rejected because EN 50126 assigns SIL through the safety process, not through cyber reachability. Treating every attack path as safety-impacting was rejected because it would hide the distinction between safety-critical targets, safety-function dependencies and ordinary reachable assets.
+
+## CR-B-031 — Attack-path review ordering without risk-score or SIL claims
+
+**Decision.** L3 materialises a deterministic `OrderingResult` for attack paths already produced in the same Run. Each `OrderingEntry` ranks exactly one `AttackPathResult` and records a review-priority score, the number of linked safety-impact results and the number of ordered attack-path steps. The ordering is intentionally evidence-based and reproducible: paths with more linked safety-impact evidence are reviewed first; ties prefer shorter paths and then lexical identifiers.
+
+The score is a local review-ordering aid. It is not a SIL, CVSS score, probability, exploitability estimate or safety risk acceptance claim. Safety-related prioritisation comes only from already materialised `SafetyImpactResult` evidence; the ordering method does not create new safety impacts.
+
+**Rejected alternatives.** Reusing the Phase 2 AHP candidate ordering was rejected because AHP factor values rank scoped candidates, not attack paths. Ranking by path length alone was rejected because it would put a short non-safety path ahead of a longer path with explicit safety-impact evidence. Ranking by inferred SIL was rejected because L3 is not allowed to allocate or infer SIL.

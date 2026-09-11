@@ -199,3 +199,40 @@ rss-sh:K25SafetyCriticalProvenanceShape a sh:NodeShape ;
         sh:qualifiedMinCount 1 ;
         sh:qualifiedMaxCount 1 ;
         sh:message "K-25: every SafetyCriticalAsset must carry exactly one classification assumption with rdf:type predicate, SafetyCriticalAsset object, assumption status, an instance set, a JudgementBasis and an attributed agent." ] .
+
+### K-26: SIL values are separate, attributed safety judgements.
+
+rss-sh:SILAssignmentAssumptionShape a sh:NodeShape ;
+    sh:targetClass rss-rail:SILAssignmentAssumption ;
+    sh:property [ sh:path rss-rail:silAssignmentSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:SafetyFunction ] ;
+    sh:property [ sh:path rss-rail:assignedSafetyIntegrityLevel ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-rail:SafetyIntegrityLevel ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assumptionStatus ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ] ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-crit:JudgementBasis ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Agent ] .
+
+rss-sh:K26SILAssignmentProvenanceShape a sh:NodeShape ;
+    sh:targetSubjectsOf rss-rail:hasSafetyIntegrityLevel ;
+    sh:property [
+        sh:path [ sh:inversePath rss-rail:silAssignmentSubject ] ;
+        sh:qualifiedValueShape [
+            sh:class rss-rail:SILAssignmentAssumption ;
+            sh:property [ sh:path rss-rail:assignedSafetyIntegrityLevel ; sh:minCount 1 ; sh:maxCount 1 ]
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "K-26: every hasSafetyIntegrityLevel statement must be supported by exactly one attributed SILAssignmentAssumption with a JudgementBasis." ] ;
+    sh:sparql [
+        sh:message "K-26: the SILAssignmentAssumption must assign the same SIL value as the hasSafetyIntegrityLevel statement."@en ;
+        sh:select """
+          PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+          SELECT $this WHERE {
+            $this rss-rail:hasSafetyIntegrityLevel ?level .
+            FILTER NOT EXISTS {
+              ?assignment a rss-rail:SILAssignmentAssumption ;
+                rss-rail:silAssignmentSubject $this ;
+                rss-rail:assignedSafetyIntegrityLevel ?level .
+            }
+          }
+        """
+    ] .

@@ -3,6 +3,7 @@ PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
 PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
 PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
 PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+PREFIX rsscr: <https://w3id.org/railsec-scope/criteria/railway/>
 
 # M5-R06 maximum SIL risk (legacy v3 R2.5.3).
 # Aggregates the fail-safe compromise evaluations of a safety-critical asset.
@@ -32,11 +33,36 @@ CONSTRUCT {
       rss-res:generatedResult ?evaluation .
 }
 WHERE {
-  ?asset a rss-rail:SafetyCriticalAsset .
-  ?run a rss-res:Run .
+  {
+    SELECT ?asset ?run
+           (SUM(IF(?failSafeOutcome = rss-res:satisfied, 1, 0)) AS ?satisfiedCount)
+           (SUM(IF(?failSafeOutcome = rss-res:undetermined, 1, 0)) AS ?undeterminedCount)
+    WHERE {
+      ?asset a rss-rail:SafetyCriticalAsset .
+      ?run a rss-res:Run .
+      VALUES ?violation {
+        rss-rail:criticalAuthenticityViolation
+        rss-rail:criticalIntegrityViolation
+      }
+      BIND(IRI(CONCAT(STR(?asset), "/evaluation/fail-safe/", ENCODE_FOR_URI(STRAFTER(STR(?violation), "#")), "/run/", MD5(STR(?run)))) AS ?failSafeEvaluation)
+      ?failSafeEvaluation a rss-res:CriterionEvaluation ;
+          rss-res:evaluationConcernsElement ?asset ;
+          rss-res:hasEvaluationOutcome ?failSafeOutcome ;
+          rss-res:producedByRun ?run .
+    }
+    GROUP BY ?asset ?run
+  }
+  VALUES (?risk ?criterion) {
+    (rss-rail:maximumSILRisk rsscr:sil-maximum-risk-criterion)
+  }
   ?criterion a rss-crit:Criterion ;
       rss-rail:assessesSILRisk ?risk .
 
+  VALUES ?violation {
+    rss-rail:criticalAuthenticityViolation
+    rss-rail:criticalIntegrityViolation
+  }
+  BIND(IRI(CONCAT(STR(?asset), "/evaluation/fail-safe/", ENCODE_FOR_URI(STRAFTER(STR(?violation), "#")), "/run/", MD5(STR(?run)))) AS ?failSafeEvaluation)
   ?failSafeEvaluation a rss-res:CriterionEvaluation ;
       rss-res:evaluationConcernsElement ?asset ;
       rss-res:evaluatesCriterion ?failSafeCriterion ;
@@ -44,22 +70,8 @@ WHERE {
       rss-res:producedByRun ?run .
   ?failSafeCriterion rss-rail:assessesFailSafeCompromiseFrom ?violation .
 
-  BIND(EXISTS {
-    ?anySatisfiedEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?asset ;
-        rss-res:evaluatesCriterion ?anySatisfiedCriterion ;
-        rss-res:hasEvaluationOutcome rss-res:satisfied ;
-        rss-res:producedByRun ?run .
-    ?anySatisfiedCriterion rss-rail:assessesFailSafeCompromiseFrom ?anySatisfiedViolation .
-  } AS ?anySatisfied)
-  BIND(EXISTS {
-    ?anyUndeterminedEvaluation a rss-res:CriterionEvaluation ;
-        rss-res:evaluationConcernsElement ?asset ;
-        rss-res:evaluatesCriterion ?anyUndeterminedCriterion ;
-        rss-res:hasEvaluationOutcome rss-res:undetermined ;
-        rss-res:producedByRun ?run .
-    ?anyUndeterminedCriterion rss-rail:assessesFailSafeCompromiseFrom ?anyUndeterminedViolation .
-  } AS ?anyUndetermined)
+  BIND(?satisfiedCount > 0 AS ?anySatisfied)
+  BIND(?undeterminedCount > 0 AS ?anyUndetermined)
 
   BIND(
     IF(?anySatisfied, rss-res:satisfied,

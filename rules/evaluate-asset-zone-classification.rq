@@ -1,0 +1,57 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-rail: <https://w3id.org/railsec-scope/railway#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+
+# M5-R12 asset zone classification (legacy v3 R1.2.1, R1.2.2, R2.1.4,
+# R4.1.1, R4.1.2). Zone membership is architecture data; exposure, Category 3
+# asset context and entry-point candidacy are criterion outcomes.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?asset ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L2" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateAssetZoneClassification ;
+      prov:used ?asset ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?asset a ?assetClass .
+  ?assetClass rdfs:subClassOf* rss-rail:RailwayAsset .
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-crit:determinesMembershipOf ?category ;
+      rss-rail:assessesZoneClass ?zoneClass .
+
+  BIND(EXISTS {
+    ?asset rss-core:memberOf ?anyZone .
+    ?anyZone a ?anyZoneClass .
+    ?anyZoneClass rdfs:subClassOf* rss-rail:RailwaySecurityZone .
+  } AS ?zoneInventoryStated)
+  BIND(EXISTS {
+    ?asset rss-core:memberOf ?matchedZone .
+    ?matchedZone a ?matchedZoneClass .
+    ?matchedZoneClass rdfs:subClassOf* ?zoneClass .
+  } AS ?zoneClassMatched)
+  BIND(IF(!?zoneInventoryStated, rss-res:undetermined,
+          IF(?zoneClassMatched, rss-res:satisfied, rss-res:notSatisfied)) AS ?outcome)
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?asset), "/evaluation/zone/", ENCODE_FOR_URI(STRAFTER(STR(?criterion), "/railway/")), "/run/", MD5(STR(?run)))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  FILTER(isIRI(?asset) && isIRI(?run) && isIRI(?criterion) && isIRI(?category) && isIRI(?zoneClass))
+}

@@ -1,0 +1,20 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+
+# M5-R14 generic criterion-membership materialiser. A class membership is
+# asserted only from a satisfied CriterionEvaluation whose criterion explicitly
+# determines that membership.
+
+CONSTRUCT {
+  ?element rdf:type ?category .
+}
+WHERE {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?element ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome rss-res:satisfied .
+  ?criterion rss-crit:determinesMembershipOf ?category .
+
+  FILTER(isIRI(?evaluation) && isIRI(?element) && isIRI(?criterion) && isIRI(?category))
+}

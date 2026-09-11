@@ -1,0 +1,890 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-attack: <https://w3id.org/railsec-scope/attack#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/19.2/attack-ics-projection> ;
+    owl:imports <https://w3id.org/railsec-scope/attack> ;
+    dcterms:title "Controlled projection of MITRE ATT&CK for ICS 19.2"@en ;
+    dcterms:description "Project every active ATT&CK for ICS tactic and technique as candidate vocabulary. Do not infer railway relevance or applicability from inclusion in this projection."@en .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> a rss-attack:AttackTactic ;
+    rdfs:label "Collection"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0100" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0100> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0101> a rss-attack:AttackTactic ;
+    rdfs:label "Command and Control"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0101" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0101> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> a rss-attack:AttackTactic ;
+    rdfs:label "Discovery"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0102" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0102> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103> a rss-attack:AttackTactic ;
+    rdfs:label "Evasion"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0103" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0103> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> a rss-attack:AttackTactic ;
+    rdfs:label "Execution"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0104" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0104> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> a rss-attack:AttackTactic ;
+    rdfs:label "Impact"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0105" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0105> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106> a rss-attack:AttackTactic ;
+    rdfs:label "Impair Process Control"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0106" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0106> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> a rss-attack:AttackTactic ;
+    rdfs:label "Inhibit Response Function"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0107" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0107> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> a rss-attack:AttackTactic ;
+    rdfs:label "Initial Access"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0108" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0108> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> a rss-attack:AttackTactic ;
+    rdfs:label "Lateral Movement"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0109" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0109> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> a rss-attack:AttackTactic ;
+    rdfs:label "Persistence"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0110" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0110> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0111> a rss-attack:AttackTactic ;
+    rdfs:label "Privilege Escalation"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "TA0111" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rdfs:seeAlso <https://attack.mitre.org/tactics/TA0111> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0800> a rss-attack:AttackTechnique ;
+    rdfs:label "Activate Firmware Update Mode"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0800" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0800> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0801> a rss-attack:AttackTechnique ;
+    rdfs:label "Monitor Process State"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0801" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0801> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0802> a rss-attack:AttackTechnique ;
+    rdfs:label "Automated Collection"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0802" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0802> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0806> a rss-attack:AttackTechnique ;
+    rdfs:label "Brute Force I/O"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0806" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0806> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0807> a rss-attack:AttackTechnique ;
+    rdfs:label "Command-Line Interface"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0807" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0807> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0809> a rss-attack:AttackTechnique ;
+    rdfs:label "Data Destruction"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0809" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0809> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0811> a rss-attack:AttackTechnique ;
+    rdfs:label "Data from Information Repositories"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0811" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0811> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0813> a rss-attack:AttackTechnique ;
+    rdfs:label "Denial of Control"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0813" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0813> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0814> a rss-attack:AttackTechnique ;
+    rdfs:label "Denial of Service"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0814" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0814> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0815> a rss-attack:AttackTechnique ;
+    rdfs:label "Denial of View"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0815" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0815> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0816> a rss-attack:AttackTechnique ;
+    rdfs:label "Device Restart/Shutdown"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0816" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0816> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0817> a rss-attack:AttackTechnique ;
+    rdfs:label "Drive-by Compromise"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0817" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0817> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0819> a rss-attack:AttackTechnique ;
+    rdfs:label "Exploit Public-Facing Application"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0819" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0819> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0820> a rss-attack:AttackTechnique ;
+    rdfs:label "Exploitation for Evasion"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0820" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0820> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0821> a rss-attack:AttackTechnique ;
+    rdfs:label "Modify Controller Tasking"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0821" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0821> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0822> a rss-attack:AttackTechnique ;
+    rdfs:label "External Remote Services"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0822" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0822> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0823> a rss-attack:AttackTechnique ;
+    rdfs:label "Graphical User Interface"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0823" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0823> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0826> a rss-attack:AttackTechnique ;
+    rdfs:label "Loss of Availability"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0826" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0826> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0827> a rss-attack:AttackTechnique ;
+    rdfs:label "Loss of Control"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0827" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0827> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0828> a rss-attack:AttackTechnique ;
+    rdfs:label "Loss of Productivity and Revenue"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0828" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0828> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0829> a rss-attack:AttackTechnique ;
+    rdfs:label "Loss of View"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0829" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0829> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0830> a rss-attack:AttackTechnique ;
+    rdfs:label "Adversary-in-the-Middle"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0830" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0830> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0831> a rss-attack:AttackTechnique ;
+    rdfs:label "Manipulation of Control"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0831" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0831> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0832> a rss-attack:AttackTechnique ;
+    rdfs:label "Manipulation of View"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0832" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0832> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0834> a rss-attack:AttackTechnique ;
+    rdfs:label "Native API"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0834" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0834> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0835> a rss-attack:AttackTechnique ;
+    rdfs:label "Manipulate I/O Image"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0835" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0835> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0836> a rss-attack:AttackTechnique ;
+    rdfs:label "Modify Parameter"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0836" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0836> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0837> a rss-attack:AttackTechnique ;
+    rdfs:label "Loss of Protection"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0837" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0837> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0838> a rss-attack:AttackTechnique ;
+    rdfs:label "Modify Alarm Settings"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0838" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0838> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0840> a rss-attack:AttackTechnique ;
+    rdfs:label "Network Connection Enumeration"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0840" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0840> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0842> a rss-attack:AttackTechnique ;
+    rdfs:label "Network Sniffing"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0842" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0842> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0843> a rss-attack:AttackTechnique ;
+    rdfs:label "Program Download"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0843" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0843> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0843.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Download All"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0843.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0843/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0843.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Online Edit"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0843.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0843/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0843.003> a rss-attack:AttackTechnique ;
+    rdfs:label "Program Append"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0843.003" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0843/003> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0845> a rss-attack:AttackTechnique ;
+    rdfs:label "Program Upload"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0845" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0845> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0846> a rss-attack:AttackTechnique ;
+    rdfs:label "Remote System Discovery"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0846" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0846> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0846.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Port Scan"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0846.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0846/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0846.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Broadcast Discovery"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0846.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0846/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0846.003> a rss-attack:AttackTechnique ;
+    rdfs:label "Multicast Discovery"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0846.003" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0846/003> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0847> a rss-attack:AttackTechnique ;
+    rdfs:label "Replication Through Removable Media"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0847" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0847> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0848> a rss-attack:AttackTechnique ;
+    rdfs:label "Rogue Master"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0848" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0848> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0849> a rss-attack:AttackTechnique ;
+    rdfs:label "Masquerading"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0849" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0849> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0851> a rss-attack:AttackTechnique ;
+    rdfs:label "Rootkit"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0851" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0851> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0852> a rss-attack:AttackTechnique ;
+    rdfs:label "Screen Capture"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0852" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0852> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0853> a rss-attack:AttackTechnique ;
+    rdfs:label "Scripting"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0853" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0853> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0858> a rss-attack:AttackTechnique ;
+    rdfs:label "Change Operating Mode"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0858" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0858> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0859> a rss-attack:AttackTechnique ;
+    rdfs:label "Valid Accounts"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0859" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0859> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0860> a rss-attack:AttackTechnique ;
+    rdfs:label "Wireless Compromise"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0860" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0860> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0861> a rss-attack:AttackTechnique ;
+    rdfs:label "Point & Tag Identification"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0861" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0861> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0862> a rss-attack:AttackTechnique ;
+    rdfs:label "Supply Chain Compromise"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0862" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0862> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0863> a rss-attack:AttackTechnique ;
+    rdfs:label "User Execution"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0863" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0863> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0864> a rss-attack:AttackTechnique ;
+    rdfs:label "Transient Cyber Asset"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0864" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0864> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0865> a rss-attack:AttackTechnique ;
+    rdfs:label "Spearphishing Attachment"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0865" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0865> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0866> a rss-attack:AttackTechnique ;
+    rdfs:label "Exploitation of Remote Services"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0866" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0866> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0867> a rss-attack:AttackTechnique ;
+    rdfs:label "Lateral Tool Transfer"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0867" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0867> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0868> a rss-attack:AttackTechnique ;
+    rdfs:label "Detect Operating Mode"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0868" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0868> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0869> a rss-attack:AttackTechnique ;
+    rdfs:label "Standard Application Layer Protocol"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0869" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0101> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0869> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0871> a rss-attack:AttackTechnique ;
+    rdfs:label "Execution through API"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0871" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0871> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0872> a rss-attack:AttackTechnique ;
+    rdfs:label "Indicator Removal on Host"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0872" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0872> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0873> a rss-attack:AttackTechnique ;
+    rdfs:label "Project File Infection"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0873" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0873> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0873.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Siemens Project File Format"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0873.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0873/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0874> a rss-attack:AttackTechnique ;
+    rdfs:label "Hooking"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0874" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0111> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0874> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0877> a rss-attack:AttackTechnique ;
+    rdfs:label "I/O Image"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0877" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0877> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0878> a rss-attack:AttackTechnique ;
+    rdfs:label "Alarm Suppression"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0878" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0878> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0879> a rss-attack:AttackTechnique ;
+    rdfs:label "Damage to Property"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0879" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0879> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0880> a rss-attack:AttackTechnique ;
+    rdfs:label "Loss of Safety"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0880" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0880> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0881> a rss-attack:AttackTechnique ;
+    rdfs:label "Service Stop"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0881" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0881> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0882> a rss-attack:AttackTechnique ;
+    rdfs:label "Theft of Operational Information"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0882" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0105> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0882> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0883> a rss-attack:AttackTechnique ;
+    rdfs:label "Internet Accessible Device"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0883" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0883> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0884> a rss-attack:AttackTechnique ;
+    rdfs:label "Connection Proxy"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0884" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0101> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0884> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0885> a rss-attack:AttackTechnique ;
+    rdfs:label "Commonly Used Port"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0885" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0101> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0885> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0886> a rss-attack:AttackTechnique ;
+    rdfs:label "Remote Services"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0886" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0108>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0886> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0887> a rss-attack:AttackTechnique ;
+    rdfs:label "Wireless Sniffing"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0887" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0887> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0888> a rss-attack:AttackTechnique ;
+    rdfs:label "Remote System Information Discovery"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0888" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0102> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0888> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0889> a rss-attack:AttackTechnique ;
+    rdfs:label "Modify Program"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0889" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0889> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0890> a rss-attack:AttackTechnique ;
+    rdfs:label "Exploitation for Privilege Escalation"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0890" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0111> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0890> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0892> a rss-attack:AttackTechnique ;
+    rdfs:label "Change Credential"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0892" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0892> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0893> a rss-attack:AttackTechnique ;
+    rdfs:label "Data from Local System"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0893" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0100> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0893> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0894> a rss-attack:AttackTechnique ;
+    rdfs:label "System Binary Proxy Execution"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0894" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0894> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0895> a rss-attack:AttackTechnique ;
+    rdfs:label "Autorun Image"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T0895" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0104> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T0895> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1691> a rss-attack:AttackTechnique ;
+    rdfs:label "Block Operational Technology Message"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1691" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1691> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1691.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Command Message"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1691.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1691/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1691.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Reporting Message"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1691.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1691/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1692> a rss-attack:AttackTechnique ;
+    rdfs:label "Unauthorized Message"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1692" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1692> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1692.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Command Message"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1692.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1692/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1692.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Reporting Message"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1692.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0103>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1692/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1693> a rss-attack:AttackTechnique ;
+    rdfs:label "Modify Firmware"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1693" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1693> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1693.001> a rss-attack:AttackTechnique ;
+    rdfs:label "System Firmware"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1693.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1693/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1693.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Module Firmware"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1693.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0106>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1693/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1694> a rss-attack:AttackTechnique ;
+    rdfs:label "Insecure Credentials"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1694" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1694> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1694.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Default Credentials"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1694.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1694/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1694.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Hardcoded Credentials"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1694.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0109>,
+        <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0110> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1694/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1695> a rss-attack:AttackTechnique ;
+    rdfs:label "Block Communications"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1695" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1695> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1695.001> a rss-attack:AttackTechnique ;
+    rdfs:label "Serial COM"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1695.001" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1695/001> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1695.002> a rss-attack:AttackTechnique ;
+    rdfs:label "Ethernet"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1695.002" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1695/002> .
+
+<https://w3id.org/railsec-scope/attack/ics/19.2/technique/T1695.003> a rss-attack:AttackTechnique ;
+    rdfs:label "Wi-Fi"@en ;
+    rss-crit:hasVersion rss-attack:MITREAttackICS19_2VocabularyVersion ;
+    rss-attack:attackExternalIdentifier "T1695.003" ;
+    rss-attack:cataloguedAt rss-attack:MITREAttackICS19_2Collection ;
+    rss-attack:techniqueInTactic <https://w3id.org/railsec-scope/attack/ics/19.2/tactic/TA0107> ;
+    rdfs:seeAlso <https://attack.mitre.org/techniques/T1695/003> .

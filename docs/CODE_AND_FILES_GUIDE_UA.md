@@ -33,6 +33,7 @@
 - `results.ttl` (M3) — evaluations, assignments, Runs, derivation, reachability, ordering, coverage і performance; 26 classes. Тут знаходяться точні cardinality restrictions vertical slice.
 - `assessment.ttl` (M4) — AssessorDecision, Inclusion, Exclusion, Override; 4 classes.
 - `railway.ttl` (M5) — railway vocabulary: payload types, EN 50159 categories and threats, channel defences, traceable category-input assertions, SIL, access і fail-safe dependency. Safeguard→threat annotations є документацією, не reasoning axioms.
+- `attack.ttl` (M7) — versioned attack tactics/techniques and the L3 attack-path result schema. Застосовність техніки визначається через sourced `CriterionEvaluation`, а не прямим словниковим зв'язком. M6 залишається сімейством змінних case-data/ABox.
 - `validation.ttl` — build-only root, який завантажує M4, M5 і rule metadata як один closure; не є публічним модулем.
 
 OWL відповідає за open-world semantics, hierarchy, disjointness, domains/ranges і cardinality. Він не замінює SHACL closed-world validation.
@@ -41,6 +42,8 @@ OWL відповідає за open-world semantics, hierarchy, disjointness, dom
 
 - `prov-o-source.ttl` — незмінена канонічна W3C копія для evidence.
 - `prov-o-dl.ttl` — мінімальна перевірена OWL 2 DL projection лише використаних PROV-O terms.
+- `attack-ics-19.2-projection.json` — pinned URL/checksum, object filters, expected counts і правило, що inclusion не означає railway applicability.
+- `attack-ics-19.2.ttl` — generated candidate vocabulary: 12 active tactics і 97 active techniques без ATT&CK descriptions або case mappings.
 - `README.md` — джерело, дата, checksum і пояснення, чому потрібна projection.
 
 CR-B-006 документує це рішення: канонічний PROV-O документ використовує property punning, яке OWLAPI відхиляє з DL profile.
@@ -84,7 +87,7 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 
 ## `migration/`
 
-- `legacy-rule-triage.csv` — 54/54 legacy rules, кожне з рішенням `map` або `refactor`; усі мають `domain-review-required`.
+- `legacy-rule-triage.csv` — операційний реєстр 54/54 legacy rules: 33 реалізовано, 12 явно перенесено до майбутніх L3/зовнішніх обчислень, 9 не допущено до поточного ontology scope; відкритих `implement-now` немає.
 - `write_legacy_rule_triage.py` — відтворює matrix із legacy generator.
 - `extract_etcs_workbook.mjs` — read-only extraction workbook через artifact-tool.
 - `migrate_etcs_case.py` — явна JSON→M6 mapping pipeline; не читає і не копіює legacy ABox.
@@ -98,17 +101,18 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 - `write_inferred_hierarchy.py` — stable reasoner report.
 - `write_entity_matrix.py` — 76-row traceability/formalisation inventory.
 - `write_cq_suite.py` — deterministic generator 45 query files.
+- `import_attack_ics.py` — dependency-free STIX 2.1 importer; відмовляється працювати при іншому checksum, collection version або object count.
 - `tests/` — CQ parsing/execution, K-shapes, publication lint, vertical slice й ETCS case.
 - `reports/inferred-class-hierarchy.tsv` — committed reasoner output для semantic diff.
 - `reports/entity-formalisation-matrix.tsv` — машинно згенерована карта всіх 76 entities.
 
 ## Що ще не можна називати завершеним
 
-- Category rule працює на provisional JudgementBasis; production M5 criteria не release-ready без exact standard SourceLocation/Interpretation review.
-- Решта Phase 2 rule blocks та orchestrator/L3 ще не реалізовані.
+- L1-L2 criteria пройшли source review для поточного набору стандартів: EN 50159:2010, EN 50126-1:2017, EN 50126-2:2017, IEC 62443-3-3:2013 і prTS 50701 D8E4:2020. Те, що є assessor policy, позначено як JudgementBasis.
+- Основні Phase 2 rule blocks та orchestrator реалізовані. L3 вже виконує reachability, witness paths, candidate-set projection, AHP factor values, weighted ordering і coverage для явного Selection.
 - Для CQ-01–CQ-45 потрібна повна P/N/U fixture-oracle matrix; smoke execution недостатньо для наукової валідації.
 - Workbook boundary mapping має бути підтверджений domain expert.
 - K-22 вимагає ручного copyright/source-text review.
-- Старий AHP ordering і L3 reachability/path/coverage computations ще не перенесені в нову архітектуру.
+- AHP збережений як версійований ordering method після окремого обґрунтування ваг. Reachability/path/coverage і factor computation реалізовані в новій архітектурі.
 
 Отже, зараз репозиторій має працюючу формальну основу, validation layers і structurally valid ETCS migration. Він навмисно не видає неперевірені legacy rules за доведену railway semantics.

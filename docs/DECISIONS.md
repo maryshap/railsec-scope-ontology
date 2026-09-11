@@ -864,3 +864,11 @@ evidence-backed path when the underlying weakness evidence is missing.
 that made the technique applicable. Recording only the reachability result was
 rejected because reachability says where an attacker can move, not which
 attack technique is justified at each step.
+
+## CR-B-030 — Attack-path safety-impact linking without SIL assignment
+
+**Decision.** L3 materialises `SafetyImpactResult` evidence for an `AttackPathResult` when the path reaches a safety-critical asset, reaches an asset used by a safety function, reaches a fail-safe dependency, or traverses a flow carrying a safety-related payload. The result records the producing Run, phase-3 mechanism version, the source attack path, the impacted element or payload, any affected safety function available in the case data, reachability/dependency-chain evidence and a complete `DerivationRecord`.
+
+This is an impact-linking step, not safety-case analysis. L3 does not infer, allocate or overwrite SIL. Any SIL value remains an explicitly sourced safety-case or assessor assertion.
+
+**Rejected alternatives.** Inferring SIL from `SafetyCriticalAsset`, `SafetyFunction` or path reachability was rejected because EN 50126 assigns SIL through the safety process, not through cyber reachability. Treating every attack path as safety-impacting was rejected because it would hide the distinction between safety-critical targets, safety-function dependencies and ordinary reachable assets.

@@ -37,6 +37,13 @@ class L3AttackModelTest(unittest.TestCase):
         self.assertIn((ATTACK.stepConcernsElement, RDFS.range, CORE.Element), self.graph)
         self.assertIn((ATTACK.supportedByApplicabilityEvaluation, RDFS.range, RES.CriterionEvaluation), self.graph)
 
+    def test_attack_paths_can_be_linked_to_safety_impacts_without_sil(self) -> None:
+        self.assertIn((ATTACK.safetyImpactFromAttackPath, RDFS.domain, RES.SafetyImpactResult), self.graph)
+        self.assertIn((ATTACK.safetyImpactFromAttackPath, RDFS.range, ATTACK.AttackPathResult), self.graph)
+        self.assertIn((ATTACK.safetyImpactConcernsElement, RDFS.range, CORE.Element), self.graph)
+        self.assertIn((ATTACK.safetyImpactConcernsPayload, RDFS.range, CORE.Payload), self.graph)
+        self.assertIn((ATTACK.safetyImpactKind, RDFS.range, Namespace("http://www.w3.org/2001/XMLSchema#").string), self.graph)
+
     def test_technique_profiles_can_record_preconditions_and_effects_without_case_data(self) -> None:
         self.assertIn((ATTACK.AttackTechniqueProfile, RDFS.subClassOf, CRIT.VersionedArtefact), self.graph)
         self.assertIn((ATTACK.profileForTechnique, RDFS.range, ATTACK.AttackTechnique), self.graph)

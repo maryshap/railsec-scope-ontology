@@ -139,6 +139,25 @@ rss-attack:supportedByApplicabilityEvaluation a owl:ObjectProperty, owl:Function
     rdfs:comment "The referenced evaluation must concern the step element, evaluate a Criterion linked to the step technique, and have a satisfied outcome before the step can enter a computed path."@en ;
     rsso:requirement "L3-R03", "L3-R04" .
 
+rss-attack:safetyImpactFromAttackPath a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range rss-attack:AttackPathResult ;
+    rdfs:label "safety impact from attack path"@en ;
+    rdfs:comment "Links a derived safety-impact result to the attack path whose reached target or traversed flow exposed the safety concern. This link does not allocate or infer SIL."@en ;
+    rsso:requirement "L3-R06" .
+
+rss-attack:safetyImpactConcernsElement a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range rss-core:Element ;
+    rdfs:label "safety impact concerns element"@en ;
+    rsso:requirement "L3-R06" .
+
+rss-attack:safetyImpactConcernsPayload a owl:ObjectProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range rss-core:Payload ;
+    rdfs:label "safety impact concerns payload"@en ;
+    rsso:requirement "L3-R06" .
+
 rss-attack:profileForTechnique a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-attack:AttackTechniqueProfile ;
     rdfs:range rss-attack:AttackTechnique ;
@@ -208,6 +227,13 @@ rss-attack:attackPathStepPosition a owl:DatatypeProperty, owl:FunctionalProperty
     rdfs:range xsd:positiveInteger ;
     rdfs:label "attack-path step position"@en ;
     rsso:requirement "L3-R04" .
+
+rss-attack:safetyImpactKind a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range xsd:string ;
+    rdfs:label "safety impact kind"@en ;
+    rdfs:comment "Controlled implementation label for why an attack path is linked to a safety concern, e.g. safety-critical-asset, safety-function-dependency, fail-safe-dependency, or safety-related-payload. The value is not a SIL."@en ;
+    rsso:requirement "L3-R06" .
 
 rss-attack:executionCandidateTypeIri a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain rss-attack:AttackTechniqueProfile ;

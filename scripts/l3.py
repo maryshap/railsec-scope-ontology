@@ -31,8 +31,8 @@ def _iri(kind: str, *parts: URIRef | str) -> URIRef:
     return L3[f"{kind}-{hashlib.sha256(material).hexdigest()}"]
 
 
-def _vulnerable_types(graph: Graph) -> set[URIRef]:
-    types = {RAIL.VulnerableFlow}
+def _classes_with_subclasses(graph: Graph, root: URIRef) -> set[URIRef]:
+    types = {root}
     changed = True
     while changed:
         changed = False
@@ -41,6 +41,14 @@ def _vulnerable_types(graph: Graph) -> set[URIRef]:
                 types.add(child)
                 changed = True
     return types
+
+
+def _vulnerable_types(graph: Graph) -> set[URIRef]:
+    return _classes_with_subclasses(graph, RAIL.VulnerableFlow)
+
+
+def _is_instance_of(graph: Graph, resource: URIRef, root: URIRef) -> bool:
+    return any((resource, RDF.type, class_iri) in graph for class_iri in _classes_with_subclasses(graph, root))
 
 
 def _entry_assignments(graph: Graph, run_iri: URIRef) -> list[tuple[URIRef, URIRef]]:
@@ -251,6 +259,78 @@ def _add_attack_path(
             for prerequisite_evaluation in prerequisite_evidence:
                 graph.add((derivation_step, RES.usedEntity, prerequisite_evaluation))
             position += 1
+
+
+def _reachability_evidence_for_path(graph: Graph, path: URIRef) -> tuple[URIRef | None, URIRef | None]:
+    reachability_result = graph.value(path, ATTACK.followsReachabilityResult)
+    if not isinstance(reachability_result, URIRef):
+        return None, None
+    chain = None
+    entry = graph.value(path, ATTACK.startsFromEntryPoint)
+    target = graph.value(path, ATTACK.attackPathConcernsTarget)
+    mechanism = graph.value(reachability_result, RES.usedAccessMechanism)
+    run_iri = graph.value(path, RES.producedByRun)
+    if all(isinstance(item, URIRef) for item in (entry, target, mechanism, run_iri)):
+        candidate_chain = _iri("chain", run_iri, entry, mechanism, target)
+        if (candidate_chain, RDF.type, RES.DependencyChain) in graph:
+            chain = candidate_chain
+    return reachability_result, chain
+
+
+def _add_safety_impact(
+    graph: Graph,
+    run_iri: URIRef,
+    path: URIRef,
+    kind: str,
+    concern: URIRef,
+    *,
+    function: URIRef | None = None,
+    payload: URIRef | None = None,
+    evidence: list[URIRef] | None = None,
+) -> None:
+    evidence = evidence or []
+    result = _iri("safety-impact", run_iri, path, kind, concern, function or "", payload or "")
+    scenario = _iri("safety-impact-scenario", result)
+    record = _iri("safety-impact-record", result)
+    derivation_step = _iri("safety-impact-derivation-step", result)
+    reachability_result, chain = _reachability_evidence_for_path(graph, path)
+
+    graph.add((scenario, RDF.type, CORE.PropertyLossScenario))
+    graph.add((scenario, CORE.scenarioConcernsElement, concern))
+
+    graph.add((result, RDF.type, RES.SafetyImpactResult))
+    graph.add((result, RES.producedByRun, run_iri))
+    graph.add((result, CRIT.hasVersion, RULE.phase3RuleVersion))
+    graph.add((result, RES.evaluatesScenario, scenario))
+    graph.add((result, ATTACK.safetyImpactFromAttackPath, path))
+    graph.add((result, ATTACK.safetyImpactConcernsElement, concern))
+    graph.add((result, ATTACK.safetyImpactKind, Literal(kind)))
+    if isinstance(payload, URIRef):
+        graph.add((result, ATTACK.safetyImpactConcernsPayload, payload))
+    if isinstance(function, URIRef):
+        graph.add((result, RES.affectsFunction, function))
+    if isinstance(chain, URIRef):
+        graph.add((result, RES.viaDependencyChain, chain))
+    graph.add((result, RES.hasDerivationRecord, record))
+
+    graph.add((record, RDF.type, RES.DerivationRecord))
+    graph.add((record, RES.completenessStatus, Literal("complete")))
+    graph.add((record, RES.hasStep, derivation_step))
+    graph.add((derivation_step, RDF.type, RES.DerivationStep))
+    graph.add((derivation_step, RES.stepPosition, Literal(1, datatype=XSD.positiveInteger)))
+    graph.add((derivation_step, RES.layerIdentifier, Literal("L3")))
+    graph.add((derivation_step, RES.appliedComputation, RULE.AttackPathSafetyImpactMethod))
+    graph.add((derivation_step, RES.executedByMechanism, RULE.AttackPathSafetyImpactMechanism))
+    graph.add((derivation_step, RES.usedEntity, path))
+    if isinstance(reachability_result, URIRef):
+        graph.add((derivation_step, RES.usedEntity, reachability_result))
+    graph.add((derivation_step, RES.generatedResult, result))
+    for item in sorted(set(evidence + [concern]), key=str):
+        graph.add((derivation_step, PROV.used, item))
+    if isinstance(function, URIRef):
+        graph.add((derivation_step, PROV.used, function))
+    if isinstance(payload, URIRef):
+        graph.add((derivation_step, PROV.used, payload))
 
 
 def _candidate_elements(graph: Graph, candidate_set: URIRef) -> set[URIRef]:
@@ -518,6 +598,68 @@ def apply_attack_paths(graph: Graph, run_iri: URIRef) -> int:
     return len(graph) - before
 
 
+def apply_safety_impacts(graph: Graph, run_iri: URIRef) -> int:
+    """Link materialised attack paths to safety concerns without assigning SIL."""
+    before = len(graph)
+    for path in sorted(graph.subjects(RDF.type, ATTACK.AttackPathResult), key=str):
+        if graph.value(path, RES.producedByRun) != run_iri:
+            continue
+        target = graph.value(path, ATTACK.attackPathConcernsTarget)
+        if not isinstance(target, URIRef):
+            continue
+
+        if _is_instance_of(graph, target, RAIL.SafetyCriticalAsset):
+            _add_safety_impact(
+                graph, run_iri, path, "safety-critical-asset", target,
+                evidence=[target],
+            )
+
+        direct_functions = sorted(
+            (
+                function for function in graph.subjects(CORE.directlyDependsOn, target)
+                if isinstance(function, URIRef) and (function, RDF.type, CORE.SafetyFunction) in graph
+            ),
+            key=str,
+        )
+        fail_safe_functions = sorted(
+            (
+                function for function in graph.subjects(RAIL.failSafeDependsOn, target)
+                if isinstance(function, URIRef) and (function, RDF.type, CORE.SafetyFunction) in graph
+            ),
+            key=str,
+        )
+        for function in direct_functions:
+            _add_safety_impact(
+                graph, run_iri, path, "safety-function-dependency", target,
+                function=function, evidence=[target, function],
+            )
+        for function in fail_safe_functions:
+            _add_safety_impact(
+                graph, run_iri, path, "fail-safe-dependency", target,
+                function=function, evidence=[target, function],
+            )
+
+        steps = sorted(
+            (
+                int(position.toPython()),
+                step,
+                graph.value(step, ATTACK.stepConcernsElement),
+            )
+            for step in graph.objects(path, ATTACK.hasAttackPathStep)
+            if (position := graph.value(step, ATTACK.attackPathStepPosition)) is not None
+        )
+        for _position, step, flow in steps:
+            if not isinstance(flow, URIRef):
+                continue
+            for payload in sorted(graph.objects(flow, CORE.carriesPayload), key=str):
+                if isinstance(payload, URIRef) and _is_instance_of(graph, payload, RAIL.SafetyRelatedPayload):
+                    _add_safety_impact(
+                        graph, run_iri, path, "safety-related-payload", flow,
+                        payload=payload, evidence=[step, flow, payload],
+                    )
+    return len(graph) - before
+
+
 def apply(graph: Graph, run_iri: URIRef) -> int:
     """Add deterministic reachability/path evidence and return triples added."""
     before = len(graph)
@@ -533,6 +675,7 @@ def apply(graph: Graph, run_iri: URIRef) -> int:
                     target, nodes, flows,
                 )
     apply_attack_paths(graph, run_iri)
+    apply_safety_impacts(graph, run_iri)
     apply_ordering(graph, run_iri)
     apply_coverage(graph, run_iri)
     return len(graph) - before

@@ -139,6 +139,14 @@ rss-rule:AttackPathTraversalMechanism a rss-res:Mechanism ;
     rss-crit:hasVersion rss-rule:phase3RuleVersion ;
     dcterms:description "Python implementation of the L3 attack-path traversal method."@en .
 
+rss-rule:AttackPathSafetyImpactMethod a rss-crit:ExternalComputationMethod ;
+    rss-crit:hasVersion rss-rule:phase3RuleVersion ;
+    dcterms:description "Deterministically links materialised attack paths to safety-impact evidence when the path reaches a safety-critical asset, a safety-function dependency, a fail-safe dependency, or a flow carrying safety-related payload. The method never infers or assigns SIL."@en .
+
+rss-rule:AttackPathSafetyImpactMechanism a rss-res:Mechanism ;
+    rss-crit:hasVersion rss-rule:phase3RuleVersion ;
+    dcterms:description "Python implementation of the L3 attack-path to safety-impact linking method."@en .
+
 rss-rule:CandidateSetProjectionMethod a rss-crit:ExternalComputationMethod ;
     rss-crit:hasVersion rss-rule:phase2RuleVersion ;
     dcterms:description "Deterministic projection of materialised CandidateExaminationTarget assignments belonging to one Run."@en .

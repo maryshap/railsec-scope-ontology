@@ -71,3 +71,7 @@ effectEnablesAccessMechanism	M7	objectProperty	revision	-	true	CR-B-028
 effectAffectsSecurityProperty	M7	objectProperty	revision	-	true	CR-B-028
 executionCandidateTypeIri	M7	datatypeProperty	revision	-	true	CR-B-028
 effectAffectsElementTypeIri	M7	datatypeProperty	revision	-	true	CR-B-028
+safetyImpactFromAttackPath	M7	objectProperty	revision	-	true	CR-B-030
+safetyImpactConcernsElement	M7	objectProperty	revision	-	true	CR-B-030
+safetyImpactConcernsPayload	M7	objectProperty	revision	-	true	CR-B-030
+safetyImpactKind	M7	datatypeProperty	revision	-	true	CR-B-030

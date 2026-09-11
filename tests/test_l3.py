@@ -19,7 +19,9 @@ import orchestrator  # noqa: E402
 
 FX = Namespace("https://w3id.org/railsec-scope/fixture/l3/")
 ATTACK = Namespace("https://w3id.org/railsec-scope/attack#")
+CORE = Namespace("https://w3id.org/railsec-scope/core#")
 CRIT = Namespace("https://w3id.org/railsec-scope/criteria#")
+RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
 RULE = Namespace("https://w3id.org/railsec-scope/rules#")
 
@@ -288,6 +290,90 @@ class L3ReachabilityTest(unittest.TestCase):
         self.assertIn(FX["first-hop-weakness-evaluation"], used_evidence)
         self.assertIn(FX["second-hop-weakness-evaluation"], used_evidence)
         self.assertIn(reachability_result, used_evidence)
+
+    def test_attack_path_safety_impacts_link_paths_to_concerns_without_assigning_sil(self) -> None:
+        add_attack_evaluation(
+            self.graph,
+            FX["first-hop"],
+            FX["first-hop-attack-criterion"],
+            FX["network-sniffing"],
+            FX["first-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["first-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["first-hop-weakness-evaluation"],
+        )
+        add_attack_evaluation(
+            self.graph,
+            FX["second-hop"],
+            FX["second-hop-attack-criterion"],
+            FX["command-message"],
+            FX["second-hop-attack-evaluation"],
+            RES.satisfied,
+            prerequisite_criterion=FX["second-hop-weakness-criterion"],
+            prerequisite_evaluation=FX["second-hop-weakness-evaluation"],
+        )
+        self.graph.add((FX.target, RDF.type, RAIL.SafetyCriticalAsset))
+        self.graph.add((FX["safety-function"], RDF.type, CORE.SafetyFunction))
+        self.graph.add((FX["safety-function"], CORE.directlyDependsOn, FX.target))
+        self.graph.add((FX["fail-safe-function"], RDF.type, CORE.SafetyFunction))
+        self.graph.add((FX["fail-safe-function"], RAIL.failSafeDependsOn, FX.target))
+        self.graph.add((FX["safety-payload"], RDF.type, RAIL.SafetyRelatedPayload))
+        self.graph.add((FX["second-hop"], CORE.carriesPayload, FX["safety-payload"]))
+
+        l3.apply(self.graph, FX.run)
+
+        target_path = next(
+            path for path in self.graph.subjects(RDF.type, ATTACK.AttackPathResult)
+            if self.graph.value(path, ATTACK.attackPathConcernsTarget) == FX.target
+        )
+        impacts = [
+            impact for impact in self.graph.subjects(RDF.type, RES.SafetyImpactResult)
+            if self.graph.value(impact, ATTACK.safetyImpactFromAttackPath) == target_path
+        ]
+        self.assertEqual(
+            {
+                "safety-critical-asset",
+                "safety-function-dependency",
+                "fail-safe-dependency",
+                "safety-related-payload",
+            },
+            {str(self.graph.value(impact, ATTACK.safetyImpactKind)) for impact in impacts},
+        )
+        self.assertIn(
+            FX["safety-function"],
+            {
+                self.graph.value(impact, RES.affectsFunction)
+                for impact in impacts
+                if str(self.graph.value(impact, ATTACK.safetyImpactKind)) == "safety-function-dependency"
+            },
+        )
+        self.assertIn(
+            FX["fail-safe-function"],
+            {
+                self.graph.value(impact, RES.affectsFunction)
+                for impact in impacts
+                if str(self.graph.value(impact, ATTACK.safetyImpactKind)) == "fail-safe-dependency"
+            },
+        )
+        payload_impact = next(
+            impact for impact in impacts
+            if str(self.graph.value(impact, ATTACK.safetyImpactKind)) == "safety-related-payload"
+        )
+        self.assertEqual(FX["second-hop"], self.graph.value(payload_impact, ATTACK.safetyImpactConcernsElement))
+        self.assertEqual(FX["safety-payload"], self.graph.value(payload_impact, ATTACK.safetyImpactConcernsPayload))
+
+        for impact in impacts:
+            self.assertEqual(FX.run, self.graph.value(impact, RES.producedByRun))
+            self.assertEqual(RULE.phase3RuleVersion, self.graph.value(impact, CRIT.hasVersion))
+            record = self.graph.value(impact, RES.hasDerivationRecord)
+            self.assertEqual("complete", str(self.graph.value(record, RES.completenessStatus)))
+            step = self.graph.value(record, RES.hasStep)
+            self.assertEqual(RULE.AttackPathSafetyImpactMethod, self.graph.value(step, RES.appliedComputation))
+            self.assertEqual(RULE.AttackPathSafetyImpactMechanism, self.graph.value(step, RES.executedByMechanism))
+            self.assertIn(target_path, set(self.graph.objects(step, RES.usedEntity)))
+
+        self.assertEqual([], list(self.graph.triples((None, RAIL.hasSafetyIntegrityLevel, None))))
+        self.assertEqual([], list(self.graph.triples((None, RAIL.assignedSafetyIntegrityLevel, None))))
 
 
 if __name__ == "__main__":

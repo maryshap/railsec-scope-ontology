@@ -60,13 +60,17 @@ class AttackRailwayProfileTest(unittest.TestCase):
             if row["profile_disposition"] == "implemented-criterion"
         })
 
-    def test_minimal_attack_path_profile_has_an_explicit_pending_initial_access_technique(self) -> None:
+    def test_minimal_attack_path_profile_has_implemented_initial_access_technique(self) -> None:
         rows = {row["technique_id"]: row for row in profile_rows()}
-        self.assertEqual("selected-pending-criterion", rows["T0886"]["profile_disposition"])
+        self.assertEqual("implemented-criterion", rows["T0886"]["profile_disposition"])
         self.assertEqual("minimal-railway-attack-path-profile", rows["T0886"]["profile_scope"])
         self.assertEqual("initial-access/lateral-movement", rows["T0886"]["attack_path_role"])
-        self.assertEqual("", rows["T0886"]["implemented_criterion"])
-        self.assertIn("no applicability is asserted yet", rows["T0886"]["notes"])
+        self.assertEqual(
+            "t0886-remote-services-dmz-entry-point-criterion;"
+            "t0886-remote-services-external-entry-point-criterion",
+            rows["T0886"]["implemented_criterion"],
+        )
+        self.assertIn("Railway applicability is evaluated", rows["T0886"]["notes"])
 
     def test_minimal_attack_path_profile_covers_the_required_chain_roles(self) -> None:
         roles = {

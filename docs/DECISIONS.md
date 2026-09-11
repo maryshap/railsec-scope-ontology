@@ -884,3 +884,25 @@ This is an impact-linking step, not safety-case analysis. L3 does not infer, all
 The score is a local review-ordering aid. It is not a SIL, CVSS score, probability, exploitability estimate or safety risk acceptance claim. Safety-related prioritisation comes only from already materialised `SafetyImpactResult` evidence; the ordering method does not create new safety impacts.
 
 **Rejected alternatives.** Reusing the Phase 2 AHP candidate ordering was rejected because AHP factor values rank scoped candidates, not attack paths. Ranking by path length alone was rejected because it would put a short non-safety path ahead of a longer path with explicit safety-impact evidence. Ranking by inferred SIL was rejected because L3 is not allowed to allocate or infer SIL.
+
+## CR-B-032 — Remote Services applicability is entry-point evidence, not attack occurrence
+
+**Decision.** ATT&CK ICS 19.2 `T0886 Remote Services` is implemented in the
+minimal railway attack-path profile through two sourced applicability criteria:
+external-zone entry points and DMZ-zone entry points. The criteria consume the
+same-element, same-Run L2 `EntryPoint` evaluations produced by the railway
+asset-zone criteria and produce three-valued L3 technique-applicability
+evaluations for the asset.
+
+This closes the previous `selected-pending-criterion` state for the initial
+access / lateral movement role in the minimal railway ATT&CK profile. It does
+not assert that a remote service exists, that credentials are available, that a
+service is exploitable or that an attack occurred. It only states that an asset
+already admitted as a railway entry point is relevant for remote-services
+testing in the L3 profile.
+
+**Rejected alternatives.** Encoding one criterion with an implicit
+external-zone-or-DMZ disjunction was rejected because the generic applicability
+rule treats multiple prerequisite criteria as conjunctions. Treating every
+railway asset as T0886-applicable was rejected because it would bypass the
+sourced railway entry-point evidence needed for attack-path materialisation.

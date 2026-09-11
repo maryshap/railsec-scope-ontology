@@ -31,6 +31,7 @@ def load_graph() -> Graph:
     graph.add((FX.flow, RDF.type, CRIT.CandidateExaminationTarget))
     graph.add((FX.asset, RDF.type, RAIL.SafetyCriticalAsset))
     graph.add((FX.asset, RDF.type, CRIT.CandidateExaminationTarget))
+    graph.add((FX.asset, RDF.type, CRIT.EntryPoint))
     return graph
 
 
@@ -82,6 +83,8 @@ class AttackApplicabilityTest(unittest.TestCase):
             ATTACK_CRIT["t0831-manipulation-of-control-authenticity-criterion"]: ATTACK_ICS.T0831,
             ATTACK_CRIT["t0815-denial-of-view-sequence-criterion"]: ATTACK_ICS.T0815,
             ATTACK_CRIT["t0829-loss-of-view-sequence-criterion"]: ATTACK_ICS.T0829,
+            ATTACK_CRIT["t0886-remote-services-external-entry-point-criterion"]: ATTACK_ICS.T0886,
+            ATTACK_CRIT["t0886-remote-services-dmz-entry-point-criterion"]: ATTACK_ICS.T0886,
         }
         self.assertEqual(expected, {
             criterion: graph.value(criterion, ATTACK.assessesAttackTechnique)
@@ -107,6 +110,20 @@ class AttackApplicabilityTest(unittest.TestCase):
         add_evaluation(graph, "critical-sequence", RAIL_CRIT["critical-sequence-criterion"], RES.notSatisfied)
         add_evaluation(graph, "authentication", RAIL_CRIT["l1-authentication-criterion"], RES.satisfied)
         add_evaluation(graph, "integrity", RAIL_CRIT["l1-integrity-criterion"], RES.satisfied)
+        add_evaluation(
+            graph,
+            "entry-external",
+            RAIL_CRIT["entry-external-zone-criterion"],
+            RES.satisfied,
+            element=FX.asset,
+        )
+        add_evaluation(
+            graph,
+            "entry-dmz",
+            RAIL_CRIT["entry-dmz-zone-criterion"],
+            RES.notSatisfied,
+            element=FX.asset,
+        )
 
         apply_rule(graph)
 
@@ -122,9 +139,12 @@ class AttackApplicabilityTest(unittest.TestCase):
             "t0831-manipulation-of-control-authenticity-criterion": RES.undetermined,
             "t0815-denial-of-view-sequence-criterion": RES.notSatisfied,
             "t0829-loss-of-view-sequence-criterion": RES.notSatisfied,
+            "t0886-remote-services-external-entry-point-criterion": RES.satisfied,
+            "t0886-remote-services-dmz-entry-point-criterion": RES.notSatisfied,
         }
         for local_name, expected_outcome in expected.items():
-            evaluation = evaluation_for(graph, ATTACK_CRIT[local_name])
+            element = FX.asset if local_name.startswith("t0886-") else FX.flow
+            evaluation = evaluation_for(graph, ATTACK_CRIT[local_name], element=element)
             with self.subTest(criterion=local_name):
                 self.assertIsNotNone(evaluation)
                 self.assertEqual(expected_outcome, graph.value(evaluation, RES.hasEvaluationOutcome))
@@ -137,6 +157,42 @@ class AttackApplicabilityTest(unittest.TestCase):
         self.assertEqual("incomplete", str(graph.value(record, RES.completenessStatus)))
         unresolved = graph.value(record, RES.hasUnresolvedInput)
         self.assertIn((unresolved, RDF.type, RES.UnresolvedInput), graph)
+
+    def test_remote_services_applicability_consumes_entry_point_evidence(self) -> None:
+        graph = load_graph()
+        add_evaluation(
+            graph,
+            "entry-external",
+            RAIL_CRIT["entry-external-zone-criterion"],
+            RES.satisfied,
+            element=FX.asset,
+        )
+        add_evaluation(
+            graph,
+            "entry-dmz",
+            RAIL_CRIT["entry-dmz-zone-criterion"],
+            RES.undetermined,
+            element=FX.asset,
+        )
+
+        apply_rule(graph)
+
+        external = evaluation_for(
+            graph,
+            ATTACK_CRIT["t0886-remote-services-external-entry-point-criterion"],
+            element=FX.asset,
+        )
+        dmz = evaluation_for(
+            graph,
+            ATTACK_CRIT["t0886-remote-services-dmz-entry-point-criterion"],
+            element=FX.asset,
+        )
+        self.assertEqual(RES.satisfied, graph.value(external, RES.hasEvaluationOutcome))
+        self.assertEqual(RES.undetermined, graph.value(dmz, RES.hasEvaluationOutcome))
+        self.assertEqual(
+            ATTACK_ICS.T0886,
+            graph.value(ATTACK_CRIT["t0886-remote-services-external-entry-point-criterion"], ATTACK.assessesAttackTechnique),
+        )
 
     def test_missing_conjunct_and_conflicting_evidence_remain_undetermined(self) -> None:
         graph = load_graph()

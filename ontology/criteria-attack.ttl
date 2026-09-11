@@ -144,6 +144,28 @@ rssca:t0829-loss-of-view-sequence-criterion a rss-crit:Criterion ;
     rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0829> ;
     rss-attack:requiresSatisfiedEvaluationOf rsscr:critical-sequence-criterion .
 
+rssca:t0886-remote-services-external-entry-point-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0886-location ;
+    rss-crit:appliesInterpretation rssca:t0886-external-entry-point-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0886 Remote Services is relevant to a RailwayAsset when that same asset has a satisfied external-zone entry-point evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayAsset"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0886> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:entry-external-zone-criterion .
+
+rssca:t0886-remote-services-dmz-entry-point-criterion a rss-crit:Criterion ;
+    rss-crit:hasVersion rssca:criteria-module-version ;
+    rss-crit:lifecycleStatus "active" ;
+    rss-crit:derivedFromSourceLocation rssca:t0886-location ;
+    rss-crit:appliesInterpretation rssca:t0886-dmz-entry-point-interpretation ;
+    rss-crit:criterionStatement "Within the declared railway applicability profile, ATT&CK ICS T0886 Remote Services is relevant to a RailwayAsset when that same asset has a satisfied DMZ-zone entry-point evaluation."@en ;
+    rss-crit:evaluationStageIdentifier "attack-technique-applicability" ;
+    rss-crit:stageCandidateTypeIri "https://w3id.org/railsec-scope/railway#RailwayAsset"^^xsd:anyURI ;
+    rss-attack:assessesAttackTechnique <https://w3id.org/railsec-scope/attack/ics/19.2/technique/T0886> ;
+    rss-attack:requiresSatisfiedEvaluationOf rsscr:entry-dmz-zone-criterion .
+
 ### Exact ATT&CK ICS 19.2 source locations
 
 rssca:t0842-location a rss-crit:SourceLocation ;
@@ -185,6 +207,10 @@ rssca:t0815-location a rss-crit:SourceLocation ;
 rssca:t0829-location a rss-crit:SourceLocation ;
     rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
     rss-crit:sourceLocator "T0829 Loss of View; https://attack.mitre.org/techniques/T0829" .
+
+rssca:t0886-location a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "T0886 Remote Services; https://attack.mitre.org/techniques/T0886" .
 
 ### Recorded interpretations — ATT&CK descriptions are not treated as railway entailments
 
@@ -262,5 +288,19 @@ rssca:t0829-sequence-interpretation a rss-crit:Interpretation ;
     rss-crit:interprets rssca:t0829-location ;
     rss-crit:interpretationProposition "A flow with a critical sequence violation over position/status data is relevant to testing sustained loss of reported view under T0829." ;
     rss-crit:reasoning "ATT&CK describes T0829 as sustained reporting or visibility loss that hides the present state of operations. The L2 critical-sequence criterion supplies the railway evidence that a position/status reporting flow is critical; this mapping does not assert that loss of view has occurred."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0886-external-entry-point-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0886-location ;
+    rss-crit:interpretationProposition "A railway asset already evaluated as an external-zone entry point is relevant to testing remote-service initial access or lateral movement under T0886." ;
+    rss-crit:reasoning "ATT&CK lists T0886 Remote Services under initial access and lateral movement. The L2 external-zone entry-point criterion supplies the railway-specific evidence that the asset is exposed as an entry point. This mapping does not assert credentials, service exploitability or attack occurrence."@en ;
+    rss-crit:interpretationConfidence "reasoned" ;
+    rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .
+
+rssca:t0886-dmz-entry-point-interpretation a rss-crit:Interpretation ;
+    rss-crit:interprets rssca:t0886-location ;
+    rss-crit:interpretationProposition "A railway asset already evaluated as a DMZ-zone entry point is relevant to testing remote-service initial access or lateral movement under T0886." ;
+    rss-crit:reasoning "ATT&CK lists T0886 Remote Services under initial access and lateral movement. The L2 DMZ-zone entry-point criterion supplies the railway-specific evidence that the asset is reachable through the declared railway DMZ attack-surface policy. This mapping does not assert credentials, service exploitability or attack occurrence."@en ;
     rss-crit:interpretationConfidence "reasoned" ;
     rss-crit:reviewStatus "reviewed against ATT&CK ICS 19.2" .

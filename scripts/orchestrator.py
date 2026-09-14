@@ -141,7 +141,7 @@ def reasoner_available() -> bool:
     return bool(shutil.which("java")) and (PROJECT / "tools" / "robot.jar").exists()
 
 
-def run_reasoner(graph: Graph) -> bool:
+def run_reasoner(graph: Graph, progress=None) -> bool:
     """Run HermiT through ROBOT and merge the entailments back.
 
     Returns False when the toolchain is unavailable, so the caller can refuse to
@@ -161,6 +161,12 @@ def run_reasoner(graph: Graph) -> bool:
             capture_output=True, text=True,
         )
         if completed.returncode != 0 or not target.exists():
+            if progress is not None:
+                detail = (completed.stderr or completed.stdout or "no diagnostic output").strip()
+                progress(
+                    f"reasoner failed (exit {completed.returncode}, "
+                    f"output exists: {target.exists()}): {detail[-4000:]}"
+                )
             return False
         graph.parse(target)
     return True
@@ -357,7 +363,7 @@ def execute(
         result.iterations = iteration
         before = len(graph)
         progress(f"iteration {iteration}: reasoner")
-        reasoned = run_reasoner(graph)
+        reasoned = run_reasoner(graph, progress=progress)
         result.reasoner_invoked = result.reasoner_invoked or reasoned
         progress(f"iteration {iteration}: rules")
         apply_rules(graph, result.run_iri, progress=progress)

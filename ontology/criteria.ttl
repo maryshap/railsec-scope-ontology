@@ -137,3 +137,4 @@ rss-crit:explicitNonReplacement a owl:DatatypeProperty, owl:FunctionalProperty ;
 rss-crit:measureDefinition a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "measure definition"@en ; rsso:requirement "ORF-40" .
 rss-crit:eligibilityScope a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "eligibility scope"@en ; rsso:requirement "ORF-40" .
 rss-crit:exclusionDeclaration a owl:DatatypeProperty ; rdfs:domain rss-crit:CoverageMeasure ; rdfs:range xsd:string ; rdfs:label "exclusion declaration"@en ; rsso:requirement "ORF-40" .
+rss-crit:factorWeight a owl:DatatypeProperty, owl:FunctionalProperty ; rdfs:domain rss-crit:OrderingFactor ; rdfs:range xsd:decimal ; rdfs:label "factor weight"@en ; rsso:requirement "ORF-20", "ORF-22" .

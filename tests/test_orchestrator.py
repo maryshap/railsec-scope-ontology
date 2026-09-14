@@ -14,6 +14,7 @@ Checks the contract a Run must satisfy, not merely that it executes:
 from __future__ import annotations
 
 import hashlib
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -44,10 +45,12 @@ def canonical(graph: Graph, run_iri: URIRef) -> set:
     comparing them would test the serialiser rather than the derivation.
     """
     marker = str(run_iri)
-    digest = hashlib.md5(marker.encode("utf-8")).hexdigest()
+    digest = hashlib.sha256(marker.encode("utf-8")).hexdigest()
+    digest_pattern = re.compile(r"[0-9a-f]{32,64}")
 
     def mask(term) -> str:
-        return str(term).replace(marker, "RUN").replace(digest, "DIGEST")
+        value = str(term).replace(marker, "RUN").replace(digest, "DIGEST")
+        return digest_pattern.sub("DIGEST", value)
 
     return {
         (mask(s), str(p), mask(o))
@@ -82,6 +85,9 @@ class OrchestratorContractTest(unittest.TestCase):
         graph, run = self.result.graph, self.result.run_iri
         self.assertEqual(self.result.iterations, int(graph.value(run, RES.iterationCount)))
         self.assertIsNotNone(graph.value(run, RES.artefactDigest))
+        self.assertIsNotNone(graph.value(run, RES.startTime))
+        self.assertIsNotNone(graph.value(run, RES.endTime))
+        self.assertTrue(list(graph.objects(run, RES.usedVersion)))
 
     def test_it_declares_the_instance_sets_it_consumed(self) -> None:
         used = list(self.result.graph.objects(self.result.run_iri, RES.usedInstanceSet))
@@ -155,6 +161,8 @@ class RefusalTest(unittest.TestCase):
         self.assertFalse(result.publishable)
         self.assertTrue(any("instance set" in reason for reason in result.refusals))
         self.assertEqual(0, len(list(result.graph.subjects(RDF.type, RES.CriterionEvaluation))))
+        self.assertIsNotNone(result.graph.value(result.run_iri, RES.artefactDigest))
+        self.assertIsNotNone(result.graph.value(result.run_iri, RES.endTime))
 
     def test_non_convergence_is_refused_rather_than_reported(self) -> None:
         original = orchestrator.MAX_ITERATIONS

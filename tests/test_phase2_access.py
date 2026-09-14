@@ -50,7 +50,7 @@ EXPECTED = {
     (FX["cat2-flow"], RAIL.highRiskMaintenancePath): RES.notSatisfied,
     (FX["cat3-flow"], RAIL.remoteAccessRisk): RES.satisfied,
     (FX["cat2-flow"], RAIL.remoteAccessRisk): RES.satisfied,
-    (FX["unknown-flow"], RAIL.remoteAccessRisk): RES.undetermined,
+    (FX["unknown-flow"], RAIL.remoteAccessRisk): RES.satisfied,
     (FX["unknown-flow"], RAIL.highRiskMaintenancePath): RES.undetermined,
     # Origin has maintenance access but the destination is not safety-critical.
     (AC["non-critical-path-flow"], RAIL.highRiskMaintenancePath): RES.notSatisfied,
@@ -112,8 +112,8 @@ class Phase2AccessRiskTest(unittest.TestCase):
         """protected-asset records remote access only, so maintenance is genuinely absent."""
         self.assertEqual(RES.notSatisfied, self.outcomes[(FS["protected-asset"], RAIL.privilegedMaintenanceAccessRisk)])
 
-    def test_remote_access_risk_propagates_undetermined_threats(self) -> None:
-        self.assertEqual(RES.undetermined, self.outcomes[(FX["unknown-flow"], RAIL.remoteAccessRisk)])
+    def test_remote_access_risk_uses_non_masquerade_threats_without_category_membership(self) -> None:
+        self.assertEqual(RES.satisfied, self.outcomes[(FX["unknown-flow"], RAIL.remoteAccessRisk)])
 
     def test_maintenance_path_requires_a_safety_critical_destination(self) -> None:
         """Origin access alone is not sufficient; the destination condition must hold."""

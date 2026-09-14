@@ -1,4 +1,70 @@
-# Gate B change record
+# Decisions
+
+Every governed conceptual/implementation decision since the Gate B freeze, in one file. Replaces the former GATE_B_CHANGE_RECORD.md, CONCEPTUAL_CHANGE_POLICY.md, CONCEPTUAL_CHANGE_CATALOG.tsv, K_CONSTRAINT_IMPLEMENTATION.md, IMPORT_GRAPH.md and PROV_O_MAPPING.md — six files that referenced each other and had to be kept in sync by hand. Content below is unedited from those files (only concatenated with section headers), so nothing technical was rewritten or lost in this consolidation.
+
+## Admission policy
+
+The frozen Gate B catalogue remains the approved baseline. A term absent from that baseline cannot become accepted merely because it appears in code.
+
+## Admission classes
+
+- **Extension:** a new class that is a named specialisation of an already approved class, does not change a closed value set, and does not participate in a K-constraint or competency question. The catalogue must name its approved parent and change record.
+- **Revision:** a new root/conceptual entity, a term that changes a closed value set, or any new term that participates in a K-constraint or competency question. Revision requires conceptual reapproval before release.
+
+Properties and individuals that change the conceptual contract are registered too. The implementation audit verifies every registered term exists with the declared kind. It also rejects an `extension` entry without an approved named parent or with K/CQ participation.
+
+`Payload` is a **revision**, not an extension: it is a new generic M1 entity rather than a specialisation below one of the frozen 76 classes. `undeterminedBoundary` is also a recorded revision of a closed value set under CR-B-009 even though individuals are not part of the class-count audit.
+
+The 76-row matrix remains evidence for the frozen baseline only. The conceptual-change catalogue is reviewed beside it; neither document alone is presented as evidence of full conceptual equivalence.
+
+## Conceptual change catalog
+
+Machine-checked registry: every row must exist with its declared kind; an `extension` row without an approved named parent or with K/CQ participation is rejected.
+
+| term | home_module | term_kind | change_kind | named_parent | participates_in_k_or_cq | change_record |
+|---|---|---|---|---|---|---|
+| Payload | M1 | class | revision | - | false | CR-B-008 |
+| evaluationStageIdentifier | M2 | datatypeProperty | revision | - | true | CR-B-011 |
+| stageCandidateTypeIri | M2 | datatypeProperty | revision | - | true | CR-B-011 |
+| CriticalViolationType | M5 | class | revision | - | true | CR-B-013 |
+| criticalAuthenticityViolation | M5 | individual | revision | CriticalViolationType | true | CR-B-013 |
+| criticalIntegrityViolation | M5 | individual | revision | CriticalViolationType | true | CR-B-013 |
+| assessesCriticalViolation | M5 | objectProperty | revision | - | true | CR-B-013 |
+| elevatesTransmissionThreat | M5 | objectProperty | revision | - | true | CR-B-013 |
+| assessesFailSafeCompromiseFrom | M5 | objectProperty | revision | - | true | CR-B-014 |
+| SILRiskType | M5 | class | revision | - | true | CR-B-015 |
+| maximumSILRisk | M5 | individual | revision | SILRiskType | true | CR-B-015 |
+| assessesSILRisk | M5 | objectProperty | revision | - | true | CR-B-015 |
+| AccessRiskType | M5 | class | revision | - | true | CR-B-016 |
+| privilegedMaintenanceAccessRisk | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| privilegedSupplierAccessRisk | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| highRiskMaintenancePath | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| remoteAccessRisk | M5 | individual | revision | AccessRiskType | true | CR-B-016 |
+| assessesAccessRisk | M5 | objectProperty | revision | - | true | CR-B-016 |
+| assessesAccessMechanism | M5 | objectProperty | revision | - | true | CR-B-016 |
+| iterationCount | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| artefactDigest | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| publishable | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| refusalReason | M3 | datatypeProperty | revision | - | true | CR-B-019 |
+| VulnerableFlow | M5 | class | revision | RailwayInformationFlow | true | CR-B-023 |
+| DoSExposedFlow | M5 | class | revision | VulnerableFlow | true | CR-B-023 |
+| UnauditedFlow | M5 | class | revision | VulnerableFlow | true | CR-B-023 |
+| UnsegmentedCrossBoundaryFlow | M5 | class | revision | VulnerableFlow | true | CR-B-023 |
+| ControlWeaknessType | M5 | class | revision | - | true | CR-B-023 |
+| missingMessageAuthentication | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingIntegrityProtection | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingRateLimiting | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingMonitoring | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| missingSegmentation | M5 | individual | revision | ControlWeaknessType | true | CR-B-023 |
+| assessesControlWeakness | M5 | objectProperty | revision | - | true | CR-B-023 |
+| weaknessFlowType | M5 | objectProperty | revision | - | true | CR-B-023 |
+| rateLimitingEnabled | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| monitoringEnabled | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| networkSegmentationEnabled | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| crossesTrustBoundary | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+| wirelessMedium | M5 | datatypeProperty | revision | - | true | CR-B-023 |
+
+## Change record (CR-B-001 to CR-B-023)
 
 The Gate B conceptual package is frozen. This register records every issue discovered during formalisation, including clarifications that do not change the architecture. No implementation file may silently override the conceptual package.
 
@@ -117,8 +183,8 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Trigger:** a transmission can be exposed to several EN 50159 threats at once, while the seven threat kinds are distinct vocabulary classes. Directly typing one flow as several disjoint threat classes would make the ontology inconsistent and would discard the three-valued outcome required downstream.
 - **Decision:** each threat criterion produces a `CriterionEvaluation` with `satisfied`, `notSatisfied` or `undetermined`. The criterion identifies the assessed threat through `assessesTransmissionThreat`. Category 2/3 applicability is consumed from upstream category evaluations belonging to the same Run.
 - **Rejected alternative:** assert legacy `*Vulnerability` classes directly on flows or infer threat exposure from M5 safeguard annotations. The first conflicts with the threat taxonomy and hides unknowns; the second turns documentation links into unsourced executable criteria.
-- **Implementation consequence:** Step 12.2 produces seven evaluations per railway flow and no direct threat membership. Legacy R2.2 mappings remain a provisional `JudgementBasis` until reviewed standard `SourceLocation` and `Interpretation` records are supplied.
-- **Reapproval required:** yes before public release because the provisional mappings are not normative evidence.
+- **Implementation consequence:** Step 12.2 produces seven evaluations per railway flow and no direct threat membership. The original provisional source status is superseded by CR-B-024, which reviews EN 50159:2010 and changes the executable semantics for category applicability and alternative defences.
+- **Reapproval required:** yes before public release because the executable semantics changed under CR-B-024 and must be regenerated in case-study evidence.
 
 ## CR-B-013 — Safety-critical elevation vocabulary (Step 12.3)
 
@@ -126,7 +192,7 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Admission class:** revision, not extension. The type is a new conceptual entity rather than a specialisation below one of the frozen 76 classes, and all five terms participate in criteria and therefore in evaluation results. Conceptual reapproval is required before release.
 - **Rationale:** the provisional interpretation gives masquerade and corruption the highest priority for safety-related communication. Elevation is a criterion outcome, mirroring the transmission-threat stage; no flow is typed directly with a violation class, preserving ORF-12 and ORF-13.
 - **Rejected alternative:** copy all four legacy Block 2.3 rules by inventing emergency-command and position-status payload classes. Only R2.3.1 and R2.3.2, expressible using the approved `SafetyRelatedPayload` / `NonSafetyPayload` distinction, are implemented. R2.3.3 delay elevation on emergency-command payload and R2.3.4 resequencing elevation on position-status payload remain deferred until a separate payload-vocabulary revision is approved.
-- **Provenance status:** the two criteria rest on a provisional `JudgementBasis`. Exact EN 50159 edition, source location and reviewed interpretation are required before release, as for the category and threat stages.
+- **Provenance status:** superseded by CR-B-024. The criteria now cite EN 50159:2010 clause 7.1 as the source for the four fundamental safety services, while the payload-specific elevation remains an explicitly recorded assessor prioritisation policy.
 - **Reapproval required:** yes before public release.
 
 ## CR-B-014 — Fail-safe compromise is an asset evaluation (Step 12.4)
@@ -134,8 +200,8 @@ Each entry states the trigger, affected frozen item, decision, rationale, implem
 - **Change:** M5 gains the functional Criterion property `assessesFailSafeCompromiseFrom`, linking a fail-safe criterion to the critical-violation type it consumes.
 - **Decision:** fail-safe compromise is represented by a three-valued `CriterionEvaluation` concerning a `SafetyCriticalAsset`. It requires an upstream critical-violation evaluation for a flow terminating at that asset and an explicit architecture chain in which the asset realises a safety function whose fail-safe behaviour depends on the asset.
 - **Rejected alternative:** infer or assert the legacy `FailSafeVulnerability` class directly on the asset. Direct typing would hide unknown dependencies and upstream `undetermined` outcomes and would bypass the provenance chain.
-- **Scope limitation:** legacy R2.4.1 and R2.4.2 are implemented provisionally. R2.4.3 is deferred because `MobileOperationalZone` and a governed remediation-priority result are absent from the approved vocabulary; neither is invented in this step.
-- **Provenance status:** the criteria rest on a provisional `JudgementBasis`. The legacy clause claims are implementation history, not normative evidence; reviewed source locations and interpretations remain release requirements.
+- **Scope limitation:** superseded by later Phase 2 gap closure. R2.4.3 is now admitted through a governed `MobileZone` and remediation-priority criterion.
+- **Provenance status:** superseded by CR-B-024. The fail-safe criteria now cite EN 50126-1:2017, EN 50159:2010 and prTS 50701 D8E4:2020 as reviewed sources, with the propagation model recorded as an assessor interpretation rather than a verbatim standard rule.
 - **Reapproval required:** yes before public release.
 
 ## CR-B-015 — SIL risk vocabulary (Step 12.5)
@@ -160,17 +226,16 @@ Both require an attack technique vocabulary, which the approved model does not
 contain and which would be a further conceptual revision. They are deferred
 rather than approximated.
 
-**Criterion decision deferred.** The legacy rationale equates a safety-critical
-asset with SIL 4. The implemented criterion uses safety-critical class
-membership only and does not consult `hasSafetyIntegrityLevel`, so an asset
-without a recorded SIL is not treated as unknown at this stage. Requiring an
-explicit SIL-4 assignment, and returning undetermined where none is recorded, is
-a defensible alternative and is recorded here for decision rather than chosen
-silently.
+**Criterion decision.** Superseded by CR-B-024. The legacy rationale equating a
+safety-critical asset with SIL 4 is not retained. The implemented criterion is a
+safety-integrity scoping concern for penetration-test prioritisation and does
+not infer or allocate a SIL. Any real SIL value must be supplied separately as
+an attributed `SILAssignmentAssumption` over a safety-related electronic
+function, with a matching `hasSafetyIntegrityLevel` value.
 
-**Provenance status.** The criterion rests on a recorded provisional
-`JudgementBasis`. Reviewed IEC 61508 and EN 50126 source locations and
-interpretations are still required before release.
+**Provenance status.** Superseded by CR-B-024. The criterion cites
+EN 50126-1:2017 and EN 50126-2:2017; IEC 61508 is not used as evidence for this
+Phase 2 rule.
 
 **Closed-set note.** `SILRiskType` currently contains one individual. Adding the
 deferred SIL attack types later changes a closed value set and is therefore a
@@ -201,9 +266,9 @@ exists. An element with a stated inventory that does not contain the assessed
 mechanism is notSatisfied. This distinction is the reason the stage needs three
 values, and it is the point most likely to be lost in a later refactoring.
 
-**Provenance status.** All four criteria rest on a recorded provisional
-`JudgementBasis`. Reviewed TS 50701 source locations and interpretations are
-still required before release.
+**Provenance status.** Superseded by CR-B-024. The criteria now cite
+prTS 50701 D8E4:2020 as the project-supplied current review source and record
+the access-risk model as assessor policy.
 
 ## CR-B-017 — classification provenance and K-25 (Step 12.7)
 
@@ -263,7 +328,7 @@ correct and non-widening domain.
 
 **Corrections.**
 
-1. `FORMALISATION_STATUS.md` Step 1 stated fixed counts of object and datatype
+1. `STATUS.md` Step 1 stated fixed counts of object and datatype
    properties. Those counts were accurate at the freeze and have since grown
    through admitted revisions, so the sentence had become false as written. It
    now states the frozen class baseline explicitly and defers the property claim
@@ -548,3 +613,129 @@ evaluations: 258 satisfied, 630 not satisfied, 592 undetermined. It classifies
 cross-boundary flows. These are the first confirmed findings in the case; the
 EN 50159 stages had returned none, because the transferred protection facts
 record those controls as present on almost every flow.
+
+## K-constraint implementation map
+
+| Constraint | Authority | Executable artefact |
+|---|---|---|
+| K-01–K-10 | SHACL Core/SPARQL; K-10 follows orchestrator capture | `shapes/constraints.ttl` |
+| K-11 | SHACL Core | `shapes/criterion-slice.ttl` |
+| K-12–K-18 | SHACL Core/SPARQL | `shapes/constraints.ttl` |
+| K-19–K-20 | build-time module inspection | `scripts/publication_lint.py` |
+| K-21 | SHACL Core | `shapes/constraints.ttl` |
+| K-22 | automated guard plus mandatory manual review | `scripts/publication_lint.py`, `docs/PUBLICATION_REVIEW.md` |
+| K-23 | post-L2 entailment/assignment agreement | `queries/K-23-assignment-agreement.rq` |
+| K-24 | stage-authority query plus SHACL regression slice | `queries/K-24-layer-authority.rq`, `shapes/criterion-slice.ttl` |
+
+The positive architecture fixture and the two negative fixture groups are executed by `tests/`. Structural validation deliberately runs before RDFS/OWL inference so that a property domain cannot silently turn an incorrectly typed position owner into a conforming record.
+
+## Module import graph
+
+**Decision ID:** IMPORT-B-001
+**Status:** fixed for the 0.1.0 line
+
+```mermaid
+flowchart LR
+  V["Validation root (build-only)"] --> M4["M4 Assessment"]
+  V --> M5["M5 Railway"]
+  V --> M5C["M5 Railway criteria"]
+  V --> RULES["Rule metadata"]
+  M4 --> M3["M3 Results"]
+  M3 --> M2["M2 Criteria"]
+  M2 --> M1["M1 Core"]
+  M5 --> M2
+  M5 --> M1
+  M5C --> M5
+  RULES --> M3
+  M1 --> META["Suite metadata"]
+  M2 --> META
+  M3 --> META
+  M4 --> META
+  M1 --> PROV["PROV-O DL projection"]
+```
+
+M2 and M3 use PROV-O through the transitive M1 import, while their project-specific mappings are declared in their home modules. The reusable railway-criteria ontology is an M5 reference-data module: it imports the M5 railway vocabulary and is imported by the build validation root. M6 case datasets contain individuals only; the validation orchestrator loads them with M5 and the validation root rather than making terminology modules import case data.
+
+The graph is acyclic. `ontology/validation.ttl` is a build entry point, not a public terminology module, which avoids making the suite metadata import its own importers.
+
+## PROV-O mapping (D-B8b)
+
+**Status:** initial formal mapping for the 0.1.0 baseline.
+**Authority:** D-B8a and the frozen Gate B conceptual package.
+
+## Class mappings
+
+| Project class | PROV-O class | Mapping | Rationale |
+|---|---|---|---|
+| `rss-core:Assertion` | `prov:Entity` | subclass | Assertions are identifiable inputs used by activities. |
+| `rss-crit:VersionedArtefact` | `prov:Entity` | subclass | Versioned artefacts are entities used by Runs and steps. |
+| `rss-crit:Criterion` | `prov:Entity` | inherited subclass | Criterion-specific semantics remain local. |
+| `rss-crit:ExternalComputationMethod` | `prov:Plan` | subclass | The method is a plan followed by an external computation, not the executing activity. |
+| `rss-res:DerivedResult` | `prov:Entity` | subclass | Results are generated entities. |
+| `rss-res:UnresolvedInput` | `prov:Entity` | subclass | It is an identifiable record, not an assertion that the missing fact is false. |
+| `rss-res:PerformanceMeasurement` | `prov:Entity` | subclass | A measurement is generated evidence about a Run. |
+| `rss-res:Run` | `prov:Activity` | subclass | A Run is the encompassing execution activity. |
+| `rss-res:DerivationStep` | `prov:Activity` | subclass | Each step uses and generates entities. |
+| `rss-res:Mechanism` | `prov:SoftwareAgent` | subclass | The versioned mechanism bears responsibility for executing a step. |
+| `rss-res:DerivationRecord` | `prov:Bundle` | subclass | The record is a named provenance bundle assembled across layers. |
+
+Subclass mappings are used rather than equivalence because the project classes carry stronger domain-specific meaning and constraints.
+
+## Property mappings
+
+| Project property | PROV-O property | Mapping |
+|---|---|---|
+| `rss-res:producedByRun` | `prov:wasGeneratedBy` | subproperty |
+| `rss-res:usedVersion` | `prov:used` | subproperty |
+| `rss-res:usedInstanceSet` | `prov:used` | subproperty |
+| `rss-res:usedEntity` | `prov:used` | subproperty |
+| `rss-res:generatedResult` | `prov:generated` | subproperty |
+| `rss-res:appliedCriterion` | `prov:used` | subproperty |
+| `rss-res:executedByMechanism` | `prov:wasAssociatedWith` | subproperty |
+
+M5 access-exclusion assumptions use the projected `prov:wasAttributedTo` property directly so the assessor responsible for the judgement is machine-readable. No local subproperty is introduced.
+
+`rss-res:appliedComputation` is deliberately **not** a subproperty of `prov:hadPlan`: `prov:hadPlan` relates a qualified Association to a Plan, not an Activity directly to a Plan. If qualified associations are required in the derivation implementation, the orchestrator will emit a `prov:Association` with `prov:hadPlan`; the direct project property remains the domain query shortcut.
+
+## Import policy
+
+Production modules import the stable PROV-O ontology IRI `http://www.w3.org/ns/prov-o`. The build must resolve it to a locally pinned, checksum-recorded copy; tests must not depend on live network retrieval. No project class or property is declared equivalent to a PROV-O term in the 0.1.0 line.
+
+## CR-B-024 — Primary-standard review corrections for L1–L2
+
+**Reviewed documents.** EN 50159:2010, EN 50126-1:2017,
+EN 50126-2:2017, IEC 62443-3-3:2013 and the project-supplied
+prTS 50701 D8E4:2020 are treated as the current review set. The prTS source is
+identified as a 2020 draft rather than being presented as the published 2021
+technical specification.
+
+**Category correction.** EN 50159:2010 clauses 6.3.1–6.3.3 define Category 1
+from Pr1+Pr2+Pr3, Category 2 from failure of Pr1 or Pr2 together with Pr3, and
+Category 3 from failure of Pr3 independently of Pr1/Pr2. The earlier rule did
+not require Pr3 for Category 1 and incorrectly conditioned Category 3 on
+Pr1/Pr2; both errors are corrected.
+
+**Threat correction.** EN 50159:2010 clause 6.4 applies every Clause 5 threat
+to every category except masquerade, which applies only to open Categories 2
+and 3. Clause 7.4.2 Table 1 is an alternatives matrix. One enabled listed
+defence is sufficient to avoid an exposure finding; exposure is returned only
+when every listed alternative is explicitly false; a partial inventory without
+a positive alternative is `undetermined`. The legacy aggregate
+`sequenceProtectionEnabled` remains compatibility data and is not accepted as
+a substitute for the specific Table 1 mechanisms.
+
+**Assessor-policy boundary.** EN 50159:2010 does not define
+`EmergencyCommandData`, `PositionStatusData`, project critical-violation
+classes, asset-level Category 3 context or the project's remediation priorities.
+These are retained only as explicitly labelled assessor classifications or
+prioritisation policies. IEC 62443-3-3:2013 requirements are system
+capabilities; mapping them onto boolean per-flow observations is likewise an
+explicit assessor interpretation.
+
+**SIL correction.** EN 50126-1:2017 clause 3.70 and EN 50126-2:2017 clause
+10.2 allocate SIL to safety-related electronic functions through the safety
+process. Cybersecurity findings and `SafetyCriticalAsset` membership do not
+allocate a SIL. The derived M5-R06 result is renamed semantically as a
+safety-integrity scoping concern, while any actual SIL value requires a
+separate, attributed `SILAssignmentAssumption` with a `JudgementBasis` (K-26)
+until safety-case evidence supports an asserted fact.

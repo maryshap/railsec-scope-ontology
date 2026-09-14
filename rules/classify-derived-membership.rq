@@ -2,6 +2,10 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
 PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
 
+# M5-R14 generic criterion-membership materialiser. A class membership is
+# asserted only from a satisfied CriterionEvaluation whose criterion explicitly
+# determines that membership.
+
 CONSTRUCT {
   ?element rdf:type ?category .
 }
@@ -11,9 +15,6 @@ WHERE {
       rss-res:evaluatesCriterion ?criterion ;
       rss-res:hasEvaluationOutcome rss-res:satisfied .
   ?criterion rss-crit:determinesMembershipOf ?category .
-  ?category a rss-crit:AssessmentBearingCategory .
 
-  # The rule is DL-safe by construction: every variable must already be bound
-  # to an explicitly named node in the declared input graph.
   FILTER(isIRI(?evaluation) && isIRI(?element) && isIRI(?criterion) && isIRI(?category))
 }

@@ -84,7 +84,7 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 
 ## `migration/`
 
-- `legacy-rule-triage.csv` — 54/54 legacy rules, кожне з рішенням `map` або `refactor`; усі мають `domain-review-required`.
+- `legacy-rule-triage.csv` — операційний реєстр 54/54 legacy rules: 33 реалізовано, 12 явно перенесено до майбутніх L3/зовнішніх обчислень, 9 не допущено до поточного ontology scope; відкритих `implement-now` немає.
 - `write_legacy_rule_triage.py` — відтворює matrix із legacy generator.
 - `extract_etcs_workbook.mjs` — read-only extraction workbook через artifact-tool.
 - `migrate_etcs_case.py` — явна JSON→M6 mapping pipeline; не читає і не копіює legacy ABox.
@@ -104,11 +104,11 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 
 ## Що ще не можна називати завершеним
 
-- Category rule працює на provisional JudgementBasis; production M5 criteria не release-ready без exact standard SourceLocation/Interpretation review.
-- Решта Phase 2 rule blocks та orchestrator/L3 ще не реалізовані.
+- L1-L2 criteria пройшли source review для поточного набору стандартів: EN 50159:2010, EN 50126-1:2017, EN 50126-2:2017, IEC 62443-3-3:2013 і prTS 50701 D8E4:2020. Те, що є assessor policy, позначено як JudgementBasis.
+- Основні Phase 2 rule blocks та orchestrator реалізовані. L3 вже виконує reachability, witness paths, candidate-set projection, AHP factor values, weighted ordering і coverage для явного Selection.
 - Для CQ-01–CQ-45 потрібна повна P/N/U fixture-oracle matrix; smoke execution недостатньо для наукової валідації.
 - Workbook boundary mapping має бути підтверджений domain expert.
 - K-22 вимагає ручного copyright/source-text review.
-- Старий AHP ordering і L3 reachability/path/coverage computations ще не перенесені в нову архітектуру.
+- AHP збережений як версійований ordering method після окремого обґрунтування ваг. Reachability/path/coverage і factor computation реалізовані в новій архітектурі.
 
 Отже, зараз репозиторій має працюючу формальну основу, validation layers і structurally valid ETCS migration. Він навмисно не видає неперевірені legacy rules за доведену railway semantics.

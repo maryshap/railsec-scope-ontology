@@ -5,7 +5,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from pyshacl import validate
-from rdflib import Graph, Namespace, RDF
+from rdflib import Graph, Literal, Namespace, RDF
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -82,17 +82,19 @@ class Phase2TransmissionThreatTest(unittest.TestCase):
         self.assertEqual(6 * 7, len(outcomes))
 
         for threat in THREATS:
-            self.assertEqual(RES.notSatisfied, outcomes[(CAT["cat1-flow"], threat)])
-            self.assertEqual(RES.undetermined, outcomes[(CAT["unknown-flow"], threat)])
             self.assertEqual(RES.undetermined, outcomes[(CAT["no-input-flow"], threat)])
             self.assertEqual(RES.notSatisfied, outcomes[(TH["protected-cat3-flow"], threat)])
 
+        for threat in set(THREATS) - {RAIL.MasqueradeThreat}:
+            self.assertEqual(RES.satisfied, outcomes[(CAT["cat1-flow"], threat)])
+            self.assertEqual(RES.satisfied, outcomes[(CAT["unknown-flow"], threat)])
+        self.assertEqual(RES.notSatisfied, outcomes[(CAT["cat1-flow"], RAIL.MasqueradeThreat)])
+        self.assertEqual(RES.undetermined, outcomes[(CAT["unknown-flow"], RAIL.MasqueradeThreat)])
+
         for threat in THREATS:
             self.assertEqual(RES.satisfied, outcomes[(CAT["cat3-flow"], threat)])
-        for threat in set(THREATS) - {RAIL.InsertionThreat, RAIL.MasqueradeThreat}:
+        for threat in THREATS:
             self.assertEqual(RES.satisfied, outcomes[(CAT["cat2-flow"], threat)])
-        for threat in {RAIL.InsertionThreat, RAIL.MasqueradeThreat}:
-            self.assertEqual(RES.notSatisfied, outcomes[(CAT["cat2-flow"], threat)])
 
         for flow in [CAT["cat1-flow"], CAT["cat2-flow"], CAT["cat3-flow"], TH["protected-cat3-flow"]]:
             for threat in THREATS:
@@ -122,13 +124,34 @@ class Phase2TransmissionThreatTest(unittest.TestCase):
         conforms, _, report = validate(data_graph=graph, shacl_graph=shapes, inference="none", advanced=True)
         self.assertTrue(conforms, report)
 
-    def test_threat_criteria_do_not_claim_normative_legacy_authority(self) -> None:
+    def test_threat_criteria_have_source_locations_and_judgement_basis(self) -> None:
         graph = load_graph()
         for criterion in graph.subjects(RAIL.assessesTransmissionThreat, None):
             basis = graph.value(criterion, CRIT.restsOnJudgement)
             self.assertIsNotNone(basis)
-            self.assertIsNone(graph.value(criterion, CRIT.derivedFromSourceLocation))
-            self.assertIn("legacy documents are implementation history", str(graph.value(basis, CRIT.reasoning)))
+            self.assertIsNotNone(graph.value(criterion, CRIT.derivedFromSourceLocation))
+            self.assertIsNotNone(graph.value(criterion, CRIT.appliesInterpretation))
+            self.assertIn("EN 50159:2010", str(graph.value(basis, CRIT.reasoning)))
+
+    def test_table_1_alternative_and_partial_inventory_semantics(self) -> None:
+        graph = load_graph()
+        flow = CAT["cat3-flow"]
+        graph.remove((flow, RAIL.safetyCodeEnabled, None))
+        graph.remove((flow, RAIL.cryptographicMessageProtectionEnabled, None))
+        graph.add((flow, RAIL.safetyCodeEnabled, Literal(False)))
+        graph.add((flow, RAIL.cryptographicMessageProtectionEnabled, Literal(True)))
+        apply_rule(graph, "evaluate-transmission-category.rq")
+        apply_rule(graph, "evaluate-transmission-threat.rq")
+        outcomes = threat_outcomes(graph)
+        self.assertEqual(RES.notSatisfied, outcomes[(flow, RAIL.CorruptionThreat)])
+
+        partial = load_graph()
+        partial.remove((flow, RAIL.safetyCodeEnabled, None))
+        partial.remove((flow, RAIL.cryptographicMessageProtectionEnabled, None))
+        partial.add((flow, RAIL.safetyCodeEnabled, Literal(False)))
+        apply_rule(partial, "evaluate-transmission-category.rq")
+        apply_rule(partial, "evaluate-transmission-threat.rq")
+        self.assertEqual(RES.undetermined, threat_outcomes(partial)[(flow, RAIL.CorruptionThreat)])
 
 
 if __name__ == "__main__":

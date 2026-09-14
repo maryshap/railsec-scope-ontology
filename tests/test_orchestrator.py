@@ -136,6 +136,35 @@ class OrchestratorContractTest(unittest.TestCase):
 class RunScopingTest(unittest.TestCase):
     """Results must be scoped to their Run, or ORF-45 and ORF-46 cannot hold."""
 
+    def test_rules_do_not_generate_results_for_a_preexisting_provenance_run(self) -> None:
+        """An import/earlier Run in case data is not another analysis target."""
+        result = execute_contract(FIXTURES, "only-current-run")
+        foreign_runs = {
+            run
+            for run in result.graph.subjects(RDF.type, RES.Run)
+            if run != result.run_iri
+        }
+        foreign_results = {
+            evaluation
+            for evaluation in result.graph.subjects(RDF.type, RES.CriterionEvaluation)
+            if set(result.graph.objects(evaluation, RES.producedByRun)) & foreign_runs
+        }
+        self.assertEqual(
+            set(),
+            foreign_results,
+            "rule stages must be bound to the orchestrator-selected Run",
+        )
+
+    def test_summary_counts_only_the_selected_run(self) -> None:
+        result = execute_contract(FIXTURES, "summary-current-run")
+        own_count = sum(
+            1
+            for evaluation in result.graph.subjects(RDF.type, RES.CriterionEvaluation)
+            if result.graph.value(evaluation, RES.producedByRun) == result.run_iri
+        )
+        summary = orchestrator.summarise(result)
+        self.assertIn(f"Evaluations        : {own_count}", summary)
+
     def test_two_runs_do_not_share_result_identifiers(self) -> None:
         """Results of two different Runs must not collide.
 

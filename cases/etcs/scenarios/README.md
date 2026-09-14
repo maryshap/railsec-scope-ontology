@@ -3,81 +3,78 @@
 ## Mechanism
 
 Every scenario shares the stable architecture layer and forks only the
-situational-facts layer:
+situational-facts layer.
 
-**Shared, never forked:**
-- `cases/etcs/abox.ttl` — architecture: assets, zones, flows, interfaces, payload objects.
-- `cases/etcs/classification-provenance.ttl` — safety-critical asset classifications.
+Shared, never forked:
 
-**Forked per scenario, one full copy each (not a diff/overlay):**
-- `security-facts.ttl` — per-interface protection controls.
-- `transmission-environment.ttl` — per-flow L1 controls and EN 50159 category conditions.
+- `cases/etcs/abox.ttl` — assets, zones, flows, interfaces and payload objects;
+- `cases/etcs/classification-provenance.ttl` — safety-critical classifications.
 
-RDF/OWL has no built-in "override" semantics: if a base file asserts
-`authenticationEnabled false` for an interface and a second file asserts
-`true` for the same interface, both facts end up in the graph at once —
-not a replacement. That is why each scenario is a self-contained pair of
-files, not a small delta loaded on top of the original
-`cases/etcs/security-facts.ttl`. A scenario run passes exactly one
-security-facts file and one transmission-environment file, never the
-original plus a scenario file together.
+Forked per scenario as full files, not RDF overlays:
+
+- `security-facts.ttl` — aggregate IEC 62443/legacy protection controls;
+- `transmission-environment.ttl` — L1 controls and EN 50159 category inputs;
+- `threat-controls.ttl` — detailed EN 50159 Table 1 alternatives consumed by
+  transmission-threat criteria.
+
+RDF has no override semantics. Loading both `true` and `false` for a functional
+control property creates a contradiction; it does not replace the old value.
+Each Run must therefore load exactly one complete scenario set and must never
+load `cases/etcs/security-facts.ttl` together with a scenario security file.
 
 The original `cases/etcs/security-facts.ttl` and
-`cases/etcs/transmission-environment.ttl` are untouched and remain what
-they always were: the real data migrated from the legacy workbook
-(Step 14/14c). They are not renamed or moved, so nothing that already
-references them (`scripts/validate.ps1`, the migration/derivation
-scripts, existing tests) needs to change. Treat them as the implicit
-"realistic-legacy" scenario if you want to compare against real data
-rather than a synthetic one.
+`cases/etcs/transmission-environment.ttl` retain migrated deployment evidence
+and its unknowns. Together they form the implicit `realistic-legacy` episode.
+
+Detailed scenario inputs are generated deterministically:
+
+```text
+python scripts/build_etcs_scenarios.py
+```
+
+Regeneration proves repeatability, not that a synthetic assumption describes a
+real deployment.
 
 ## Running a scenario
 
-```
+```text
 python scripts/orchestrator.py \
   cases/etcs/abox.ttl \
   cases/etcs/classification-provenance.ttl \
   cases/etcs/scenarios/<name>/security-facts.ttl \
-  cases/etcs/scenarios/<name>/transmission-environment.ttl
+  cases/etcs/scenarios/<name>/transmission-environment.ttl \
+  cases/etcs/scenarios/<name>/threat-controls.ttl \
+  --run-id <name> --output build/<name>-result.ttl --progress
 ```
 
-## Adding a new scenario
+Use `scripts/summarize_case_run.py` to turn the retained RDF result into a
+stage table. Only a Run with `publishable=true` is final evidence.
 
-1. Create `cases/etcs/scenarios/<name>/`.
-2. Fork `security-facts.ttl` and/or `transmission-environment.ttl` from
-   whichever existing scenario is the right starting point — usually
-   `protected-baseline`, not the real legacy data, if the scenario is
-   meant to isolate a single changed fact.
-3. Give every changed fact its own `JudgementBasis` distinct from any
-   other scenario's, so scenario provenance never gets confused with
-   real data provenance or with another scenario's provenance at the
-   query level, not only by which file it lives in.
-4. Write `SCENARIO.md`: what changed from the parent scenario, why, and
-   what result it's meant to demonstrate.
-5. Do not touch topology facts (`crossesTrustBoundary`, `wirelessMedium`,
-   anything in `abox.ttl`) to manufacture a result — those describe the
-   architecture, not a protection state layered over it. If a scenario
-   needs a topology change, that is a different case, not a scenario.
+## Scenario register
 
-## Scenarios in this directory
-
-| Scenario | Status | Forks from |
+| Scenario | Status | Purpose |
 |---|---|---|
-| `protected-baseline` | facts generated, not yet run end-to-end | idealised — all controls true |
-| `missing-authentication` | not started | protected-baseline, minus one fact |
-| `unknown-data` | not started | protected-baseline, minus one flow's facts entirely |
+| `protected-baseline` | inputs complete; publishable Run pending | idealised reference with all admitted controls true |
+| `missing-safety-code` | inputs complete; publishable Run pending | one absent defence while an alternative remains true |
+| `missing-corruption-protection` | inputs complete; publishable Run pending | all corruption alternatives absent on one safety-related flow |
+| `unknown-data` | inputs complete; publishable Run pending | one required fact absent, demonstrating `undetermined` |
+| `combined-degradation` | inputs complete; publishable Run pending | two independent degradations after single-change episodes |
+| `expert-evidence` | awaiting independent source | comparison with the frozen expert risk assessment |
 
-## Known constraint affecting the next scenario
+## Scenario authoring rules
 
-`failSafeDependsOn` — the architecture property the fail-safe-compromise
-rule (M5-R05) needs to fire — does not occur anywhere in
-`cases/etcs/abox.ttl`. No asset in this case has it asserted. This means
-a "missing-authentication" scenario cannot currently demonstrate a
-cascade all the way through fail-safe/SIL, regardless of which flow is
-picked: those stages will return `undetermined` for a missing
-architecture dependency, not `notSatisfied`/`satisfied`. The chain that
-*is* demonstrable stops at critical-violation elevation (M5-R04). This
-is worth showing as-is — an honest `undetermined` caused by a real,
-named architectural gap is a legitimate finding, not a failure — rather
-than adding a `failSafeDependsOn` fact that has no source just to make
-the demo reach further.
+1. Pre-register changed facts and expected evaluation changes before output is
+   inspected.
+2. Give assumptions their own `JudgementBasis` and instance-set attribution.
+3. Do not change topology to manufacture a finding. A topology change is a
+   different architecture case, not a protection scenario.
+4. Keep unknown values absent or explicitly epistemic; never encode them as
+   `false`.
+5. Compare only evaluations produced by the selected Run.
+
+## Known case-wide constraint
+
+`failSafeDependsOn` is absent from `cases/etcs/abox.ttl`. Therefore fail-safe
+and downstream SIL-risk evaluations can remain `undetermined` even in a
+correctly controlled scenario. This is an evidence-acquisition obligation, not
+permission to invent a dependency for a more dramatic result.

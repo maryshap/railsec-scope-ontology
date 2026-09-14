@@ -155,6 +155,7 @@ def run_reasoner(graph: Graph, progress=None) -> bool:
         graph.serialize(destination=str(source), format="turtle")
         completed = subprocess.run(
             ["java", "-jar", str(PROJECT / "tools" / "robot.jar"), "reason",
+             "--catalog", str(PROJECT / "catalog-v001.xml"),
              "--input", str(source), "--reasoner", "HermiT",
              "--equivalent-classes-allowed", "none",
              "--output", str(target)],

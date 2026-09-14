@@ -18,6 +18,8 @@ import re
 import sys
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from rdflib import BNode, Graph, RDF, URIRef
 
@@ -131,6 +133,18 @@ class OrchestratorContractTest(unittest.TestCase):
         if not self.result.reasoner_invoked:
             self.assertFalse(self.result.publishable)
             self.assertTrue(any("reasoner" in reason for reason in self.result.refusals))
+
+    def test_reasoner_resolves_project_imports_through_the_catalog(self) -> None:
+        completed = SimpleNamespace(returncode=1, stdout="", stderr="diagnostic")
+        with (
+            patch.object(orchestrator, "reasoner_available", return_value=True),
+            patch.object(orchestrator.subprocess, "run", return_value=completed) as run,
+        ):
+            self.assertFalse(orchestrator.run_reasoner(Graph()))
+
+        command = run.call_args.args[0]
+        self.assertEqual("--catalog", command[4])
+        self.assertEqual(str(PROJECT / "catalog-v001.xml"), command[5])
 
 
 class RunScopingTest(unittest.TestCase):

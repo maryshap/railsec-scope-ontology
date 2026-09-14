@@ -22,6 +22,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from rdflib import BNode, Graph, RDF, URIRef
+from rdflib.compare import isomorphic
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -145,6 +146,30 @@ class OrchestratorContractTest(unittest.TestCase):
         command = run.call_args.args[0]
         self.assertEqual("--catalog", command[4])
         self.assertEqual(str(PROJECT / "catalog-v001.xml"), command[5])
+
+    def test_reasoner_replaces_relabelled_blank_nodes_instead_of_accumulating_them(self) -> None:
+        graph = Graph().parse(
+            data="@prefix ex: <https://example.test/> . ex:item ex:has [ ex:value ex:v ] .",
+            format="turtle",
+        )
+        expected = Graph().parse(data=graph.serialize(format="turtle"), format="turtle")
+
+        def write_reasoned_output(command, **_kwargs):
+            target = Path(command[-1])
+            target.write_text(
+                "@prefix ex: <https://example.test/> . ex:item ex:has [ ex:value ex:v ] .",
+                encoding="utf-8",
+            )
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+        with (
+            patch.object(orchestrator, "reasoner_available", return_value=True),
+            patch.object(orchestrator.subprocess, "run", side_effect=write_reasoned_output),
+        ):
+            self.assertTrue(orchestrator.run_reasoner(graph))
+
+        self.assertEqual(len(expected), len(graph))
+        self.assertTrue(isomorphic(expected, graph))
 
 
 class RunScopingTest(unittest.TestCase):

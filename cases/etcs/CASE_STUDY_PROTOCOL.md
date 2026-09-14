@@ -110,7 +110,8 @@ report is demonstrably exhaustive for the same boundary and finding universe.
 | Architecture migration | `abox.ttl`, `mapping.csv`, `unmapped.csv` | structurally available; domain/source review remains |
 | Safety classification | `classification-provenance.ttl` | provisional assessor judgement; review remains |
 | Realistic security/environment facts | `security-facts.ttl`, `transmission-environment.ttl` | available with documented unknowns |
-| Controlled scenarios | protected baseline and missing safety code | facts available; final publishable Runs absent |
+| Controlled scenarios | protected baseline, three single/unknown changes and combined degradation | facts available; final publishable Runs absent |
+| Realistic episode | base `security-facts.ttl` and `transmission-environment.ttl` | inputs available; detailed alternatives remain genuinely unstated; publishable Run absent |
 | Payload direction | `PAYLOAD_DIRECTION_TODO.md` | three directional mappings unresolved |
 | Access/fail-safe evidence | case-wide gaps visible in evaluations | source acquisition/review required |
 | Result reporting | RDF output exists for an earlier local Run | non-publishable and contaminated by a fixed run-isolation defect; regenerate |

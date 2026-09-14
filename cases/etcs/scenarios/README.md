@@ -54,6 +54,7 @@ stage table. Only a Run with `publishable=true` is final evidence.
 
 | Scenario | Status | Purpose |
 |---|---|---|
+| `realistic-legacy` | base evidence available; publishable Run pending | migrated deployment evidence with its genuine unknowns and no invented detailed controls |
 | `protected-baseline` | inputs complete; publishable Run pending | idealised reference with all admitted controls true |
 | `missing-safety-code` | inputs complete; publishable Run pending | one absent defence while an alternative remains true |
 | `missing-corruption-protection` | inputs complete; publishable Run pending | all corruption alternatives absent on one safety-related flow |

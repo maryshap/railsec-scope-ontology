@@ -9334,7 +9334,7 @@ case:flow-if-ts-12-reverse-timeoutMechanismEnabled-protected-assumption a rss-co
 <https://w3id.org/railsec-scope/case/etcs/scenario/combined-degradation/security-facts> a owl:Ontology ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/railway> ;
-    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/scenario/combined-degradation/security-facts/version/0.1.0> .
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/scenario/combined-degradation/security-facts/version/0.2.0> .
 
 case:scenario-missing-safety-code-basis a rss-crit:JudgementBasis ;
     rss-crit:reasoning "Forked from protected-baseline (0.2.0, flow-attached). Exactly one fact changes: safetyCodeEnabled is set to false on flow-if-ts-06-forward (IXL to Euroloop), the only flow traversing IF-TS-06. This flow already carries payload-DO-21 (SafetyRelatedPayload) in protected-baseline, attached without a direction assumption because IF-TS-06 has exactly one flow. Every other fact is unchanged from protected-baseline."@en ;
@@ -10318,7 +10318,8 @@ case:flow-if-om-17-reverse rss-rail:authenticationEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled true ;
     rss-rail:timeoutMechanismEnabled true .
 
-case:flow-if-rad-01-forward rss-rail:authenticationEnabled true ;
+case:flow-if-rad-01-forward rss-core:carriesPayload case:payload-DO-05 ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:encryptionEnabled true ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;
@@ -10358,7 +10359,8 @@ case:flow-if-rad-03-forward rss-rail:authenticationEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled true ;
     rss-rail:timeoutMechanismEnabled true .
 
-case:flow-if-rad-03-reverse rss-rail:authenticationEnabled true ;
+case:flow-if-rad-03-reverse rss-core:carriesPayload case:payload-DO-04 ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:encryptionEnabled true ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;
@@ -10531,4 +10533,3 @@ case:flow-if-ts-12-reverse rss-rail:authenticationEnabled true ;
 case:scenario-protected-baseline-basis a rss-crit:JudgementBasis ;
     rss-crit:reasoning "Every protection-control property on every RailwayInformationFlow is set to its protective value (true) to construct a hypothetical best-achievable state for scenario comparison. This is not derived from the legacy workbook or from any architecture evidence; it is a deliberately idealised counterfactual used as the reference point against which single-control-degradation and other scenarios are compared."@en ;
     rss-crit:revisionConditions "Not applicable: this basis exists only to support scenario comparison and is never promoted to a case fact about the real ETCS deployment."@en .
-

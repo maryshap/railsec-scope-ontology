@@ -9338,7 +9338,7 @@ case:payload-DO-05 a rss-rail:SafetyRelatedPayload .
 <https://w3id.org/railsec-scope/case/etcs/security-facts> a owl:Ontology ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/railway> ;
-    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/security-facts/version/0.1.0> .
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/security-facts/version/0.2.0> .
 
 case:payload-DO-21 a rss-rail:SafetyRelatedPayload .
 
@@ -10318,7 +10318,8 @@ case:flow-if-om-17-reverse rss-rail:authenticationEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled false ;
     rss-rail:timeoutMechanismEnabled false .
 
-case:flow-if-rad-01-forward rss-rail:authenticationEnabled true ;
+case:flow-if-rad-01-forward rss-core:carriesPayload case:payload-DO-05 ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:encryptionEnabled true ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;
@@ -10358,7 +10359,8 @@ case:flow-if-rad-03-forward rss-rail:authenticationEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled true ;
     rss-rail:timeoutMechanismEnabled true .
 
-case:flow-if-rad-03-reverse rss-rail:authenticationEnabled true ;
+case:flow-if-rad-03-reverse rss-core:carriesPayload case:payload-DO-04 ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:encryptionEnabled true ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;

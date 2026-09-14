@@ -10314,7 +10314,8 @@ case:flow-if-om-17-reverse rss-rail:authenticationEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled true ;
     rss-rail:timeoutMechanismEnabled true .
 
-case:flow-if-rad-01-forward rss-rail:authenticationEnabled true ;
+case:flow-if-rad-01-forward rss-core:carriesPayload case:payload-DO-05 ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:encryptionEnabled true ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;
@@ -10354,7 +10355,8 @@ case:flow-if-rad-03-forward rss-rail:authenticationEnabled true ;
     rss-rail:sourceDestinationIdentifierEnabled true ;
     rss-rail:timeoutMechanismEnabled true .
 
-case:flow-if-rad-03-reverse rss-rail:authenticationEnabled true ;
+case:flow-if-rad-03-reverse rss-core:carriesPayload case:payload-DO-04 ;
+    rss-rail:authenticationEnabled true ;
     rss-rail:encryptionEnabled true ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;

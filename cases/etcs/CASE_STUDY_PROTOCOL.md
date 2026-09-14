@@ -110,11 +110,11 @@ report is demonstrably exhaustive for the same boundary and finding universe.
 | Architecture migration | `abox.ttl`, `mapping.csv`, `unmapped.csv` | structurally available; domain/source review remains |
 | Safety classification | `classification-provenance.ttl` | provisional assessor judgement; review remains |
 | Realistic security/environment facts | `security-facts.ttl`, `transmission-environment.ttl` | available with documented unknowns |
-| Controlled scenarios | protected baseline, three single/unknown changes and combined degradation | facts available; final publishable Runs absent |
-| Realistic episode | base `security-facts.ttl` and `transmission-environment.ttl` | inputs available; detailed alternatives remain genuinely unstated; publishable Run absent |
-| Payload direction | `PAYLOAD_DIRECTION_TODO.md` | three directional mappings unresolved |
+| Controlled scenarios | protected baseline, three single/unknown changes and combined degradation | publishable Runs confirmed in GitHub workflow run 34896016005 |
+| Realistic episode | base `security-facts.ttl` and `transmission-environment.ttl` | publishable Run confirmed; detailed alternatives remain genuinely unstated |
+| Payload direction | `PAYLOAD_DIRECTION_TODO.md` | four mappings resolved with provenance; one source conflict remains unresolved |
 | Access/fail-safe evidence | case-wide gaps visible in evaluations | source acquisition/review required |
-| Result reporting | RDF output exists for an earlier local Run | non-publishable and contaminated by a fixed run-isolation defect; regenerate |
+| Result reporting | workflow run 34896016005 produced publishable scenario artifacts | retain the workflow outputs as the current execution evidence; regenerate after source-data changes |
 | Expert comparison | EV-B11 protocol defined here | expert evidence not yet supplied |
 | Final case-study claim | all sections above | open |
 

@@ -10,10 +10,12 @@ interfaces, 148 directed information flows and 29 functions. Its dataset-level
 source is `Ontology_model.xlsx`, recorded in `abox.ttl` by SHA-256 digest. The
 field admission policy is retained in `mapping.csv` and `unmapped.csv`.
 
-The deployment/configuration identifier, architecture-document editions and
-observation date have not yet been frozen in a case evidence register. Until
-that is done, this is a reconstructed reference architecture rather than a
-claim about one operational deployment at a stated date.
+The retained workbook edition is now registered by SHA-256, consultation date
+and exact worksheet-row locations for the newly admitted facts. The
+deployment/configuration identifier, architecture-document editions and
+observation date have not been frozen. This remains a reconstructed reference
+architecture rather than a claim about one operational deployment at a stated
+date.
 
 ## Evidence disposition
 
@@ -24,21 +26,20 @@ claim about one operational deployment at a stated date.
 | Safety-critical classifications | nine provisional assessor judgements with provenance | retain as assumptions until a safety case or hazard analysis is available |
 | Security controls | migrated, predominantly assessor-status observations | retain; do not describe them as measured deployment controls without source review |
 | Transmission environment | asserted and assessor-status inputs coexist | retain epistemic status and report its effect on evaluations |
-| Safety-related payload direction | two links resolved; three remain ambiguous | acquire directional evidence or preserve as unresolved |
+| Safety-related payload direction | four links resolved; one source conflict remains | retain the conflicting DO-04/IF-CT-01 mapping as unresolved pending a controlled interface/message source |
 | Safety functions | present; implementation links are available for a subset of assets | review against architecture/safety documentation |
 | Fail-safe dependencies | no `failSafeDependsOn` assertion | acquire evidence or retain downstream results as `undetermined` |
-| Railway zone semantics | zones are only typed `RailwaySecurityZone` | classify zones from a reviewed source/judgement before ETCS entry-point evaluation |
+| Railway zone semantics | Z-06 is sourced as `ExternalZone`; Z-IT-FW is sourced as `DMZZone`; other zones remain generic | admit only these explicit workbook classifications; do not infer subtypes for the other zones |
 | Entry access mechanisms | no `reachableBy` assertion on an entry asset | acquire remote/maintenance/supplier access evidence before materialising ETCS attack paths |
 | Detailed EN 50159 alternatives | available only as explicit synthetic scenario assumptions | do not import the idealised values into the realistic episode |
 
 ## L3 consequence
 
 Flow-level ATT&CK applicability can be evaluated wherever its required L1-L2
-evidence exists. Asset-level entry-point applicability is not yet a valid ETCS
-case result: the architecture names an external-network zone and a firewall/DMZ
-zone, but does not yet record reviewed `ExternalZone`/`DMZZone` classifications.
-Treating generic zone membership as evidence of absence would create a false
-negative.
+evidence exists. Reviewed `ExternalZone` and `DMZZone` classifications now make
+zone-based entry-point candidate evaluation meaningful for Z-06 and Z-IT-FW.
+They do not establish an access mechanism to any asset, and generic membership
+in every other zone remains insufficient evidence for a negative decision.
 
 Attack-path traversal additionally requires an explicit access mechanism on a
 derived entry point. Because no case asset currently has `reachableBy`, an

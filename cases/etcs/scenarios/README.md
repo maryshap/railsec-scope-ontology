@@ -54,12 +54,12 @@ stage table. Only a Run with `publishable=true` is final evidence.
 
 | Scenario | Status | Purpose |
 |---|---|---|
-| `realistic-legacy` | base evidence available; publishable Run pending | migrated deployment evidence with its genuine unknowns and no invented detailed controls |
-| `protected-baseline` | inputs complete; publishable Run pending | idealised reference with all admitted controls true |
-| `missing-safety-code` | inputs complete; publishable Run pending | one absent defence while an alternative remains true |
-| `missing-corruption-protection` | inputs complete; publishable Run pending | all corruption alternatives absent on one safety-related flow |
-| `unknown-data` | inputs complete; publishable Run pending | one required fact absent, demonstrating `undetermined` |
-| `combined-degradation` | inputs complete; publishable Run pending | two independent degradations after single-change episodes |
+| `realistic-legacy` | publishable Run confirmed in workflow run 34896016005 | migrated deployment evidence with its genuine unknowns and no invented detailed controls |
+| `protected-baseline` | publishable Run confirmed in workflow run 34896016005 | idealised reference with all admitted controls true |
+| `missing-safety-code` | publishable Run confirmed in workflow run 34896016005 | one absent defence while an alternative remains true |
+| `missing-corruption-protection` | publishable Run confirmed in workflow run 34896016005 | all corruption alternatives absent on one safety-related flow |
+| `unknown-data` | publishable Run confirmed in workflow run 34896016005 | one required fact absent, demonstrating `undetermined` |
+| `combined-degradation` | publishable Run confirmed in workflow run 34896016005 | two independent degradations after single-change episodes |
 | `expert-evidence` | awaiting independent source | comparison with the frozen expert risk assessment |
 
 ## Scenario authoring rules

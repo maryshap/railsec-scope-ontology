@@ -12,7 +12,71 @@
 <https://w3id.org/railsec-scope/case/etcs/classification-provenance> a owl:Ontology ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/railway> ;
-    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/classification-provenance/version/0.1.0> .
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/classification-provenance/version/0.2.0> .
+
+# Reviewed workbook assertions admitted during the ETCS source/data review.
+# The workbook is a case source, not a normative source. Each admitted fact is
+# tied to the exact worksheet rows that support it. Facts that those rows do not
+# establish (notably remote-access reachability and fail-safe dependencies) are
+# deliberately absent.
+
+case:source-ontology-model-workbook a rss-crit:Source ;
+    rss-crit:fullReference "Ontology_model.xlsx, retained ETCS architecture and data inventory workbook; SHA-256 9563FA315813F7EAE9881494B5C627CB61FA47830FF13C97B3D9145B4CE573BC" ;
+    rss-crit:sourceRole "case architecture inventory and directional payload mapping source" .
+
+case:edition-ontology-model-workbook a rss-crit:SourceEdition ;
+    rss-crit:editionOf case:source-ontology-model-workbook ;
+    rss-crit:editionLabel "retained workbook identified by SHA-256 9563FA315813F7EAE9881494B5C627CB61FA47830FF13C97B3D9145B4CE573BC" ;
+    rss-crit:accessDate "2026-09-14"^^xsd:date ;
+    rss-crit:consultationStatus "full" .
+
+case:source-location-zone-z-06 a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition case:edition-ontology-model-workbook ;
+    rss-crit:sourceLocator "Zones!A7:G7: Z-06; ZoneType=External; TrustLevel=Untrusted" .
+
+case:source-location-zone-z-it-fw a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition case:edition-ontology-model-workbook ;
+    rss-crit:sourceLocator "Zones!A12:G12: Z-IT-FW; Firewall / DMZ Zone; ZoneType=Boundary; notes identify NG-FW/DMZ" .
+
+case:source-location-payload-do-04-if-rad-03 a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition case:edition-ontology-model-workbook ;
+    rss-crit:sourceLocator "DataObjects_Flat!A6:O6 and Interfaces_Flat!A20:AG20: DO-04 producer RBC, consumer EVC; IF-RAD-03 reverse is RBC to EVC" .
+
+case:source-location-payload-do-05-if-rad-01 a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition case:edition-ontology-model-workbook ;
+    rss-crit:sourceLocator "DataObjects_Flat!A7:O7 and Interfaces_Flat!A18:AG18: DO-05 producer EVC, consumer RBC; IF-RAD-01 forward is the outbound EVC/CAB-Radio path segment" .
+
+case:zone-z-06-external-zone-assertion a rss-core:AssertedFact ;
+    rss-core:assertionSubject case:zone-z-06 ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:ExternalZone ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:source-location-zone-z-06 .
+
+case:zone-z-it-fw-dmz-zone-assertion a rss-core:AssertedFact ;
+    rss-core:assertionSubject case:zone-z-it-fw ;
+    rss-core:assertionPredicateIri "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"^^xsd:anyURI ;
+    rss-core:assertionObjectResource rss-rail:DMZZone ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:source-location-zone-z-it-fw .
+
+case:flow-if-rad-03-reverse-payload-do-04-assertion a rss-core:AssertedFact ;
+    rss-core:assertionSubject case:flow-if-rad-03-reverse ;
+    rss-core:assertionPredicateIri "https://w3id.org/railsec-scope/core#carriesPayload"^^xsd:anyURI ;
+    rss-core:assertionObjectResource case:payload-DO-04 ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:source-location-payload-do-04-if-rad-03 .
+
+case:flow-if-rad-01-forward-payload-do-05-assertion a rss-core:AssertedFact ;
+    rss-core:assertionSubject case:flow-if-rad-01-forward ;
+    rss-core:assertionPredicateIri "https://w3id.org/railsec-scope/core#carriesPayload"^^xsd:anyURI ;
+    rss-core:assertionObjectResource case:payload-DO-05 ;
+    rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
+    rss-res:assertedInInstanceSet case:instance-set ;
+    prov:wasDerivedFrom case:source-location-payload-do-05-if-rad-01 .
 
 # Provenance for the safety-critical classification of the ETCS assets.
 #

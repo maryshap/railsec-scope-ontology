@@ -1,9 +1,14 @@
 source_sheet,source_field,target,transformation
 Zones,Zone row,rss-rail:RailwaySecurityZone + rss-core:Group,one case Group per ZoneID
+Zones,Z-06 ZoneType=External,rss-rail:ExternalZone,admit explicit source classification from Zones!A7:G7
+Zones,Z-IT-FW name/notes and ZoneType=Boundary,rss-rail:DMZZone,admit explicit DMZ classification from Zones!A12:G12
 Assets_Flat,Asset row,rss-rail:RailwayAsset,AssetClass mapped only to explicit M5 safety/operational subclasses
 Assets_Flat,Primary/SecondaryZoneID,rss-core:memberOf,both memberships retained
 Assets_Flat,boundary status,BoundaryStatusAssertion,External primary zone => external; otherwise inScope; domain review required
 Interfaces_Flat,Interface row,rss-core:Interface + InformationFlow,bi creates forward and reverse flows; uni creates forward flow
+DataObjects_Flat,DO-04 producer/consumer plus IF-RAD-03 endpoints,rss-core:carriesPayload,map to flow-if-rad-03-reverse (RBC to EVC)
+DataObjects_Flat,DO-05 producer/consumer plus IF-RAD-01 endpoints,rss-core:carriesPayload,map to flow-if-rad-01-forward as the outbound EVC/CAB-Radio path segment
+DataObjects_Flat,DO-04 plus IF-CT-01 endpoints,unresolved,producer/consumer EVC does not match the RBC-to-IXL interface endpoints; do not select a direction
 Functions_Flat,Function row,rss-core:Function/SafetyFunction,SafetyCritical and SafetyRelated map to SafetyFunction
 Functions_Flat,ImplementedByAssetIDs,rss-core:realises,only resolvable AssetIDs emitted
 TrustAssumptions_Flat,Assumption row,rss-core:Assumption,generic proposition pattern; unknown scopes retained in unmapped report

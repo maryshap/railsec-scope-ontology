@@ -274,12 +274,18 @@ class RefusalTest(unittest.TestCase):
             orchestrator.MAX_ITERATIONS = original
 
     def test_input_validation_failure_stops_before_derivation(self) -> None:
-        bad = PROJECT / "fixtures" / "k-constraints"
-        candidates = sorted(bad.glob("*negative*.ttl")) if bad.exists() else []
-        if not candidates:
-            self.skipTest("no negative fixture available")
-        result = execute_contract([candidates[0]], "bad-input")
+        validation_failure = (False, Graph(), Graph())
+        with (
+            patch.object(orchestrator, "validate", return_value=validation_failure),
+            patch.object(orchestrator, "run_reasoner") as reasoner,
+        ):
+            result = execute_contract(FIXTURES, "forced-input-validation-failure")
+
+        self.assertFalse(result.input_validation_conforms)
         self.assertFalse(result.publishable)
+        self.assertTrue(any("input validation failed" in reason for reason in result.refusals))
+        self.assertEqual(0, len(list(result.graph.subjects(RDF.type, RES.CriterionEvaluation))))
+        reasoner.assert_not_called()
 
 
 if __name__ == "__main__":

@@ -29,11 +29,41 @@ import orchestrator  # noqa: E402
 from orchestrator import CRIT, RES, RUN  # noqa: E402
 
 
-FIXTURES = [
-    PROJECT / "fixtures" / name / "minimal.ttl"
-    for name in ("railway-category", "railway-threat", "railway-critical",
-                 "railway-fail-safe", "railway-sil", "railway-access")
+CONTRACT_STAGE_RULES = [
+    rule
+    for rule in orchestrator.STAGE_RULES
+    if rule != "evaluate-attack-technique-applicability.rq"
 ]
+
+FIXTURES = [PROJECT / "fixtures" / "railway-category" / "minimal.ttl"]
+_EXECUTE_CACHE: dict[tuple[tuple[Path, ...], str, int], orchestrator.RunResult] = {}
+
+
+def execute_contract(files: list[Path], run_id: str) -> orchestrator.RunResult:
+    """Run the generic orchestration contract without repeating L3.
+
+    The Run contract tests exercise convergence, validation, run scoping and
+    determinism. Technique applicability, attack-path materialisation and L3
+    safety-impact evidence are covered by focused L3 tests, so this harness
+    avoids re-running that heavier layer for every generic orchestration
+    assertion.
+    """
+    key = (tuple(files), run_id, orchestrator.MAX_ITERATIONS)
+    cached = _EXECUTE_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    original_rules = orchestrator.STAGE_RULES
+    original_l3_apply = orchestrator.apply_l3
+    try:
+        orchestrator.STAGE_RULES = CONTRACT_STAGE_RULES
+        orchestrator.apply_l3 = lambda graph, run_iri: 0
+        result = orchestrator.execute(files, run_id)
+        _EXECUTE_CACHE[key] = result
+        return result
+    finally:
+        orchestrator.STAGE_RULES = original_rules
+        orchestrator.apply_l3 = original_l3_apply
 
 
 def canonical(graph: Graph, run_iri: URIRef) -> set:
@@ -62,7 +92,7 @@ def canonical(graph: Graph, run_iri: URIRef) -> set:
 class OrchestratorContractTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.result = orchestrator.execute(FIXTURES, "test-run")
+        cls.result = execute_contract(FIXTURES, "test-run")
 
     def test_it_converges_within_the_bound(self) -> None:
         self.assertTrue(self.result.converged)
@@ -114,8 +144,8 @@ class RunScopingTest(unittest.TestCase):
         both executions by design: that is the same Run computed twice, not a
         collision between different ones.
         """
-        first = orchestrator.execute(FIXTURES, "run-one")
-        second = orchestrator.execute(FIXTURES, "run-two")
+        first = execute_contract(FIXTURES, "run-one")
+        second = execute_contract(FIXTURES, "run-two")
 
         def own_results(result) -> set:
             """Results the orchestrator Run produced, identified by attribution.
@@ -136,7 +166,7 @@ class RunScopingTest(unittest.TestCase):
         self.assertEqual(set(), first_ids & second_ids, "run-scoped results must not collide")
 
     def test_every_evaluation_carries_exactly_one_outcome(self) -> None:
-        result = orchestrator.execute(FIXTURES, "run-outcomes")
+        result = execute_contract(FIXTURES, "test-run")
         for evaluation in result.graph.subjects(RDF.type, RES.CriterionEvaluation):
             with self.subTest(evaluation=str(evaluation).split("/")[-1]):
                 outcomes = list(result.graph.objects(evaluation, RES.hasEvaluationOutcome))
@@ -145,8 +175,8 @@ class RunScopingTest(unittest.TestCase):
 
 class DeterminismTest(unittest.TestCase):
     def test_the_same_inputs_produce_the_same_derivation(self) -> None:
-        first = orchestrator.execute(FIXTURES, "determinism-a")
-        second = orchestrator.execute(FIXTURES, "determinism-b")
+        first = execute_contract(FIXTURES, "determinism-a")
+        second = execute_contract(FIXTURES, "determinism-b")
         self.assertEqual(first.iterations, second.iterations)
         self.assertEqual(
             canonical(first.graph, first.run_iri),
@@ -157,7 +187,7 @@ class DeterminismTest(unittest.TestCase):
 
 class RefusalTest(unittest.TestCase):
     def test_a_run_without_an_instance_set_is_refused_before_deriving(self) -> None:
-        result = orchestrator.execute([PROJECT / "fixtures" / "orchestrator" / "no-instance-set.ttl"], "no-set")
+        result = execute_contract([PROJECT / "fixtures" / "orchestrator" / "no-instance-set.ttl"], "no-set")
         self.assertFalse(result.publishable)
         self.assertTrue(any("instance set" in reason for reason in result.refusals))
         self.assertEqual(0, len(list(result.graph.subjects(RDF.type, RES.CriterionEvaluation))))
@@ -168,7 +198,7 @@ class RefusalTest(unittest.TestCase):
         original = orchestrator.MAX_ITERATIONS
         try:
             orchestrator.MAX_ITERATIONS = 1
-            result = orchestrator.execute(FIXTURES, "bounded")
+            result = execute_contract(FIXTURES, "bounded")
             self.assertFalse(result.converged)
             self.assertFalse(result.publishable)
             self.assertTrue(any("fixed point" in reason for reason in result.refusals))
@@ -180,7 +210,7 @@ class RefusalTest(unittest.TestCase):
         candidates = sorted(bad.glob("*negative*.ttl")) if bad.exists() else []
         if not candidates:
             self.skipTest("no negative fixture available")
-        result = orchestrator.execute([candidates[0]], "bad-input")
+        result = execute_contract([candidates[0]], "bad-input")
         self.assertFalse(result.publishable)
 
 

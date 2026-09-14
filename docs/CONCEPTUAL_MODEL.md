@@ -12,6 +12,27 @@ The stable framework and railway profile are designed not to depend on one subsy
 
 > The model is designed to be subsystem-independent within the railway domain and is empirically evaluated on an ETCS case study.
 
+### L3 attack-analysis boundary
+
+L3 extends the completed L1–L2 scoping ontology without changing its
+classification authority. Its approved requirements are:
+
+| ID | Requirement |
+|---|---|
+| L3-R01 | Represent attack tactics and techniques as versioned vocabulary artefacts with stable external identifiers. |
+| L3-R02 | Pin every imported attack catalogue to an explicit edition and source location. |
+| L3-R03 | Determine technique applicability to an architecture element through a sourced, three-valued CriterionEvaluation; dictionary membership is not applicability. |
+| L3-R04 | Represent a computed attack path as a Run-derived result with one entry point, one target and ordered steps supported by applicability evaluations. |
+| L3-R05 | Retain the weakness, reachability and other derived evidence used by every attack-path step. |
+| L3-R06 | Compute lateral movement only over explicit directed architecture/reachability evidence; absent edges remain unknown, not false. |
+| L3-R07 | Link attack paths to critical assets and safety functions without deriving or allocating SIL. |
+| L3-R08 | Rank paths only through a declared, versioned method; unresolved factor inputs make the score not computable. |
+
+The current ATT&CK for ICS catalogue is a source taxonomy, not a normative
+railway standard and not a universal list of techniques applicable to every
+railway system. The M7 module therefore contains reusable vocabulary and
+result structure; case-specific attack facts remain in M6 datasets.
+
 Every concrete architecture is represented by a separate versioned ABox conforming to a common railway architecture instance profile. There is no generic architecture ABox. ETCS-, TCMS- and CBTC-specific architecture individuals belong to separate case datasets.
 
 Every entity and relation below is justified by an approved requirement, operational definition or source-record schema from Gate A. A construct may not enter the production ontology merely because it existed in the legacy implementation.
@@ -408,7 +429,8 @@ PROV-O is an imported external vocabulary, not a seventh authored module. The si
 | M3 Results and derivation | Result kinds, evaluations, assignments, identified collections, selections, derivation, runs, comparisons and execution evidence | M1, M2, PROV-O |
 | M4 Assessment and decisions | Assessor decisions and decision-to-result or decision-to-selection relations | M1, M2, M3 |
 | M5 Extension family | M5-Railway shared profile plus optional subsystem/source-profile extensions such as M5-ETCS, M5-TCMS or M5-CBTC | M1, M2; M3 only if an extension introduces specialised result vocabulary |
-| M6 Case-data family | One separate architecture ABox per case, conforming to the instance profile and using the required M5 extensions | M1 and applicable M5 modules |
+| M6 Case-data family | One separate architecture ABox per case, conforming to the instance profile and using the required M5 extensions; attack-scenario data may also use M7 | M1 and applicable M5/M7 modules |
+| M7 Attack analysis | Versioned attack tactics/techniques and L3 attack-path result schema, independent of any one case architecture | M2, M3 and M1 through their import closure |
 
 Rules for allocation:
 
@@ -430,7 +452,8 @@ The normative home module for each conceptual entity is fixed below. Subsystem e
 | M3 | DerivedResult, EvaluationOutcome, ComputationOutcome, CriterionEvaluation, CategoryAssignment, CandidateSet, ReachabilityResult, DependencyChain, DependencyChainEntry, SafetyImpactResult, FactorValue, OrderingResult, OrderingEntry, CoverageResult, MaterialFindingDesignation, Selection, Run, RunComparison, DerivationRecord, DerivationStep, Mechanism, UnresolvedInput, InstanceSet, ExecutionEnvironment, PerformanceMeasurement, PerformanceTarget |
 | M4 | AssessorDecision, Inclusion, Exclusion, Override |
 | M5 | No fixed core entity. Railway- and subsystem-specific specialisations and criteria are introduced here under the extension rules above. |
-| M6 | No schema entity. M6 contains only case individuals typed with M1–M5 vocabulary. |
+| M6 | No schema entity. M6 contains only case individuals typed with M1–M5 and, for attack scenarios, M7 vocabulary. |
+| M7 | AttackTactic, AttackTechnique, AttackPathResult, AttackPathStep. Technique applicability is expressed through sourced criteria and three-valued evaluations. |
 
 Each relation and attribute is defined in the home module of its domain. A relation whose range belongs to a module on which the domain module may not depend is instead defined in the lowest permitted module that imports both sides. Cross-module derivation, decision and performance relations therefore reside in M3 or M4 as indicated by their domains. The released vocabulary must expose machine-readable home-module metadata so that CQ-36 can enumerate every schema term rather than infer allocation from file location.
 

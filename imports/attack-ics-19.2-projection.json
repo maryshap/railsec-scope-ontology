@@ -1,0 +1,18 @@
+{
+  "source_url": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/ics-attack/ics-attack-19.2.json",
+  "source_sha256": "08b83d2cea6b6d6752468ef0e62e2ab2a53c9443ef72c439ecccb07ab9e89da9",
+  "projection_sha256": "fe581e77650cb96e24dd5c40bf24a95d39ee4daa369c6621d745e6b0b2f0d94b",
+  "collection_id": "x-mitre-collection--90c00720-636b-4485-b342-8751d232bf09",
+  "collection_version": "19.2",
+  "domain": "ics-attack",
+  "include_object_types": [
+    "x-mitre-tactic",
+    "attack-pattern"
+  ],
+  "exclude_revoked": true,
+  "exclude_deprecated": true,
+  "expected_active_tactics": 12,
+  "expected_active_techniques": 97,
+  "projection_policy": "Project every active ATT&CK for ICS tactic and technique as candidate vocabulary. Do not infer railway relevance or applicability from inclusion in this projection.",
+  "railway_relevance_policy": "A technique becomes applicable to a railway architecture element only through a sourced Criterion and its three-valued CriterionEvaluation. Static technique-to-weakness and technique-to-element mappings are prohibited."
+}

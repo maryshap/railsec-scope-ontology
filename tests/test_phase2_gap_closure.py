@@ -45,7 +45,12 @@ def outcome(graph: Graph, element, predicate, value):
 class Phase2GapClosureTest(unittest.TestCase):
     def test_every_production_criterion_has_source_interpretation_and_judgement(self) -> None:
         graph = load_graph()
-        criteria = set(graph.subjects(RDF.type, CRIT.Criterion))
+        # This Phase 2 regression owns the railway criteria only. L3 attack
+        # applicability criteria have their own source-only provenance test.
+        criteria = {
+            criterion for criterion in graph.subjects(RDF.type, CRIT.Criterion)
+            if str(criterion).startswith(str(Namespace("https://w3id.org/railsec-scope/criteria/railway/")))
+        }
         self.assertEqual(33, len(criteria))
         for criterion in criteria:
             with self.subTest(criterion=criterion):

@@ -739,3 +739,193 @@ allocate a SIL. The derived M5-R06 result is renamed semantically as a
 safety-integrity scoping concern, while any actual SIL value requires a
 separate, attributed `SILAssignmentAssumption` with a `JudgementBasis` (K-26)
 until safety-case evidence supports an asserted fact.
+
+## CR-B-025 — Separate M7 attack-analysis module
+
+**Decision.** L1–L2 remain the stable railway security-assessment scoping
+ontology. L3 attack vocabulary and computed attack paths enter through the new
+M7 module `ontology/attack.ttl`, which imports the existing result model but
+does not change L1–L2 category authority.
+
+`AttackTechnique` and `AttackTactic` are versioned vocabulary artefacts.
+`AttackPathResult` is a Run-derived result composed of positioned
+`AttackPathStep` records. A technique is applicable to an architecture element
+only through a sourced Criterion and its three-valued `CriterionEvaluation`.
+The ATT&CK catalogue relation between a technique and a tactic is dictionary
+content; a technique-to-weakness or technique-to-element conclusion is not.
+
+**Source boundary.** The vocabulary source is pinned to the official MITRE
+ATT&CK for ICS 19.2 STIX 2.1 collection. Importing the collection does not make
+every ICS technique railway-relevant. Railway applicability requires a
+separate criterion with source/interpretation or explicit judgement basis.
+
+**Rejected alternatives.** Adding attack classes to M5 was rejected because it
+would reopen the completed scoping vocabulary and mix assessment scope with
+attack modelling. Reusing M6 was rejected because M6 is the case-data/ABox
+family in the approved module architecture. Direct `technique appliesTo element` or
+`technique exploits weakness` assertions were rejected because they would
+embed the conclusion in the dictionary and bypass three-valued evaluation and
+provenance. Tracking the unversioned ATT&CK `latest` collection was rejected
+because results would not be reproducible after catalogue updates.
+
+## CR-B-026 — Controlled ATT&CK for ICS 19.2 projection
+
+**Decision.** The M7 candidate vocabulary is generated from the official
+ATT&CK for ICS 19.2 STIX 2.1 bundle. The manifest pins the collection ID,
+release, source SHA-256, projection SHA-256, included STIX object types and
+expected counts. The committed projection contains all 12 active tactics and
+97 active techniques, excluding revoked and deprecated objects.
+
+Projection is not railway relevance. Catalogue identity, labels, official URLs
+and technique-to-tactic relations are retained; descriptions, procedure
+examples, mitigations and technique-to-architecture mappings are not copied.
+A railway element can receive an applicable technique only through a sourced
+CriterionEvaluation with an explicit satisfied/notSatisfied/undetermined
+outcome.
+
+**Legacy source correction.** Legacy R4.1.4 cited ATT&CK ICS T0800 for the
+claim that a maintenance-zone asset is an entry point. In ATT&CK for ICS 19.2,
+T0800 is `Activate Firmware Update Mode`; it does not support that generic
+entry-point conclusion. The mapping is rejected and recorded as a source
+mismatch. A future maintenance-access technique criterion needs independent
+railway evidence.
+
+**Rejected alternatives.** Importing the changing `latest` bundle, silently
+accepting a changed checksum/count, copying the full ATT&CK descriptions, and
+labelling every ICS technique railway-applicable were rejected as
+non-reproducible, unnecessary or epistemically unsupported.
+
+## CR-B-027 — Railway-profile coverage register for ATT&CK techniques
+
+**Decision.** L3 maintains `imports/attack-ics-19.2-railway-profile.tsv` as the
+boundary register for the pinned ATT&CK ICS 19.2 projection. The register lists
+all 97 active projected techniques exactly once. It records whether a technique
+already has a sourced railway applicability Criterion, is selected for the
+minimal railway attack-path profile but still lacks its Criterion, or is outside
+the current profile boundary.
+
+The register is not an attack map and not an assertion that every ATT&CK ICS
+technique is railway-applicable. `implemented-criterion` is limited to
+techniques whose three-valued applicability criteria are implemented in
+`ontology/criteria-attack.ttl`. `selected-pending-criterion` is an explicit
+open implementation state: the technique is needed to complete the declared
+initial-access/lateral-movement to manipulation/impact chain, but no
+applicability can be materialised until a sourced Criterion is added.
+`not-admitted-current-profile` keeps the rest of the ATT&CK projection visible
+without claiming either railway applicability or railway irrelevance.
+
+**Rejected alternatives.** Leaving unimplemented techniques implicit was
+rejected because it makes the L3 boundary impossible to audit. Marking all
+unimplemented projected techniques as relevant was rejected because it would
+turn a candidate vocabulary into unsupported threat modelling.
+
+## CR-B-028 — Generic L3 applicability candidates and attack-aware traversal
+
+**Decision.** `evaluate-attack-technique-applicability.rq` no longer hard-codes
+`RailwayInformationFlow` as the only candidate type. The rule reads the
+candidate type from `rss-crit:stageCandidateTypeIri` on the Criterion and then
+evaluates same-element, same-Run prerequisites for that declared type. This
+allows future asset-level and entry-point-level ATT&CK criteria without moving
+case-study facts into the ontology.
+
+M7 also introduces explicit technique-profile vocabulary for execution
+candidate type, preconditions and effects. Profiles can refer to the sourced
+applicability Criterion, required access mechanism, upstream evaluation
+criterion, created attack state, enabled access mechanism and affected security
+property. These terms are schema-level vocabulary; no attack occurrence is
+asserted by declaring them.
+
+The Python L3 computation now includes an attack-aware traversal separate from
+generic reachability. Reachability still records directed paths over vulnerable
+flows from materialised entry points. Attack paths are emitted only when every
+flow hop in the witness path has at least one satisfied ATT&CK technique
+applicability evaluation. `notSatisfied` and `undetermined` technique
+evaluations remain visible evidence, but do not become attack-path steps.
+
+**Rejected alternatives.** Creating separate SPARQL files for flows, assets and
+entry points was rejected because it would duplicate the same three-valued
+logic and make criteria harder to audit. Treating every reachable vulnerable
+flow as an attack step was rejected because it would produce network routes
+with ATT&CK labels missing their evidence chain.
+
+## CR-B-029 — AttackPathResult requires a complete evidence chain
+
+**Decision.** An `AttackPathResult` is materialised only when the L3 traversal
+can record a complete proof chain for the path. The result has exactly one
+entry point, exactly one target, ordered `AttackPathStep` nodes, a technique
+for each step, a satisfied ATT&CK applicability evaluation for that technique,
+the satisfied upstream L1/L2 prerequisite evaluations used by that
+applicability criterion, directed flow/reachability evidence, the producing
+Run, the phase-3 mechanism version and a complete `DerivationRecord`.
+
+A satisfied attack-technique evaluation without its same-element, same-Run
+prerequisite/weakness evaluations is not enough to create a material attack
+path. This prevents L3 from presenting an ATT&CK-labelled route as an
+evidence-backed path when the underlying weakness evidence is missing.
+
+**Rejected alternatives.** Allowing path materialisation from a bare
+`satisfied` technique evaluation was rejected because it hides the rule chain
+that made the technique applicable. Recording only the reachability result was
+rejected because reachability says where an attacker can move, not which
+attack technique is justified at each step.
+
+## CR-B-030 — Attack-path safety-impact linking without SIL assignment
+
+**Decision.** L3 materialises `SafetyImpactResult` evidence for an `AttackPathResult` when the path reaches a safety-critical asset, reaches an asset used by a safety function, reaches a fail-safe dependency, or traverses a flow carrying a safety-related payload. The result records the producing Run, phase-3 mechanism version, the source attack path, the impacted element or payload, any affected safety function available in the case data, reachability/dependency-chain evidence and a complete `DerivationRecord`.
+
+This is an impact-linking step, not safety-case analysis. L3 does not infer, allocate or overwrite SIL. Any SIL value remains an explicitly sourced safety-case or assessor assertion.
+
+**Rejected alternatives.** Inferring SIL from `SafetyCriticalAsset`, `SafetyFunction` or path reachability was rejected because EN 50126 assigns SIL through the safety process, not through cyber reachability. Treating every attack path as safety-impacting was rejected because it would hide the distinction between safety-critical targets, safety-function dependencies and ordinary reachable assets.
+
+## CR-B-031 — Attack-path review ordering without risk-score or SIL claims
+
+**Decision.** L3 materialises a deterministic `OrderingResult` for attack paths already produced in the same Run. Each `OrderingEntry` ranks exactly one `AttackPathResult` and records a review-priority score, the number of linked safety-impact results and the number of ordered attack-path steps. The ordering is intentionally evidence-based and reproducible: paths with more linked safety-impact evidence are reviewed first; ties prefer shorter paths and then lexical identifiers.
+
+The score is a local review-ordering aid. It is not a SIL, CVSS score, probability, exploitability estimate or safety risk acceptance claim. Safety-related prioritisation comes only from already materialised `SafetyImpactResult` evidence; the ordering method does not create new safety impacts.
+
+**Rejected alternatives.** Reusing the Phase 2 AHP candidate ordering was rejected because AHP factor values rank scoped candidates, not attack paths. Ranking by path length alone was rejected because it would put a short non-safety path ahead of a longer path with explicit safety-impact evidence. Ranking by inferred SIL was rejected because L3 is not allowed to allocate or infer SIL.
+
+## CR-B-032 — Remote Services applicability is entry-point evidence, not attack occurrence
+
+**Decision.** ATT&CK ICS 19.2 `T0886 Remote Services` is implemented in the
+minimal railway attack-path profile through two sourced applicability criteria:
+external-zone entry points and DMZ-zone entry points. The criteria consume the
+same-element, same-Run L2 `EntryPoint` evaluations produced by the railway
+asset-zone criteria and produce three-valued L3 technique-applicability
+evaluations for the asset.
+
+This closes the previous `selected-pending-criterion` state for the initial
+access / lateral movement role in the minimal railway ATT&CK profile. It does
+not assert that a remote service exists, that credentials are available, that a
+service is exploitable or that an attack occurred. It only states that an asset
+already admitted as a railway entry point is relevant for remote-services
+testing in the L3 profile.
+
+**Rejected alternatives.** Encoding one criterion with an implicit
+external-zone-or-DMZ disjunction was rejected because the generic applicability
+rule treats multiple prerequisite criteria as conjunctions. Treating every
+railway asset as T0886-applicable was rejected because it would bypass the
+sourced railway entry-point evidence needed for attack-path materialisation.
+
+## CR-B-033 — L3 closure evidence is synthetic and profile-bounded
+
+**Decision.** L3 closure is asserted only for the declared minimal railway
+ATT&CK ICS 19.2 profile recorded in
+`imports/attack-ics-19.2-railway-profile.tsv`. The evidence package is
+synthetic and independent from ETCS case-study facts. It verifies positive
+attack-path materialisation, blocked paths, undetermined prerequisites,
+directed reachability, cycle resistance, deterministic branching, multiple
+techniques on one element, safety-critical target linkage, provenance for each
+path step, and deterministic attack-path review ordering without assigning SIL,
+probability or CVSS.
+
+The ETCS case study may use these mechanisms, but ETCS completion is not a
+precondition for L3 ontology completion. Conversely, adding a future ATT&CK
+technique outside the declared profile is a profile revision, not a hidden gap
+in the current L3 layer.
+
+**Rejected alternatives.** Treating ETCS scenario output as the only closure
+evidence was rejected because a case study can contain missing facts and still
+should not redefine ontology semantics. Claiming coverage for all projected
+ATT&CK ICS techniques was rejected because most projected techniques are kept
+visible but deliberately not admitted to the current railway profile.

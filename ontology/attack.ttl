@@ -1,0 +1,295 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-attack: <https://w3id.org/railsec-scope/attack#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/attack> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/attack> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <https://w3id.org/railsec-scope/results> ;
+    rsso:moduleCode "M7" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/attack#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M7 attack analysis"@en ;
+    dcterms:description "Versioned attack vocabulary and L3 attack-path result schema. Technique applicability remains a three-valued CriterionEvaluation and is never asserted by a dictionary mapping."@en .
+
+### Versioned ATT&CK vocabulary
+
+rss-attack:AttackTactic a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact ;
+    rdfs:label "Attack tactic"@en ;
+    rsso:requirement "L3-R01" .
+
+rss-attack:AttackTechnique a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact ;
+    rdfs:label "Attack technique"@en ;
+    rsso:requirement "L3-R01" .
+
+rss-attack:AttackPathResult a owl:Class ;
+    rdfs:subClassOf rss-res:DerivedResult,
+        [ a owl:Restriction ; owl:onProperty rss-attack:startsFromEntryPoint ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-core:Element ],
+        [ a owl:Restriction ; owl:onProperty rss-attack:attackPathConcernsTarget ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-core:Element ],
+        [ a owl:Restriction ; owl:onProperty rss-attack:hasAttackPathStep ; owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass rss-attack:AttackPathStep ] ;
+    rdfs:label "Attack-path result"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:AttackPathStep a owl:Class ;
+    rdfs:label "Attack-path step"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:AttackTechniqueProfile a owl:Class ;
+    rdfs:subClassOf rss-crit:VersionedArtefact ;
+    rdfs:label "Attack technique profile"@en ;
+    rdfs:comment "A project-controlled profile that records the railway execution context, required applicability evidence, preconditions and effects for one ATT&CK technique. It is not case data and does not assert that the technique has occurred."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:AttackTechniquePrecondition a owl:Class ;
+    rdfs:label "Attack technique precondition"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:AttackTechniqueEffect a owl:Class ;
+    rdfs:label "Attack technique effect"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:AttackState a owl:Class ;
+    rdfs:label "Attack state"@en ;
+    rdfs:comment "Project vocabulary for intermediate attack states that may be created by one technique and consumed by later attack-path steps."@en ;
+    rsso:requirement "L3-R04", "L3-R05" .
+
+[] a owl:AllDisjointClasses ;
+    owl:members (
+        rss-attack:AttackTactic rss-attack:AttackTechnique rss-attack:AttackPathStep
+        rss-attack:AttackTechniqueProfile rss-attack:AttackTechniquePrecondition
+        rss-attack:AttackTechniqueEffect rss-attack:AttackState
+    ) .
+
+### Relations
+
+rss-attack:techniqueInTactic a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechnique ;
+    rdfs:range rss-attack:AttackTactic ;
+    rdfs:label "technique in tactic"@en ;
+    rsso:requirement "L3-R01" .
+
+rss-attack:cataloguedAt a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-attack:AttackTechnique rss-attack:AttackTactic ) ] ;
+    rdfs:range rss-crit:SourceLocation ;
+    rdfs:label "catalogued at"@en ;
+    rsso:requirement "L3-R02" .
+
+rss-attack:assessesAttackTechnique a owl:ObjectProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-attack:AttackTechnique ;
+    rdfs:label "assesses attack technique"@en ;
+    rdfs:comment "Identifies the technique assessed by a sourced Criterion. It does not state that the technique applies to any architecture element."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:requiresSatisfiedEvaluationOf a owl:ObjectProperty ;
+    rdfs:domain rss-crit:Criterion ;
+    rdfs:range rss-crit:Criterion ;
+    rdfs:label "requires satisfied evaluation of"@en ;
+    rdfs:comment "Declares an upstream L1/L2 Criterion whose evaluation on the same named element and Run is a prerequisite of this attack-technique applicability Criterion. The three-valued evaluation rule consumes the upstream CriterionEvaluation, not inferred class membership."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:startsFromEntryPoint a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackPathResult ;
+    rdfs:range rss-core:Element ;
+    rdfs:label "starts from entry point"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:attackPathConcernsTarget a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackPathResult ;
+    rdfs:range rss-core:Element ;
+    rdfs:label "attack path concerns target"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:followsReachabilityResult a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackPathResult ;
+    rdfs:range rss-res:ReachabilityResult ;
+    rdfs:label "follows reachability result"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:hasAttackPathStep a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackPathResult ;
+    rdfs:range rss-attack:AttackPathStep ;
+    rdfs:label "has attack-path step"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:stepUsesTechnique a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackPathStep ;
+    rdfs:range rss-attack:AttackTechnique ;
+    rdfs:label "step uses technique"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:stepConcernsElement a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackPathStep ;
+    rdfs:range rss-core:Element ;
+    rdfs:label "step concerns element"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:supportedByApplicabilityEvaluation a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackPathStep ;
+    rdfs:range rss-res:CriterionEvaluation ;
+    rdfs:label "supported by applicability evaluation"@en ;
+    rdfs:comment "The referenced evaluation must concern the step element, evaluate a Criterion linked to the step technique, and have a satisfied outcome before the step can enter a computed path."@en ;
+    rsso:requirement "L3-R03", "L3-R04" .
+
+rss-attack:safetyImpactFromAttackPath a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range rss-attack:AttackPathResult ;
+    rdfs:label "safety impact from attack path"@en ;
+    rdfs:comment "Links a derived safety-impact result to the attack path whose reached target or traversed flow exposed the safety concern. This link does not allocate or infer SIL."@en ;
+    rsso:requirement "L3-R06" .
+
+rss-attack:safetyImpactConcernsElement a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range rss-core:Element ;
+    rdfs:label "safety impact concerns element"@en ;
+    rsso:requirement "L3-R06" .
+
+rss-attack:safetyImpactConcernsPayload a owl:ObjectProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range rss-core:Payload ;
+    rdfs:label "safety impact concerns payload"@en ;
+    rsso:requirement "L3-R06" .
+
+rss-attack:ranksAttackPath a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range rss-attack:AttackPathResult ;
+    rdfs:label "ranks attack path"@en ;
+    rdfs:comment "Links an ordering entry to the attack path being prioritised. This is review ordering evidence, not proof of attack occurrence."@en ;
+    rsso:requirement "L3-R07" .
+
+rss-attack:profileForTechnique a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-attack:AttackTechnique ;
+    rdfs:label "profile for technique"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:profileUsesApplicabilityCriterion a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-crit:Criterion ;
+    rdfs:label "profile uses applicability criterion"@en ;
+    rdfs:comment "Links a technique profile to the sourced three-valued Criterion that can make the technique applicable to a candidate element."@en ;
+    rsso:requirement "L3-R03", "L3-R05" .
+
+rss-attack:hasTechniquePrecondition a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-attack:AttackTechniquePrecondition ;
+    rdfs:label "has technique precondition"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:hasTechniqueEffect a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range rss-attack:AttackTechniqueEffect ;
+    rdfs:label "has technique effect"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:preconditionRequiresEvaluationOf a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniquePrecondition ;
+    rdfs:range rss-crit:Criterion ;
+    rdfs:label "precondition requires evaluation of"@en ;
+    rdfs:comment "Identifies the upstream L1/L2 or L3 CriterionEvaluation evidence required by a technique precondition. The required outcome is represented by the consuming rule and remains three-valued."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:preconditionRequiresAccessMechanism a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniquePrecondition ;
+    rdfs:range rss-core:AccessMechanism ;
+    rdfs:label "precondition requires access mechanism"@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:effectCreatesAttackState a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range rss-attack:AttackState ;
+    rdfs:label "effect creates attack state"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:effectEnablesAccessMechanism a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range rss-core:AccessMechanism ;
+    rdfs:label "effect enables access mechanism"@en ;
+    rsso:requirement "L3-R05" .
+
+rss-attack:effectAffectsSecurityProperty a owl:ObjectProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range rss-core:SecurityProperty ;
+    rdfs:label "effect affects security property"@en ;
+    rsso:requirement "L3-R05" .
+
+### Identifiers and ordering
+
+rss-attack:attackExternalIdentifier a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( rss-attack:AttackTechnique rss-attack:AttackTactic ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "attack external identifier"@en ;
+    rsso:requirement "L3-R01" .
+
+rss-attack:attackPathStepPosition a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackPathStep ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:label "attack-path step position"@en ;
+    rsso:requirement "L3-R04" .
+
+rss-attack:safetyImpactKind a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:SafetyImpactResult ;
+    rdfs:range xsd:string ;
+    rdfs:label "safety impact kind"@en ;
+    rdfs:comment "Controlled implementation label for why an attack path is linked to a safety concern, e.g. safety-critical-asset, safety-function-dependency, fail-safe-dependency, or safety-related-payload. The value is not a SIL."@en ;
+    rsso:requirement "L3-R06" .
+
+rss-attack:attackPathPriorityScore a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "attack-path priority score"@en ;
+    rdfs:comment "Deterministic review-priority score for ordering materialised attack paths. It is derived from path evidence and safety-impact links; it is not a SIL, CVSS score or probability."@en ;
+    rsso:requirement "L3-R07" .
+
+rss-attack:attackPathSafetyImpactCount a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "attack-path safety-impact count"@en ;
+    rsso:requirement "L3-R07" .
+
+rss-attack:attackPathStepCount a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-res:OrderingEntry ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "attack-path step count"@en ;
+    rsso:requirement "L3-R07" .
+
+rss-attack:executionCandidateTypeIri a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-attack:AttackTechniqueProfile ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "execution candidate type IRI"@en ;
+    rdfs:comment "The class of architecture element on which this profiled technique may be evaluated, kept as an IRI literal so the executable rule can consume it without making ATT&CK dictionary membership into applicability."@en ;
+    rsso:requirement "L3-R03" .
+
+rss-attack:effectAffectsElementTypeIri a owl:DatatypeProperty ;
+    rdfs:domain rss-attack:AttackTechniqueEffect ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "effect affects element type IRI"@en ;
+    rsso:requirement "L3-R05" .
+
+### Pinned source record — vocabulary source, not an applicability assertion
+
+rss-attack:MITREAttack a rss-crit:Source ;
+    rss-crit:fullReference "MITRE ATT&CK for ICS, official STIX 2.1 collection" ;
+    rss-crit:sourceRole "versioned attack-technique and tactic vocabulary" ;
+    rss-crit:accessCondition "Public web and GitHub access under the ATT&CK Terms of Use" ;
+    rss-crit:reproductionRestriction "Retain the ATT&CK attribution and Terms of Use notice; import only the selected fields required by this ontology." .
+
+rss-attack:MITREAttackICS19_2 a rss-crit:SourceEdition ;
+    rss-crit:editionOf rss-attack:MITREAttack ;
+    rss-crit:editionLabel "ATT&CK for ICS 19.2 (STIX 2.1)" ;
+    rss-crit:consultationStatus "full" .
+
+rss-attack:MITREAttackICS19_2VocabularyVersion a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "ATT&CK-ICS-19.2" .
+
+rss-attack:MITREAttackICS19_2Collection a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-attack:MITREAttackICS19_2 ;
+    rss-crit:sourceLocator "Official collection x-mitre-collection--90c00720-636b-4485-b342-8751d232bf09; https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/ics-attack/ics-attack-19.2.json" .

@@ -1,0 +1,150 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rss-attack: <https://w3id.org/railsec-scope/attack#>
+PREFIX rss-crit: <https://w3id.org/railsec-scope/criteria#>
+PREFIX rss-res: <https://w3id.org/railsec-scope/results#>
+PREFIX rss-rule: <https://w3id.org/railsec-scope/rules#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# M7-R01. A technique-applicability Criterion consumes the outcomes of its
+# declared L1/L2 prerequisites for the same named candidate element and Run.
+# The candidate type is declared by the Criterion, not hard-coded in this rule.
+# The rule does not consume inferred vulnerable-flow class membership and never
+# asserts attack occurrence. Missing, undetermined or conflicting evidence stays
+# unknown.
+
+CONSTRUCT {
+  ?evaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?candidate ;
+      rss-res:evaluatesCriterion ?criterion ;
+      rss-res:hasEvaluationOutcome ?outcome ;
+      rss-res:hasDerivationRecord ?record ;
+      rss-res:producedByRun ?run .
+  ?record a rss-res:DerivationRecord ;
+      rss-res:hasStep ?step ;
+      rss-res:completenessStatus ?completeness ;
+      rss-res:hasUnresolvedInput ?unresolved .
+  ?unresolved a rss-res:UnresolvedInput .
+  ?step a rss-res:DerivationStep ;
+      rss-res:stepPosition 1 ;
+      rss-res:layerIdentifier "L3" ;
+      rss-res:appliedCriterion ?criterion ;
+      rss-res:executedByMechanism rss-rule:EvaluateAttackTechniqueApplicability ;
+      rss-res:usedEntity ?usedEvaluation ;
+      prov:used ?candidate, ?technique ;
+      rss-res:generatedResult ?evaluation .
+}
+WHERE {
+  ?run a rss-res:Run .
+  ?criterion a rss-crit:Criterion ;
+      rss-attack:assessesAttackTechnique ?technique ;
+      rss-attack:requiresSatisfiedEvaluationOf ?anchorCriterion ;
+      rss-crit:stageCandidateTypeIri ?candidateTypeIri .
+  ?anchorEvaluation a rss-res:CriterionEvaluation ;
+      rss-res:evaluationConcernsElement ?candidate ;
+      rss-res:evaluatesCriterion ?anchorCriterion ;
+      rss-res:hasEvaluationOutcome ?anchorOutcome ;
+      rss-res:producedByRun ?run .
+  FILTER(?anchorOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+  BIND(IRI(STR(?candidateTypeIri)) AS ?candidateType)
+  {
+    ?candidate a ?candidateType .
+  }
+  UNION
+  {
+    ?candidate a ?declaredType .
+    ?declaredType rdfs:subClassOf ?candidateType .
+  }
+  {
+    ?candidate a rss-crit:CandidateExaminationTarget .
+  }
+  UNION
+  {
+    ?candidate a rss-crit:EntryPoint .
+  }
+
+  {
+    SELECT ?run ?criterion ?candidate
+           (SUM(?presentFlag) AS ?presentCount)
+           (COUNT(?requiredCriterion) AS ?requiredCount)
+           (SUM(?undeterminedFlag) AS ?undeterminedCount)
+           (SUM(?negativeFlag) AS ?negativeCount)
+           (SUM(?conflictFlag) AS ?conflictCount)
+    WHERE {
+      {
+        SELECT ?run ?criterion ?candidate ?requiredCriterion
+               (MAX(IF(BOUND(?knownEvaluation), 1, 0)) AS ?presentFlag)
+               (MAX(IF(!BOUND(?knownOutcome), 0, IF(?knownOutcome = rss-res:undetermined, 1, 0))) AS ?undeterminedFlag)
+               (MAX(IF(!BOUND(?knownOutcome), 0, IF(?knownOutcome = rss-res:notSatisfied, 1, 0))) AS ?negativeFlag)
+               (COUNT(DISTINCT ?knownOutcome) AS ?outcomeKinds)
+        WHERE {
+          ?run a rss-res:Run .
+          ?criterion a rss-crit:Criterion ;
+              rss-attack:assessesAttackTechnique ?technique ;
+              rss-attack:requiresSatisfiedEvaluationOf ?anchorCriterion ;
+              rss-attack:requiresSatisfiedEvaluationOf ?requiredCriterion ;
+              rss-crit:stageCandidateTypeIri ?candidateTypeIri .
+          ?anchorEvaluation a rss-res:CriterionEvaluation ;
+              rss-res:evaluationConcernsElement ?candidate ;
+              rss-res:evaluatesCriterion ?anchorCriterion ;
+              rss-res:hasEvaluationOutcome ?anchorOutcome ;
+              rss-res:producedByRun ?run .
+          FILTER(?anchorOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+          BIND(IRI(STR(?candidateTypeIri)) AS ?candidateType)
+          {
+            ?candidate a ?candidateType .
+          }
+          UNION
+          {
+            ?candidate a ?declaredType .
+            ?declaredType rdfs:subClassOf ?candidateType .
+          }
+          {
+            ?candidate a rss-crit:CandidateExaminationTarget .
+          }
+          UNION
+          {
+            ?candidate a rss-crit:EntryPoint .
+          }
+          OPTIONAL {
+            ?knownEvaluation a rss-res:CriterionEvaluation ;
+                rss-res:evaluationConcernsElement ?candidate ;
+                rss-res:evaluatesCriterion ?requiredCriterion ;
+                rss-res:hasEvaluationOutcome ?knownOutcome ;
+                rss-res:producedByRun ?run .
+            FILTER(?knownOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+          }
+        }
+        GROUP BY ?run ?criterion ?candidate ?requiredCriterion
+      }
+      BIND(IF(?outcomeKinds > 1, 1, 0) AS ?conflictFlag)
+    }
+    GROUP BY ?run ?criterion ?candidate
+  }
+  FILTER(?presentCount > 0)
+
+  OPTIONAL {
+    ?usedEvaluation a rss-res:CriterionEvaluation ;
+        rss-res:evaluationConcernsElement ?candidate ;
+        rss-res:evaluatesCriterion ?usedCriterion ;
+        rss-res:hasEvaluationOutcome ?usedOutcome ;
+        rss-res:producedByRun ?run .
+    ?criterion rss-attack:requiresSatisfiedEvaluationOf ?usedCriterion .
+    FILTER(?usedOutcome IN (rss-res:satisfied, rss-res:notSatisfied, rss-res:undetermined))
+  }
+
+  BIND(
+    IF(?presentCount < ?requiredCount || ?undeterminedCount > 0 || ?conflictCount > 0, rss-res:undetermined,
+       IF(?negativeCount > 0, rss-res:notSatisfied, rss-res:satisfied))
+    AS ?outcome
+  )
+  BIND(IF(?outcome = rss-res:undetermined, "incomplete", "complete") AS ?completeness)
+  BIND(IRI(CONCAT(STR(?candidate), "/evaluation/attack-applicability/", MD5(CONCAT(STR(?criterion), STR(?run))))) AS ?evaluation)
+  BIND(IRI(CONCAT(STR(?evaluation), "/derivation")) AS ?record)
+  BIND(IRI(CONCAT(STR(?evaluation), "/step/1")) AS ?step)
+  # An error in the false branch deliberately leaves the variable unbound, so
+  # complete records do not acquire a misleading UnresolvedInput.
+  BIND(IF(?outcome = rss-res:undetermined,
+          IRI(CONCAT(STR(?evaluation), "/unresolved/prerequisite")),
+          ?intentionallyUnbound) AS ?unresolved)
+  FILTER(isIRI(?candidate) && isIRI(?run) && isIRI(?criterion) && isIRI(?technique) && isIRI(?candidateType))
+}

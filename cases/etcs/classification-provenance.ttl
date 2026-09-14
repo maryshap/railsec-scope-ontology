@@ -27,7 +27,6 @@ case:source-ontology-model-workbook a rss-crit:Source ;
 case:edition-ontology-model-workbook a rss-crit:SourceEdition ;
     rss-crit:editionOf case:source-ontology-model-workbook ;
     rss-crit:editionLabel "retained workbook identified by SHA-256 9563FA315813F7EAE9881494B5C627CB61FA47830FF13C97B3D9145B4CE573BC" ;
-    rss-crit:accessDate "2026-09-14"^^xsd:date ;
     rss-crit:consultationStatus "full" .
 
 case:source-location-zone-z-06 a rss-crit:SourceLocation ;

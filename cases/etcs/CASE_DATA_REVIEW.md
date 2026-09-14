@@ -10,8 +10,8 @@ interfaces, 148 directed information flows and 29 functions. Its dataset-level
 source is `Ontology_model.xlsx`, recorded in `abox.ttl` by SHA-256 digest. The
 field admission policy is retained in `mapping.csv` and `unmapped.csv`.
 
-The retained workbook edition is now registered by SHA-256, consultation date
-and exact worksheet-row locations for the newly admitted facts. The
+The retained workbook edition is now registered by SHA-256, consultation
+status and exact worksheet-row locations for the newly admitted facts. The
 deployment/configuration identifier, architecture-document editions and
 observation date have not been frozen. This remains a reconstructed reference
 architecture rather than a claim about one operational deployment at a stated

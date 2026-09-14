@@ -34,7 +34,7 @@ CQ-32	empty-by-design	0	representative	ORF-39: no instance may violate a declare
 CQ-33	answered	1	l3
 CQ-34	answered	1	l3
 CQ-35	empty-by-design	0	l3	the explicit L3 fixture Selection matches its CandidateSet exactly
-CQ-36	answered	1391	representative
+CQ-36	answered	1403	representative
 CQ-37	deferred		none	subsystem extension not present
 CQ-38	deferred		none	RunComparison not implemented
 CQ-39	empty-by-design	0	representative	ORF-47: no term or criterion is deprecated at this version

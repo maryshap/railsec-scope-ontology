@@ -59,7 +59,7 @@ ANSWERED: dict[str, int] = {
     "CQ-31": 1,
     "CQ-33": 1,
     "CQ-34": 1,
-    "CQ-36": 1391,  # +17: nine classification assumptions, four identity assumptions, two bases, one agent, one instance-set reference
+    "CQ-36": 1403,  # +12 from ETCS source review: one Source, one SourceEdition, four SourceLocations, four AssertedFacts and two zone types
     "CQ-40": 23,
     "CQ-41": 92,
     "CQ-43": 35,

@@ -166,15 +166,22 @@ def run_reasoner(graph: Graph) -> bool:
     return True
 
 
-def apply_rules(graph: Graph, progress=None) -> int:
-    """Apply every rule stage once. Returns the number of triples added."""
+def apply_rules(graph: Graph, run_iri: URIRef, progress=None) -> int:
+    """Apply every rule stage once for one explicitly selected analysis Run.
+
+    Case datasets may contain other ``Run`` individuals as provenance for
+    imports or earlier analyses.  Leaving ``?run`` unbound would execute every
+    CONSTRUCT once for each of them and contaminate the current result graph.
+    ``initBindings`` makes the orchestrator-selected Run part of the execution
+    contract without embedding case-specific state in the rule files.
+    """
     before = len(graph)
     for filename in STAGE_RULES:
         if progress is not None:
             progress(f"  rule {filename}")
         started = time.perf_counter()
         query = (PROJECT / "rules" / filename).read_text(encoding="utf-8")
-        graph += graph.query(query).graph
+        graph += graph.query(query, initBindings={"run": run_iri}).graph
         if progress is not None:
             progress(f"  rule {filename}: {time.perf_counter() - started:.1f}s")
     return len(graph) - before
@@ -353,7 +360,7 @@ def execute(
         reasoned = run_reasoner(graph)
         result.reasoner_invoked = result.reasoner_invoked or reasoned
         progress(f"iteration {iteration}: rules")
-        apply_rules(graph, progress=progress)
+        apply_rules(graph, result.run_iri, progress=progress)
         progress(f"iteration {iteration}: materialise assignments")
         materialise_assignments(graph, result.run_iri)
         progress(f"iteration {iteration}: materialise candidate set")
@@ -416,6 +423,8 @@ def summarise(result: RunResult) -> str:
     if graph is not None:
         counts = {}
         for evaluation in graph.subjects(RDF.type, RES.CriterionEvaluation):
+            if graph.value(evaluation, RES.producedByRun) != result.run_iri:
+                continue
             outcome = graph.value(evaluation, RES.hasEvaluationOutcome)
             key = str(outcome).split("#")[-1] if outcome else "missing"
             counts[key] = counts.get(key, 0) + 1

@@ -25,6 +25,8 @@ RULE = Namespace("https://w3id.org/railsec-scope/rules#")
 L3 = Namespace("https://w3id.org/railsec-scope/l3/")
 PROV = Namespace("http://www.w3.org/ns/prov#")
 
+VALID_OUTCOMES = {RES.satisfied, RES.notSatisfied, RES.undetermined}
+
 
 def _iri(kind: str, *parts: URIRef | str) -> URIRef:
     material = "\u001f".join(map(str, parts)).encode("utf-8")
@@ -49,6 +51,93 @@ def _vulnerable_types(graph: Graph) -> set[URIRef]:
 
 def _is_instance_of(graph: Graph, resource: URIRef, root: URIRef) -> bool:
     return any((resource, RDF.type, class_iri) in graph for class_iri in _classes_with_subclasses(graph, root))
+
+
+def apply_attack_technique_applicability(graph: Graph, run_iri: URIRef) -> int:
+    """Evaluate sourced ATT&CK criteria over their declared candidate type.
+
+    This is the indexed operational form of M7-R01.  Iterating the RDF indexes
+    directly avoids the quadratic behaviour of the equivalent aggregate
+    SPARQL query on case-study graphs, while preserving its same-element,
+    same-Run and three-valued evidence contract.
+    """
+    before = len(graph)
+    criteria = sorted(set(graph.subjects(ATTACK.assessesAttackTechnique, None)), key=str)
+    for criterion in criteria:
+        technique = graph.value(criterion, ATTACK.assessesAttackTechnique)
+        candidate_type_literal = graph.value(criterion, CRIT.stageCandidateTypeIri)
+        required = sorted(set(graph.objects(criterion, ATTACK.requiresSatisfiedEvaluationOf)), key=str)
+        if not isinstance(technique, URIRef) or candidate_type_literal is None or not required:
+            continue
+        candidate_type = URIRef(str(candidate_type_literal))
+
+        candidate_evaluations: dict[URIRef, dict[URIRef, list[tuple[URIRef, URIRef]]]] = {}
+        for required_criterion in required:
+            for evaluation in graph.subjects(RES.evaluatesCriterion, required_criterion):
+                if not isinstance(evaluation, URIRef):
+                    continue
+                if graph.value(evaluation, RES.producedByRun) != run_iri:
+                    continue
+                candidate = graph.value(evaluation, RES.evaluationConcernsElement)
+                outcome = graph.value(evaluation, RES.hasEvaluationOutcome)
+                if not isinstance(candidate, URIRef) or outcome not in VALID_OUTCOMES:
+                    continue
+                candidate_evaluations.setdefault(candidate, {}).setdefault(required_criterion, []).append(
+                    (evaluation, outcome)
+                )
+
+        for candidate in sorted(candidate_evaluations, key=str):
+            if not _is_instance_of(graph, candidate, candidate_type):
+                continue
+            evidence = candidate_evaluations[candidate]
+            outcome_sets = {
+                required_criterion: {outcome for _, outcome in evidence.get(required_criterion, [])}
+                for required_criterion in required
+            }
+            undetermined = any(
+                not outcomes or RES.undetermined in outcomes or len(outcomes) > 1
+                for outcomes in outcome_sets.values()
+            )
+            if undetermined:
+                outcome = RES.undetermined
+            elif any(RES.notSatisfied in outcomes for outcomes in outcome_sets.values()):
+                outcome = RES.notSatisfied
+            else:
+                outcome = RES.satisfied
+
+            digest = hashlib.md5(
+                f"{criterion}{run_iri}".encode("utf-8"), usedforsecurity=False
+            ).hexdigest()
+            evaluation = URIRef(f"{candidate}/evaluation/attack-applicability/{digest}")
+            record = URIRef(f"{evaluation}/derivation")
+            step = URIRef(f"{evaluation}/step/1")
+            graph.add((evaluation, RDF.type, RES.CriterionEvaluation))
+            graph.add((evaluation, RES.evaluationConcernsElement, candidate))
+            graph.add((evaluation, RES.evaluatesCriterion, criterion))
+            graph.add((evaluation, RES.hasEvaluationOutcome, outcome))
+            graph.add((evaluation, RES.hasDerivationRecord, record))
+            graph.add((evaluation, RES.producedByRun, run_iri))
+            graph.add((record, RDF.type, RES.DerivationRecord))
+            graph.add((record, RES.hasStep, step))
+            graph.add((record, RES.completenessStatus, Literal(
+                "incomplete" if outcome == RES.undetermined else "complete"
+            )))
+            graph.add((step, RDF.type, RES.DerivationStep))
+            graph.add((step, RES.stepPosition, Literal(1)))
+            graph.add((step, RES.layerIdentifier, Literal("L3")))
+            graph.add((step, RES.appliedCriterion, criterion))
+            graph.add((step, RES.executedByMechanism, RULE.EvaluateAttackTechniqueApplicability))
+            graph.add((step, RES.generatedResult, evaluation))
+            graph.add((step, PROV.used, candidate))
+            graph.add((step, PROV.used, technique))
+            for required_criterion in required:
+                for used_evaluation, _ in sorted(evidence.get(required_criterion, []), key=lambda pair: str(pair[0])):
+                    graph.add((step, RES.usedEntity, used_evaluation))
+            if outcome == RES.undetermined:
+                unresolved = URIRef(f"{evaluation}/unresolved/prerequisite")
+                graph.add((record, RES.hasUnresolvedInput, unresolved))
+                graph.add((unresolved, RDF.type, RES.UnresolvedInput))
+    return len(graph) - before
 
 
 def _entry_assignments(graph: Graph, run_iri: URIRef) -> list[tuple[URIRef, URIRef]]:

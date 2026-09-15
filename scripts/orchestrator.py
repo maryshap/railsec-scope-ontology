@@ -70,7 +70,6 @@ STAGE_RULES = [
     "evaluate-asset-zone-classification.rq",
     "classify-derived-membership.rq",
     "classify-candidate.rq",
-    "evaluate-attack-technique-applicability.rq",
 ]
 
 # Categories that only L1 or L2 may confer. If an individual acquires one of
@@ -296,7 +295,10 @@ def materialise_candidate_set(graph: Graph, run_iri: URIRef) -> int:
 
 def apply_l3(graph: Graph, run_iri: URIRef) -> int:
     """Run declared L3 computations inside the fixed-point loop."""
-    return l3.apply(graph, run_iri)
+    before = len(graph)
+    l3.apply_attack_technique_applicability(graph, run_iri)
+    l3.apply(graph, run_iri)
+    return len(graph) - before
 
 
 def guarded_category_violations(graph: Graph) -> list[str]:

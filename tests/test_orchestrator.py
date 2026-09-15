@@ -32,11 +32,7 @@ import orchestrator  # noqa: E402
 from orchestrator import CRIT, RES, RUN  # noqa: E402
 
 
-CONTRACT_STAGE_RULES = [
-    rule
-    for rule in orchestrator.STAGE_RULES
-    if rule != "evaluate-attack-technique-applicability.rq"
-]
+CONTRACT_STAGE_RULES = list(orchestrator.STAGE_RULES)
 
 FIXTURES = [PROJECT / "fixtures" / "railway-category" / "minimal.ttl"]
 _EXECUTE_CACHE: dict[tuple[tuple[Path, ...], str, int], orchestrator.RunResult] = {}

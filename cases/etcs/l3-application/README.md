@@ -1,5 +1,8 @@
 # Applying the completed L3 profile to ETCS
 
+The current scenario-level application results and their evidence boundary are
+recorded in [APPLICATION_RESULTS.md](APPLICATION_RESULTS.md).
+
 The L3 mechanism is complete for its declared minimal ATT&CK ICS 19.2 profile.
 This directory concerns case-data readiness and retained ETCS results, not a
 new ontology layer.
@@ -33,3 +36,13 @@ An empty result before these inputs are supplied is not evidence that no path
 exists. ETCS L3 output becomes a material case-study result only after the
 relevant preconditions are sourced or explicitly introduced as scenario
 assumptions.
+
+For a reproducible machine-readable summary of retained result graphs, run:
+
+```text
+python scripts/summarise_etcs_l3_application.py [result.ttl ...]
+```
+
+Use `--recompute-applicability` only to apply the current deterministic L3
+computation in memory to an older retained result graph; it does not modify the
+source file.

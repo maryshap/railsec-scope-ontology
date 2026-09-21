@@ -16,6 +16,8 @@ Forked per scenario as full files, not RDF overlays:
 - `transmission-environment.ttl` — L1 controls and EN 50159 category inputs;
 - `threat-controls.ttl` — detailed EN 50159 Table 1 alternatives consumed by
   transmission-threat criteria.
+- `access-assumptions.ttl` — optional, scenario-only entry-access assumptions;
+  never part of the shared architecture.
 
 RDF has no override semantics. Loading both `true` and `false` for a functional
 control property creates a contradiction; it does not replace the old value.
@@ -44,6 +46,7 @@ python scripts/orchestrator.py \
   cases/etcs/scenarios/<name>/security-facts.ttl \
   cases/etcs/scenarios/<name>/transmission-environment.ttl \
   cases/etcs/scenarios/<name>/threat-controls.ttl \
+  [cases/etcs/scenarios/<name>/access-assumptions.ttl] \
   --run-id <name> --output build/<name>-result.ttl --progress
 ```
 
@@ -54,11 +57,13 @@ stage table. Only a Run with `publishable=true` is final evidence.
 
 | Scenario | Status | Purpose |
 |---|---|---|
-| `protected-baseline` | inputs complete; publishable Run pending | idealised reference with all admitted controls true |
-| `missing-safety-code` | inputs complete; publishable Run pending | one absent defence while an alternative remains true |
-| `missing-corruption-protection` | inputs complete; publishable Run pending | all corruption alternatives absent on one safety-related flow |
-| `unknown-data` | inputs complete; publishable Run pending | one required fact absent, demonstrating `undetermined` |
-| `combined-degradation` | inputs complete; publishable Run pending | two independent degradations after single-change episodes |
+| `realistic-legacy` | publishable Run confirmed in workflow run 34896016005 | migrated deployment evidence with its genuine unknowns and no invented detailed controls |
+| `protected-baseline` | publishable Run confirmed in workflow run 34896016005 | idealised reference with all admitted controls true |
+| `missing-safety-code` | publishable Run confirmed in workflow run 34896016005 | one absent defence while an alternative remains true |
+| `missing-corruption-protection` | publishable Run confirmed in workflow run 34896016005 | all corruption alternatives absent on one safety-related flow |
+| `unknown-data` | publishable Run confirmed in workflow run 34896016005 | one required fact absent, demonstrating `undetermined` |
+| `combined-degradation` | publishable Run confirmed in workflow run 34896016005 | two independent degradations after single-change episodes |
+| `controlled-remote-attack-path` | pre-registered; awaiting publishable workflow result | minimal one-hop L3 counterfactual from NG-FW to safety-critical RBC |
 | `expert-evidence` | awaiting independent source | comparison with the frozen expert risk assessment |
 
 ## Scenario authoring rules

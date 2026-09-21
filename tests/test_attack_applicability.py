@@ -4,11 +4,16 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
+import sys
 
 from rdflib import Graph, Literal, Namespace, RDF, XSD
 
 
 PROJECT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT / "scripts"))
+
+import l3  # noqa: E402
+
 FX = Namespace("https://w3id.org/railsec-scope/fixture/attack-applicability/")
 ATTACK = Namespace("https://w3id.org/railsec-scope/attack#")
 ATTACK_CRIT = Namespace("https://w3id.org/railsec-scope/criteria/attack/")
@@ -28,10 +33,7 @@ def load_graph() -> Graph:
     graph.parse(PROJECT / "rules" / "rules.ttl")
     graph.add((FX.run, RDF.type, RES.Run))
     graph.add((FX.flow, RDF.type, RAIL.RailwayInformationFlow))
-    graph.add((FX.flow, RDF.type, CRIT.CandidateExaminationTarget))
     graph.add((FX.asset, RDF.type, RAIL.SafetyCriticalAsset))
-    graph.add((FX.asset, RDF.type, CRIT.CandidateExaminationTarget))
-    graph.add((FX.asset, RDF.type, CRIT.EntryPoint))
     return graph
 
 
@@ -45,8 +47,7 @@ def add_evaluation(graph: Graph, name: str, criterion, outcome, element=FX.flow)
 
 
 def apply_rule(graph: Graph) -> None:
-    query = (PROJECT / "rules" / "evaluate-attack-technique-applicability.rq").read_text(encoding="utf-8")
-    graph += graph.query(query).graph
+    l3.apply_attack_technique_applicability(graph, FX.run)
 
 
 def evaluation_for(graph: Graph, criterion, element=FX.flow):
@@ -229,6 +230,25 @@ class AttackApplicabilityTest(unittest.TestCase):
         self.assertEqual(RES.satisfied, graph.value(evaluation, RES.hasEvaluationOutcome))
         step = graph.value(graph.value(evaluation, RES.hasDerivationRecord), RES.hasStep)
         self.assertEqual(FX.asset, graph.value(step, RES.generatedResult / RES.evaluationConcernsElement))
+
+    def test_candidate_does_not_require_assessment_category_membership(self) -> None:
+        graph = load_graph()
+        self.assertNotIn((FX.flow, RDF.type, CRIT.CandidateExaminationTarget), graph)
+        self.assertNotIn((FX.flow, RDF.type, CRIT.EntryPoint), graph)
+        add_evaluation(graph, "confidentiality", RAIL_CRIT["l1-confidentiality-criterion"], RES.satisfied)
+
+        apply_rule(graph)
+
+        evaluation = evaluation_for(
+            graph,
+            ATTACK_CRIT["t0842-network-sniffing-confidentiality-criterion"],
+        )
+        self.assertIsNotNone(evaluation)
+        self.assertEqual(RES.satisfied, graph.value(evaluation, RES.hasEvaluationOutcome))
+
+        size_after_first_application = len(graph)
+        apply_rule(graph)
+        self.assertEqual(size_after_first_application, len(graph))
 
 
 if __name__ == "__main__":

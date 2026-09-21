@@ -821,12 +821,21 @@ turn a candidate vocabulary into unsupported threat modelling.
 
 ## CR-B-028 — Generic L3 applicability candidates and attack-aware traversal
 
-**Decision.** `evaluate-attack-technique-applicability.rq` no longer hard-codes
-`RailwayInformationFlow` as the only candidate type. The rule reads the
+**Decision.** The technique-applicability computation does not hard-code
+`RailwayInformationFlow` as the only candidate type. It reads the
 candidate type from `rss-crit:stageCandidateTypeIri` on the Criterion and then
 evaluates same-element, same-Run prerequisites for that declared type. This
 allows future asset-level and entry-point-level ATT&CK criteria without moving
 case-study facts into the ontology.
+
+The operational implementation is `apply_attack_technique_applicability` in
+`scripts/l3.py`. It does not require a candidate to be asserted as
+`CandidateExaminationTarget` or `EntryPoint`: the declared candidate type and
+same-element prerequisite evaluations are the evidence boundary. This avoids
+mixing derived assessment categories into the ABox. The indexed implementation
+replaces the equivalent aggregate SPARQL execution because that query exhibited
+case-size-dependent quadratic behaviour on the ETCS graph; the three-valued
+outcome and provenance contract is unchanged.
 
 M7 also introduces explicit technique-profile vocabulary for execution
 candidate type, preconditions and effects. Profiles can refer to the sourced

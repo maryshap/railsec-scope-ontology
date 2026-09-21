@@ -18,8 +18,11 @@ import re
 import sys
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from rdflib import BNode, Graph, RDF, URIRef
+from rdflib.compare import isomorphic
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -29,11 +32,7 @@ import orchestrator  # noqa: E402
 from orchestrator import CRIT, RES, RUN  # noqa: E402
 
 
-CONTRACT_STAGE_RULES = [
-    rule
-    for rule in orchestrator.STAGE_RULES
-    if rule != "evaluate-attack-technique-applicability.rq"
-]
+CONTRACT_STAGE_RULES = list(orchestrator.STAGE_RULES)
 
 FIXTURES = [PROJECT / "fixtures" / "railway-category" / "minimal.ttl"]
 _EXECUTE_CACHE: dict[tuple[tuple[Path, ...], str, int], orchestrator.RunResult] = {}
@@ -131,6 +130,42 @@ class OrchestratorContractTest(unittest.TestCase):
         if not self.result.reasoner_invoked:
             self.assertFalse(self.result.publishable)
             self.assertTrue(any("reasoner" in reason for reason in self.result.refusals))
+
+    def test_reasoner_resolves_project_imports_through_the_catalog(self) -> None:
+        completed = SimpleNamespace(returncode=1, stdout="", stderr="diagnostic")
+        with (
+            patch.object(orchestrator, "reasoner_available", return_value=True),
+            patch.object(orchestrator.subprocess, "run", return_value=completed) as run,
+        ):
+            self.assertFalse(orchestrator.run_reasoner(Graph()))
+
+        command = run.call_args.args[0]
+        self.assertEqual("--catalog", command[4])
+        self.assertEqual(str(PROJECT / "catalog-v001.xml"), command[5])
+
+    def test_reasoner_replaces_relabelled_blank_nodes_instead_of_accumulating_them(self) -> None:
+        graph = Graph().parse(
+            data="@prefix ex: <https://example.test/> . ex:item ex:has [ ex:value ex:v ] .",
+            format="turtle",
+        )
+        expected = Graph().parse(data=graph.serialize(format="turtle"), format="turtle")
+
+        def write_reasoned_output(command, **_kwargs):
+            target = Path(command[-1])
+            target.write_text(
+                "@prefix ex: <https://example.test/> . ex:item ex:has [ ex:value ex:v ] .",
+                encoding="utf-8",
+            )
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+        with (
+            patch.object(orchestrator, "reasoner_available", return_value=True),
+            patch.object(orchestrator.subprocess, "run", side_effect=write_reasoned_output),
+        ):
+            self.assertTrue(orchestrator.run_reasoner(graph))
+
+        self.assertEqual(len(expected), len(graph))
+        self.assertTrue(isomorphic(expected, graph))
 
 
 class RunScopingTest(unittest.TestCase):
@@ -235,12 +270,18 @@ class RefusalTest(unittest.TestCase):
             orchestrator.MAX_ITERATIONS = original
 
     def test_input_validation_failure_stops_before_derivation(self) -> None:
-        bad = PROJECT / "fixtures" / "k-constraints"
-        candidates = sorted(bad.glob("*negative*.ttl")) if bad.exists() else []
-        if not candidates:
-            self.skipTest("no negative fixture available")
-        result = execute_contract([candidates[0]], "bad-input")
+        validation_failure = (False, Graph(), Graph())
+        with (
+            patch.object(orchestrator, "validate", return_value=validation_failure),
+            patch.object(orchestrator, "run_reasoner") as reasoner,
+        ):
+            result = execute_contract(FIXTURES, "forced-input-validation-failure")
+
+        self.assertFalse(result.input_validation_conforms)
         self.assertFalse(result.publishable)
+        self.assertTrue(any("input validation failed" in reason for reason in result.refusals))
+        self.assertEqual(0, len(list(result.graph.subjects(RDF.type, RES.CriterionEvaluation))))
+        reasoner.assert_not_called()
 
 
 if __name__ == "__main__":

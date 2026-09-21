@@ -44,7 +44,9 @@ fact sets:
 3. a single-control degradation with a predicted derivation chain;
 4. an `unknown-data` scenario proving the epistemic distinction;
 5. a combined degradation scenario;
-6. an expert-evidence scenario, created only after the independent assessment
+6. a controlled remote attack-path scenario with explicit counterfactual access
+   and protection assumptions for exercising L3;
+7. an expert-evidence scenario, created only after the independent assessment
    has been encoded without consulting ontology results.
 
 Every episode must have a unique Run identifier, artefact digest, input and
@@ -110,10 +112,11 @@ report is demonstrably exhaustive for the same boundary and finding universe.
 | Architecture migration | `abox.ttl`, `mapping.csv`, `unmapped.csv` | structurally available; domain/source review remains |
 | Safety classification | `classification-provenance.ttl` | provisional assessor judgement; review remains |
 | Realistic security/environment facts | `security-facts.ttl`, `transmission-environment.ttl` | available with documented unknowns |
-| Controlled scenarios | protected baseline and missing safety code | facts available; final publishable Runs absent |
-| Payload direction | `PAYLOAD_DIRECTION_TODO.md` | three directional mappings unresolved |
+| Controlled scenarios | protected baseline, three single/unknown changes and combined degradation | publishable Runs confirmed in GitHub workflow run 34896016005 |
+| Realistic episode | base `security-facts.ttl` and `transmission-environment.ttl` | publishable Run confirmed; detailed alternatives remain genuinely unstated |
+| Payload direction | `PAYLOAD_DIRECTION_TODO.md` | four mappings resolved with provenance; one source conflict remains unresolved |
 | Access/fail-safe evidence | case-wide gaps visible in evaluations | source acquisition/review required |
-| Result reporting | RDF output exists for an earlier local Run | non-publishable and contaminated by a fixed run-isolation defect; regenerate |
+| Result reporting | workflow run 34896016005 produced publishable scenario artifacts | retain the workflow outputs as the current execution evidence; regenerate after source-data changes |
 | Expert comparison | EV-B11 protocol defined here | expert evidence not yet supplied |
 | Final case-study claim | all sections above | open |
 

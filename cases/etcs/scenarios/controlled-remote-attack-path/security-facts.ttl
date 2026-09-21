@@ -3040,10 +3040,10 @@ case:flow-if-it-10-forward-authenticationEnabled-protected-assumption a rss-core
     rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
     rss-res:assertedInInstanceSet case:instance-set .
 
-case:flow-if-it-10-forward-encryptionEnabled-protected-assumption a rss-core:Assumption ;
+case:flow-if-it-10-forward-encryptionEnabled-controlled-remote-attack-path-assumption a rss-core:Assumption ;
     prov:wasAttributedTo case:assessor ;
-    prov:wasDerivedFrom case:scenario-protected-baseline-basis ;
-    rss-core:assertionObjectLiteral true ;
+    prov:wasDerivedFrom case:scenario-controlled-remote-attack-path-basis ;
+    rss-core:assertionObjectLiteral false ;
     rss-core:assertionPredicateIri "https://w3id.org/railsec-scope/railway#encryptionEnabled"^^xsd:anyURI ;
     rss-core:assertionSubject case:flow-if-it-10-forward ;
     rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
@@ -9331,10 +9331,10 @@ case:flow-if-ts-12-reverse-timeoutMechanismEnabled-protected-assumption a rss-co
     rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
     rss-res:assertedInInstanceSet case:instance-set .
 
-<https://w3id.org/railsec-scope/case/etcs/scenario/unknown-data/security-facts> a owl:Ontology ;
+<https://w3id.org/railsec-scope/case/etcs/scenario/controlled-remote-attack-path/security-facts> a owl:Ontology ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/railway> ;
-    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/scenario/unknown-data/security-facts/version/0.2.0> .
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/scenario/controlled-remote-attack-path/security-facts/version/0.2.0> .
 
 case:payload-DO-21 a rss-rail:SafetyRelatedPayload .
 
@@ -9723,7 +9723,7 @@ case:flow-if-it-09-reverse rss-rail:authenticationEnabled true ;
     rss-rail:timeoutMechanismEnabled true .
 
 case:flow-if-it-10-forward rss-rail:authenticationEnabled true ;
-    rss-rail:encryptionEnabled true ;
+    rss-rail:encryptionEnabled false ;
     rss-rail:integrityProtectionEnabled true ;
     rss-rail:safetyCodeEnabled true ;
     rss-rail:sequenceProtectionEnabled true ;

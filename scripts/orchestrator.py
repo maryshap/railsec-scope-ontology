@@ -37,6 +37,7 @@ from pathlib import Path
 
 from pyshacl import validate
 from rdflib import Graph, Literal, Namespace, RDF, URIRef, XSD
+from rdflib.compare import to_isomorphic
 
 import l3
 
@@ -69,7 +70,6 @@ STAGE_RULES = [
     "evaluate-asset-zone-classification.rq",
     "classify-derived-membership.rq",
     "classify-candidate.rq",
-    "evaluate-attack-technique-applicability.rq",
 ]
 
 # Categories that only L1 or L2 may confer. If an individual acquires one of
@@ -141,7 +141,7 @@ def reasoner_available() -> bool:
     return bool(shutil.which("java")) and (PROJECT / "tools" / "robot.jar").exists()
 
 
-def run_reasoner(graph: Graph) -> bool:
+def run_reasoner(graph: Graph, progress=None) -> bool:
     """Run HermiT through ROBOT and merge the entailments back.
 
     Returns False when the toolchain is unavailable, so the caller can refuse to
@@ -155,15 +155,39 @@ def run_reasoner(graph: Graph) -> bool:
         graph.serialize(destination=str(source), format="turtle")
         completed = subprocess.run(
             ["java", "-jar", str(PROJECT / "tools" / "robot.jar"), "reason",
+             "--catalog", str(PROJECT / "catalog-v001.xml"),
              "--input", str(source), "--reasoner", "HermiT",
              "--equivalent-classes-allowed", "none",
              "--output", str(target)],
             capture_output=True, text=True,
         )
         if completed.returncode != 0 or not target.exists():
+            if progress is not None:
+                detail = (completed.stderr or completed.stdout or "no diagnostic output").strip()
+                progress(
+                    f"reasoner failed (exit {completed.returncode}, "
+                    f"output exists: {target.exists()}): {detail[-4000:]}"
+                )
             return False
-        graph.parse(target)
+        # ROBOT writes a complete reasoned ontology. Parsing that output into
+        # the existing graph would retain the previous serialisation's blank
+        # nodes as well as ROBOT's newly allocated blank-node identifiers.
+        # Repeating the loop would therefore grow the graph even when no new
+        # entailment existed. Replace the graph contents with the complete
+        # reasoner output so blank-node identity remains an implementation
+        # detail rather than false evidence of change.
+        reasoned_graph = Graph()
+        reasoned_graph.parse(target)
+        graph.remove((None, None, None))
+        for prefix, namespace in reasoned_graph.namespaces():
+            graph.bind(prefix, namespace, replace=True)
+        graph += reasoned_graph
     return True
+
+
+def semantic_digest(graph: Graph) -> int:
+    """Return a blank-node-independent digest for fixed-point detection."""
+    return to_isomorphic(graph).graph_digest()
 
 
 def apply_rules(graph: Graph, run_iri: URIRef, progress=None) -> int:
@@ -271,7 +295,10 @@ def materialise_candidate_set(graph: Graph, run_iri: URIRef) -> int:
 
 def apply_l3(graph: Graph, run_iri: URIRef) -> int:
     """Run declared L3 computations inside the fixed-point loop."""
-    return l3.apply(graph, run_iri)
+    before = len(graph)
+    l3.apply_attack_technique_applicability(graph, run_iri)
+    l3.apply(graph, run_iri)
+    return len(graph) - before
 
 
 def guarded_category_violations(graph: Graph) -> list[str]:
@@ -356,8 +383,9 @@ def execute(
     for iteration in range(1, MAX_ITERATIONS + 1):
         result.iterations = iteration
         before = len(graph)
+        before_digest = semantic_digest(graph)
         progress(f"iteration {iteration}: reasoner")
-        reasoned = run_reasoner(graph)
+        reasoned = run_reasoner(graph, progress=progress)
         result.reasoner_invoked = result.reasoner_invoked or reasoned
         progress(f"iteration {iteration}: rules")
         apply_rules(graph, result.run_iri, progress=progress)
@@ -368,7 +396,7 @@ def execute(
         progress(f"iteration {iteration}: L3")
         apply_l3(graph, result.run_iri)
         progress(f"iteration {iteration}: {len(graph) - before} triples added")
-        if len(graph) == before:
+        if semantic_digest(graph) == before_digest:
             result.converged = True
             break
 

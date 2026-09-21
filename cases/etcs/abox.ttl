@@ -12,7 +12,7 @@
 <https://w3id.org/railsec-scope/case/etcs> a owl:Ontology ;
     owl:imports <https://w3id.org/railsec-scope/assessment>,
         <https://w3id.org/railsec-scope/railway> ;
-    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/version/0.1.0> .
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/version/0.2.0> .
 
 case:assumption-ta-01 a rss-core:Assumption ;
     rdfs:comment "The on-board European Vital Computer is assumed to execute only certified and untampered software and logic." ;
@@ -3765,8 +3765,8 @@ case:function-fn-29 a rss-core:Function ;
     rdfs:label "Track Knowledge Storage / Retrieval" ;
     rsso:stableIdentifier "FN-29" .
 
-case:instance-version-0.1.0 a rss-crit:ArtefactVersion ;
-    rss-crit:versionIdentifier "0.1.0" .
+case:instance-version-0.2.0 a rss-crit:ArtefactVersion ;
+    rss-crit:versionIdentifier "0.2.0" .
 
 case:zone-z-06a a rss-core:Group,
         rss-rail:RailwaySecurityZone ;
@@ -3774,6 +3774,7 @@ case:zone-z-06a a rss-core:Group,
     rsso:stableIdentifier "Z-06a" .
 
 case:zone-z-it-fw a rss-core:Group,
+        rss-rail:DMZZone,
         rss-rail:RailwaySecurityZone ;
     rdfs:label "Firewall / DMZ Zone" ;
     rsso:stableIdentifier "Z-IT-FW" .
@@ -4801,6 +4802,7 @@ case:asset-type-network a rss-core:AssetType ;
     rdfs:label "Network" .
 
 case:zone-z-06 a rss-core:Group,
+        rss-rail:ExternalZone,
         rss-rail:RailwaySecurityZone ;
     rdfs:label "Telecommunication / External Network Zone" ;
     rsso:stableIdentifier "Z-06" .
@@ -4874,5 +4876,4 @@ case:asset-ct-01 a rss-core:Asset,
 
 case:instance-set a rss-res:InstanceSet ;
     dcterms:source "Ontology_model.xlsx SHA-256 9563FA315813F7EAE9881494B5C627CB61FA47830FF13C97B3D9145B4CE573BC" ;
-    rss-crit:hasVersion case:instance-version-0.1.0 .
-
+    rss-crit:hasVersion case:instance-version-0.2.0 .

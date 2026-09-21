@@ -3,13 +3,14 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from rdflib import Graph, Literal, Namespace, RDF
+from rdflib import Graph, Literal, Namespace, RDF, XSD
 
 
 PROJECT = Path(__file__).resolve().parents[1]
 CASE_DIR = PROJECT / "cases" / "etcs"
 SCENARIOS = CASE_DIR / "scenarios"
 RAIL = Namespace("https://w3id.org/railsec-scope/railway#")
+CORE = Namespace("https://w3id.org/railsec-scope/core#")
 CRIT = Namespace("https://w3id.org/railsec-scope/criteria#")
 RES = Namespace("https://w3id.org/railsec-scope/results#")
 CASE = Namespace("https://w3id.org/railsec-scope/case/etcs/resource/")
@@ -38,6 +39,9 @@ def scenario_graph(name: str) -> Graph:
     graph = Graph()
     for filename in ("security-facts.ttl", "transmission-environment.ttl", "threat-controls.ttl"):
         graph.parse(SCENARIOS / name / filename)
+    access_assumptions = SCENARIOS / name / "access-assumptions.ttl"
+    if access_assumptions.exists():
+        graph.parse(access_assumptions)
     return graph
 
 
@@ -62,6 +66,7 @@ class EtcsScenarioContractTest(unittest.TestCase):
                 "missing-corruption-protection",
                 "unknown-data",
                 "combined-degradation",
+                "controlled-remote-attack-path",
             )
         }
 
@@ -91,6 +96,9 @@ class EtcsScenarioContractTest(unittest.TestCase):
                 (CASE["flow-if-ts-03-forward"], RAIL.sequenceNumberEnabled),
                 (CASE["flow-if-ts-03-forward"], RAIL.timestampEnabled),
             },
+            "controlled-remote-attack-path": {
+                (CASE["flow-if-it-10-forward"], RAIL.encryptionEnabled),
+            },
         }
         for name, expected_delta in expected.items():
             actual = control_matrix(self.graphs[name], self.flows)
@@ -117,6 +125,24 @@ class EtcsScenarioContractTest(unittest.TestCase):
                     with self.subTest(scenario=name, flow=str(flow), control=str(control)):
                         self.assertLessEqual(len(set(graph.objects(flow, control))), 1)
 
+    def test_controlled_attack_path_assumptions_are_explicit_and_minimal(self) -> None:
+        graph = self.graphs["controlled-remote-attack-path"]
+        entry = CASE["asset-it-01"]
+        target_flow = CASE["flow-if-it-10-forward"]
+        remote_access = RAIL.RemoteAccess
+        self.assertEqual({remote_access}, set(graph.objects(entry, CORE.reachableBy)))
+        self.assertEqual(False, graph.value(target_flow, RAIL.encryptionEnabled).toPython())
+        assumptions = {
+            subject
+            for subject in graph.subjects(RDF.type, CORE.Assumption)
+            if graph.value(subject, CORE.assertionSubject) in {entry, target_flow}
+            and graph.value(subject, CORE.assertionPredicateIri) in {
+                Literal("https://w3id.org/railsec-scope/core#reachableBy", datatype=XSD.anyURI),
+                Literal(str(RAIL.encryptionEnabled), datatype=XSD.anyURI),
+            }
+        }
+        self.assertEqual(2, len(assumptions))
+
 
 class EtcsScenarioBehaviourTest(unittest.TestCase):
     """Execute the relevant L2 slice on real ETCS scenario inputs."""
@@ -131,6 +157,7 @@ class EtcsScenarioBehaviourTest(unittest.TestCase):
                 "missing-corruption-protection",
                 "unknown-data",
                 "combined-degradation",
+                "controlled-remote-attack-path",
             )
         }
 
@@ -154,6 +181,7 @@ class EtcsScenarioBehaviourTest(unittest.TestCase):
             "classify-transmission-category.rq",
             "evaluate-transmission-threat.rq",
             "evaluate-critical-violation.rq",
+            "evaluate-control-weakness.rq",
         ):
             query = (PROJECT / "rules" / filename).read_text(encoding="utf-8")
             graph += graph.query(query, initBindings={"run": run}).graph
@@ -232,6 +260,20 @@ class EtcsScenarioBehaviourTest(unittest.TestCase):
         self.assertEqual(
             RES.undetermined,
             self.outcome(graph, run, sequence_flow, criteria["critical-sequence-criterion"]),
+        )
+
+    def test_controlled_attack_path_has_its_l3_confidentiality_prerequisite(self) -> None:
+        graph, run = self.results["controlled-remote-attack-path"]
+        self.assertEqual(
+            RES.satisfied,
+            self.outcome(
+                graph,
+                run,
+                CASE["flow-if-it-10-forward"],
+                Namespace("https://w3id.org/railsec-scope/criteria/railway/")[
+                    "l1-confidentiality-criterion"
+                ],
+            ),
         )
 
 

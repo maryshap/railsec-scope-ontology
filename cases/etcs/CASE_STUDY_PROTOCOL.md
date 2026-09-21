@@ -44,7 +44,9 @@ fact sets:
 3. a single-control degradation with a predicted derivation chain;
 4. an `unknown-data` scenario proving the epistemic distinction;
 5. a combined degradation scenario;
-6. an expert-evidence scenario, created only after the independent assessment
+6. a controlled remote attack-path scenario with explicit counterfactual access
+   and protection assumptions for exercising L3;
+7. an expert-evidence scenario, created only after the independent assessment
    has been encoded without consulting ontology results.
 
 Every episode must have a unique Run identifier, artefact digest, input and

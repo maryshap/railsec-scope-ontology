@@ -45,6 +45,7 @@ jobs:
           - missing-corruption-protection
           - unknown-data
           - combined-degradation
+          - controlled-remote-attack-path
 
     steps:
       - uses: actions/checkout@v7
@@ -97,11 +98,21 @@ jobs:
               "cases/etcs/scenarios/$scenario/transmission-environment.ttl"
               "cases/etcs/scenarios/$scenario/threat-controls.ttl"
             )
+            $accessAssumptions = "cases/etcs/scenarios/$scenario/access-assumptions.ttl"
+            if (Test-Path -LiteralPath $accessAssumptions) {
+              $inputs += $accessAssumptions
+            }
           }
           python -u scripts/orchestrator.py @inputs `
             --run-id $scenario `
             --output build/$scenario-result.ttl `
             --progress
+      - name: Verify pre-registered controlled L3 result
+        if: matrix.scenario == 'controlled-remote-attack-path'
+        shell: pwsh
+        run: |
+          python scripts/verify_etcs_controlled_attack_path.py `
+            build/controlled-remote-attack-path-result.ttl
       - name: Create readable evidence tables
         if: always()
         shell: pwsh

@@ -19,14 +19,24 @@ new ontology layer.
 6. Safety links and payload direction are used only where stated in the case
    evidence.
 
+The separately pre-registered
+`scenarios/controlled-remote-attack-path` counterfactual now supplies the
+minimum missing evidence without changing the shared ABox: remote access to
+NG-FW and absent encryption on the single directed NG-FW-to-RBC flow. Its
+workflow result is accepted only if the dedicated verifier confirms exactly one
+T0842 path, one ordered step and the safety-critical RBC target without a SIL
+assignment.
+
 ## Current readiness
 
 - Flow-level applicability: computable for criteria whose L1-L2 inputs exist.
 - Asset entry-point applicability: zone semantics are now available for Z-06
   (`ExternalZone`) and Z-IT-FW (`DMZZone`); applicability may be evaluated for
   assets whose remaining criterion inputs exist.
-- Attack-path materialisation: blocked pending entry access evidence, even if
-  entry-point classification is later supplied.
+- Attack-path materialisation in the six previously reported scenarios: blocked
+  by absent entry-access evidence. The new controlled scenario supplies an
+  attributed assumption for that missing evidence and awaits a publishable
+  workflow result.
 - Safety-critical target/function linkage: partially available.
 - Fail-safe linkage: unresolved because `failSafeDependsOn` is absent.
 - Safety-related payload linkage: available for four resolved directed flows;

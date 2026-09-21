@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from rdflib import Graph, Namespace, RDF
@@ -96,6 +97,75 @@ def copy_scenario_pair(source: str, target: str) -> None:
         (target_dir / name).write_text(text, encoding="utf-8")
 
 
+def build_controlled_remote_attack_path() -> None:
+    """Build the minimal counterfactual needed to exercise an ETCS L3 path."""
+    scenario = "controlled-remote-attack-path"
+    flow = "flow-if-it-10-forward"
+    basis = "scenario-controlled-remote-attack-path-basis"
+    copy_scenario_pair("protected-baseline", scenario)
+
+    destination = SCENARIOS / scenario / "security-facts.ttl"
+    text = destination.read_text(encoding="utf-8")
+
+    direct_pattern = re.compile(
+        rf"(case:{flow} rss-rail:authenticationEnabled true ;\n"
+        rf"    rss-rail:encryptionEnabled )true( ;\n)"
+    )
+    text, direct_count = direct_pattern.subn(r"\1false\2", text)
+
+    assertion_pattern = re.compile(
+        rf"(case:{flow}-encryptionEnabled-protected-assumption a rss-core:Assumption ;\n"
+        rf"    prov:wasAttributedTo case:assessor ;\n"
+        rf"    prov:wasDerivedFrom )case:scenario-protected-baseline-basis( ;\n"
+        rf"    rss-core:assertionObjectLiteral )true( ;)"
+    )
+    text, assertion_count = assertion_pattern.subn(
+        rf"case:{flow}-encryptionEnabled-{scenario}-assumption a rss-core:Assumption ;\n"
+        rf"    prov:wasAttributedTo case:assessor ;\n"
+        rf"    prov:wasDerivedFrom case:{basis}\2false\3",
+        text,
+    )
+    if direct_count != 1 or assertion_count != 1:
+        raise RuntimeError(
+            "controlled attack-path aggregate override did not match exactly once: "
+            f"direct={direct_count}, assertion={assertion_count}"
+        )
+    destination.write_text(text, encoding="utf-8")
+
+    access = f"""@prefix case: <https://w3id.org/railsec-scope/case/etcs/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/case/etcs/scenario/{scenario}/access-assumptions> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/assessment>,
+        <https://w3id.org/railsec-scope/railway> ;
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/scenario/{scenario}/access-assumptions/version/0.1.0> .
+
+case:{basis} a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Controlled counterfactual for exercising the L3 attack-path computation: NG-FW (IT-01) is assumed reachable through remote access, and encryption is assumed absent only on directed flow IF-IT-10-forward from NG-FW to RBC. Neither statement is deployment evidence. All other protection values remain those of the protected baseline."@en ;
+    rss-crit:revisionConditions "Replace or reject each assumption independently when controlled architecture, remote-access configuration or interface-security evidence becomes available. Never promote this scenario basis to a fact about the deployed ETCS system."@en .
+
+case:asset-it-01 rss-core:reachableBy rss-rail:RemoteAccess .
+
+case:asset-it-01-remote-access-{scenario}-assumption a rss-core:Assumption ;
+    rdfs:label "Controlled remote-access assumption for NG-FW"@en ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:{basis} ;
+    rss-core:assertionObjectResource rss-rail:RemoteAccess ;
+    rss-core:assertionPredicateIri "https://w3id.org/railsec-scope/core#reachableBy"^^xsd:anyURI ;
+    rss-core:assertionSubject case:asset-it-01 ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set .
+"""
+    (SCENARIOS / scenario / "access-assumptions.ttl").write_text(access, encoding="utf-8")
+
+
 def main() -> None:
     scenarios = {
         "protected-baseline": (
@@ -127,11 +197,17 @@ def main() -> None:
             },
             set(),
         ),
+        "controlled-remote-attack-path": (
+            "All detailed EN 50159 controls remain true; the separate security-facts and access-assumptions files introduce only the two pre-registered L3 counterfactuals.",
+            {},
+            set(),
+        ),
     }
 
     copy_scenario_pair("missing-safety-code", "missing-corruption-protection")
     copy_scenario_pair("protected-baseline", "unknown-data")
     copy_scenario_pair("missing-safety-code", "combined-degradation")
+    build_controlled_remote_attack_path()
     for scenario, (reasoning, overrides, omitted) in scenarios.items():
         destination = SCENARIOS / scenario / "threat-controls.ttl"
         destination.parent.mkdir(parents=True, exist_ok=True)

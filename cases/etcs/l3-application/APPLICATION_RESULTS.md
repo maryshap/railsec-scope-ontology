@@ -70,3 +70,7 @@ The next ETCS input must be one of the following, kept explicit and sourced:
 Until one of those evidence sets exists, creating an ETCS `AttackPathResult`
 would violate the L3 provenance contract.
 
+After this six-scenario result set was recorded, option 2 was implemented as
+the separately pre-registered `controlled-remote-attack-path` scenario. It is
+not included in the table above. Its result belongs in this report only after
+the full GitHub reasoner/SHACL workflow and the dedicated path verifier pass.

@@ -1,0 +1,30 @@
+@prefix case: <https://w3id.org/railsec-scope/case/etcs/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-rail: <https://w3id.org/railsec-scope/railway#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/case/etcs/scenario/controlled-remote-attack-path/access-assumptions> a owl:Ontology ;
+    owl:imports <https://w3id.org/railsec-scope/assessment>,
+        <https://w3id.org/railsec-scope/railway> ;
+    owl:versionIRI <https://w3id.org/railsec-scope/case/etcs/scenario/controlled-remote-attack-path/access-assumptions/version/0.1.0> .
+
+case:scenario-controlled-remote-attack-path-basis a rss-crit:JudgementBasis ;
+    rss-crit:reasoning "Controlled counterfactual for exercising the L3 attack-path computation: NG-FW (IT-01) is assumed reachable through remote access, and encryption is assumed absent only on directed flow IF-IT-10-forward from NG-FW to RBC. Neither statement is deployment evidence. All other protection values remain those of the protected baseline."@en ;
+    rss-crit:revisionConditions "Replace or reject each assumption independently when controlled architecture, remote-access configuration or interface-security evidence becomes available. Never promote this scenario basis to a fact about the deployed ETCS system."@en .
+
+case:asset-it-01 rss-core:reachableBy rss-rail:RemoteAccess .
+
+case:asset-it-01-remote-access-controlled-remote-attack-path-assumption a rss-core:Assumption ;
+    rdfs:label "Controlled remote-access assumption for NG-FW"@en ;
+    prov:wasAttributedTo case:assessor ;
+    prov:wasDerivedFrom case:scenario-controlled-remote-attack-path-basis ;
+    rss-core:assertionObjectResource rss-rail:RemoteAccess ;
+    rss-core:assertionPredicateIri "https://w3id.org/railsec-scope/core#reachableBy"^^xsd:anyURI ;
+    rss-core:assertionSubject case:asset-it-01 ;
+    rss-core:hasEpistemicStatus rss-core:assumptionStatus ;
+    rss-res:assertedInInstanceSet case:instance-set .

@@ -1,0 +1,49 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-gov: <https://w3id.org/railsec-scope/governance#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rss-sh: <https://w3id.org/railsec-scope/shapes#> .
+
+rss-sh:GOV01ResponsibilityAssignmentShape a sh:NodeShape ;
+    sh:targetClass rss-gov:StakeholderResponsibilityAssignment ;
+    sh:property [ sh:path rss-gov:responsibilityAssignmentSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:Asset ; sh:message "GOV-01: a responsibility assignment must concern exactly one Asset."@en ] ;
+    sh:property [ sh:path rss-gov:responsibilityHolder ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:RailwayStakeholder ; sh:message "GOV-01: a responsibility assignment must identify exactly one railway stakeholder."@en ] ;
+    sh:property [ sh:path rss-gov:hasResponsibilityKind ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:ResponsibilityKind ; sh:message "GOV-01: a responsibility assignment must state exactly one responsibility kind."@en ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assertedFactStatus ; sh:message "GOV-01: a responsibility assignment is an asserted fact, not an inferred role consequence."@en ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ; sh:message "GOV-01: a responsibility assignment must identify one InstanceSet."@en ] ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:class prov:Entity ; sh:message "GOV-01: a responsibility assignment requires source evidence."@en ] .
+
+rss-sh:GOV02AssessmentAuthorisationShape a sh:NodeShape ;
+    sh:targetClass rss-gov:AssessmentAuthorisationAssertion ;
+    sh:property [ sh:path rss-core:authorisationSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:Asset ; sh:message "GOV-02: an assessment authorisation must concern exactly one Asset."@en ] ;
+    sh:property [ sh:path rss-core:authorisationValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:AuthorisationStatus ; sh:message "GOV-02: an assessment authorisation must state exactly one authorisation status."@en ] ;
+    sh:property [ sh:path rss-gov:authorisesAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:AssessmentContext ; sh:message "GOV-02: an assessment authorisation must identify exactly one assessment context."@en ] ;
+    sh:property [ sh:path rss-gov:authorisationIssuedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:RailwayStakeholder ; sh:message "GOV-02: an assessment authorisation must identify its issuer."@en ] ;
+    sh:property [ sh:path rss-gov:authorisationSupportedBy ; sh:minCount 1 ; sh:class rss-gov:StakeholderResponsibilityAssignment ; sh:message "GOV-02: an assessment authorisation requires an explicit responsibility basis."@en ] ;
+    sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assertedFactStatus ; sh:message "GOV-02: an assessment authorisation is an asserted fact, never an automatic role inference."@en ] ;
+    sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ; sh:message "GOV-02: an assessment authorisation must identify one InstanceSet."@en ] ;
+    sh:sparql [
+        sh:message "GOV-02: every cited responsibility basis must concern the authorised asset."@en ;
+        sh:select """
+          PREFIX rss-core: <https://w3id.org/railsec-scope/core#>
+          PREFIX rss-gov: <https://w3id.org/railsec-scope/governance#>
+          SELECT $this WHERE {
+            $this rss-core:authorisationSubject ?asset ;
+                  rss-gov:authorisationSupportedBy ?assignment .
+            FILTER NOT EXISTS { ?assignment rss-gov:responsibilityAssignmentSubject ?asset }
+          }
+        """
+    ] .
+
+rss-sh:GOV03RailwayOperationalConstraintShape a sh:NodeShape ;
+    sh:targetClass rss-gov:RailwayOperationalConstraint,
+        rss-gov:SafetyOperationalConstraint,
+        rss-gov:ServiceContinuityConstraint,
+        rss-gov:MaintenanceWindowConstraint,
+        rss-gov:ThirdPartyCoordinationConstraint,
+        rss-gov:EmergencyOperationalConstraint ;
+    sh:property [ sh:path rss-core:appliesToElement ; sh:minCount 1 ; sh:class rss-core:Element ; sh:message "GOV-03: a railway operational constraint must apply to at least one Element."@en ] ;
+    sh:property [ sh:path rss-gov:constraintAppliesToAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:AssessmentContext ; sh:message "GOV-03: a railway operational constraint must identify exactly one assessment context."@en ] ;
+    sh:property [ sh:path rss-gov:constraintSpecifiedBy ; sh:minCount 1 ; sh:class rss-gov:RailwayStakeholder ; sh:message "GOV-03: a railway operational constraint must identify the stakeholder that specified it."@en ] ;
+    sh:property [ sh:path rss-gov:constraintEvidence ; sh:minCount 1 ; sh:class prov:Entity ; sh:message "GOV-03: a railway operational constraint requires documentary or operational evidence."@en ] .

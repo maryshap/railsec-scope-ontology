@@ -32,10 +32,16 @@ MODULE_NAMESPACES = {
 # M1-M4 are the frozen 76-class Gate B catalogue. Later modules are not part
 # of that count, but their explicit conceptual revisions are still governed
 # and must be checked against their home ontology modules.
-GOVERNED_MODULE_FILES = {**MODULE_FILES, "M5": "railway.ttl", "M7": "attack.ttl"}
+GOVERNED_MODULE_FILES = {
+    **MODULE_FILES,
+    "M5": "railway.ttl",
+    "M5-Governance": "governance.ttl",
+    "M7": "attack.ttl",
+}
 GOVERNED_MODULE_NAMESPACES = {
     **MODULE_NAMESPACES,
     "M5": Namespace("https://w3id.org/railsec-scope/railway#"),
+    "M5-Governance": Namespace("https://w3id.org/railsec-scope/governance#"),
     "M7": Namespace("https://w3id.org/railsec-scope/attack#"),
 }
 

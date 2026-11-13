@@ -428,7 +428,7 @@ PROV-O is an imported external vocabulary, not a seventh authored module. The si
 | M2 Provenance and criteria framework | Criterion, categories, sources, interpretations, judgement, versioning, factors, measures and external-method declarations | M1, PROV-O |
 | M3 Results and derivation | Result kinds, evaluations, assignments, identified collections, selections, derivation, runs, comparisons and execution evidence | M1, M2, PROV-O |
 | M4 Assessment and decisions | Assessor decisions and decision-to-result or decision-to-selection relations | M1, M2, M3 |
-| M5 Extension family | M5-Railway shared profile plus optional subsystem/source-profile extensions such as M5-ETCS, M5-TCMS or M5-CBTC | M1, M2; M3 only if an extension introduces specialised result vocabulary |
+| M5 Extension family | M5-Railway shared profile, M5-Governance organisational/operational context, and optional subsystem/source-profile extensions such as M5-ETCS, M5-TCMS or M5-CBTC | M1, M2; M3 only if an extension introduces specialised result vocabulary |
 | M6 Case-data family | One separate architecture ABox per case, conforming to the instance profile and using the required M5 extensions; attack-scenario data may also use M7 | M1 and applicable M5/M7 modules |
 | M7 Attack analysis | Versioned attack tactics/techniques and L3 attack-path result schema, independent of any one case architecture | M2, M3 and M1 through their import closure |
 
@@ -436,7 +436,7 @@ Rules for allocation:
 
 1. M1–M4 contain no ETCS-, TCMS- or CBTC-specific individual or Criterion.
 2. M5 is a family of independently identified extension artefacts, not one monolithic replaceable file.
-3. Railway-wide terminology belongs to M5-Railway; subsystem terminology belongs to its subsystem extension.
+3. Railway-wide technical terminology belongs to M5-Railway; railway stakeholder, responsibility, authorisation and operational-constraint terminology belongs to M5-Governance; subsystem terminology belongs to its subsystem extension.
 4. Criteria expressed wholly in M1–M4 vocabulary belong to M2. Railway or subsystem criteria belong to the corresponding M5 extension.
 5. M6 contains case individuals and Assertions but introduces no terminology.
 6. Reusable source-register and controlled-vocabulary individuals are published as reference datasets distinct from architecture case ABoxes.

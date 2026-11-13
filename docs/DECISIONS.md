@@ -64,7 +64,7 @@ Machine-checked registry: every row must exist with its declared kind; an `exten
 | crossesTrustBoundary | M5 | datatypeProperty | revision | - | true | CR-B-023 |
 | wirelessMedium | M5 | datatypeProperty | revision | - | true | CR-B-023 |
 
-## Change record (CR-B-001 to CR-B-023)
+## Change record (CR-B-001 to CR-B-034)
 
 The Gate B conceptual package is frozen. This register records every issue discovered during formalisation, including clarifications that do not change the architecture. No implementation file may silently override the conceptual package.
 
@@ -923,6 +923,59 @@ The ETCS case study may use these mechanisms, but ETCS completion is not a
 precondition for L3 ontology completion. Conversely, adding a future ATT&CK
 technique outside the declared profile is a profile revision, not a hidden gap
 in the current L3 layer.
+
+## CR-B-034 — M5-Governance organisational and operational context
+
+**Status:** implementation accepted pending conceptual reapproval for release.
+
+**Trigger.** The A1 railway knowledge base represented assets, flows, safety,
+security, access and provenance, but it could not represent who operates,
+maintains, controls or owns an assessment-relevant asset; who issued a test
+permission; the documented basis for that permission; or operational
+constraints that qualify an assessment. Generic `ExaminationConstraint` and
+`AuthorisationAssertion` were present in M1, but had no railway governance
+semantics.
+
+**Decision.** Add the independent M5-Governance extension module
+`ontology/governance.ttl`. It introduces railway stakeholders, source-backed
+responsibility assignments, assessment-context authorisation assertions and
+typed railway operational constraints. `InfrastructureManager`,
+`RailwayUndertaking` and `EntityInChargeOfMaintenance` have formal source
+locations in Directive 2012/34/EU Article 3(1)–(2) and Directive (EU) 2016/798
+Article 3(20). Supplier, integrator, owner, controller and maintenance-provider
+terms are project vocabulary: they record documented assessment facts and do
+not claim an EU statutory designation.
+
+**Authority boundary.** No stakeholder type, responsibility assignment,
+asset ownership record or operational constraint entails authority to authorise
+testing. An `AssessmentAuthorisationAssertion` must be explicitly asserted and
+record its asset, assessment context, status, issuer and one or more matching
+responsibility assignments. Acknowledgement and coordination requirements are
+modelled separately from authorisation. National law, contracts and the actual
+authority chain remain assessment-specific evidence; they are not inferred from
+the EU role labels.
+
+**Integrity boundary.** `GOV-01` requires a source-backed, contextual
+responsibility assignment. `GOV-02` rejects an authorisation with no issuer or
+documented basis and rejects a basis about a different asset. `GOV-03` requires
+an operational constraint to name its affected element, assessment context,
+specifying stakeholder and evidence. Positive and mutation-negative fixtures
+cover all three guards.
+
+**Rejected alternatives.** Reusing M6 was rejected because M6 is the case-data
+family and introduces no terminology. Adding these terms to M1 was rejected
+because stakeholder and operational semantics are railway-specific. Inferring
+permission from owner/operator/ECM role was rejected because it would replace
+legal and contractual evidence with an ontology shortcut.
+
+**Implementation consequence.** The catalog maps the new ontology IRI, the
+build validation root imports it, `scripts/audit_formalisation.py` governs the
+M5-Governance namespace, and every schema term participating in the new SHACL
+profile is registered as a conceptual revision in
+`docs/CONCEPTUAL_CHANGE_CATALOG.tsv`.
+
+**Reapproval required:** yes, before release, because this is new
+query/constraint-bearing schema vocabulary outside the frozen baseline.
 
 **Rejected alternatives.** Treating ETCS scenario output as the only closure
 evidence was rejected because a case study can contain missing facts and still

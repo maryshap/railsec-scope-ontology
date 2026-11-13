@@ -1,0 +1,231 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rss-core: <https://w3id.org/railsec-scope/core#> .
+@prefix rss-crit: <https://w3id.org/railsec-scope/criteria#> .
+@prefix rss-gov: <https://w3id.org/railsec-scope/governance#> .
+@prefix rss-res: <https://w3id.org/railsec-scope/results#> .
+@prefix rsso: <https://w3id.org/railsec-scope/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/railsec-scope/governance> a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/railsec-scope/version/0.1.0/governance> ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <https://w3id.org/railsec-scope/results>,
+        <https://w3id.org/railsec-scope/ontology> ;
+    rsso:moduleCode "M5-Governance" ;
+    rsso:termNamespace "https://w3id.org/railsec-scope/governance#"^^xsd:anyURI ;
+    dcterms:title "RailSec Scope Ontology — M5-Governance railway governance and operational context"@en ;
+    dcterms:description "Railway stakeholder, responsibility, assessment-authorisation and operational-constraint terminology. The module records contextual assertions; it does not infer authority to authorise an assessment from a stakeholder role."@en .
+
+### Stakeholders
+
+rss-gov:RailwayStakeholder a owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Railway stakeholder"@en ;
+    rsso:definition "Organisation or person identified in an assessment as having a railway-related responsibility, control, contractual role or coordination role."@en .
+
+rss-gov:RailwayUndertaking a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Railway undertaking"@en ;
+    rss-gov:definedAt rss-gov:directive-2012-34-art3-1 ;
+    rsso:definition "Railway stakeholder classified as a railway undertaking under the applicable regulatory context."@en .
+
+rss-gov:InfrastructureManager a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Infrastructure manager"@en ;
+    rss-gov:definedAt rss-gov:directive-2012-34-art3-2 ;
+    rsso:definition "Railway stakeholder classified as an infrastructure manager under the applicable regulatory context."@en .
+
+rss-gov:EntityInChargeOfMaintenance a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Entity in charge of maintenance"@en ;
+    rss-gov:definedAt rss-gov:directive-2016-798-art3-20 ;
+    rsso:definition "Railway stakeholder classified as the entity in charge of maintenance for a vehicle where that designation is applicable."@en .
+
+rss-gov:AssetOwner a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Asset owner"@en ;
+    rsso:definition "Stakeholder recorded as owning an assessment-relevant asset. This is a project fact, not an inference from any other stakeholder role."@en .
+
+rss-gov:AssetController a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Asset controller"@en ;
+    rsso:definition "Stakeholder recorded as controlling an assessment-relevant asset or its operation. This is a project fact, not an inference from ownership."@en .
+
+rss-gov:SystemIntegrator a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "System integrator"@en ;
+    rsso:definition "Stakeholder recorded as integrating an assessment-relevant railway system or subsystem."@en .
+
+rss-gov:Supplier a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Supplier"@en ;
+    rsso:definition "Stakeholder recorded as supplying an assessment-relevant asset, service or component."@en .
+
+rss-gov:MaintenanceServiceProvider a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayStakeholder ;
+    rdfs:label "Maintenance service provider"@en ;
+    rsso:definition "Stakeholder recorded as providing maintenance services. It is distinct from the regulated EntityInChargeOfMaintenance designation."@en .
+
+### Responsibility assertions
+
+rss-gov:StakeholderResponsibilityAssignment a owl:Class ;
+    rdfs:subClassOf rss-core:AssertedFact ;
+    rdfs:label "Stakeholder responsibility assignment"@en ;
+    rsso:definition "Source-backed assertion that a stakeholder holds one stated responsibility for one asset in a stated assessment context."@en .
+
+rss-gov:ResponsibilityKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        rss-gov:assetOwnership rss-gov:operationalControl rss-gov:assetMaintenance
+        rss-gov:systemIntegration rss-gov:assetSupply rss-gov:assessmentCoordination
+    ) ] ;
+    rdfs:label "Stakeholder responsibility kind"@en .
+
+rss-gov:assetOwnership a owl:NamedIndividual, rss-gov:ResponsibilityKind ; rdfs:label "asset ownership"@en .
+rss-gov:operationalControl a owl:NamedIndividual, rss-gov:ResponsibilityKind ; rdfs:label "operational control"@en .
+rss-gov:assetMaintenance a owl:NamedIndividual, rss-gov:ResponsibilityKind ; rdfs:label "asset maintenance"@en .
+rss-gov:systemIntegration a owl:NamedIndividual, rss-gov:ResponsibilityKind ; rdfs:label "system integration"@en .
+rss-gov:assetSupply a owl:NamedIndividual, rss-gov:ResponsibilityKind ; rdfs:label "asset supply"@en .
+rss-gov:assessmentCoordination a owl:NamedIndividual, rss-gov:ResponsibilityKind ; rdfs:label "assessment coordination"@en .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+        rss-gov:assetOwnership rss-gov:operationalControl rss-gov:assetMaintenance
+        rss-gov:systemIntegration rss-gov:assetSupply rss-gov:assessmentCoordination
+    ) .
+
+rss-gov:responsibilityAssignmentSubject a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:subPropertyOf rss-core:assertionSubject ;
+    rdfs:domain rss-gov:StakeholderResponsibilityAssignment ;
+    rdfs:range rss-core:Asset ;
+    rdfs:label "responsibility assignment subject"@en .
+
+rss-gov:responsibilityHolder a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:StakeholderResponsibilityAssignment ;
+    rdfs:range rss-gov:RailwayStakeholder ;
+    rdfs:label "responsibility holder"@en .
+
+rss-gov:hasResponsibilityKind a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:StakeholderResponsibilityAssignment ;
+    rdfs:range rss-gov:ResponsibilityKind ;
+    rdfs:label "has responsibility kind"@en .
+
+### Assessment permission
+
+rss-gov:AssessmentContext a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Assessment context"@en ;
+    rsso:definition "The bounded assessment for which permissions and operational constraints are recorded."@en .
+
+rss-gov:AssessmentAuthorisationAssertion a owl:Class ;
+    rdfs:subClassOf rss-core:AuthorisationAssertion ;
+    rdfs:label "Assessment authorisation assertion"@en ;
+    rsso:definition "Explicit assertion of an authorisation status for one asset in one assessment context, including the issuer and documented responsibility basis. A stakeholder role alone never entails this assertion."@en .
+
+rss-gov:authorisesAssessment a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
+    rdfs:range rss-gov:AssessmentContext ;
+    rdfs:label "authorises assessment"@en .
+
+rss-gov:authorisationIssuedBy a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
+    rdfs:range rss-gov:RailwayStakeholder ;
+    rdfs:label "authorisation issued by"@en .
+
+rss-gov:authorisationSupportedBy a owl:ObjectProperty ;
+    rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
+    rdfs:range rss-gov:StakeholderResponsibilityAssignment ;
+    rdfs:label "authorisation supported by responsibility assignment"@en .
+
+rss-gov:requiresAcknowledgementFrom a owl:ObjectProperty ;
+    rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
+    rdfs:range rss-gov:RailwayStakeholder ;
+    rdfs:label "requires acknowledgement from"@en ;
+    rsso:definition "Records a stakeholder whose acknowledgement or coordination is required by the documented assessment arrangement. It does not itself assert authority to authorise."@en .
+
+### Operational constraints
+
+rss-gov:RailwayOperationalConstraint a owl:Class ;
+    rdfs:subClassOf rss-core:ExaminationConstraint ;
+    rdfs:label "Railway operational constraint"@en ;
+    rsso:definition "Documented constraint on assessment activity arising from railway operation, safety, maintenance, third-party coordination or emergency conditions."@en .
+
+rss-gov:SafetyOperationalConstraint a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayOperationalConstraint ;
+    rdfs:label "Safety operational constraint"@en .
+
+rss-gov:ServiceContinuityConstraint a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayOperationalConstraint ;
+    rdfs:label "Service continuity constraint"@en .
+
+rss-gov:MaintenanceWindowConstraint a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayOperationalConstraint ;
+    rdfs:label "Maintenance-window constraint"@en .
+
+rss-gov:ThirdPartyCoordinationConstraint a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayOperationalConstraint ;
+    rdfs:label "Third-party coordination constraint"@en .
+
+rss-gov:EmergencyOperationalConstraint a owl:Class ;
+    rdfs:subClassOf rss-gov:RailwayOperationalConstraint ;
+    rdfs:label "Emergency operational constraint"@en .
+
+rss-gov:constraintAppliesToAssessment a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:RailwayOperationalConstraint ;
+    rdfs:range rss-gov:AssessmentContext ;
+    rdfs:label "constraint applies to assessment"@en .
+
+rss-gov:constraintSpecifiedBy a owl:ObjectProperty ;
+    rdfs:domain rss-gov:RailwayOperationalConstraint ;
+    rdfs:range rss-gov:RailwayStakeholder ;
+    rdfs:label "constraint specified by"@en .
+
+rss-gov:constraintEvidence a owl:ObjectProperty ;
+    rdfs:domain rss-gov:RailwayOperationalConstraint ;
+    rdfs:range prov:Entity ;
+    rdfs:label "constraint evidence"@en .
+
+rss-gov:requiresCoordinationWith a owl:ObjectProperty ;
+    rdfs:domain rss-gov:RailwayOperationalConstraint ;
+    rdfs:range rss-gov:RailwayStakeholder ;
+    rdfs:label "requires coordination with"@en .
+
+### Regulatory source records for terminology
+
+rss-gov:definedAt a owl:AnnotationProperty ;
+    rdfs:label "defined at source location"@en ;
+    rdfs:comment "Links a terminology class to the formal source location that defines its regulated meaning."@en .
+
+rss-gov:source-directive-2012-34 a rss-crit:Source ;
+    rss-crit:fullReference "Directive 2012/34/EU of the European Parliament and of the Council of 21 November 2012 establishing a single European railway area." ;
+    rss-crit:sourceRole "EU railway stakeholder-definition source" ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/34/oj> .
+
+rss-gov:edition-directive-2012-34 a rss-crit:SourceEdition ;
+    rss-crit:editionOf rss-gov:source-directive-2012-34 ;
+    rss-crit:editionLabel "Official Journal text, consulted through EUR-Lex" ;
+    rss-crit:consultationStatus "full" .
+
+rss-gov:directive-2012-34-art3-1 a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-gov:edition-directive-2012-34 ;
+    rss-crit:sourceLocator "Article 3(1)" .
+
+rss-gov:directive-2012-34-art3-2 a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-gov:edition-directive-2012-34 ;
+    rss-crit:sourceLocator "Article 3(2)" .
+
+rss-gov:source-directive-2016-798 a rss-crit:Source ;
+    rss-crit:fullReference "Directive (EU) 2016/798 of the European Parliament and of the Council of 11 May 2016 on railway safety." ;
+    rss-crit:sourceRole "EU railway safety and entity-in-charge-of-maintenance definition source" ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2016/798/oj/eng> .
+
+rss-gov:edition-directive-2016-798 a rss-crit:SourceEdition ;
+    rss-crit:editionOf rss-gov:source-directive-2016-798 ;
+    rss-crit:editionLabel "Official Journal text, consulted through EUR-Lex" ;
+    rss-crit:consultationStatus "full" .
+
+rss-gov:directive-2016-798-art3-20 a rss-crit:SourceLocation ;
+    rss-crit:locatedInEdition rss-gov:edition-directive-2016-798 ;
+    rss-crit:sourceLocator "Article 3(20)" .

@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 4102)
+Total output lines: 159
+
 child	parent
 https://w3id.org/railsec-scope/assessment#AssessorDecision	https://w3id.org/railsec-scope/criteria#VersionedArtefact
 https://w3id.org/railsec-scope/assessment#Exclusion	https://w3id.org/railsec-scope/assessment#AssessorDecision
@@ -59,8 +62,24 @@ https://w3id.org/railsec-scope/criteria#SourceEdition	http://www.w3.org/2002/07/
 https://w3id.org/railsec-scope/criteria#SourceLocation	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/criteria#TerminologyTerm	http://www.w3.org/2002/07/owl#Thing
 https://w3id.org/railsec-scope/criteria#VersionedArtefact	http://www.w3.org/ns/prov#Entity
-https://w3id.org/railsec-scope/railway#AccessRiskType	http://www.w3.org/2002/07/owl#Thing
-https://w3id.org/railsec-scope/railway#Category1Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
+https://w3id.org/railsec-scope/governance#AssessmentAuthorisationAssertion	https://w3id.org/railsec-scope/core#AuthorisationAssertion
+https://w3id.org/railsec-scope/governance#AssessmentContext	http://www.w3.org/ns/prov#Activity
+https://w3id.org/railsec-scope/governance#AssetController	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#AssetOwner	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#EmergencyOperationalConstraint	https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint
+https://w3id.org/railsec-scope/governance#EntityInChargeOfMaintenance	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#InfrastructureManager	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#MaintenanceServiceProvider	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#MaintenanceWindowConstraint	https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint
+https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint	https://w3id.org/railsec-scope/core#ExaminationConstraint
+https://w3id.org/railsec-scope/governance#RailwayStakeholder	http://www.w3.org/ns/prov#Agent
+https://w3id.org/railsec-scope/governance#RailwayUndertaking	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#ResponsibilityKind	http://www.w3.org/2002/07/owl#Thing
+https://w3id.org/railsec-scope/governance#SafetyOperationalConstraint	https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint
+https://w3id.org/railsec-scope/governance#ServiceContinuityConstraint	https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint
+https://w3id.org/railsec-scope/governance#StakeholderResponsibilityAssignment	https://w3id.org/railsec-scope/core#AssertedFact
+https://w3id.org/railsec-scope/governance#Supplier	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#SystemIntegrator	htt…102 tokens truncated…tegory
 https://w3id.org/railsec-scope/railway#Category2Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#Category3AssetContext	https://w3id.org/railsec-scope/railway#RailwayAsset
 https://w3id.org/railsec-scope/railway#Category3Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory

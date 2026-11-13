@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 4102)
-Total output lines: 159
-
 child	parent
 https://w3id.org/railsec-scope/assessment#AssessorDecision	https://w3id.org/railsec-scope/criteria#VersionedArtefact
 https://w3id.org/railsec-scope/assessment#Exclusion	https://w3id.org/railsec-scope/assessment#AssessorDecision
@@ -79,7 +76,10 @@ https://w3id.org/railsec-scope/governance#SafetyOperationalConstraint	https://w3
 https://w3id.org/railsec-scope/governance#ServiceContinuityConstraint	https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint
 https://w3id.org/railsec-scope/governance#StakeholderResponsibilityAssignment	https://w3id.org/railsec-scope/core#AssertedFact
 https://w3id.org/railsec-scope/governance#Supplier	https://w3id.org/railsec-scope/governance#RailwayStakeholder
-https://w3id.org/railsec-scope/governance#SystemIntegrator	htt…102 tokens truncated…tegory
+https://w3id.org/railsec-scope/governance#SystemIntegrator	https://w3id.org/railsec-scope/governance#RailwayStakeholder
+https://w3id.org/railsec-scope/governance#ThirdPartyCoordinationConstraint	https://w3id.org/railsec-scope/governance#RailwayOperationalConstraint
+https://w3id.org/railsec-scope/railway#AccessRiskType	http://www.w3.org/2002/07/owl#Thing
+https://w3id.org/railsec-scope/railway#Category1Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#Category2Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory
 https://w3id.org/railsec-scope/railway#Category3AssetContext	https://w3id.org/railsec-scope/railway#RailwayAsset
 https://w3id.org/railsec-scope/railway#Category3Transmission	https://w3id.org/railsec-scope/railway#TransmissionCategory

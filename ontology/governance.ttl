@@ -112,6 +112,12 @@ rss-gov:hasResponsibilityKind a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:range rss-gov:ResponsibilityKind ;
     rdfs:label "has responsibility kind"@en .
 
+rss-gov:responsibilityAppliesToAssessment a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:StakeholderResponsibilityAssignment ;
+    rdfs:range rss-gov:AssessmentContext ;
+    rdfs:label "responsibility applies to assessment"@en ;
+    rsso:definition "Identifies the bounded assessment context for which the stated asset responsibility is evidenced."@en .
+
 ### Assessment permission
 
 rss-gov:AssessmentContext a owl:Class ;
@@ -119,10 +125,43 @@ rss-gov:AssessmentContext a owl:Class ;
     rdfs:label "Assessment context"@en ;
     rsso:definition "The bounded assessment for which permissions and operational constraints are recorded."@en .
 
+rss-gov:AssessmentAction a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Assessment action"@en ;
+    rsso:definition "A bounded, explicitly authorised action within an assessment context."@en .
+
+rss-gov:TechnicalAssessmentAction a owl:Class ;
+    rdfs:subClassOf rss-gov:AssessmentAction ;
+    rdfs:label "Technical assessment action"@en ;
+    rsso:definition "Authorised technical interaction with one or more modelled elements."@en .
+
+rss-gov:SocialEngineeringAssessmentAction a owl:Class ;
+    rdfs:subClassOf rss-gov:AssessmentAction ;
+    rdfs:label "Social-engineering assessment action"@en ;
+    rsso:definition "Authorised assessment interaction directed at one or more named assessment participants."@en .
+
+rss-gov:PhysicalAssessmentAction a owl:Class ;
+    rdfs:subClassOf rss-gov:AssessmentAction ;
+    rdfs:label "Physical assessment action"@en ;
+    rsso:definition "Authorised physical interaction with one or more modelled elements, such as a facility, access point or equipment item."@en .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( rss-gov:TechnicalAssessmentAction rss-gov:SocialEngineeringAssessmentAction rss-gov:PhysicalAssessmentAction ) .
+
+rss-gov:AssessmentParticipant a owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Assessment participant"@en ;
+    rsso:definition "Person or organisation identified as an allowed target, contact or participant for a bounded assessment action. The class does not require personal data to be recorded."@en .
+
+rss-gov:AssessmentAuthorisationDocument a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Assessment authorisation document"@en ;
+    rsso:definition "Signed or otherwise formally approved record that documents permission terms for a bounded assessment."@en .
+
 rss-gov:AssessmentAuthorisationAssertion a owl:Class ;
     rdfs:subClassOf rss-core:AuthorisationAssertion ;
     rdfs:label "Assessment authorisation assertion"@en ;
-    rsso:definition "Explicit assertion of an authorisation status for one asset in one assessment context, including the issuer and documented responsibility basis. A stakeholder role alone never entails this assertion."@en .
+    rsso:definition "Explicit assertion of an authorisation status for one asset in one assessment context, derived from an assessment authorisation document and recording the issuer and documented responsibility basis. A stakeholder role alone never entails this assertion."@en .
 
 rss-gov:authorisesAssessment a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
@@ -138,6 +177,26 @@ rss-gov:authorisationSupportedBy a owl:ObjectProperty ;
     rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
     rdfs:range rss-gov:StakeholderResponsibilityAssignment ;
     rdfs:label "authorisation supported by responsibility assignment"@en .
+
+rss-gov:authorisesAssessmentAction a owl:ObjectProperty ;
+    rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
+    rdfs:range rss-gov:AssessmentAction ;
+    rdfs:label "authorises assessment action"@en .
+
+rss-gov:assessmentActionInContext a owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:domain rss-gov:AssessmentAction ;
+    rdfs:range rss-gov:AssessmentContext ;
+    rdfs:label "assessment action in context"@en .
+
+rss-gov:assessmentActionTargetsElement a owl:ObjectProperty ;
+    rdfs:domain rss-gov:AssessmentAction ;
+    rdfs:range rss-core:Element ;
+    rdfs:label "assessment action targets element"@en .
+
+rss-gov:assessmentActionTargetsParticipant a owl:ObjectProperty ;
+    rdfs:domain rss-gov:AssessmentAction ;
+    rdfs:range rss-gov:AssessmentParticipant ;
+    rdfs:label "assessment action targets participant"@en .
 
 rss-gov:requiresAcknowledgementFrom a owl:ObjectProperty ;
     rdfs:domain rss-gov:AssessmentAuthorisationAssertion ;
@@ -186,6 +245,16 @@ rss-gov:constraintEvidence a owl:ObjectProperty ;
     rdfs:domain rss-gov:RailwayOperationalConstraint ;
     rdfs:range prov:Entity ;
     rdfs:label "constraint evidence"@en .
+
+rss-gov:constraintAppliesToAssessmentAction a owl:ObjectProperty ;
+    rdfs:domain rss-gov:RailwayOperationalConstraint ;
+    rdfs:range rss-gov:AssessmentAction ;
+    rdfs:label "constraint applies to assessment action"@en .
+
+rss-gov:constraintAppliesToParticipant a owl:ObjectProperty ;
+    rdfs:domain rss-gov:RailwayOperationalConstraint ;
+    rdfs:range rss-gov:AssessmentParticipant ;
+    rdfs:label "constraint applies to assessment participant"@en .
 
 rss-gov:requiresCoordinationWith a owl:ObjectProperty ;
     rdfs:domain rss-gov:RailwayOperationalConstraint ;

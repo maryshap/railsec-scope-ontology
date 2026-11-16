@@ -10,6 +10,7 @@ from rdflib import Graph, Namespace
 PROJECT = Path(__file__).resolve().parents[1]
 FX = Namespace("https://w3id.org/railsec-scope/fixture/governance/")
 GOV = Namespace("https://w3id.org/railsec-scope/governance#")
+PROV = Namespace("http://www.w3.org/ns/prov#")
 
 
 def load_fixture() -> Graph:
@@ -45,12 +46,34 @@ class GovernanceExtensionTest(unittest.TestCase):
         self.assertFalse(conforms)
         self.assertIn("GOV-02", report)
 
+    def test_authorisation_needs_its_formal_permission_document(self) -> None:
+        graph = load_fixture()
+        graph.remove((FX.authorisation, PROV.wasDerivedFrom, None))
+        conforms, report = validate_governance(graph)
+        self.assertFalse(conforms)
+        self.assertIn("GOV-02", report)
+
+    def test_responsibility_assignment_needs_assessment_context(self) -> None:
+        graph = load_fixture()
+        graph.remove((FX["operational-control"], GOV.responsibilityAppliesToAssessment, None))
+        conforms, report = validate_governance(graph)
+        self.assertFalse(conforms)
+        self.assertIn("GOV-01", report)
+
     def test_authorisation_basis_must_concern_the_authorised_asset(self) -> None:
         graph = load_fixture()
         graph.remove((FX.authorisation, GOV.authorisationSupportedBy, FX["operational-control"]))
         graph.add((FX.authorisation, GOV.authorisationSupportedBy, FX["maintenance-responsibility"]))
         graph.remove((FX["maintenance-responsibility"], GOV.responsibilityAssignmentSubject, FX.asset))
         graph.add((FX["maintenance-responsibility"], GOV.responsibilityAssignmentSubject, FX["other-asset"]))
+        conforms, report = validate_governance(graph)
+        self.assertFalse(conforms)
+        self.assertIn("GOV-02", report)
+
+    def test_authorisation_basis_must_match_assessment_context(self) -> None:
+        graph = load_fixture()
+        graph.remove((FX["operational-control"], GOV.responsibilityAppliesToAssessment, FX.assessment))
+        graph.add((FX["operational-control"], GOV.responsibilityAppliesToAssessment, FX["other-assessment"]))
         conforms, report = validate_governance(graph)
         self.assertFalse(conforms)
         self.assertIn("GOV-02", report)
@@ -62,6 +85,21 @@ class GovernanceExtensionTest(unittest.TestCase):
         conforms, report = validate_governance(graph)
         self.assertFalse(conforms)
         self.assertIn("GOV-03", report)
+
+    def test_social_engineering_action_needs_participant(self) -> None:
+        graph = load_fixture()
+        graph.remove((FX["staff-briefing"], GOV.assessmentActionTargetsParticipant, None))
+        conforms, report = validate_governance(graph)
+        self.assertFalse(conforms)
+        self.assertIn("GOV-05", report)
+
+    def test_assessment_action_must_share_its_authorisation_context(self) -> None:
+        graph = load_fixture()
+        graph.remove((FX["physical-inspection"], GOV.assessmentActionInContext, FX.assessment))
+        graph.add((FX["physical-inspection"], GOV.assessmentActionInContext, FX["other-assessment"]))
+        conforms, report = validate_governance(graph)
+        self.assertFalse(conforms)
+        self.assertIn("GOV-04", report)
 
     def test_module_is_registered_for_owl_validation(self) -> None:
         catalog = (PROJECT / "catalog-v001.xml").read_text(encoding="utf-8")

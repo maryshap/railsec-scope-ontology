@@ -16,7 +16,7 @@ AuthorisationStatus	M1			authorisationValue	0		K-12
 BoundaryStatusAssertion	M1	Assertion	boundaryStatusValue,hasExclusionRationale,statusSubject		0	AssertedAbsence,AssertedFact,Assumption,AuthorisationAssertion	K-01
 BoundaryStatusValue	M1			boundaryStatusValue	0		K-01
 Consequence	M1			hasConsequence	0		
-Element	M1		reachableBy	appliesToElement,attackPathConcernsTarget,authorisationSubject,evaluationConcernsElement,hasDestination,hasOrigin,includesElement,reachabilityConcerns,safetyImpactConcernsElement,scenarioConcernsElement,startsFromEntryPoint,statusSubject,stepConcernsElement	0	Function	
+Element	M1		reachableBy	appliesToElement,assessmentActionTargetsElement,attackPathConcernsTarget,authorisationSubject,evaluationConcernsElement,hasDestination,hasOrigin,includesElement,reachabilityConcerns,safetyImpactConcernsElement,scenarioConcernsElement,startsFromEntryPoint,statusSubject,stepConcernsElement	0	Function	
 EpistemicStatusValue	M1			hasEpistemicStatus	0		K-04
 ExaminationConstraint	M1		appliesToElement		0		
 FlowCharacteristic	M1			hasCharacteristic	0		

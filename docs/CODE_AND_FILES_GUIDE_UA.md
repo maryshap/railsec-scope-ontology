@@ -108,7 +108,7 @@ Structural SHACL запускається до OWL domain/range inference. Ін�
 
 ## Що ще не можна називати завершеним
 
-- L1-L2 criteria пройшли source review для поточного набору стандартів: EN 50159:2010, EN 50126-1:2017, EN 50126-2:2017, IEC 62443-3-3:2013 і prTS 50701 D8E4:2020. Те, що є assessor policy, позначено як JudgementBasis.
+- L1-L2 criteria пройшли source review для зафіксованого A1 набору джерел: EN 50159:2010, EN 50126-1:2017, EN 50126-2:2017, IEC 62443-3-3:2013 і project-supplied prTS 50701 D8E4:2020. Це не є твердженням, що draft — чинне видання стандарту. Те, що є assessor policy, позначено як JudgementBasis.
 - Основні Phase 2 rule blocks та orchestrator реалізовані. L3 вже виконує reachability, witness paths, candidate-set projection, AHP factor values, weighted ordering і coverage для явного Selection.
 - Для CQ-01–CQ-45 потрібна повна P/N/U fixture-oracle matrix; smoke execution недостатньо для наукової валідації.
 - Workbook boundary mapping має бути підтверджений domain expert.

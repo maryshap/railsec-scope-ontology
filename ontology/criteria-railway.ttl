@@ -433,7 +433,7 @@ rsscr:source-iec62443-3-3 a rss-crit:Source ;
     rss-crit:sourceRole "industrial-control-system security requirement source" .
 
 rsscr:source-ts50701 a rss-crit:Source ;
-    rss-crit:fullReference "prTS 50701 D8E4:2020, Railway applications - Cybersecurity (project-supplied draft treated as the current review source)." ;
+    rss-crit:fullReference "prTS 50701 D8E4:2020, Railway applications - Cybersecurity (project-supplied A1 source baseline)." ;
     rss-crit:sourceRole "railway cybersecurity access and methodological-principle source" .
 
 rsscr:edition-en50159-2010 a rss-crit:SourceEdition ;

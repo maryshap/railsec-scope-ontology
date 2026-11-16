@@ -10,6 +10,7 @@ rss-sh:GOV01ResponsibilityAssignmentShape a sh:NodeShape ;
     sh:property [ sh:path rss-gov:responsibilityAssignmentSubject ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-core:Asset ; sh:message "GOV-01: a responsibility assignment must concern exactly one Asset."@en ] ;
     sh:property [ sh:path rss-gov:responsibilityHolder ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:RailwayStakeholder ; sh:message "GOV-01: a responsibility assignment must identify exactly one railway stakeholder."@en ] ;
     sh:property [ sh:path rss-gov:hasResponsibilityKind ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:ResponsibilityKind ; sh:message "GOV-01: a responsibility assignment must state exactly one responsibility kind."@en ] ;
+    sh:property [ sh:path rss-gov:responsibilityAppliesToAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:AssessmentContext ; sh:message "GOV-01: a responsibility assignment must identify exactly one assessment context."@en ] ;
     sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assertedFactStatus ; sh:message "GOV-01: a responsibility assignment is an asserted fact, not an inferred role consequence."@en ] ;
     sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ; sh:message "GOV-01: a responsibility assignment must identify one InstanceSet."@en ] ;
     sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:class prov:Entity ; sh:message "GOV-01: a responsibility assignment requires source evidence."@en ] .
@@ -21,6 +22,7 @@ rss-sh:GOV02AssessmentAuthorisationShape a sh:NodeShape ;
     sh:property [ sh:path rss-gov:authorisesAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:AssessmentContext ; sh:message "GOV-02: an assessment authorisation must identify exactly one assessment context."@en ] ;
     sh:property [ sh:path rss-gov:authorisationIssuedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:RailwayStakeholder ; sh:message "GOV-02: an assessment authorisation must identify its issuer."@en ] ;
     sh:property [ sh:path rss-gov:authorisationSupportedBy ; sh:minCount 1 ; sh:class rss-gov:StakeholderResponsibilityAssignment ; sh:message "GOV-02: an assessment authorisation requires an explicit responsibility basis."@en ] ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:class rss-gov:AssessmentAuthorisationDocument ; sh:message "GOV-02: an assessment authorisation must cite its signed or formally approved authorisation document."@en ] ;
     sh:property [ sh:path rss-core:hasEpistemicStatus ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue rss-core:assertedFactStatus ; sh:message "GOV-02: an assessment authorisation is an asserted fact, never an automatic role inference."@en ] ;
     sh:property [ sh:path rss-res:assertedInInstanceSet ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-res:InstanceSet ; sh:message "GOV-02: an assessment authorisation must identify one InstanceSet."@en ] ;
     sh:sparql [
@@ -34,6 +36,17 @@ rss-sh:GOV02AssessmentAuthorisationShape a sh:NodeShape ;
             FILTER NOT EXISTS { ?assignment rss-gov:responsibilityAssignmentSubject ?asset }
           }
         """
+    ] ;
+    sh:sparql [
+        sh:message "GOV-02: every cited responsibility basis must apply to the authorised assessment context."@en ;
+        sh:select """
+          PREFIX rss-gov: <https://w3id.org/railsec-scope/governance#>
+          SELECT $this WHERE {
+            $this rss-gov:authorisesAssessment ?assessment ;
+                  rss-gov:authorisationSupportedBy ?assignment .
+            FILTER NOT EXISTS { ?assignment rss-gov:responsibilityAppliesToAssessment ?assessment }
+          }
+        """
     ] .
 
 rss-sh:GOV03RailwayOperationalConstraintShape a sh:NodeShape ;
@@ -43,7 +56,38 @@ rss-sh:GOV03RailwayOperationalConstraintShape a sh:NodeShape ;
         rss-gov:MaintenanceWindowConstraint,
         rss-gov:ThirdPartyCoordinationConstraint,
         rss-gov:EmergencyOperationalConstraint ;
-    sh:property [ sh:path rss-core:appliesToElement ; sh:minCount 1 ; sh:class rss-core:Element ; sh:message "GOV-03: a railway operational constraint must apply to at least one Element."@en ] ;
+    sh:or (
+        [ sh:property [ sh:path rss-core:appliesToElement ; sh:minCount 1 ; sh:class rss-core:Element ] ]
+        [ sh:property [ sh:path rss-gov:constraintAppliesToAssessmentAction ; sh:minCount 1 ; sh:class rss-gov:AssessmentAction ] ]
+        [ sh:property [ sh:path rss-gov:constraintAppliesToParticipant ; sh:minCount 1 ; sh:class rss-gov:AssessmentParticipant ] ]
+    ) ;
+    sh:message "GOV-03: a railway operational constraint must apply to at least one modelled element, assessment action or assessment participant."@en ;
     sh:property [ sh:path rss-gov:constraintAppliesToAssessment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:AssessmentContext ; sh:message "GOV-03: a railway operational constraint must identify exactly one assessment context."@en ] ;
     sh:property [ sh:path rss-gov:constraintSpecifiedBy ; sh:minCount 1 ; sh:class rss-gov:RailwayStakeholder ; sh:message "GOV-03: a railway operational constraint must identify the stakeholder that specified it."@en ] ;
     sh:property [ sh:path rss-gov:constraintEvidence ; sh:minCount 1 ; sh:class prov:Entity ; sh:message "GOV-03: a railway operational constraint requires documentary or operational evidence."@en ] .
+
+rss-sh:GOV04AssessmentActionShape a sh:NodeShape ;
+    sh:targetClass rss-gov:AssessmentAction ;
+    sh:property [ sh:path rss-gov:assessmentActionInContext ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rss-gov:AssessmentContext ; sh:message "GOV-04: an assessment action must identify exactly one assessment context."@en ] ;
+    sh:property [ sh:path [ sh:inversePath rss-gov:authorisesAssessmentAction ] ; sh:minCount 1 ; sh:class rss-gov:AssessmentAuthorisationAssertion ; sh:message "GOV-04: an assessment action must be explicitly linked to an authorisation assertion."@en ] ;
+    sh:sparql [
+        sh:message "GOV-04: an authorisation may only cover an action in its own assessment context."@en ;
+        sh:select """
+          PREFIX rss-gov: <https://w3id.org/railsec-scope/governance#>
+          SELECT $this WHERE {
+            $this rss-gov:assessmentActionInContext ?assessment .
+            FILTER NOT EXISTS {
+              ?authorisation rss-gov:authorisesAssessmentAction $this ;
+                             rss-gov:authorisesAssessment ?assessment .
+            }
+          }
+        """
+    ] .
+
+rss-sh:GOV05SocialEngineeringActionShape a sh:NodeShape ;
+    sh:targetClass rss-gov:SocialEngineeringAssessmentAction ;
+    sh:property [ sh:path rss-gov:assessmentActionTargetsParticipant ; sh:minCount 1 ; sh:class rss-gov:AssessmentParticipant ; sh:message "GOV-05: a social-engineering assessment action must name at least one assessment participant."@en ] .
+
+rss-sh:GOV06TechnicalAndPhysicalActionShape a sh:NodeShape ;
+    sh:targetClass rss-gov:TechnicalAssessmentAction, rss-gov:PhysicalAssessmentAction ;
+    sh:property [ sh:path rss-gov:assessmentActionTargetsElement ; sh:minCount 1 ; sh:class rss-core:Element ; sh:message "GOV-06: a technical or physical assessment action must name at least one modelled element."@en ] .

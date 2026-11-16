@@ -8,7 +8,7 @@ status. These are separate states and must not be collapsed into one claim.
 | State | Status | Meaning |
 |---|---|---|
 | Phase 2 implementation | **Complete for the admitted scope** | Canonical Steps 9–16 are implemented with executable evidence. |
-| Ontology | **L1–L2 complete for scoping; L3 complete for the declared minimal ATT&CK railway profile** | M1–M5 and the admitted L1–L2 criteria/rules are present. M7 provides the governed attack schema, checksum-pinned ATT&CK for ICS 19.2 projection, sourced railway applicability criteria for the declared minimal profile, attack-path materialisation, safety-impact linking and deterministic review ordering. |
+| Ontology | **L1–L2 complete for scoping; L3 complete for the declared minimal ATT&CK railway profile** | M1–M5 and the admitted L1–L2 criteria/rules are present. M5-Governance records documentary, contextual permissions for technical, physical and social-engineering assessment actions, personnel participation and operational constraints; it never infers authority to test. M7 provides the governed attack schema, checksum-pinned ATT&CK for ICS 19.2 projection, sourced railway applicability criteria for the declared minimal profile, attack-path materialisation, safety-impact linking and deterministic review ordering. |
 | ETCS case study | **Structurally migrated; fact completion in progress** | The architecture and initial security facts are usable, but unknown inputs still produce legitimate `undetermined` results. |
 | Public release | **Not ready** | Source interpretation review, case evidence, persistent IRI setup and publication review remain. |
 
@@ -35,7 +35,7 @@ environment facts and the L1 control-weakness assessment.
 The current `migration/legacy-rule-triage.csv` is the operational register:
 
 - 33 rules are implemented with recorded sources and explicit assessor-policy boundaries where a standard informs but does not entail the project rule;
-- 12 are deferred to explicitly named future capabilities, including the ATT&CK layer, reachability/external computation and organisational scope;
+- 12 are deferred to explicitly named future capabilities, including non-admitted ATT&CK techniques and reachability/external computation; organisational scope is implemented in M5-Governance;
 - 9 are not admitted as ontology rules because they duplicate the railway threat taxonomy, lie outside the declared scope, or belong to ETL rather than reasoning;
 - no rule remains in an untriaged “implement now” state.
 

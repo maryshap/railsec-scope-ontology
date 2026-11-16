@@ -18,14 +18,17 @@ fx:asset a rss-core:Asset, rss-core:Element .
 
 fx:infrastructure-manager a rss-gov:InfrastructureManager .
 fx:maintenance-provider a rss-gov:MaintenanceServiceProvider .
+fx:operations-contact a rss-gov:AssessmentParticipant .
 
 fx:asset-register a prov:Entity .
 fx:maintenance-plan a prov:Entity .
+fx:authorisation-letter a rss-gov:AssessmentAuthorisationDocument, prov:Entity .
 
 fx:operational-control a rss-gov:StakeholderResponsibilityAssignment ;
     rss-gov:responsibilityAssignmentSubject fx:asset ;
     rss-gov:responsibilityHolder fx:infrastructure-manager ;
     rss-gov:hasResponsibilityKind rss-gov:operationalControl ;
+    rss-gov:responsibilityAppliesToAssessment fx:assessment ;
     rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-res:assertedInInstanceSet fx:instance-set ;
     prov:wasDerivedFrom fx:asset-register .
@@ -34,6 +37,7 @@ fx:maintenance-responsibility a rss-gov:StakeholderResponsibilityAssignment ;
     rss-gov:responsibilityAssignmentSubject fx:asset ;
     rss-gov:responsibilityHolder fx:maintenance-provider ;
     rss-gov:hasResponsibilityKind rss-gov:assetMaintenance ;
+    rss-gov:responsibilityAppliesToAssessment fx:assessment ;
     rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-res:assertedInInstanceSet fx:instance-set ;
     prov:wasDerivedFrom fx:maintenance-plan .
@@ -46,9 +50,23 @@ fx:authorisation a rss-gov:AssessmentAuthorisationAssertion ;
     rss-gov:authorisesAssessment fx:assessment ;
     rss-gov:authorisationIssuedBy fx:infrastructure-manager ;
     rss-gov:authorisationSupportedBy fx:operational-control ;
+    rss-gov:authorisesAssessmentAction fx:technical-review, fx:physical-inspection, fx:staff-briefing ;
     rss-gov:requiresAcknowledgementFrom fx:maintenance-provider ;
+    prov:wasDerivedFrom fx:authorisation-letter ;
     rss-core:hasEpistemicStatus rss-core:assertedFactStatus ;
     rss-res:assertedInInstanceSet fx:instance-set .
+
+fx:technical-review a rss-gov:TechnicalAssessmentAction ;
+    rss-gov:assessmentActionInContext fx:assessment ;
+    rss-gov:assessmentActionTargetsElement fx:asset .
+
+fx:physical-inspection a rss-gov:PhysicalAssessmentAction ;
+    rss-gov:assessmentActionInContext fx:assessment ;
+    rss-gov:assessmentActionTargetsElement fx:asset .
+
+fx:staff-briefing a rss-gov:SocialEngineeringAssessmentAction ;
+    rss-gov:assessmentActionInContext fx:assessment ;
+    rss-gov:assessmentActionTargetsParticipant fx:operations-contact .
 
 fx:maintenance-window a rss-gov:MaintenanceWindowConstraint ;
     rss-core:appliesToElement fx:asset ;
@@ -56,3 +74,9 @@ fx:maintenance-window a rss-gov:MaintenanceWindowConstraint ;
     rss-gov:constraintSpecifiedBy fx:maintenance-provider ;
     rss-gov:constraintEvidence fx:maintenance-plan ;
     rss-gov:requiresCoordinationWith fx:maintenance-provider .
+
+fx:staff-coordination a rss-gov:ThirdPartyCoordinationConstraint ;
+    rss-gov:constraintAppliesToParticipant fx:operations-contact ;
+    rss-gov:constraintAppliesToAssessment fx:assessment ;
+    rss-gov:constraintSpecifiedBy fx:maintenance-provider ;
+    rss-gov:constraintEvidence fx:maintenance-plan .

@@ -705,8 +705,8 @@ Production modules import the stable PROV-O ontology IRI `http://www.w3.org/ns/p
 
 **Reviewed documents.** EN 50159:2010, EN 50126-1:2017,
 EN 50126-2:2017, IEC 62443-3-3:2013 and the project-supplied
-prTS 50701 D8E4:2020 are treated as the current review set. The prTS source is
-identified as a 2020 draft rather than being presented as the published 2021
+prTS 50701 D8E4:2020 are treated as the A1 review set. The prTS source is
+identified as a 2020 draft rather than being presented as a current published
 technical specification.
 
 **Category correction.** EN 50159:2010 clauses 6.3.1–6.3.3 define Category 1
@@ -982,3 +982,65 @@ evidence was rejected because a case study can contain missing facts and still
 should not redefine ontology semantics. Claiming coverage for all projected
 ATT&CK ICS techniques was rejected because most projected techniques are kept
 visible but deliberately not admitted to the current railway profile.
+
+## CR-B-035 — Documentary and contextual integrity for governance assertions
+
+**Status:** implementation accepted pending conceptual reapproval for release.
+
+**Trigger.** The initial M5-Governance profile required an issuer and a
+responsibility basis for an `AssessmentAuthorisationAssertion`, but it did not
+require a pointer to the approval record itself. It also described
+`StakeholderResponsibilityAssignment` as contextual to an assessment without
+formalising that relation.
+
+**Decision.** Add `AssessmentAuthorisationDocument` as the record from which
+an authorisation assertion is derived. `GOV-02` now requires at least one
+`prov:wasDerivedFrom` link to that document class. Add the functional
+`responsibilityAppliesToAssessment` relation from a responsibility assignment
+to exactly one `AssessmentContext`; `GOV-01` requires it, and `GOV-02` rejects
+an authorisation whose cited responsibility basis belongs to another context.
+
+**Authority boundary.** These changes establish evidence and context
+integrity only. They do not verify a signature cryptographically, determine
+whether a document is legally sufficient, or infer authority from the document,
+issuer, role or responsibility kind.
+
+**Reapproval required:** yes, before release, because two new
+query/constraint-bearing schema terms are added to the M5-Governance revision.
+
+## CR-B-036 — A1 permission scope includes technical, physical and social actions
+
+**Status:** implementation accepted pending conceptual reapproval for release.
+
+**Decision.** A1 is not restricted to a technical asset-only permission model.
+An `AssessmentAuthorisationAssertion` may explicitly authorise bounded
+technical, physical or social-engineering `AssessmentAction` instances. Each
+action belongs to one assessment context and must be linked to an asserted
+authorisation in that same context. Technical and physical actions identify
+their modelled element targets; social-engineering actions identify their
+`AssessmentParticipant` targets. Operational constraints may apply to an
+element, action or participant.
+
+**Boundary.** This is a permission and coordination profile for PTES
+pre-engagement work. It records what a signed approval permits and to whom or
+what the action applies. It does not encode tactics, vulnerabilities, personal
+data, consent, employment-law compliance, coercion safeguards or an automatic
+right to perform any action. Those details remain in the assessment agreement,
+authorisation document and applicable law.
+
+**Reapproval required:** yes, before release, because this is new
+query/constraint-bearing M5-Governance vocabulary.
+
+## CR-B-037 — A1 source baseline remains the project-supplied 2020 draft
+
+**Decision.** The A1 source baseline remains the project-supplied `prTS 50701
+D8E4:2020`, which is the document reviewed by the current criteria and source
+locations. It is recorded as a draft baseline, not as a current published
+standard. A later published edition is a future controlled source-review and
+remapping task; it does not invalidate the provenance of the already reviewed
+A1 criteria or block B2.
+
+**Boundary.** Until that separate review is completed, the project makes no
+claim that its criteria or governance vocabulary are mapped to the later
+edition. Any change to a source-backed proposition, locator or interpretation
+must be handled as a source revision with tests and conceptual review.
